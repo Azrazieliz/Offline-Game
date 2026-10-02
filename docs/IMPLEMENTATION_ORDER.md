@@ -66,8 +66,8 @@
 - [x] Ruler Mode / World Mode use one state contract
 - [x] one territory + Domain Core
 - [x] aggregate resources + lazy Project engine
-- [ ] dispatch framework
-- [ ] minimal faction/war state
+- [x] result-oriented dispatch framework
+- [x] minimal faction/army/war state
 - [ ] compile and run Phase F Unreal automation tests on the real build runner
 
 ## Phase G - Vertical Slice 0

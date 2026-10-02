@@ -60,9 +60,9 @@ bool FOGSharedWorldStateCrossModeTest::RunTest(
                 Error));
 
         TestEqual(
-            TEXT("Schema version is 4"),
+            TEXT("Schema version is 5"),
             Store.GetSchemaVersion(Error),
-            3);
+            5);
 
         TestTrue(
             TEXT("Persist Ruler entity"),

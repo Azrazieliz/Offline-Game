@@ -11,14 +11,14 @@ public:
     FOGSQLiteWorldStore() = default;
     virtual ~FOGSQLiteWorldStore() override;
 
-    virtual bool Open(const FString& AbsoluteDatabasePath, FString& OutError) override;
+    virtual bool Open(const FString&, FString&) override;
     virtual void Close() override;
     virtual bool IsOpen() const override { return Database != nullptr; }
 
-    virtual bool BeginTransaction(FString& OutError) override;
-    virtual bool CommitTransaction(FString& OutError) override;
-    virtual bool RollbackTransaction(FString& OutError) override;
-    virtual int32 GetSchemaVersion(FString& OutError) const override;
+    virtual bool BeginTransaction(FString&) override;
+    virtual bool CommitTransaction(FString&) override;
+    virtual bool RollbackTransaction(FString&) override;
+    virtual int32 GetSchemaVersion(FString&) const override;
 
     virtual bool UpsertEntity(const FOGEntityId&, FName, int64, const FString&, FString&) override;
     virtual bool TryReadEntity(const FOGEntityId&, bool&, FName&, FString&, int64&, FString&) const override;
@@ -42,6 +42,20 @@ public:
     virtual bool UpsertProject(const FOGProjectRecord&, int64, FString&) override;
     virtual bool TryReadProject(const FOGEntityId&, bool&, FOGProjectRecord&, FString&) const override;
 
+    virtual bool UpsertDispatch(const FOGDispatchRecord&, int64, FString&) override;
+    virtual bool TryReadDispatch(const FOGEntityId&, bool&, FOGDispatchRecord&, FString&) const override;
+
+    virtual bool UpsertFaction(const FOGFactionRecord&, int64, FString&) override;
+    virtual bool TryReadFaction(const FOGEntityId&, bool&, FOGFactionRecord&, FString&) const override;
+    virtual bool UpsertFactionLink(const FOGFactionLinkRecord&, FString&) override;
+    virtual bool TryReadFactionLink(const FOGEntityId&, const FOGEntityId&, EOGFactionLinkType, bool&, FOGFactionLinkRecord&, FString&) const override;
+
+    virtual bool UpsertArmy(const FOGArmyRecord&, int64, FString&) override;
+    virtual bool TryReadArmy(const FOGEntityId&, bool&, FOGArmyRecord&, FString&) const override;
+
+    virtual bool UpsertWar(const FOGWarRecord&, int64, FString&) override;
+    virtual bool TryReadWar(const FOGEntityId&, bool&, FOGWarRecord&, FString&) const override;
+
     virtual bool UpsertContentPackage(const FOGContentId&, int32, const FString&, bool, bool, const FString&, FString&) override;
     virtual bool SetContentPackageActivated(const FOGContentId&, bool, FString&) override;
     virtual bool IsContentPackageActivated(const FOGContentId&, bool&, bool&, FString&) const override;
@@ -56,11 +70,11 @@ public:
     virtual const FString& GetDatabasePath() const override { return DatabasePath; }
 
 private:
-    bool ExecuteSql(const FString& Sql, FString& OutError) const;
-    bool EnsureMigrationTable(FString& OutError);
-    bool ApplyMigrations(FString& OutError);
-    bool RecordMigration(int32 Version, const TCHAR* Name, FString& OutError);
-    FString LastError(const TCHAR* Context) const;
+    bool ExecuteSql(const FString&, FString&) const;
+    bool EnsureMigrationTable(FString&);
+    bool ApplyMigrations(FString&);
+    bool RecordMigration(int32, const TCHAR*, FString&);
+    FString LastError(const TCHAR*) const;
 
     sqlite3* Database = nullptr;
     FString DatabasePath;
