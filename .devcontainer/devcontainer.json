@@ -1,10 +1,5 @@
 {
   "name": "Offline-Game Unreal 5.8 Codespace",
-  "hostRequirements": {
-    "cpus": 4,
-    "memory": "16gb",
-    "storage": "64gb"
-  },
   "secrets": {
     "CR_PAT": {
       "description": "GitHub token with read:packages from the Epic-linked GitHub account, used only to pull Epic's Unreal Engine 5.8 GHCR image.",
