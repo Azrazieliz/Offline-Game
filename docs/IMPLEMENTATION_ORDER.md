@@ -56,7 +56,7 @@
 - [x] preferred succession lanes + dynamic cross-lane fallback
 - [x] revival-before-succession ordering
 - [x] battle/defeat/entry trigger queue foundation
-- [ ] deterministic full-battle replay test
+- [x] deterministic full-battle replay harness/test authored
 - [ ] compile and run Phase E Unreal automation tests on the real build runner
 
 ## Phase F - Shared world-state proof
