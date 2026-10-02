@@ -1,8 +1,22 @@
 {
-  "name": "Offline-Game Unreal validation",
+  "name": "Offline-Game Unreal 5.8 Codespace",
   "hostRequirements": {
     "cpus": 8,
     "memory": "24gb",
     "storage": "64gb"
+  },
+  "secrets": {
+    "CR_PAT": {
+      "description": "GitHub token with read:packages from the Epic-linked GitHub account, used only to pull Epic's Unreal Engine 5.8 GHCR image.",
+      "documentationUrl": "https://docs.github.com/en/codespaces/managing-your-codespaces/managing-your-account-specific-secrets-for-github-codespaces"
+    }
+  },
+  "postCreateCommand": "python3 Scripts/verify_unreal_cpp.py",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
   }
 }

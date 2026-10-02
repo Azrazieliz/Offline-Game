@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Unreal 5.8: Verify + Compile + Test",
+      "type": "shell",
+      "command": "Scripts/unreal_container_smoke.sh",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "Unreal C++: Preflight only",
+      "type": "shell",
+      "command": "python3 Scripts/verify_unreal_cpp.py",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}
