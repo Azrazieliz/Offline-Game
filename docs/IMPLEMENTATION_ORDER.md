@@ -36,12 +36,14 @@
 - [ ] compile and run Phase C Unreal automation tests on the real build runner
 
 ## Phase D - Shared rule core
-- [ ] stat/value representation
-- [ ] effect definitions
-- [ ] conditions/triggers
-- [ ] rule override/Authority resolver
-- [ ] deterministic RNG/seed provenance
-- [ ] resolved character skill set
+- [x] large stat/value representation
+- [x] effect definitions
+- [x] conditions/triggers
+- [x] rule override/Authority precedence resolver
+- [x] deterministic RNG/seed provenance
+- [x] resolved character skill set
+- [ ] compile and run Phase D Unreal automation tests on the real build runner
+- [ ] final combat formulas/tuning (intentionally deferred to Phase E)
 
 ## Phase E - Combat proof
 - [ ] minimal turn executor
