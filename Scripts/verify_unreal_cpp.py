@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import json
 import re
 import sys
 from collections import Counter
@@ -23,6 +24,23 @@ def read(path: Path) -> str:
 headers = sorted(SOURCE.rglob("*.h"))
 cpps = sorted(SOURCE.rglob("*.cpp"))
 all_cpp = headers + cpps
+
+# 0) Raw source sanity before any Unreal-specific parsing.
+valid_include = re.compile(
+    r'^\s*#include\s+(?:"[^"]+"|<[^>]+>)\s*(?://.*)?$'
+)
+for path in all_cpp:
+    text = read(path)
+
+    if r"\n#include" in text or r"\r#include" in text:
+        err(path.relative_to(ROOT), "literal escaped newline embedded before #include")
+
+    for line_no, line in enumerate(text.splitlines(), start=1):
+        if line.lstrip().startswith("#include") and not valid_include.fullmatch(line):
+            err(
+                path.relative_to(ROOT),
+                f"malformed #include directive at line {line_no}: {line.strip()!r}",
+            )
 
 # Map module-local include forms (Combat/X.h, Persistence/Y.h, OfflineGame.h).
 include_map: set[str] = set()
@@ -50,6 +68,14 @@ for h in headers:
             err(h.relative_to(ROOT), ".generated.h must be the final #include")
     elif generated:
         warn(h.relative_to(ROOT), "contains .generated.h but no reflected declaration was detected")
+
+    reflected_body_types = len(re.findall(r"\bU(?:CLASS|STRUCT)\s*\(", text))
+    generated_bodies = text.count("GENERATED_BODY()")
+    if reflected_body_types != generated_bodies:
+        err(
+            h.relative_to(ROOT),
+            f"reflected class/struct count ({reflected_body_types}) does not match GENERATED_BODY count ({generated_bodies})",
+        )
 
     if re.search(r"UPROPERTY\s*\([^)]*\)\s*TFunction\b", text, flags=re.S):
         err(h.relative_to(ROOT), "TFunction cannot be a UPROPERTY")
@@ -120,8 +146,27 @@ if versions:
             if actual != latest:
                 err(p.relative_to(ROOT), f"schema assertion expects {actual}, latest migration is {latest}")
 
-# 5) Dependency sanity checks tied to actual source use.
+# 5) Automation-test declaration/implementation parity.
+test_dir = SOURCE / "Private" / "Tests"
+for p in test_dir.glob("*.cpp"):
+    text = read(p)
+    declared_tests = re.findall(
+        r"IMPLEMENT_SIMPLE_AUTOMATION_TEST\s*\(\s*(\w+)",
+        text,
+    )
+    implemented_tests = set(re.findall(r"bool\s+(\w+)::RunTest\s*\(", text))
+
+    for test_name in declared_tests:
+        if test_name not in implemented_tests:
+            err(p.relative_to(ROOT), f"automation test {test_name} has no RunTest implementation")
+
+    for test_name in implemented_tests:
+        if test_name not in declared_tests:
+            err(p.relative_to(ROOT), f"RunTest implementation {test_name} has no automation-test declaration")
+
+# 6) Dependency and project-descriptor sanity checks.
 build_cs = SOURCE / "OfflineGame.Build.cs"
+uproject_path = ROOT / "OfflineGame.uproject"
 if build_cs.exists():
     build = read(build_cs)
     corpus = "\n".join(read(p) for p in all_cpp)
@@ -136,7 +181,39 @@ if build_cs.exists():
         if f'"{module}"' not in build:
             err(build_cs.relative_to(ROOT), f"source uses {module} but module dependency is missing")
 
-# 6) Guard against accidentally reintroducing known stale design notes into code.
+    if uproject_path.exists():
+        try:
+            descriptor = json.loads(read(uproject_path))
+        except json.JSONDecodeError as exc:
+            err(uproject_path.relative_to(ROOT), f"invalid JSON: {exc}")
+        else:
+            if descriptor.get("EngineAssociation") != "5.8":
+                err(
+                    uproject_path.relative_to(ROOT),
+                    f"EngineAssociation must remain '5.8', found {descriptor.get('EngineAssociation')!r}",
+                )
+
+            module_names = {
+                module.get("Name")
+                for module in descriptor.get("Modules", [])
+                if isinstance(module, dict)
+            }
+            if "OfflineGame" not in module_names:
+                err(uproject_path.relative_to(ROOT), "OfflineGame runtime module is missing")
+
+            if '"SQLiteCore"' in build:
+                enabled_plugins = {
+                    plugin.get("Name")
+                    for plugin in descriptor.get("Plugins", [])
+                    if isinstance(plugin, dict) and plugin.get("Enabled") is True
+                }
+                if "SQLiteCore" not in enabled_plugins:
+                    err(
+                        uproject_path.relative_to(ROOT),
+                        "SQLiteCore is a Build.cs dependency but is not enabled in the project descriptor",
+                    )
+
+# 7) Guard against accidentally reintroducing known stale design notes into code.
 for path in all_cpp:
     text = read(path)
     if "2 Crit Rate" in text and "1 Crit Damage" in text:

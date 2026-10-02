@@ -1,6 +1,7 @@
 #include "Math/OGLargeNumber.h"
 #include "Random/OGDeterministicRng.h"
-#include "Rules/OGRulePriority.h"\n#include "Rules/OGRuleResolver.h"
+#include "Rules/OGRulePriority.h"
+#include "Rules/OGRuleResolver.h"
 #include "Skills/OGResolvedSkillSet.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
