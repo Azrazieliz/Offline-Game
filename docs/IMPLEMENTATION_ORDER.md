@@ -80,9 +80,9 @@
 - [x] diagnostics bundle
 
 ### Checkpoint G2 - End-to-end runtime harness
-- [ ] persistent vertical-slice scenario harness
-- [ ] Android runtime/build configuration
-- [ ] lightweight performance telemetry
+- [x] persistent vertical-slice scenario harness
+- [x] Android runtime/build configuration
+- [x] lightweight performance telemetry
 - [ ] real UE 5.8 compile + automation run
 
 ### Device gate

@@ -1,5 +1,6 @@
 #include "Runtime/OGGameCoreSubsystem.h"
 
+#include "Containers/Ticker.h"
 #include "Diagnostics/OGDiagnosticsBundle.h"
 #include "HAL/FileManager.h"
 #include "Misc/Paths.h"
@@ -10,6 +11,13 @@
 void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
     Super::Initialize(Collection);
+
+    PerformanceTelemetry.Reset();
+    PerformanceTickerHandle =
+        FTSTicker::GetCoreTicker().AddTicker(
+            FTickerDelegate::CreateUObject(
+                this,
+                &UOGGameCoreSubsystem::TickPerformanceTelemetry));
 
     const FString DatabaseDirectory =
         FPaths::Combine(FPaths::ProjectSavedDir(), TEXT("OfflineGame"));
@@ -66,6 +74,14 @@ void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
         WorldStore->GetSchemaVersion(Error));
 }
 
+bool UOGGameCoreSubsystem::TickPerformanceTelemetry(
+    float DeltaSeconds)
+{
+    PerformanceTelemetry.RecordFrame(
+        static_cast<double>(DeltaSeconds));
+    return true;
+}
+
 bool UOGGameCoreSubsystem::GenerateDiagnosticsBundle(
     FString& OutBundlePath,
     FString& OutError)
@@ -95,6 +111,14 @@ bool UOGGameCoreSubsystem::GenerateDiagnosticsBundle(
 void UOGGameCoreSubsystem::Deinitialize()
 {
     bCoreReady = false;
+
+    if (PerformanceTickerHandle.IsValid())
+    {
+        FTSTicker::GetCoreTicker().RemoveTicker(
+            PerformanceTickerHandle);
+        PerformanceTickerHandle =
+            FDelegateHandle();
+    }
 
     if (WorldStore)
     {

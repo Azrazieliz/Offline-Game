@@ -230,6 +230,31 @@ for path in all_cpp:
             "Identity does not own a mutable Version list",
         )
 
+
+# 8) G2 Android runtime baseline sanity.
+android_config = ROOT / "Config" / "DefaultEngine.ini"
+if not android_config.exists():
+    err("Config/DefaultEngine.ini", "G2 requires an Android runtime configuration")
+else:
+    android = read(android_config)
+    required_android_settings = {
+        "PackageName=com.azrazieliz.[PROJECT]": "provisional package identity",
+        "MinSDKVersion=26": "minimum install SDK",
+        "TargetSDKVersion=35": "UE 5.8 target SDK",
+        "Orientation=Sensor": "portrait/landscape sensor orientation",
+        "bBuildForArm64=True": "ARM64 target",
+        "bBuildForX8664=False": "x86_64 disabled",
+        "bSupportsVulkan=True": "Vulkan mobile support",
+        "bSupportsVulkanSM5=False": "experimental Vulkan SM5 disabled",
+        "bUseExternalFilesDir=True": "app-specific Android storage",
+    }
+    for setting, purpose in required_android_settings.items():
+        if setting not in android:
+            err(
+                android_config.relative_to(ROOT),
+                f"missing G2 Android setting for {purpose}: {setting}",
+            )
+
 print(f"Unreal C++ preflight scanned {len(headers)} headers and {len(cpps)} cpp files.")
 for w in WARNINGS:
     print(f"WARNING: {w}")
