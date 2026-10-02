@@ -88,10 +88,17 @@ bool FOGDiagnosticsBundleTest::RunTest(const FString& Parameters)
     FString Error;
     TestTrue(TEXT("Open database"), Store.Open(DatabasePath, Error));
 
+    FOGPerformanceTelemetry Telemetry;
+    Telemetry.RecordFrame(0.020);
+
     FString BundlePath;
     TestTrue(TEXT("Write diagnostics bundle"),
         FOGDiagnosticsBundle::Write(
-            Store, DiagnosticsDirectory, BundlePath, Error));
+            Store,
+            DiagnosticsDirectory,
+            Telemetry.Snapshot(),
+            BundlePath,
+            Error));
     TestTrue(TEXT("Diagnostics file exists"),
         IFileManager::Get().FileExists(*BundlePath));
 
@@ -102,6 +109,10 @@ bool FOGDiagnosticsBundleTest::RunTest(const FString& Parameters)
         Bundle.Contains(TEXT("\"schema_version\"")));
     TestTrue(TEXT("Bundle contains integrity result"),
         Bundle.Contains(TEXT("\"integrity_ok\"")));
+    TestTrue(TEXT("Bundle contains performance telemetry"),
+        Bundle.Contains(TEXT("\"performance\"")));
+    TestTrue(TEXT("Bundle contains frame budget data"),
+        Bundle.Contains(TEXT("\"frames_over_budget\"")));
     TestTrue(TEXT("Bundle contains only clean database filename"),
         Bundle.Contains(TEXT("\"database_file\": \"world.db\"")) ||
         Bundle.Contains(TEXT("\"database_file\":\"world.db\"")));
