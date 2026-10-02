@@ -14,18 +14,43 @@ enum class EOGTurnBattleStatus : uint8
 };
 
 USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGTurnSuccessionLane
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 LaneIndex = 0;
+
+    /** Opening unit -> second-wave successor -> third-wave successor. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TArray<FOGEntityId> OrderedUnitIds;
+};
+
+USTRUCT(BlueprintType)
 struct OFFLINEGAME_API FOGTurnTeamState
 {
     GENERATED_BODY()
 
     static constexpr int32 MaxRosterSize = 18;
     static constexpr int32 MaxActiveSize = 6;
+    static constexpr int32 MaxLaneSize = 3;
+    static constexpr int32 MaxLaneCount = 6;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int32 TeamIndex = 0;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    TArray<FOGEntityId> RosterUnitIds;
+    TArray<FOGTurnSuccessionLane> Lanes;
+
+    int32 GetRosterSize() const
+    {
+        int32 Count = 0;
+        for (const FOGTurnSuccessionLane& Lane : Lanes)
+        {
+            Count += Lane.OrderedUnitIds.Num();
+        }
+        return Count;
+    }
 };
 
 USTRUCT(BlueprintType)
@@ -79,6 +104,8 @@ public:
     /**
      * Resolves ordering metadata for an already-resolved action.
      * InterruptPriority > 0 allows an action to resolve before ordinary action.
+     *
+     * Pending normal succession replacements are promoted after this action.
      */
     bool ApplyResolvedAction(
         const FOGResolvedCombatAction& Action,
@@ -103,12 +130,25 @@ public:
         EOGCombatPresence NewPresence,
         FString& OutError);
 
+    /**
+     * Promotes direct-lane successors for units defeated during the just-finished
+     * action. Entry/passive mechanics may override this through explicit rules.
+     */
+    bool ResolvePendingReplacements(FString& OutError);
+
 private:
     FOGCombatUnitState* FindMutableUnit(const FOGEntityId& UnitId);
     const FOGCombatUnitState* FindUnit(const FOGEntityId& UnitId) const;
+    const FOGTurnTeamState* FindTeam(int32 TeamIndex) const;
+    const FOGTurnSuccessionLane* FindLaneContaining(
+        int32 TeamIndex,
+        const FOGEntityId& UnitId,
+        int32& OutUnitIndex) const;
+
     void EvaluateBattleCompletion();
     bool ValidateInitialState(FString& OutError) const;
 
     FOGTurnBattleState State;
     FOGCombatLog Log;
+    TArray<FOGEntityId> PendingDefeatedUnitIds;
 };

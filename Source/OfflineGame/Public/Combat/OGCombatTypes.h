@@ -111,6 +111,13 @@ struct OFFLINEGAME_API FOGCombatUnitState
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int64 NextActionValue = 0;
 
+    /**
+     * Normal entry delay resolved by the timing layer (typically from SPD).
+     * Successors use this when entering after a defeat so entry is not a free turn.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 DefaultActionDelay = 1000;
+
     bool IsAlive() const
     {
         return FOGLargeNumber::Compare(CurrentHp, FOGLargeNumber()) > 0;

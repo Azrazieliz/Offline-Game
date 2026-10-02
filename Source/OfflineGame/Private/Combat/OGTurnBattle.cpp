@@ -26,6 +26,7 @@ bool FOGTurnBattle::Initialize(
 {
     State = InitialState;
     Log.Reset();
+    PendingDefeatedUnitIds.Reset();
     OutError.Reset();
 
     if (!ValidateInitialState(OutError))
@@ -75,12 +76,21 @@ bool FOGTurnBattle::ValidateInitialState(FString& OutError) const
             OutError = TEXT("Turn battle contains duplicate unit entity IDs.");
             return false;
         }
+
         UnitIds.Add(Unit.UnitEntityId);
     }
 
+    TSet<FOGEntityId> FormationIds;
+
     for (const FOGTurnTeamState& Team : State.Teams)
     {
-        if (Team.RosterUnitIds.Num() > FOGTurnTeamState::MaxRosterSize)
+        if (Team.Lanes.Num() > FOGTurnTeamState::MaxLaneCount)
+        {
+            OutError = TEXT("Turn team exceeds six succession lanes.");
+            return false;
+        }
+
+        if (Team.GetRosterSize() > FOGTurnTeamState::MaxRosterSize)
         {
             OutError = TEXT("Turn team exceeds the 18-character roster limit.");
             return false;
@@ -92,6 +102,64 @@ bool FOGTurnBattle::ValidateInitialState(FString& OutError) const
             OutError = TEXT("Turn team exceeds the 6-character active limit.");
             return false;
         }
+
+        TSet<int32> LaneIndices;
+
+        for (const FOGTurnSuccessionLane& Lane : Team.Lanes)
+        {
+            if (Lane.LaneIndex < 0 ||
+                Lane.LaneIndex >= FOGTurnTeamState::MaxLaneCount)
+            {
+                OutError = TEXT("Succession lane index must be between 0 and 5.");
+                return false;
+            }
+
+            if (LaneIndices.Contains(Lane.LaneIndex))
+            {
+                OutError = TEXT("Turn team contains duplicate succession lane indices.");
+                return false;
+            }
+
+            LaneIndices.Add(Lane.LaneIndex);
+
+            if (Lane.OrderedUnitIds.IsEmpty() ||
+                Lane.OrderedUnitIds.Num() >
+                    FOGTurnTeamState::MaxLaneSize)
+            {
+                OutError = TEXT("Each succession lane must contain one to three characters.");
+                return false;
+            }
+
+            for (const FOGEntityId& UnitId : Lane.OrderedUnitIds)
+            {
+                if (!UnitIds.Contains(UnitId))
+                {
+                    OutError = TEXT("Formation references a combat unit that does not exist.");
+                    return false;
+                }
+
+                if (FormationIds.Contains(UnitId))
+                {
+                    OutError = TEXT("A combat unit appears in more than one succession lane.");
+                    return false;
+                }
+
+                const FOGCombatUnitState* Unit = FindUnit(UnitId);
+                if (!Unit || Unit->TeamIndex != Team.TeamIndex)
+                {
+                    OutError = TEXT("Succession lane contains a unit assigned to another team.");
+                    return false;
+                }
+
+                FormationIds.Add(UnitId);
+            }
+        }
+    }
+
+    if (FormationIds.Num() != State.Units.Num())
+    {
+        OutError = TEXT("Every combat unit must belong to exactly one succession lane.");
+        return false;
     }
 
     return true;
@@ -194,6 +262,11 @@ bool FOGTurnBattle::ApplyResolvedAction(
     Resolved.PayloadJson = Action.ResolutionJson;
     Log.Append(MoveTemp(Resolved));
 
+    if (!ResolvePendingReplacements(OutError))
+    {
+        return false;
+    }
+
     EvaluateBattleCompletion();
     return true;
 }
@@ -227,6 +300,11 @@ bool FOGTurnBattle::ApplyDamage(
     {
         Target->CurrentHp = FOGLargeNumber();
         Target->Presence = EOGCombatPresence::Defeated;
+
+        if (!PendingDefeatedUnitIds.Contains(TargetUnitId))
+        {
+            PendingDefeatedUnitIds.Add(TargetUnitId);
+        }
     }
 
     FOGCombatLogEvent Damage;
@@ -276,8 +354,6 @@ bool FOGTurnBattle::ApplyHealing(
     }
 
     Target->CurrentHp = FOGLargeNumber::Add(Target->CurrentHp, Amount);
-
-    // Overheal behavior is mechanic-specific and intentionally not capped here.
 
     FOGCombatLogEvent Healing;
     Healing.Type = EOGCombatLogEventType::HealingApplied;
@@ -336,6 +412,98 @@ bool FOGTurnBattle::ChangePresence(
     return true;
 }
 
+bool FOGTurnBattle::ResolvePendingReplacements(FString& OutError)
+{
+    OutError.Reset();
+
+    TArray<FOGEntityId> Pending =
+        MoveTemp(PendingDefeatedUnitIds);
+    PendingDefeatedUnitIds.Reset();
+
+    for (const FOGEntityId& DefeatedId : Pending)
+    {
+        const FOGCombatUnitState* Defeated =
+            FindUnit(DefeatedId);
+
+        if (!Defeated)
+        {
+            OutError = TEXT("Pending defeated unit no longer exists.");
+            return false;
+        }
+
+        int32 DefeatedLaneIndex = INDEX_NONE;
+        const FOGTurnSuccessionLane* Lane =
+            FindLaneContaining(
+                Defeated->TeamIndex,
+                DefeatedId,
+                DefeatedLaneIndex);
+
+        if (!Lane)
+        {
+            OutError = TEXT("Defeated unit is missing from its succession lane.");
+            return false;
+        }
+
+        for (int32 Index = DefeatedLaneIndex + 1;
+             Index < Lane->OrderedUnitIds.Num();
+             ++Index)
+        {
+            FOGCombatUnitState* Successor =
+                FindMutableUnit(
+                    Lane->OrderedUnitIds[Index]);
+
+            if (!Successor ||
+                !Successor->IsAlive() ||
+                Successor->Presence == EOGCombatPresence::Removed ||
+                Successor->Presence == EOGCombatPresence::Defeated)
+            {
+                continue;
+            }
+
+            if (Successor->Presence == EOGCombatPresence::Active)
+            {
+                break;
+            }
+
+            if (CountActiveForTeam(
+                    State.Units,
+                    Successor->TeamIndex) >=
+                FOGTurnTeamState::MaxActiveSize)
+            {
+                OutError = TEXT("Cannot promote successor because six active slots are already occupied.");
+                return false;
+            }
+
+            Successor->Presence =
+                EOGCombatPresence::Active;
+
+            Successor->NextActionValue =
+                FMath::Max(
+                    Successor->NextActionValue,
+                    State.CurrentActionValue +
+                        FMath::Max<int64>(
+                            1,
+                            Successor->DefaultActionDelay));
+
+            FOGCombatLogEvent Event;
+            Event.Type = EOGCombatLogEventType::PresenceChanged;
+            Event.SourceUnitId =
+                Successor->UnitEntityId;
+            Event.PayloadJson =
+                FString::Printf(
+                    TEXT("{\"presence\":%d,\"reason\":\"succession\"}"),
+                    static_cast<int32>(
+                        EOGCombatPresence::Active));
+            Log.Append(MoveTemp(Event));
+
+            break;
+        }
+    }
+
+    EvaluateBattleCompletion();
+    return true;
+}
+
 FOGCombatUnitState* FOGTurnBattle::FindMutableUnit(
     const FOGEntityId& UnitId)
 {
@@ -354,6 +522,50 @@ const FOGCombatUnitState* FOGTurnBattle::FindUnit(
         {
             return Unit.UnitEntityId == UnitId;
         });
+}
+
+const FOGTurnTeamState* FOGTurnBattle::FindTeam(
+    int32 TeamIndex) const
+{
+    return State.Teams.FindByPredicate(
+        [TeamIndex](const FOGTurnTeamState& Team)
+        {
+            return Team.TeamIndex == TeamIndex;
+        });
+}
+
+const FOGTurnSuccessionLane* FOGTurnBattle::FindLaneContaining(
+    int32 TeamIndex,
+    const FOGEntityId& UnitId,
+    int32& OutUnitIndex) const
+{
+    OutUnitIndex = INDEX_NONE;
+
+    const FOGTurnTeamState* Team =
+        FindTeam(TeamIndex);
+
+    if (!Team)
+    {
+        return nullptr;
+    }
+
+    for (const FOGTurnSuccessionLane& Lane : Team->Lanes)
+    {
+        const int32 Index =
+            Lane.OrderedUnitIds.IndexOfByPredicate(
+                [&UnitId](const FOGEntityId& Candidate)
+                {
+                    return Candidate == UnitId;
+                });
+
+        if (Index != INDEX_NONE)
+        {
+            OutUnitIndex = Index;
+            return &Lane;
+        }
+    }
+
+    return nullptr;
 }
 
 void FOGTurnBattle::EvaluateBattleCompletion()

@@ -24,7 +24,28 @@ FOGCombatUnitState MakeUnit(
     Unit.CurrentHp = FOGLargeNumber::FromInt64(Hp);
     Unit.Stats.MaxHp = Unit.CurrentHp;
     Unit.NextActionValue = ActionValue;
+    Unit.DefaultActionDelay = 100;
     return Unit;
+}
+
+FOGTurnTeamState MakeTeam(
+    int32 TeamIndex,
+    const TArray<TArray<FOGEntityId>>& LaneUnits)
+{
+    FOGTurnTeamState Team;
+    Team.TeamIndex = TeamIndex;
+
+    for (int32 LaneIndex = 0;
+         LaneIndex < LaneUnits.Num();
+         ++LaneIndex)
+    {
+        FOGTurnSuccessionLane Lane;
+        Lane.LaneIndex = LaneIndex;
+        Lane.OrderedUnitIds = LaneUnits[LaneIndex];
+        Team.Lanes.Add(MoveTemp(Lane));
+    }
+
+    return Team;
 }
 }
 
@@ -41,15 +62,11 @@ bool FOGTurnBattleTimelineTest::RunTest(const FString& Parameters)
     FOGCombatUnitState First = MakeUnit(0, EOGCombatPresence::Active, 100, 1000);
     FOGCombatUnitState Second = MakeUnit(1, EOGCombatPresence::Active, 50, 1000);
 
-    FOGTurnTeamState Team0;
-    Team0.TeamIndex = 0;
-    Team0.RosterUnitIds.Add(First.UnitEntityId);
-
-    FOGTurnTeamState Team1;
-    Team1.TeamIndex = 1;
-    Team1.RosterUnitIds.Add(Second.UnitEntityId);
-
-    Initial.Teams = {Team0, Team1};
+    Initial.Teams =
+    {
+        MakeTeam(0, {{First.UnitEntityId}}),
+        MakeTeam(1, {{Second.UnitEntityId}})
+    };
     Initial.Units = {First, Second};
 
     FOGTurnBattle Battle;
@@ -90,15 +107,11 @@ bool FOGTurnBattleDefeatTest::RunTest(const FString& Parameters)
     FOGCombatUnitState Attacker = MakeUnit(0, EOGCombatPresence::Active, 0, 1000);
     FOGCombatUnitState Target = MakeUnit(1, EOGCombatPresence::Active, 0, 100);
 
-    FOGTurnTeamState Team0;
-    Team0.TeamIndex = 0;
-    Team0.RosterUnitIds.Add(Attacker.UnitEntityId);
-
-    FOGTurnTeamState Team1;
-    Team1.TeamIndex = 1;
-    Team1.RosterUnitIds.Add(Target.UnitEntityId);
-
-    Initial.Teams = {Team0, Team1};
+    Initial.Teams =
+    {
+        MakeTeam(0, {{Attacker.UnitEntityId}}),
+        MakeTeam(1, {{Target.UnitEntityId}})
+    };
     Initial.Units = {Attacker, Target};
 
     FOGTurnBattle Battle;
@@ -124,6 +137,81 @@ bool FOGTurnBattleDefeatTest::RunTest(const FString& Parameters)
         TEXT("Battle completes when only one team has living units"),
         Battle.GetState().Status,
         EOGTurnBattleStatus::Completed);
+
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGTurnBattleSuccessionTest,
+    "OfflineGame.Combat.Turn.DirectLaneSuccessionAfterAction",
+    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+
+bool FOGTurnBattleSuccessionTest::RunTest(const FString& Parameters)
+{
+    FOGTurnBattleState Initial;
+    Initial.BattleId = FOGEntityId::NewId();
+
+    FOGCombatUnitState Attacker =
+        MakeUnit(0, EOGCombatPresence::Active, 0, 1000);
+
+    FOGCombatUnitState Opening =
+        MakeUnit(1, EOGCombatPresence::Active, 0, 100);
+
+    FOGCombatUnitState Successor =
+        MakeUnit(1, EOGCombatPresence::Reserve, 0, 1000);
+
+    Initial.Teams =
+    {
+        MakeTeam(0, {{Attacker.UnitEntityId}}),
+        MakeTeam(
+            1,
+            {{
+                Opening.UnitEntityId,
+                Successor.UnitEntityId
+            }})
+    };
+    Initial.Units = {Attacker, Opening, Successor};
+
+    FOGTurnBattle Battle;
+    FString Error;
+    TestTrue(TEXT("Battle initializes"), Battle.Initialize(Initial, Error));
+
+    TestTrue(
+        TEXT("Opening unit can be defeated during an action"),
+        Battle.ApplyDamage(
+            Attacker.UnitEntityId,
+            Opening.UnitEntityId,
+            FOGLargeNumber::FromInt64(150),
+            FOGContentId(TEXT("test:skill.hit")),
+            Error));
+
+    TestEqual(
+        TEXT("Successor does not enter before action resolution completes"),
+        Battle.GetState().Units[2].Presence,
+        EOGCombatPresence::Reserve);
+
+    FOGResolvedCombatAction Action;
+    Action.ActionId = FOGEntityId::NewId();
+    Action.SourceUnitId = Attacker.UnitEntityId;
+    Action.SkillId = FOGContentId(TEXT("test:skill.hit"));
+    Action.ActionDelay = 100;
+
+    TestTrue(
+        TEXT("Action completion resolves pending succession"),
+        Battle.ApplyResolvedAction(Action, Error));
+
+    const FOGCombatUnitState& StoredSuccessor =
+        Battle.GetState().Units[2];
+
+    TestEqual(
+        TEXT("Direct successor becomes active"),
+        StoredSuccessor.Presence,
+        EOGCombatPresence::Active);
+
+    TestTrue(
+        TEXT("Successor enters timeline with a normal delay, not a free immediate action"),
+        StoredSuccessor.NextActionValue >
+            Battle.GetState().CurrentActionValue);
 
     return true;
 }

@@ -53,8 +53,9 @@
 - [x] deterministic combat log foundation
 - [x] timeline/defeat/identity-exclusivity automation tests authored
 - [x] baseline damage/hit/crit/block resolver
-- [ ] resource/cost/skill availability resolver
-- [ ] reserve-entry/defeat-trigger mechanics
+- [x] resource/cost/skill readiness framework
+- [x] direct-lane reserve succession after defeat
+- [ ] entry/defeat passive trigger execution
 - [ ] deterministic full-battle replay test
 - [ ] compile and run Phase E Unreal automation tests on the real build runner
 
