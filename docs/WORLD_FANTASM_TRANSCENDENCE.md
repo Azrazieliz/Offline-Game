@@ -33,7 +33,7 @@ The grade is determined by **immutable Origin Rarity**, but is obtained only onc
 | SR | World Projection |
 | SSR | World Alteration |
 | UR | World Materialization |
-| LR | World Manifestation **or** World Negation, character-dependent |
+| LR | World Manifestation |
 | MR | World Negation |
 
 These are **not sequential stages for one character**.
