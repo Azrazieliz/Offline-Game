@@ -52,9 +52,26 @@ static const TCHAR* Migration0001Sql =
     TEXT("activated INTEGER NOT NULL DEFAULT 0 CHECK (activated IN (0,1)),")
     TEXT("manifest_json TEXT NOT NULL DEFAULT '{}');");
 
+static const TCHAR* Migration0002Sql =
+    TEXT("CREATE TABLE IF NOT EXISTS character_manifestations (")
+    TEXT("manifestation_entity_id TEXT PRIMARY KEY,")
+    TEXT("owning_ruler_entity_id TEXT NOT NULL,")
+    TEXT("identity_content_id TEXT NOT NULL,")
+    TEXT("active_version_content_id TEXT NOT NULL,")
+    TEXT("level INTEGER NOT NULL DEFAULT 1 CHECK (level >= 1),")
+    TEXT("current_rarity TEXT NOT NULL DEFAULT '',")
+    TEXT("progression_state_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("FOREIGN KEY(manifestation_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(owning_ruler_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_character_manifestations_owner ")
+    TEXT("ON character_manifestations(owning_ruler_entity_id);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_character_manifestations_identity ")
+    TEXT("ON character_manifestations(identity_content_id);");
+
 static const FOGMigrationDefinition Migrations[] =
 {
     {1, TEXT("bootstrap"), Migration0001Sql},
+    {2, TEXT("character_manifestations"), Migration0002Sql},
 };
 
 FString RelatedEntitiesToJson(const TArray<FOGEntityId>& EntityIds)

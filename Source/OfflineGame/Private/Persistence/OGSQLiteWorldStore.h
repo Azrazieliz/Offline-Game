@@ -36,6 +36,37 @@ public:
         int64& OutRevision,
         FString& OutError) const override;
 
+    virtual bool UpsertCharacterManifestation(
+        const FOGCharacterManifestationRecord& Manifestation,
+        int64 CreatedWorldTick,
+        FString& OutError) override;
+
+    virtual bool TryReadCharacterManifestation(
+        const FOGEntityId& ManifestationId,
+        bool& bOutFound,
+        FOGCharacterManifestationRecord& OutManifestation,
+        FString& OutError) const override;
+
+    virtual bool UpsertContentPackage(
+        const FOGContentId& PackageId,
+        int32 Version,
+        const FString& ContentHash,
+        bool bInstalled,
+        bool bValidated,
+        const FString& ManifestJson,
+        FString& OutError) override;
+
+    virtual bool SetContentPackageActivated(
+        const FOGContentId& PackageId,
+        bool bActivated,
+        FString& OutError) override;
+
+    virtual bool IsContentPackageActivated(
+        const FOGContentId& PackageId,
+        bool& bOutKnown,
+        bool& bOutActivated,
+        FString& OutError) const override;
+
     virtual bool AppendWorldEvent(const FOGWorldEvent& Event, FString& OutError) override;
 
     virtual bool BackupTo(const FString& AbsoluteBackupPath, FString& OutError) override;

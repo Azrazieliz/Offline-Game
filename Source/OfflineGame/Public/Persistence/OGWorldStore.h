@@ -1,6 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Characters/OGCharacterDefinitions.h"
+#include "Content/OGContentId.h"
 #include "Core/OGEntityId.h"
 #include "Events/OGWorldEvent.h"
 
@@ -38,6 +40,37 @@ public:
         FName& OutKind,
         FString& OutStateJson,
         int64& OutRevision,
+        FString& OutError) const = 0;
+
+    virtual bool UpsertCharacterManifestation(
+        const FOGCharacterManifestationRecord& Manifestation,
+        int64 CreatedWorldTick,
+        FString& OutError) = 0;
+
+    virtual bool TryReadCharacterManifestation(
+        const FOGEntityId& ManifestationId,
+        bool& bOutFound,
+        FOGCharacterManifestationRecord& OutManifestation,
+        FString& OutError) const = 0;
+
+    virtual bool UpsertContentPackage(
+        const FOGContentId& PackageId,
+        int32 Version,
+        const FString& ContentHash,
+        bool bInstalled,
+        bool bValidated,
+        const FString& ManifestJson,
+        FString& OutError) = 0;
+
+    virtual bool SetContentPackageActivated(
+        const FOGContentId& PackageId,
+        bool bActivated,
+        FString& OutError) = 0;
+
+    virtual bool IsContentPackageActivated(
+        const FOGContentId& PackageId,
+        bool& bOutKnown,
+        bool& bOutActivated,
         FString& OutError) const = 0;
 
     virtual bool AppendWorldEvent(const FOGWorldEvent& Event, FString& OutError) = 0;

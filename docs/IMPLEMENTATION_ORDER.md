@@ -26,13 +26,14 @@
 - [ ] automatic rotating snapshot policy
 
 ## Phase C - Character/content identity
-- [ ] content-definition IDs
-- [ ] Character Identity
-- [ ] Version
-- [ ] owned manifestation/instance
-- [ ] explicit canonical-adult eligibility metadata
-- [ ] package manifest validation
-- [ ] package activation registry
+- [x] content-definition IDs
+- [x] Character Identity
+- [x] Version
+- [x] owned manifestation/instance
+- [x] explicit canonical-adult eligibility metadata
+- [x] package manifest validation
+- [x] package activation registry
+- [ ] compile and run Phase C Unreal automation tests on the real build runner
 
 ## Phase D - Shared rule core
 - [ ] stat/value representation
