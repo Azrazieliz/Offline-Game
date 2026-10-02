@@ -46,10 +46,12 @@ The implementation should resist creating one engine per design noun.
 2. **Capability / Rule Engine**
    - skills and effects
    - Authority / rule overrides
+   - World Fantasm field/reality rules
    - traversal capabilities
    - environmental capabilities
    - Domain rules
    - deterministic conflict resolution
+   - World Fantasm and Domain interactions share this rule-conflict layer; see `WORLD_FANTASM_TRANSCENDENCE.md`
 
 3. **Combat**
    - shared definitions
