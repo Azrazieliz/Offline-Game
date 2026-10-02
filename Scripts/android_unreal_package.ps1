@@ -9,6 +9,11 @@ $ErrorActionPreference = "Stop"
 $Root = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $Project = Join-Path $Root "OfflineGame.uproject"
 $GateStamp = Join-Path $Root "Saved\Automation\last_unreal_gate.json"
+$PreferredSdkRoot = if ($env:OG_ANDROID_SDK_ROOT) {
+    $env:OG_ANDROID_SDK_ROOT
+} else {
+    "D:\Tools\AndroidSdk"
+}
 
 function Invoke-Checked {
     param(
@@ -60,6 +65,21 @@ if ($Gate.commit -ne $Head -or
 
 $EngineRoot = Find-Unreal58 $EngineRoot
 $RunUAT = Join-Path $EngineRoot "Engine\Build\BatchFiles\RunUAT.bat"
+
+if (Test-Path $PreferredSdkRoot) {
+    $env:ANDROID_HOME = $PreferredSdkRoot
+    $env:ANDROID_SDK_ROOT = $PreferredSdkRoot
+
+    $NdkRoot = Join-Path $PreferredSdkRoot "ndk\27.2.12479018"
+    if (Test-Path $NdkRoot) {
+        $env:NDKROOT = $NdkRoot
+    }
+}
+
+$AndroidStudioJdk = "C:\Program Files\Android\Android Studio\jbr"
+if (Test-Path $AndroidStudioJdk) {
+    $env:JAVA_HOME = $AndroidStudioJdk
+}
 
 if (-not $ArchiveDirectory) {
     $ArchiveDirectory = Join-Path $Root "Saved\AndroidBuild"
