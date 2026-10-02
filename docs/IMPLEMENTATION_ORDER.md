@@ -52,7 +52,7 @@
 - [x] defeat state handling inside battle
 - [x] deterministic combat log foundation
 - [x] timeline/defeat/identity-exclusivity automation tests authored
-- [ ] damage/hit/crit resolver
+- [x] baseline damage/hit/crit/block resolver
 - [ ] resource/cost/skill availability resolver
 - [ ] reserve-entry/defeat-trigger mechanics
 - [ ] deterministic full-battle replay test

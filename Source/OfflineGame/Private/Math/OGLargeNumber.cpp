@@ -188,6 +188,29 @@ FOGLargeNumber FOGLargeNumber::Multiply(
         Left.Exponent10 + Right.Exponent10);
 }
 
+FOGLargeNumber FOGLargeNumber::ScaleByBasisPoints(
+    const FOGLargeNumber& Value,
+    int32 MultiplierBps)
+{
+    if (Value.IsZero() || MultiplierBps == 0)
+    {
+        return FOGLargeNumber();
+    }
+
+    FOGLargeNumber Normalized = Value;
+    Normalized.Normalize();
+
+    // Normalized significand is <= 9 digits and int32 multiplier <= ~2.1e9,
+    // so the product remains within signed int64.
+    const int64 Product =
+        Normalized.Significand *
+        static_cast<int64>(MultiplierBps);
+
+    return FOGLargeNumber(
+        DivideRounded(Product, 10000),
+        Normalized.Exponent10);
+}
+
 FString FOGLargeNumber::ToDebugString() const
 {
     return FString::Printf(

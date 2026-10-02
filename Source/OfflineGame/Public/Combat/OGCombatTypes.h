@@ -28,17 +28,48 @@ struct OFFLINEGAME_API FOGCombatStats
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int32 CritRateBps = 0;
 
+    /**
+     * Bonus above ordinary non-critical damage.
+     * 5,000 = +50% Crit Damage, i.e. a x1.5 critical before other modifiers.
+     */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    int32 CritDamageBps = 0;
+    int32 CritDamageBonusBps = 5000;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    int32 CritResistanceBps = 0;
+    int32 CritRateResistanceBps = 0;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 CritDamageResistanceBps = 0;
+
+    /** 10,000 Hit against 0 Dodge = one guaranteed normal hit. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int32 HitBps = 10000;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int32 DodgeBps = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 BlockRateBps = 0;
+
+    /** Damage removed when a block succeeds. 3,000 = 30% reduction. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 BlockReductionBps = 0;
+
+    /** Percentage-point DEF penetration. Values may exceed 100% where allowed. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 DefensePenetrationBps = 0;
+
+    /** Explicit multiplicative category; 10,000 = x1.0. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 DamageDealtMultiplierBps = 10000;
+
+    /** Explicit multiplicative category; 10,000 = x1.0. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 DamageTakenMultiplierBps = 10000;
+
+    /** Applies specifically to True Damage. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 TrueDamageResistanceBps = 0;
 };
 
 UENUM(BlueprintType)

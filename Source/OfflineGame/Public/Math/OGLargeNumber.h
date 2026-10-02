@@ -9,8 +9,7 @@
  * Value = Significand * 10^Exponent10
  *
  * Significand is normalized to at most 9 decimal digits of precision so
- * Significand * Significand always fits signed int64 during multiplication.
- * This avoids floating-point overflow and keeps serialization simple.
+ * Significand * common int32 multipliers always fit signed int64.
  */
 USTRUCT(BlueprintType)
 struct OFFLINEGAME_API FOGLargeNumber
@@ -39,6 +38,11 @@ struct OFFLINEGAME_API FOGLargeNumber
     static int32 Compare(const FOGLargeNumber& A, const FOGLargeNumber& B);
     static FOGLargeNumber Add(const FOGLargeNumber& A, const FOGLargeNumber& B);
     static FOGLargeNumber Multiply(const FOGLargeNumber& A, const FOGLargeNumber& B);
+
+    /** 10,000 basis points = x1.0. Negative multipliers are supported. */
+    static FOGLargeNumber ScaleByBasisPoints(
+        const FOGLargeNumber& Value,
+        int32 MultiplierBps);
 
     FString ToDebugString() const;
 
