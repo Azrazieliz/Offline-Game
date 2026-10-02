@@ -93,11 +93,66 @@ static const TCHAR* Migration0003Sql =
     TEXT("CREATE INDEX IF NOT EXISTS idx_world_presence_location ON world_presence(location_entity_id);")
     TEXT("CREATE INDEX IF NOT EXISTS idx_knowledge_subject ON knowledge_facts(subject_entity_id, fact_key);");
 
+static const TCHAR* Migration0004Sql =
+    TEXT("CREATE TABLE IF NOT EXISTS territories (")
+    TEXT("territory_entity_id TEXT PRIMARY KEY,")
+    TEXT("ruler_entity_id TEXT,")
+    TEXT("root_location_entity_id TEXT NOT NULL,")
+    TEXT("is_main INTEGER NOT NULL DEFAULT 0 CHECK (is_main IN (0,1)),")
+    TEXT("population INTEGER NOT NULL DEFAULT 0 CHECK (population >= 0),")
+    TEXT("control_state TEXT NOT NULL DEFAULT 'controlled',")
+    TEXT("FOREIGN KEY(territory_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(ruler_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(root_location_entity_id) REFERENCES locations(location_entity_id));")
+    TEXT("CREATE UNIQUE INDEX IF NOT EXISTS idx_main_territory_per_ruler ")
+    TEXT("ON territories(ruler_entity_id) WHERE is_main = 1 AND ruler_entity_id IS NOT NULL;")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_territories_location ON territories(root_location_entity_id);")
+    TEXT("CREATE TABLE IF NOT EXISTS domain_cores (")
+    TEXT("core_entity_id TEXT PRIMARY KEY,")
+    TEXT("territory_entity_id TEXT NOT NULL UNIQUE,")
+    TEXT("controller_ruler_entity_id TEXT,")
+    TEXT("lifecycle INTEGER NOT NULL,")
+    TEXT("durability_sig INTEGER NOT NULL DEFAULT 0,")
+    TEXT("durability_exp INTEGER NOT NULL DEFAULT 0,")
+    TEXT("max_durability_sig INTEGER NOT NULL DEFAULT 0,")
+    TEXT("max_durability_exp INTEGER NOT NULL DEFAULT 0,")
+    TEXT("FOREIGN KEY(core_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(territory_entity_id) REFERENCES territories(territory_entity_id),")
+    TEXT("FOREIGN KEY(controller_ruler_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE TABLE IF NOT EXISTS domain_core_aspects (")
+    TEXT("core_entity_id TEXT NOT NULL,")
+    TEXT("aspect_content_id TEXT NOT NULL,")
+    TEXT("grade INTEGER NOT NULL DEFAULT 0,")
+    TEXT("PRIMARY KEY(core_entity_id, aspect_content_id),")
+    TEXT("FOREIGN KEY(core_entity_id) REFERENCES domain_cores(core_entity_id) ON DELETE CASCADE);")
+    TEXT("CREATE TABLE IF NOT EXISTS resource_balances (")
+    TEXT("owner_entity_id TEXT NOT NULL,")
+    TEXT("resource_content_id TEXT NOT NULL,")
+    TEXT("amount INTEGER NOT NULL DEFAULT 0 CHECK (amount >= 0),")
+    TEXT("PRIMARY KEY(owner_entity_id, resource_content_id),")
+    TEXT("FOREIGN KEY(owner_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE TABLE IF NOT EXISTS projects (")
+    TEXT("project_entity_id TEXT PRIMARY KEY,")
+    TEXT("owner_entity_id TEXT NOT NULL,")
+    TEXT("location_entity_id TEXT NOT NULL,")
+    TEXT("project_type_content_id TEXT NOT NULL,")
+    TEXT("status INTEGER NOT NULL,")
+    TEXT("start_world_tick INTEGER NOT NULL,")
+    TEXT("resolve_world_tick INTEGER NOT NULL,")
+    TEXT("progress_bps INTEGER NOT NULL DEFAULT 0 CHECK (progress_bps BETWEEN 0 AND 10000),")
+    TEXT("payload_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("FOREIGN KEY(project_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(owner_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(location_entity_id) REFERENCES locations(location_entity_id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_projects_owner_status ON projects(owner_entity_id, status);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_projects_location ON projects(location_entity_id);");
+
 static const FOGMigrationDefinition Migrations[] =
 {
     {1, TEXT("bootstrap"), Migration0001Sql},
     {2, TEXT("character_manifestations"), Migration0002Sql},
     {3, TEXT("world_location_state"), Migration0003Sql},
+    {4, TEXT("territory_resources_projects"), Migration0004Sql},
 };
 
 FString RelatedEntitiesToJson(const TArray<FOGEntityId>& EntityIds)

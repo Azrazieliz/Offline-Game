@@ -5,14 +5,9 @@
 #include "Content/OGContentId.h"
 #include "Core/OGEntityId.h"
 #include "Events/OGWorldEvent.h"
+#include "World/OGTerritoryStateRecords.h"
 #include "World/OGWorldStateRecords.h"
 
-/**
- * Persistence boundary for authoritative mutable world state.
- *
- * Gameplay systems must not issue SQL directly. The adapter owns SQL,
- * migrations, recovery, WAL/checkpoint policy, and schema details.
- */
 class OFFLINEGAME_API IOGWorldStore
 {
 public:
@@ -85,6 +80,52 @@ public:
         const FOGEntityId& SubjectEntityId,
         bool& bOutFound,
         FOGKnowledgeFactRecord& OutFact,
+        FString& OutError) const = 0;
+
+    virtual bool UpsertTerritory(
+        const FOGTerritoryRecord& Territory,
+        int64 CreatedWorldTick,
+        FString& OutError) = 0;
+
+    virtual bool TryReadTerritory(
+        const FOGEntityId& TerritoryId,
+        bool& bOutFound,
+        FOGTerritoryRecord& OutTerritory,
+        FString& OutError) const = 0;
+
+    virtual bool UpsertDomainCore(
+        const FOGDomainCoreRecord& Core,
+        int64 CreatedWorldTick,
+        FString& OutError) = 0;
+
+    virtual bool TryReadDomainCore(
+        const FOGEntityId& CoreId,
+        bool& bOutFound,
+        FOGDomainCoreRecord& OutCore,
+        FString& OutError) const = 0;
+
+    virtual bool SetResourceBalance(
+        const FOGEntityId& OwnerEntityId,
+        const FOGContentId& ResourceId,
+        int64 Amount,
+        FString& OutError) = 0;
+
+    virtual bool TryReadResourceBalance(
+        const FOGEntityId& OwnerEntityId,
+        const FOGContentId& ResourceId,
+        bool& bOutKnown,
+        int64& OutAmount,
+        FString& OutError) const = 0;
+
+    virtual bool UpsertProject(
+        const FOGProjectRecord& Project,
+        int64 CreatedWorldTick,
+        FString& OutError) = 0;
+
+    virtual bool TryReadProject(
+        const FOGEntityId& ProjectId,
+        bool& bOutFound,
+        FOGProjectRecord& OutProject,
         FString& OutError) const = 0;
 
     virtual bool UpsertContentPackage(

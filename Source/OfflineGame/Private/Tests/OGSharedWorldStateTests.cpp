@@ -60,7 +60,7 @@ bool FOGSharedWorldStateCrossModeTest::RunTest(
                 Error));
 
         TestEqual(
-            TEXT("Schema version is 3"),
+            TEXT("Schema version is 4"),
             Store.GetSchemaVersion(Error),
             3);
 

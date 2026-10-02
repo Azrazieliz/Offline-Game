@@ -50,7 +50,6 @@
 - [x] one shared character-kit/state model in both modes
 - [x] defeat state handling inside battle
 - [x] deterministic combat log foundation
-- [x] timeline/defeat/identity-exclusivity automation tests authored
 - [x] baseline damage/hit/crit/block resolver
 - [x] resource/cost/skill readiness framework
 - [x] preferred succession lanes + dynamic cross-lane fallback
@@ -65,8 +64,8 @@
 - [x] shared authoritative Ruler physical presence
 - [x] World Mode -> Ruler Mode restart/reflection test authored
 - [x] Ruler Mode / World Mode use one state contract
-- [ ] one territory + Domain Core
-- [ ] resources/projects
+- [x] one territory + Domain Core
+- [x] aggregate resources + lazy Project engine
 - [ ] dispatch framework
 - [ ] minimal faction/war state
 - [ ] compile and run Phase F Unreal automation tests on the real build runner
