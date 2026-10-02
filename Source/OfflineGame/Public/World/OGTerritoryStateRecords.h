@@ -39,7 +39,7 @@ struct OFFLINEGAME_API FOGTerritoryRecord
 
     /** Controlled / Disputed / Neutral / etc.; data-level state, not politics. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    FName ControlState = TEXT("controlled");
+    FName ControlState = FName(TEXT("controlled"));
 };
 
 USTRUCT(BlueprintType)

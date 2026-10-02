@@ -80,7 +80,7 @@ struct OFFLINEGAME_API FOGFactionRecord
     FOGEntityId LeaderRulerId;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    FName Kind = TEXT("faction");
+    FName Kind = FName(TEXT("faction"));
 
     /** Aggregate only; no demographic agent simulation. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -141,7 +141,7 @@ struct OFFLINEGAME_API FOGArmyRecord
     TArray<FOGEntityId> CommanderEntityIds;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    FName State = TEXT("ready");
+    FName State = FName(TEXT("ready"));
 };
 
 UENUM(BlueprintType)
