@@ -1,0 +1,21 @@
+* text=auto eol=lf
+
+# Unreal / binary assets
+*.uasset binary
+*.umap binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.wav binary
+*.ogg binary
+*.mp4 binary
+
+# Keep source/config text normalized
+*.h text eol=lf
+*.cpp text eol=lf
+*.cs text eol=lf
+*.ini text eol=lf
+*.sql text eol=lf
+*.md text eol=lf
+*.json text eol=lf

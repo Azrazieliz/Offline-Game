@@ -1,0 +1,13 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "",
+  "Category": "Games",
+  "Description": "Provisional Unreal project shell for Offline-Game.",
+  "Modules": [
+    {
+      "Name": "OfflineGame",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# Unreal Engine generated files
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+.vscode/
+.idea/
+
+# Build/package output
+Builds/
+StagedBuilds/
+*.apk
+*.aab
+*.obb
+
+# Local databases / diagnostics
+*.db
+*.db-shm
+*.db-wal
+Diagnostics/
+LocalContentCache/
+
+# OS noise
+.DS_Store
+Thumbs.db
