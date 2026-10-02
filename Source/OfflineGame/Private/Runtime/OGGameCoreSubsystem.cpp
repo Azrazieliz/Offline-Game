@@ -104,6 +104,7 @@ bool UOGGameCoreSubsystem::GenerateDiagnosticsBundle(
     return FOGDiagnosticsBundle::Write(
         *WorldStore,
         OutputDirectory,
+        PerformanceTelemetry.Snapshot(),
         OutBundlePath,
         OutError);
 }

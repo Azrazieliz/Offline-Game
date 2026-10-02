@@ -63,3 +63,20 @@ succeeds:
 
 Android cook/package and sustained S26 Ultra profiling remain the following
 device gate.
+
+
+## Gate coupling
+
+A successful Windows compile + automation run writes
+`Saved/Automation/last_unreal_gate.json` with the exact Git commit and UE root.
+The Android packaging script refuses to run when this stamp is absent or stale.
+This prevents a device package from bypassing the required preflight -> compile
+-> automation order.
+
+`Scripts/android_unreal_package.ps1` then uses UE Turnkey to verify the Android
+SDK before attempting a Development cook/package. It is device-gate tooling; its
+existence does not mean an Android package has passed yet.
+
+Diagnostics generated through `UOGGameCoreSubsystem` now include the current
+aggregate performance snapshot alongside schema/integrity metadata, without
+copying world/save payloads.

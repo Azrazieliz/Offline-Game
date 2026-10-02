@@ -10,6 +10,7 @@ $Project = Join-Path $Root "OfflineGame.uproject"
 $ReportDir = Join-Path $Root "Saved\Automation\Reports"
 $BuildConfigDir = Join-Path $Root "Saved\UnrealBuildTool"
 $BuildConfig = Join-Path $BuildConfigDir "BuildConfiguration.xml"
+$GateStamp = Join-Path $Root "Saved\Automation\last_unreal_gate.json"
 
 function Invoke-Checked {
     param(
@@ -100,6 +101,7 @@ $xml | Set-Content -Path $BuildConfig -Encoding UTF8
 
 New-Item -ItemType Directory -Force -Path $ReportDir | Out-Null
 Get-ChildItem -Path $ReportDir -Force -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force
+Remove-Item -Path $GateStamp -Force -ErrorAction SilentlyContinue
 
 Write-Host "=== Unreal project compile (Win64 Development Editor) ===" -ForegroundColor Cyan
 
@@ -132,5 +134,16 @@ $testArgs = @(
 
 Invoke-Checked -FilePath $EditorCmd -Arguments $testArgs
 
+$Head = (& git -C $Root rev-parse HEAD).Trim()
+$GateRecord = [ordered]@{
+    commit = $Head
+    engine_root = $EngineRoot
+    completed_utc = [DateTime]::UtcNow.ToString("o")
+    compile = "passed"
+    automation = "passed"
+}
+$GateRecord | ConvertTo-Json | Set-Content -Path $GateStamp -Encoding UTF8
+
 Write-Host "Unreal compile + OfflineGame automation tests completed." -ForegroundColor Green
 Write-Host "Reports: $ReportDir"
+Write-Host "Gate stamp: $GateStamp"

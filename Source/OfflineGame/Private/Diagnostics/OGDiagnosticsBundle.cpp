@@ -15,6 +15,36 @@ bool FOGDiagnosticsBundle::Write(
     FString& OutBundlePath,
     FString& OutError)
 {
+    return WriteInternal(
+        Store,
+        OutputDirectory,
+        nullptr,
+        OutBundlePath,
+        OutError);
+}
+
+bool FOGDiagnosticsBundle::Write(
+    IOGWorldStore& Store,
+    const FString& OutputDirectory,
+    const FOGPerformanceTelemetrySnapshot& Telemetry,
+    FString& OutBundlePath,
+    FString& OutError)
+{
+    return WriteInternal(
+        Store,
+        OutputDirectory,
+        &Telemetry,
+        OutBundlePath,
+        OutError);
+}
+
+bool FOGDiagnosticsBundle::WriteInternal(
+    IOGWorldStore& Store,
+    const FString& OutputDirectory,
+    const FOGPerformanceTelemetrySnapshot* Telemetry,
+    FString& OutBundlePath,
+    FString& OutError)
+{
     OutBundlePath.Reset();
     OutError.Reset();
 
@@ -82,6 +112,44 @@ bool FOGDiagnosticsBundle::Write(
     Root->SetNumberField(
         TEXT("database_bytes"),
         static_cast<double>(DatabaseBytes));
+
+    if (Telemetry)
+    {
+        TSharedRef<FJsonObject> Performance =
+            MakeShared<FJsonObject>();
+        Performance->SetNumberField(
+            TEXT("profile"),
+            static_cast<int32>(
+                Telemetry->Profile));
+        Performance->SetNumberField(
+            TEXT("target_fps"),
+            Telemetry->TargetFps);
+        Performance->SetNumberField(
+            TEXT("frame_count"),
+            static_cast<double>(
+                Telemetry->FrameCount));
+        Performance->SetNumberField(
+            TEXT("frames_over_budget"),
+            static_cast<double>(
+                Telemetry->FramesOverBudget));
+        Performance->SetNumberField(
+            TEXT("hitch_count"),
+            static_cast<double>(
+                Telemetry->HitchCount));
+        Performance->SetNumberField(
+            TEXT("average_frame_ms"),
+            Telemetry->AverageFrameMs);
+        Performance->SetNumberField(
+            TEXT("worst_frame_ms"),
+            Telemetry->WorstFrameMs);
+        Performance->SetNumberField(
+            TEXT("last_frame_ms"),
+            Telemetry->LastFrameMs);
+
+        Root->SetObjectField(
+            TEXT("performance"),
+            Performance);
+    }
 
     FString Json;
     const TSharedRef<TJsonWriter<>> Writer =
