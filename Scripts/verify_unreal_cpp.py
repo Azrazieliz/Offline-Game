@@ -213,11 +213,22 @@ if build_cs.exists():
                         "SQLiteCore is a Build.cs dependency but is not enabled in the project descriptor",
                     )
 
-# 7) Guard against accidentally reintroducing known stale design notes into code.
+# 7) Guard against accidentally reintroducing known stale design/code drift.
+version_ids_declared = any(
+    re.search(r"\\bVersionIds\\b\\s*(?:=|;)", read(path))
+    for path in headers
+)
 for path in all_cpp:
     text = read(path)
     if "2 Crit Rate" in text and "1 Crit Damage" in text:
         err(path.relative_to(ROOT), "stale crit-overflow direction detected")
+
+    if not version_ids_declared and re.search(r"\\.\\s*VersionIds\\b", text):
+        err(
+            path.relative_to(ROOT),
+            "stale VersionIds member access: Character Version points to Identity; "
+            "Identity does not own a mutable Version list",
+        )
 
 print(f"Unreal C++ preflight scanned {len(headers)} headers and {len(cpps)} cpp files.")
 for w in WARNINGS:

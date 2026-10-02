@@ -15,10 +15,12 @@ It currently checks:
 
 - Unreal Header Tool generated-header ordering/presence;
 - module-local include existence;
-- reflected-property hazards caught textually;
+- reflected-property hazards caught textually, including Blueprint-incompatible integer exposure;
 - SQLite world-store declaration/definition parity and duplicate definitions;
 - migration/schema-version test consistency;
+- automation-test declaration/implementation parity;
 - required module dependencies inferred from source usage;
-- selected stale architecture-rule regressions.
+- Unreal 5.8 project/module/plugin descriptor consistency;
+- selected stale architecture/code regressions such as removed Character Identity Version lists.
 
 This does not replace UnrealBuildTool/UHT/compiler/automation tests. It is the mandatory low-cost gate before them.

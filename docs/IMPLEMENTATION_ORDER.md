@@ -9,7 +9,7 @@
 - [x] bootstrap SQLite schema
 - [x] pin Unreal Engine 5.8 as the initial build target
 - [x] add repository-contract CI validation
-- [ ] add Unreal compile/test runner
+- [x] add Unreal compile/test runner workflow/configuration
 
 ## Phase B - Persistence foundation
 - [x] SQLiteCore adapter
@@ -23,7 +23,7 @@
 - [x] backup/restore automation test
 - [ ] compile and run the Unreal automation tests on the real build runner
 - [ ] developer state inspector UI/commands
-- [ ] automatic rotating snapshot policy
+- [x] automatic rotating snapshot policy
 
 ## Phase C - Character/content identity
 - [x] content-definition IDs
