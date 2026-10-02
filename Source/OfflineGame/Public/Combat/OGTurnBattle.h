@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Combat/OGCombatLog.h"
+#include "Combat/OGCombatTriggerRuntime.h"
 #include "Combat/OGCombatTypes.h"
 #include "OGTurnBattle.generated.h"
 
@@ -21,7 +22,7 @@ struct OFFLINEGAME_API FOGTurnSuccessionLane
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int32 LaneIndex = 0;
 
-    /** Opening unit -> second-wave successor -> third-wave successor. */
+    /** Preferred order: opening unit -> second-wave -> third-wave. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     TArray<FOGEntityId> OrderedUnitIds;
 };
@@ -74,13 +75,6 @@ struct OFFLINEGAME_API FOGTurnBattleState
     int64 CurrentActionValue = 0;
 };
 
-/**
- * Minimal deterministic turn executor.
- *
- * It owns ordering/state transitions, not damage formulas. Resolution data is
- * supplied by the rule/combat-math layer so the executor can remain stable while
- * formulas evolve.
- */
 class OFFLINEGAME_API FOGTurnBattle
 {
 public:
@@ -88,25 +82,17 @@ public:
         const FOGTurnBattleState& InitialState,
         FString& OutError);
 
-    const FOGTurnBattleState& GetState() const
-    {
-        return State;
-    }
+    bool Initialize(
+        const FOGTurnBattleState& InitialState,
+        TArray<FOGCombatTriggerBinding> TriggerBindings,
+        FOGCombatConditionEvaluator ConditionEvaluator,
+        FString& OutError);
 
-    const FOGCombatLog& GetLog() const
-    {
-        return Log;
-    }
+    const FOGTurnBattleState& GetState() const { return State; }
+    const FOGCombatLog& GetLog() const { return Log; }
 
-    /** Returns INDEX_NONE when no active living unit can act. */
     int32 SelectNextActingUnitIndex() const;
 
-    /**
-     * Resolves ordering metadata for an already-resolved action.
-     * InterruptPriority > 0 allows an action to resolve before ordinary action.
-     *
-     * Pending normal succession replacements are promoted after this action.
-     */
     bool ApplyResolvedAction(
         const FOGResolvedCombatAction& Action,
         FString& OutError);
@@ -131,24 +117,61 @@ public:
         FString& OutError);
 
     /**
-     * Promotes direct-lane successors for units defeated during the just-finished
-     * action. Entry/passive mechanics may override this through explicit rules.
+     * Finalizes a completed action after all OnDefeat/revival actions have been
+     * resolved. Direct successors are preferred. Any still-empty battlefield
+     * lane is then filled from other surviving reserves when possible.
      */
     bool ResolvePendingReplacements(FString& OutError);
+
+    /** Triggered actions are resolved by the normal effect/action layer. */
+    TArray<FOGQueuedTriggeredAction> DrainTriggeredActions();
+
+    /**
+     * Call after a queued triggered action has fully applied its effects.
+     * The last completed defeat-trigger action automatically closes the revival
+     * window and performs succession/rebalancing.
+     */
+    bool CompleteTriggeredAction(
+        int64 QueueSequence,
+        FString& OutError);
 
 private:
     FOGCombatUnitState* FindMutableUnit(const FOGEntityId& UnitId);
     const FOGCombatUnitState* FindUnit(const FOGEntityId& UnitId) const;
     const FOGTurnTeamState* FindTeam(int32 TeamIndex) const;
-    const FOGTurnSuccessionLane* FindLaneContaining(
+    const FOGTurnSuccessionLane* FindOriginLane(
         int32 TeamIndex,
         const FOGEntityId& UnitId,
-        int32& OutUnitIndex) const;
+        int32& OutUnitDepth) const;
 
+    bool NormalizeOpeningLanes(FString& OutError);
+    FOGCombatUnitState* FindPreferredDirectSuccessor(
+        const FOGCombatUnitState& Defeated);
+    FOGCombatUnitState* FindFallbackReserve(
+        int32 TeamIndex);
+    bool IsBattlefieldLaneOccupied(
+        int32 TeamIndex,
+        int32 BattlefieldLane) const;
+    void PromoteIntoLane(
+        FOGCombatUnitState& Unit,
+        int32 BattlefieldLane,
+        const TCHAR* Reason);
+
+    void QueueTriggerEvent(
+        FName EventType,
+        const FOGEntityId& SourceUnitId,
+        const FOGEntityId& TargetUnitId,
+        const FOGContentId& SkillId,
+        int64 SourceSequence);
+
+    void FlushTriggerRuntimeQueueToBattleQueue();
     void EvaluateBattleCompletion();
     bool ValidateInitialState(FString& OutError) const;
 
     FOGTurnBattleState State;
     FOGCombatLog Log;
+    FOGCombatTriggerRuntime TriggerRuntime;
+    TArray<FOGQueuedTriggeredAction> PendingTriggeredActions;
+    TSet<int64> OutstandingTriggeredActionSequences;
     TArray<FOGEntityId> PendingDefeatedUnitIds;
 };

@@ -11,6 +11,7 @@ enum class EOGCombatLogEventType : uint8
     BattleStarted,
     ActionDeclared,
     ActionResolved,
+    TriggeredActionQueued,
     DamageApplied,
     HealingApplied,
     UnitDefeated,
@@ -47,10 +48,9 @@ class OFFLINEGAME_API FOGCombatLog
 public:
     void Append(FOGCombatLogEvent Event);
 
-    const TArray<FOGCombatLogEvent>& GetEvents() const
-    {
-        return Events;
-    }
+    const TArray<FOGCombatLogEvent>& GetEvents() const { return Events; }
+
+    int64 GetNextSequence() const { return NextSequence; }
 
     void Reset()
     {

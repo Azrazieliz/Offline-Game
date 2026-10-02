@@ -43,7 +43,6 @@
 - [x] deterministic RNG/seed provenance
 - [x] resolved character skill set
 - [ ] compile and run Phase D Unreal automation tests on the real build runner
-- [ ] final combat formulas/tuning (intentionally deferred to Phase E)
 
 ## Phase E - Combat proof
 - [x] minimal turn executor foundation
@@ -54,8 +53,9 @@
 - [x] timeline/defeat/identity-exclusivity automation tests authored
 - [x] baseline damage/hit/crit/block resolver
 - [x] resource/cost/skill readiness framework
-- [x] direct-lane reserve succession after defeat
-- [ ] entry/defeat passive trigger execution
+- [x] preferred succession lanes + dynamic cross-lane fallback
+- [x] revival-before-succession ordering
+- [x] battle/defeat/entry trigger queue foundation
 - [ ] deterministic full-battle replay test
 - [ ] compile and run Phase E Unreal automation tests on the real build runner
 

@@ -24,8 +24,24 @@ bool FOGTurnBattle::Initialize(
     const FOGTurnBattleState& InitialState,
     FString& OutError)
 {
+    return Initialize(
+        InitialState,
+        TArray<FOGCombatTriggerBinding>(),
+        FOGCombatConditionEvaluator(),
+        OutError);
+}
+
+bool FOGTurnBattle::Initialize(
+    const FOGTurnBattleState& InitialState,
+    TArray<FOGCombatTriggerBinding> TriggerBindings,
+    FOGCombatConditionEvaluator ConditionEvaluator,
+    FString& OutError)
+{
     State = InitialState;
     Log.Reset();
+    TriggerRuntime.Reset();
+    PendingTriggeredActions.Reset();
+    OutstandingTriggeredActionSequences.Reset();
     PendingDefeatedUnitIds.Reset();
     OutError.Reset();
 
@@ -35,7 +51,18 @@ bool FOGTurnBattle::Initialize(
         return false;
     }
 
+    if (!NormalizeOpeningLanes(OutError))
+    {
+        State.Status = EOGTurnBattleStatus::NotStarted;
+        return false;
+    }
+
+    TriggerRuntime.SetBindings(MoveTemp(TriggerBindings));
+    TriggerRuntime.SetConditionEvaluator(MoveTemp(ConditionEvaluator));
+
     State.Status = EOGTurnBattleStatus::Running;
+
+    const int64 StartSequence = Log.GetNextSequence();
 
     FOGCombatLogEvent Event;
     Event.Type = EOGCombatLogEventType::BattleStarted;
@@ -44,6 +71,14 @@ bool FOGTurnBattle::Initialize(
         *State.BattleId.ToString());
     Log.Append(MoveTemp(Event));
 
+    QueueTriggerEvent(
+        OGCombatEventNames::BattleStart(),
+        FOGEntityId(),
+        FOGEntityId(),
+        FOGContentId(),
+        StartSequence);
+
+    FlushTriggerRuntimeQueueToBattleQueue();
     EvaluateBattleCompletion();
     return true;
 }
@@ -62,12 +97,29 @@ bool FOGTurnBattle::ValidateInitialState(FString& OutError) const
         return false;
     }
 
+    TSet<int32> TeamIndices;
+    for (const FOGTurnTeamState& Team : State.Teams)
+    {
+        if (TeamIndices.Contains(Team.TeamIndex))
+        {
+            OutError = TEXT("Turn battle contains duplicate team indices.");
+            return false;
+        }
+        TeamIndices.Add(Team.TeamIndex);
+    }
+
     TSet<FOGEntityId> UnitIds;
     for (const FOGCombatUnitState& Unit : State.Units)
     {
         if (!Unit.UnitEntityId.IsValid())
         {
             OutError = TEXT("Turn battle contains a unit with an invalid entity ID.");
+            return false;
+        }
+
+        if (!TeamIndices.Contains(Unit.TeamIndex))
+        {
+            OutError = TEXT("Turn battle contains a unit assigned to an unknown team.");
             return false;
         }
 
@@ -130,6 +182,8 @@ bool FOGTurnBattle::ValidateInitialState(FString& OutError) const
                 return false;
             }
 
+            int32 ActiveInOriginLane = 0;
+
             for (const FOGEntityId& UnitId : Lane.OrderedUnitIds)
             {
                 if (!UnitIds.Contains(UnitId))
@@ -151,7 +205,19 @@ bool FOGTurnBattle::ValidateInitialState(FString& OutError) const
                     return false;
                 }
 
+                if (Unit->Presence == EOGCombatPresence::Active &&
+                    Unit->IsAlive())
+                {
+                    ++ActiveInOriginLane;
+                }
+
                 FormationIds.Add(UnitId);
+            }
+
+            if (ActiveInOriginLane > 1)
+            {
+                OutError = TEXT("Initial formation may not start with multiple active units from the same origin succession lane.");
+                return false;
             }
         }
     }
@@ -165,8 +231,109 @@ bool FOGTurnBattle::ValidateInitialState(FString& OutError) const
     return true;
 }
 
+bool FOGTurnBattle::NormalizeOpeningLanes(FString& OutError)
+{
+    OutError.Reset();
+
+    for (FOGCombatUnitState& Unit : State.Units)
+    {
+        if (Unit.Presence != EOGCombatPresence::Active ||
+            !Unit.IsAlive())
+        {
+            Unit.OccupiedLaneIndex = INDEX_NONE;
+        }
+    }
+
+    for (const FOGTurnTeamState& Team : State.Teams)
+    {
+        for (const FOGTurnSuccessionLane& Lane : Team.Lanes)
+        {
+            FOGCombatUnitState* ExistingActive = nullptr;
+
+            for (const FOGEntityId& UnitId : Lane.OrderedUnitIds)
+            {
+                FOGCombatUnitState* Unit = FindMutableUnit(UnitId);
+                if (Unit &&
+                    Unit->Presence == EOGCombatPresence::Active &&
+                    Unit->IsAlive())
+                {
+                    ExistingActive = Unit;
+                    break;
+                }
+            }
+
+            if (ExistingActive)
+            {
+                ExistingActive->OccupiedLaneIndex = Lane.LaneIndex;
+                continue;
+            }
+
+            for (const FOGEntityId& UnitId : Lane.OrderedUnitIds)
+            {
+                FOGCombatUnitState* Unit = FindMutableUnit(UnitId);
+                if (!Unit ||
+                    !Unit->IsAlive() ||
+                    Unit->Presence == EOGCombatPresence::Defeated ||
+                    Unit->Presence == EOGCombatPresence::Removed)
+                {
+                    continue;
+                }
+
+                Unit->Presence = EOGCombatPresence::Active;
+                Unit->OccupiedLaneIndex = Lane.LaneIndex;
+                Unit->NextActionValue =
+                    FMath::Max(
+                        Unit->NextActionValue,
+                        State.CurrentActionValue +
+                            FMath::Max<int64>(
+                                1,
+                                Unit->DefaultActionDelay));
+                break;
+            }
+        }
+
+        // If an entire preferred lane is exhausted, do not preserve a useless
+        // hole while another origin lane still has surviving reserves.
+        for (const FOGTurnSuccessionLane& Lane : Team.Lanes)
+        {
+            if (IsBattlefieldLaneOccupied(
+                    Team.TeamIndex,
+                    Lane.LaneIndex))
+            {
+                continue;
+            }
+
+            FOGCombatUnitState* Fallback =
+                FindFallbackReserve(
+                    Team.TeamIndex);
+
+            if (!Fallback)
+            {
+                continue;
+            }
+
+            Fallback->Presence = EOGCombatPresence::Active;
+            Fallback->OccupiedLaneIndex = Lane.LaneIndex;
+            Fallback->NextActionValue =
+                FMath::Max(
+                    Fallback->NextActionValue,
+                    State.CurrentActionValue +
+                        FMath::Max<int64>(
+                            1,
+                            Fallback->DefaultActionDelay));
+        }
+    }
+
+    return true;
+}
+
 int32 FOGTurnBattle::SelectNextActingUnitIndex() const
 {
+    if (!OutstandingTriggeredActionSequences.IsEmpty())
+    {
+        return INDEX_NONE;
+    }
+
     int32 BestIndex = INDEX_NONE;
 
     for (int32 Index = 0; Index < State.Units.Num(); ++Index)
@@ -222,19 +389,29 @@ bool FOGTurnBattle::ApplyResolvedAction(
         return false;
     }
 
-    const int32 NextIndex = SelectNextActingUnitIndex();
-    if (NextIndex == INDEX_NONE)
-    {
-        OutError = TEXT("No combat unit can act.");
-        return false;
-    }
-
     const bool bInterrupt = Action.InterruptPriority > 0;
-    if (!bInterrupt &&
-        State.Units[NextIndex].UnitEntityId != Action.SourceUnitId)
+
+    if (!bInterrupt)
     {
-        OutError = TEXT("Ordinary action was submitted by a unit that is not next on the action timeline.");
-        return false;
+        if (!OutstandingTriggeredActionSequences.IsEmpty())
+        {
+            OutError = TEXT("Triggered actions must resolve before the next ordinary turn action.");
+            return false;
+        }
+
+        const int32 NextIndex = SelectNextActingUnitIndex();
+        if (NextIndex == INDEX_NONE)
+        {
+            OutError = TEXT("No combat unit can act.");
+            return false;
+        }
+
+        if (State.Units[NextIndex].UnitEntityId !=
+            Action.SourceUnitId)
+        {
+            OutError = TEXT("Ordinary action was submitted by a unit that is not next on the action timeline.");
+            return false;
+        }
     }
 
     FOGCombatLogEvent Declared;
@@ -249,10 +426,15 @@ bool FOGTurnBattle::ApplyResolvedAction(
     if (!bInterrupt)
     {
         State.CurrentActionValue =
-            FMath::Max(State.CurrentActionValue, Source->NextActionValue);
+            FMath::Max(
+                State.CurrentActionValue,
+                Source->NextActionValue);
 
         Source->NextActionValue =
-            State.CurrentActionValue + FMath::Max<int64>(1, Action.ActionDelay);
+            State.CurrentActionValue +
+            FMath::Max<int64>(
+                1,
+                Action.ActionDelay);
     }
 
     FOGCombatLogEvent Resolved;
@@ -262,12 +444,13 @@ bool FOGTurnBattle::ApplyResolvedAction(
     Resolved.PayloadJson = Action.ResolutionJson;
     Log.Append(MoveTemp(Resolved));
 
-    if (!ResolvePendingReplacements(OutError))
+    FlushTriggerRuntimeQueueToBattleQueue();
+
+    if (OutstandingTriggeredActionSequences.IsEmpty())
     {
-        return false;
+        return ResolvePendingReplacements(OutError);
     }
 
-    EvaluateBattleCompletion();
     return true;
 }
 
@@ -280,35 +463,35 @@ bool FOGTurnBattle::ApplyDamage(
 {
     OutError.Reset();
 
-    if (FOGLargeNumber::Compare(Amount, FOGLargeNumber()) < 0)
+    if (FOGLargeNumber::Compare(
+            Amount,
+            FOGLargeNumber()) < 0)
     {
         OutError = TEXT("Damage amount cannot be negative.");
         return false;
     }
 
-    FOGCombatUnitState* Target = FindMutableUnit(TargetUnitId);
+    FOGCombatUnitState* Target =
+        FindMutableUnit(TargetUnitId);
+
     if (!Target || !Target->IsAlive())
     {
         OutError = TEXT("Damage target is missing or already defeated.");
         return false;
     }
 
-    FOGLargeNumber NegativeAmount(-Amount.Significand, Amount.Exponent10);
-    Target->CurrentHp = FOGLargeNumber::Add(Target->CurrentHp, NegativeAmount);
+    FOGLargeNumber NegativeAmount(
+        -Amount.Significand,
+        Amount.Exponent10);
 
-    if (FOGLargeNumber::Compare(Target->CurrentHp, FOGLargeNumber()) <= 0)
-    {
-        Target->CurrentHp = FOGLargeNumber();
-        Target->Presence = EOGCombatPresence::Defeated;
-
-        if (!PendingDefeatedUnitIds.Contains(TargetUnitId))
-        {
-            PendingDefeatedUnitIds.Add(TargetUnitId);
-        }
-    }
+    Target->CurrentHp =
+        FOGLargeNumber::Add(
+            Target->CurrentHp,
+            NegativeAmount);
 
     FOGCombatLogEvent Damage;
-    Damage.Type = EOGCombatLogEventType::DamageApplied;
+    Damage.Type =
+        EOGCombatLogEventType::DamageApplied;
     Damage.SourceUnitId = SourceUnitId;
     Damage.TargetUnitId = TargetUnitId;
     Damage.SkillId = SkillId;
@@ -317,17 +500,40 @@ bool FOGTurnBattle::ApplyDamage(
         *Amount.ToDebugString());
     Log.Append(MoveTemp(Damage));
 
-    if (Target->Presence == EOGCombatPresence::Defeated)
+    if (FOGLargeNumber::Compare(
+            Target->CurrentHp,
+            FOGLargeNumber()) <= 0)
     {
+        Target->CurrentHp = FOGLargeNumber();
+        Target->Presence =
+            EOGCombatPresence::Defeated;
+
+        if (!PendingDefeatedUnitIds.Contains(
+                TargetUnitId))
+        {
+            PendingDefeatedUnitIds.Add(
+                TargetUnitId);
+        }
+
+        const int64 DefeatSequence =
+            Log.GetNextSequence();
+
         FOGCombatLogEvent Defeat;
-        Defeat.Type = EOGCombatLogEventType::UnitDefeated;
+        Defeat.Type =
+            EOGCombatLogEventType::UnitDefeated;
         Defeat.SourceUnitId = SourceUnitId;
         Defeat.TargetUnitId = TargetUnitId;
         Defeat.SkillId = SkillId;
         Log.Append(MoveTemp(Defeat));
+
+        QueueTriggerEvent(
+            OGCombatEventNames::Defeat(),
+            SourceUnitId,
+            TargetUnitId,
+            SkillId,
+            DefeatSequence);
     }
 
-    EvaluateBattleCompletion();
     return true;
 }
 
@@ -340,23 +546,33 @@ bool FOGTurnBattle::ApplyHealing(
 {
     OutError.Reset();
 
-    if (FOGLargeNumber::Compare(Amount, FOGLargeNumber()) < 0)
+    if (FOGLargeNumber::Compare(
+            Amount,
+            FOGLargeNumber()) < 0)
     {
         OutError = TEXT("Healing amount cannot be negative.");
         return false;
     }
 
-    FOGCombatUnitState* Target = FindMutableUnit(TargetUnitId);
-    if (!Target || Target->Presence == EOGCombatPresence::Removed)
+    FOGCombatUnitState* Target =
+        FindMutableUnit(TargetUnitId);
+
+    if (!Target ||
+        Target->Presence ==
+            EOGCombatPresence::Removed)
     {
         OutError = TEXT("Healing target is missing or removed.");
         return false;
     }
 
-    Target->CurrentHp = FOGLargeNumber::Add(Target->CurrentHp, Amount);
+    Target->CurrentHp =
+        FOGLargeNumber::Add(
+            Target->CurrentHp,
+            Amount);
 
     FOGCombatLogEvent Healing;
-    Healing.Type = EOGCombatLogEventType::HealingApplied;
+    Healing.Type =
+        EOGCombatLogEventType::HealingApplied;
     Healing.SourceUnitId = SourceUnitId;
     Healing.TargetUnitId = TargetUnitId;
     Healing.SkillId = SkillId;
@@ -375,23 +591,36 @@ bool FOGTurnBattle::ChangePresence(
 {
     OutError.Reset();
 
-    FOGCombatUnitState* Unit = FindMutableUnit(UnitId);
+    FOGCombatUnitState* Unit =
+        FindMutableUnit(UnitId);
+
     if (!Unit)
     {
         OutError = TEXT("Combat unit not found.");
         return false;
     }
 
-    if (NewPresence == EOGCombatPresence::Active)
+    if (NewPresence ==
+        EOGCombatPresence::Active)
     {
         if (!Unit->IsAlive())
         {
-            OutError = TEXT("Defeated unit cannot become active without an explicit revival mechanic.");
+            OutError = TEXT("Defeated unit cannot become active without first being restored above zero HP.");
             return false;
         }
 
-        if (CountActiveForTeam(State.Units, Unit->TeamIndex) >=
-            FOGTurnTeamState::MaxActiveSize)
+        if (Unit->OccupiedLaneIndex == INDEX_NONE)
+        {
+            OutError = TEXT("Activation requires an occupied battlefield lane. Use promotion/replacement mechanics for a reserve.");
+            return false;
+        }
+
+        if (CountActiveForTeam(
+                State.Units,
+                Unit->TeamIndex) >=
+            FOGTurnTeamState::MaxActiveSize &&
+            Unit->Presence !=
+                EOGCombatPresence::Active)
         {
             OutError = TEXT("Cannot exceed six active characters on a turn-combat team.");
             return false;
@@ -400,30 +629,47 @@ bool FOGTurnBattle::ChangePresence(
 
     Unit->Presence = NewPresence;
 
+    if (NewPresence !=
+            EOGCombatPresence::Active &&
+        NewPresence !=
+            EOGCombatPresence::Defeated)
+    {
+        Unit->OccupiedLaneIndex = INDEX_NONE;
+    }
+
     FOGCombatLogEvent Event;
-    Event.Type = EOGCombatLogEventType::PresenceChanged;
+    Event.Type =
+        EOGCombatLogEventType::PresenceChanged;
     Event.SourceUnitId = UnitId;
     Event.PayloadJson = FString::Printf(
         TEXT("{\"presence\":%d}"),
         static_cast<int32>(NewPresence));
     Log.Append(MoveTemp(Event));
 
-    EvaluateBattleCompletion();
     return true;
 }
 
-bool FOGTurnBattle::ResolvePendingReplacements(FString& OutError)
+bool FOGTurnBattle::ResolvePendingReplacements(
+    FString& OutError)
 {
     OutError.Reset();
+
+    if (!OutstandingTriggeredActionSequences.IsEmpty())
+    {
+        OutError = TEXT("Cannot perform succession before all defeat-triggered actions have resolved.");
+        return false;
+    }
 
     TArray<FOGEntityId> Pending =
         MoveTemp(PendingDefeatedUnitIds);
     PendingDefeatedUnitIds.Reset();
 
+    // Pass 1: direct successors. Revival has priority because a unit restored to
+    // Active keeps its occupied lane and therefore creates no vacancy.
     for (const FOGEntityId& DefeatedId : Pending)
     {
-        const FOGCombatUnitState* Defeated =
-            FindUnit(DefeatedId);
+        FOGCombatUnitState* Defeated =
+            FindMutableUnit(DefeatedId);
 
         if (!Defeated)
         {
@@ -431,76 +677,124 @@ bool FOGTurnBattle::ResolvePendingReplacements(FString& OutError)
             return false;
         }
 
-        int32 DefeatedLaneIndex = INDEX_NONE;
-        const FOGTurnSuccessionLane* Lane =
-            FindLaneContaining(
-                Defeated->TeamIndex,
-                DefeatedId,
-                DefeatedLaneIndex);
-
-        if (!Lane)
+        if (Defeated->Presence ==
+                EOGCombatPresence::Active &&
+            Defeated->IsAlive())
         {
-            OutError = TEXT("Defeated unit is missing from its succession lane.");
-            return false;
+            continue;
         }
 
-        for (int32 Index = DefeatedLaneIndex + 1;
-             Index < Lane->OrderedUnitIds.Num();
-             ++Index)
-        {
-            FOGCombatUnitState* Successor =
-                FindMutableUnit(
-                    Lane->OrderedUnitIds[Index]);
+        const int32 VacatedLane =
+            Defeated->OccupiedLaneIndex;
 
-            if (!Successor ||
-                !Successor->IsAlive() ||
-                Successor->Presence == EOGCombatPresence::Removed ||
-                Successor->Presence == EOGCombatPresence::Defeated)
+        Defeated->OccupiedLaneIndex =
+            INDEX_NONE;
+
+        if (VacatedLane == INDEX_NONE ||
+            IsBattlefieldLaneOccupied(
+                Defeated->TeamIndex,
+                VacatedLane))
+        {
+            continue;
+        }
+
+        if (FOGCombatUnitState* Direct =
+                FindPreferredDirectSuccessor(
+                    *Defeated))
+        {
+            PromoteIntoLane(
+                *Direct,
+                VacatedLane,
+                TEXT("direct_successor"));
+        }
+    }
+
+    // Pass 2: global team rebalance. Preferred succession lanes are not sacred
+    // empty slots. If a lane is exhausted, surviving reserves from another
+    // origin lane may fill it.
+    for (const FOGTurnTeamState& Team :
+         State.Teams)
+    {
+        TArray<int32> BattlefieldLanes;
+        for (const FOGTurnSuccessionLane& Lane :
+             Team.Lanes)
+        {
+            BattlefieldLanes.Add(
+                Lane.LaneIndex);
+        }
+
+        BattlefieldLanes.Sort();
+
+        for (const int32 LaneIndex :
+             BattlefieldLanes)
+        {
+            if (IsBattlefieldLaneOccupied(
+                    Team.TeamIndex,
+                    LaneIndex))
             {
                 continue;
             }
 
-            if (Successor->Presence == EOGCombatPresence::Active)
+            FOGCombatUnitState* Fallback =
+                FindFallbackReserve(
+                    Team.TeamIndex);
+
+            if (!Fallback)
             {
-                break;
+                continue;
             }
 
-            if (CountActiveForTeam(
-                    State.Units,
-                    Successor->TeamIndex) >=
-                FOGTurnTeamState::MaxActiveSize)
-            {
-                OutError = TEXT("Cannot promote successor because six active slots are already occupied.");
-                return false;
-            }
-
-            Successor->Presence =
-                EOGCombatPresence::Active;
-
-            Successor->NextActionValue =
-                FMath::Max(
-                    Successor->NextActionValue,
-                    State.CurrentActionValue +
-                        FMath::Max<int64>(
-                            1,
-                            Successor->DefaultActionDelay));
-
-            FOGCombatLogEvent Event;
-            Event.Type = EOGCombatLogEventType::PresenceChanged;
-            Event.SourceUnitId =
-                Successor->UnitEntityId;
-            Event.PayloadJson =
-                FString::Printf(
-                    TEXT("{\"presence\":%d,\"reason\":\"succession\"}"),
-                    static_cast<int32>(
-                        EOGCombatPresence::Active));
-            Log.Append(MoveTemp(Event));
-
-            break;
+            PromoteIntoLane(
+                *Fallback,
+                LaneIndex,
+                TEXT("cross_lane_rebalance"));
         }
     }
 
-    EvaluateBattleCompletion();
+    FlushTriggerRuntimeQueueToBattleQueue();
+
+    if (OutstandingTriggeredActionSequences.IsEmpty())
+    {
+        EvaluateBattleCompletion();
+    }
+
+    return true;
+}
+
+TArray<FOGQueuedTriggeredAction>
+FOGTurnBattle::DrainTriggeredActions()
+{
+    TArray<FOGQueuedTriggeredAction> Result =
+        MoveTemp(PendingTriggeredActions);
+    PendingTriggeredActions.Reset();
+    return Result;
+}
+
+bool FOGTurnBattle::CompleteTriggeredAction(
+    int64 QueueSequence,
+    FString& OutError)
+{
+    OutError.Reset();
+
+    if (!OutstandingTriggeredActionSequences.Contains(
+            QueueSequence))
+    {
+        OutError = TEXT("Triggered action sequence is unknown or already completed.");
+        return false;
+    }
+
+    OutstandingTriggeredActionSequences.Remove(
+        QueueSequence);
+
+    // Triggered effects may themselves have generated new events.
+    FlushTriggerRuntimeQueueToBattleQueue();
+
+    if (OutstandingTriggeredActionSequences.IsEmpty())
+    {
+        return ResolvePendingReplacements(
+            OutError);
+    }
+
     return true;
 }
 
@@ -530,16 +824,18 @@ const FOGTurnTeamState* FOGTurnBattle::FindTeam(
     return State.Teams.FindByPredicate(
         [TeamIndex](const FOGTurnTeamState& Team)
         {
-            return Team.TeamIndex == TeamIndex;
+            return Team.TeamIndex ==
+                   TeamIndex;
         });
 }
 
-const FOGTurnSuccessionLane* FOGTurnBattle::FindLaneContaining(
+const FOGTurnSuccessionLane*
+FOGTurnBattle::FindOriginLane(
     int32 TeamIndex,
     const FOGEntityId& UnitId,
-    int32& OutUnitIndex) const
+    int32& OutUnitDepth) const
 {
-    OutUnitIndex = INDEX_NONE;
+    OutUnitDepth = INDEX_NONE;
 
     const FOGTurnTeamState* Team =
         FindTeam(TeamIndex);
@@ -549,18 +845,21 @@ const FOGTurnSuccessionLane* FOGTurnBattle::FindLaneContaining(
         return nullptr;
     }
 
-    for (const FOGTurnSuccessionLane& Lane : Team->Lanes)
+    for (const FOGTurnSuccessionLane& Lane :
+         Team->Lanes)
     {
         const int32 Index =
             Lane.OrderedUnitIds.IndexOfByPredicate(
-                [&UnitId](const FOGEntityId& Candidate)
+                [&UnitId](
+                    const FOGEntityId& Candidate)
                 {
-                    return Candidate == UnitId;
+                    return Candidate ==
+                           UnitId;
                 });
 
         if (Index != INDEX_NONE)
         {
-            OutUnitIndex = Index;
+            OutUnitDepth = Index;
             return &Lane;
         }
     }
@@ -568,24 +867,256 @@ const FOGTurnSuccessionLane* FOGTurnBattle::FindLaneContaining(
     return nullptr;
 }
 
+FOGCombatUnitState*
+FOGTurnBattle::FindPreferredDirectSuccessor(
+    const FOGCombatUnitState& Defeated)
+{
+    int32 Depth = INDEX_NONE;
+    const FOGTurnSuccessionLane* Lane =
+        FindOriginLane(
+            Defeated.TeamIndex,
+            Defeated.UnitEntityId,
+            Depth);
+
+    if (!Lane)
+    {
+        return nullptr;
+    }
+
+    for (int32 Index = Depth + 1;
+         Index < Lane->OrderedUnitIds.Num();
+         ++Index)
+    {
+        FOGCombatUnitState* Candidate =
+            FindMutableUnit(
+                Lane->OrderedUnitIds[Index]);
+
+        if (Candidate &&
+            Candidate->Presence ==
+                EOGCombatPresence::Reserve &&
+            Candidate->IsAlive())
+        {
+            return Candidate;
+        }
+    }
+
+    return nullptr;
+}
+
+FOGCombatUnitState*
+FOGTurnBattle::FindFallbackReserve(
+    int32 TeamIndex)
+{
+    FOGCombatUnitState* Best = nullptr;
+    int32 BestDepth = INDEX_NONE;
+    int32 BestOriginLane = MAX_int32;
+    bool bBestOriginOccupied = false;
+
+    for (FOGCombatUnitState& Candidate :
+         State.Units)
+    {
+        if (Candidate.TeamIndex != TeamIndex ||
+            Candidate.Presence !=
+                EOGCombatPresence::Reserve ||
+            !Candidate.IsAlive())
+        {
+            continue;
+        }
+
+        int32 Depth = INDEX_NONE;
+        const FOGTurnSuccessionLane* Origin =
+            FindOriginLane(
+                TeamIndex,
+                Candidate.UnitEntityId,
+                Depth);
+
+        if (!Origin)
+        {
+            continue;
+        }
+
+        const bool bOriginOccupied =
+            IsBattlefieldLaneOccupied(
+                TeamIndex,
+                Origin->LaneIndex);
+
+        const bool bBetter =
+            Best == nullptr ||
+            (bOriginOccupied &&
+             !bBestOriginOccupied) ||
+            (bOriginOccupied ==
+                 bBestOriginOccupied &&
+             Depth > BestDepth) ||
+            (bOriginOccupied ==
+                 bBestOriginOccupied &&
+             Depth == BestDepth &&
+             Origin->LaneIndex <
+                 BestOriginLane) ||
+            (bOriginOccupied ==
+                 bBestOriginOccupied &&
+             Depth == BestDepth &&
+             Origin->LaneIndex ==
+                 BestOriginLane &&
+             Candidate.UnitEntityId.ToString().Compare(
+                 Best->UnitEntityId.ToString(),
+                 ESearchCase::CaseSensitive) < 0);
+
+        if (bBetter)
+        {
+            Best = &Candidate;
+            BestDepth = Depth;
+            BestOriginLane =
+                Origin->LaneIndex;
+            bBestOriginOccupied =
+                bOriginOccupied;
+        }
+    }
+
+    return Best;
+}
+
+bool FOGTurnBattle::IsBattlefieldLaneOccupied(
+    int32 TeamIndex,
+    int32 BattlefieldLane) const
+{
+    return State.Units.ContainsByPredicate(
+        [TeamIndex, BattlefieldLane](
+            const FOGCombatUnitState& Unit)
+        {
+            return Unit.TeamIndex ==
+                       TeamIndex &&
+                   Unit.Presence ==
+                       EOGCombatPresence::Active &&
+                   Unit.IsAlive() &&
+                   Unit.OccupiedLaneIndex ==
+                       BattlefieldLane;
+        });
+}
+
+void FOGTurnBattle::PromoteIntoLane(
+    FOGCombatUnitState& Unit,
+    int32 BattlefieldLane,
+    const TCHAR* Reason)
+{
+    Unit.Presence =
+        EOGCombatPresence::Active;
+    Unit.OccupiedLaneIndex =
+        BattlefieldLane;
+
+    Unit.NextActionValue =
+        FMath::Max(
+            Unit.NextActionValue,
+            State.CurrentActionValue +
+                FMath::Max<int64>(
+                    1,
+                    Unit.DefaultActionDelay));
+
+    const int64 EntrySequence =
+        Log.GetNextSequence();
+
+    FOGCombatLogEvent Event;
+    Event.Type =
+        EOGCombatLogEventType::PresenceChanged;
+    Event.SourceUnitId =
+        Unit.UnitEntityId;
+    Event.PayloadJson =
+        FString::Printf(
+            TEXT("{\"presence\":%d,\"lane\":%d,\"reason\":\"%s\"}"),
+            static_cast<int32>(
+                EOGCombatPresence::Active),
+            BattlefieldLane,
+            Reason);
+    Log.Append(MoveTemp(Event));
+
+    QueueTriggerEvent(
+        OGCombatEventNames::Entry(),
+        Unit.UnitEntityId,
+        Unit.UnitEntityId,
+        FOGContentId(),
+        EntrySequence);
+}
+
+void FOGTurnBattle::QueueTriggerEvent(
+    FName EventType,
+    const FOGEntityId& SourceUnitId,
+    const FOGEntityId& TargetUnitId,
+    const FOGContentId& SkillId,
+    int64 SourceSequence)
+{
+    FOGCombatTriggerContext Context;
+    Context.EventType = EventType;
+    Context.SourceUnitId =
+        SourceUnitId;
+    Context.TargetUnitId =
+        TargetUnitId;
+    Context.SkillId = SkillId;
+    Context.SourceSequence =
+        SourceSequence;
+
+    TriggerRuntime.QueueForEvent(
+        Context);
+}
+
+void FOGTurnBattle::FlushTriggerRuntimeQueueToBattleQueue()
+{
+    TArray<FOGQueuedTriggeredAction> NewlyQueued =
+        TriggerRuntime.DrainQueuedActions();
+
+    for (FOGQueuedTriggeredAction& Queued :
+         NewlyQueued)
+    {
+        OutstandingTriggeredActionSequences.Add(
+            Queued.QueueSequence);
+
+        FOGCombatLogEvent LogEvent;
+        LogEvent.Type =
+            EOGCombatLogEventType::TriggeredActionQueued;
+        LogEvent.SourceUnitId =
+            Queued.OwnerUnitId;
+        LogEvent.SkillId =
+            Queued.ActionId;
+        LogEvent.PayloadJson =
+            FString::Printf(
+                TEXT("{\"queue_sequence\":%lld,\"trigger\":\"%s\",\"source_sequence\":%lld}"),
+                Queued.QueueSequence,
+                *Queued.TriggerId.ToString(),
+                Queued.SourceSequence);
+        Log.Append(MoveTemp(LogEvent));
+
+        PendingTriggeredActions.Add(
+            MoveTemp(Queued));
+    }
+}
+
 void FOGTurnBattle::EvaluateBattleCompletion()
 {
-    if (State.Status != EOGTurnBattleStatus::Running)
+    if (State.Status !=
+        EOGTurnBattleStatus::Running)
+    {
+        return;
+    }
+
+    if (!OutstandingTriggeredActionSequences.IsEmpty())
     {
         return;
     }
 
     int32 TeamsWithLivingUnits = 0;
 
-    for (const FOGTurnTeamState& Team : State.Teams)
+    for (const FOGTurnTeamState& Team :
+         State.Teams)
     {
-        const bool bHasLivingUnit = State.Units.ContainsByPredicate(
-            [&Team](const FOGCombatUnitState& Unit)
-            {
-                return Unit.TeamIndex == Team.TeamIndex &&
-                       Unit.Presence != EOGCombatPresence::Removed &&
-                       Unit.IsAlive();
-            });
+        const bool bHasLivingUnit =
+            State.Units.ContainsByPredicate(
+                [&Team](
+                    const FOGCombatUnitState& Unit)
+                {
+                    return Unit.TeamIndex ==
+                               Team.TeamIndex &&
+                           Unit.Presence !=
+                               EOGCombatPresence::Removed &&
+                           Unit.IsAlive();
+                });
 
         if (bHasLivingUnit)
         {
@@ -595,10 +1126,12 @@ void FOGTurnBattle::EvaluateBattleCompletion()
 
     if (TeamsWithLivingUnits <= 1)
     {
-        State.Status = EOGTurnBattleStatus::Completed;
+        State.Status =
+            EOGTurnBattleStatus::Completed;
 
         FOGCombatLogEvent Event;
-        Event.Type = EOGCombatLogEventType::BattleEnded;
+        Event.Type =
+            EOGCombatLogEventType::BattleEnded;
         Log.Append(MoveTemp(Event));
     }
 }
