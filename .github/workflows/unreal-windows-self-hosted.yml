@@ -1,0 +1,45 @@
+name: Unreal 5.8 Windows Compile and Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  preflight:
+    name: Cheap C++ preflight
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify Unreal C++ before using the heavy runner
+        run: python3 Scripts/verify_unreal_cpp.py
+
+  unreal:
+    name: UE 5.8 compile and automation
+    needs: preflight
+    runs-on: [self-hosted, windows, x64, unreal-5.8]
+    timeout-minutes: 360
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Re-verify exact commit on runner
+        shell: powershell
+        run: python Scripts/verify_unreal_cpp.py
+
+      - name: Compile and run Unreal automation
+        shell: powershell
+        run: .\Scripts\windows_unreal_smoke.ps1
+
+      - name: Upload Unreal automation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unreal-automation-report
+          path: Saved/Automation/Reports
+          if-no-files-found: ignore
