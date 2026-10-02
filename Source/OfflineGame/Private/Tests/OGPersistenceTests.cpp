@@ -34,7 +34,7 @@ bool FOGPersistenceRestartTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         FString Error;
         TestTrue(TEXT("Open database"), Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Schema version is 1"), Store.GetSchemaVersion(Error), 1);
+        TestEqual(TEXT("Schema version is 3"), Store.GetSchemaVersion(Error), 3);
 
         TestTrue(
             TEXT("Persist entity"),
@@ -147,7 +147,7 @@ bool FOGCharacterManifestationPersistenceTest::RunTest(const FString& Parameters
         FOGSQLiteWorldStore Store;
         FString Error;
         TestTrue(TEXT("Open database"), Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Schema version is 2"), Store.GetSchemaVersion(Error), 2);
+        TestEqual(TEXT("Schema version is 3"), Store.GetSchemaVersion(Error), 3);
 
         TestTrue(
             TEXT("Persist owning Ruler"),

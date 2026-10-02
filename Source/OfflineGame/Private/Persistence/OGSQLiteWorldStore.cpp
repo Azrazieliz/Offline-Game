@@ -68,10 +68,36 @@ static const TCHAR* Migration0002Sql =
     TEXT("CREATE INDEX IF NOT EXISTS idx_character_manifestations_identity ")
     TEXT("ON character_manifestations(identity_content_id);");
 
+static const TCHAR* Migration0003Sql =
+    TEXT("CREATE TABLE IF NOT EXISTS locations (")
+    TEXT("location_entity_id TEXT PRIMARY KEY,")
+    TEXT("parent_location_entity_id TEXT,")
+    TEXT("kind TEXT NOT NULL,")
+    TEXT("territory_entity_id TEXT,")
+    TEXT("physically_accessible INTEGER NOT NULL DEFAULT 1 CHECK (physically_accessible IN (0,1)),")
+    TEXT("FOREIGN KEY(location_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(parent_location_entity_id) REFERENCES locations(location_entity_id),")
+    TEXT("FOREIGN KEY(territory_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_locations_parent ON locations(parent_location_entity_id);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_locations_territory ON locations(territory_entity_id);")
+    TEXT("CREATE TABLE IF NOT EXISTS world_presence (")
+    TEXT("entity_id TEXT PRIMARY KEY,")
+    TEXT("location_entity_id TEXT NOT NULL,")
+    TEXT("local_x REAL NOT NULL DEFAULT 0,")
+    TEXT("local_y REAL NOT NULL DEFAULT 0,")
+    TEXT("local_z REAL NOT NULL DEFAULT 0,")
+    TEXT("movement_context TEXT NOT NULL DEFAULT '',")
+    TEXT("updated_world_tick INTEGER NOT NULL DEFAULT 0,")
+    TEXT("FOREIGN KEY(entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(location_entity_id) REFERENCES locations(location_entity_id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_world_presence_location ON world_presence(location_entity_id);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_knowledge_subject ON knowledge_facts(subject_entity_id, fact_key);");
+
 static const FOGMigrationDefinition Migrations[] =
 {
     {1, TEXT("bootstrap"), Migration0001Sql},
     {2, TEXT("character_manifestations"), Migration0002Sql},
+    {3, TEXT("world_location_state"), Migration0003Sql},
 };
 
 FString RelatedEntitiesToJson(const TArray<FOGEntityId>& EntityIds)

@@ -47,6 +47,39 @@ public:
         FOGCharacterManifestationRecord& OutManifestation,
         FString& OutError) const override;
 
+    virtual bool UpsertLocation(
+        const FOGLocationRecord& Location,
+        int64 CreatedWorldTick,
+        FString& OutError) override;
+
+    virtual bool TryReadLocation(
+        const FOGEntityId& LocationId,
+        bool& bOutFound,
+        FOGLocationRecord& OutLocation,
+        FString& OutError) const override;
+
+    virtual bool UpsertWorldPresence(
+        const FOGWorldPresenceRecord& Presence,
+        FString& OutError) override;
+
+    virtual bool TryReadWorldPresence(
+        const FOGEntityId& EntityId,
+        bool& bOutFound,
+        FOGWorldPresenceRecord& OutPresence,
+        FString& OutError) const override;
+
+    virtual bool UpsertKnowledgeFact(
+        const FOGKnowledgeFactRecord& Fact,
+        FString& OutError) override;
+
+    virtual bool TryReadKnowledgeFact(
+        const FOGEntityId& OwnerEntityId,
+        FName FactKey,
+        const FOGEntityId& SubjectEntityId,
+        bool& bOutFound,
+        FOGKnowledgeFactRecord& OutFact,
+        FString& OutError) const override;
+
     virtual bool UpsertContentPackage(
         const FOGContentId& PackageId,
         int32 Version,

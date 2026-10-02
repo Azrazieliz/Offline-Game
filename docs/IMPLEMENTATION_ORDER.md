@@ -60,13 +60,16 @@
 - [ ] compile and run Phase E Unreal automation tests on the real build runner
 
 ## Phase F - Shared world-state proof
-- [ ] location/discovery state
-- [ ] Ruler Mode -> World Mode transition
-- [ ] World Mode -> Ruler Mode state reflection
+- [x] physical location state foundation
+- [x] separate location knowledge/discovery projection
+- [x] shared authoritative Ruler physical presence
+- [x] World Mode -> Ruler Mode restart/reflection test authored
+- [x] Ruler Mode / World Mode use one state contract
 - [ ] one territory + Domain Core
 - [ ] resources/projects
 - [ ] dispatch framework
 - [ ] minimal faction/war state
+- [ ] compile and run Phase F Unreal automation tests on the real build runner
 
 ## Phase G - Vertical Slice 0
 - [ ] playable Android build

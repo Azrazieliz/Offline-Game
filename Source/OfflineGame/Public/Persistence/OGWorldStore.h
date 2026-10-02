@@ -5,6 +5,7 @@
 #include "Content/OGContentId.h"
 #include "Core/OGEntityId.h"
 #include "Events/OGWorldEvent.h"
+#include "World/OGWorldStateRecords.h"
 
 /**
  * Persistence boundary for authoritative mutable world state.
@@ -51,6 +52,39 @@ public:
         const FOGEntityId& ManifestationId,
         bool& bOutFound,
         FOGCharacterManifestationRecord& OutManifestation,
+        FString& OutError) const = 0;
+
+    virtual bool UpsertLocation(
+        const FOGLocationRecord& Location,
+        int64 CreatedWorldTick,
+        FString& OutError) = 0;
+
+    virtual bool TryReadLocation(
+        const FOGEntityId& LocationId,
+        bool& bOutFound,
+        FOGLocationRecord& OutLocation,
+        FString& OutError) const = 0;
+
+    virtual bool UpsertWorldPresence(
+        const FOGWorldPresenceRecord& Presence,
+        FString& OutError) = 0;
+
+    virtual bool TryReadWorldPresence(
+        const FOGEntityId& EntityId,
+        bool& bOutFound,
+        FOGWorldPresenceRecord& OutPresence,
+        FString& OutError) const = 0;
+
+    virtual bool UpsertKnowledgeFact(
+        const FOGKnowledgeFactRecord& Fact,
+        FString& OutError) = 0;
+
+    virtual bool TryReadKnowledgeFact(
+        const FOGEntityId& OwnerEntityId,
+        FName FactKey,
+        const FOGEntityId& SubjectEntityId,
+        bool& bOutFound,
+        FOGKnowledgeFactRecord& OutFact,
         FString& OutError) const = 0;
 
     virtual bool UpsertContentPackage(
