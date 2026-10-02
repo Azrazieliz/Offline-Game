@@ -1,18 +1,21 @@
-# Unreal Build/Test Runner — GitHub Codespaces
+# Unreal Build/Test Runner
 
-## Selected runner
+## Current split
 
-GitHub Codespaces is the active Unreal validation environment.
+GitHub Codespaces is used for lightweight repository work and the mandatory
+Unreal C++ preflight. The machine types currently available to this account are
+limited to 32 GB storage, so Codespaces is **not** the active full Unreal 5.8
+compile/test environment.
 
-There is no DigitalOcean or self-hosted-runner path in the active workflow.
+The repository intentionally has no Codespaces `hostRequirements` filter.
+The existing Codespace remains useful for source work, migrations, scripts, and
+cheap validation.
 
-The repository's `.devcontainer/devcontainer.json` requires a Codespaces host with at least:
+The current real Unreal validation path is the Windows fallback machine using
+Epic's prebuilt Unreal Engine 5.8 on the large removable D: storage. The
+self-hosted workflow is `.github/workflows/unreal-windows-self-hosted.yml`.
 
-- 4 vCPU
-- 16 GB RAM
-- 64 GB storage
-
-GitHub will only offer machine types that meet or exceed those declared host requirements.
+There is no active DigitalOcean build path.
 
 ## Mandatory verification gate
 
@@ -23,52 +26,49 @@ Every real Unreal test follows this exact order:
 3. fix the detected issues;
 4. rerun verification until green;
 5. compile through UnrealBuildTool/UHT;
-6. only after a successful compile, run the `OfflineGame` automation tests.
+6. only after a successful compile, run the `OfflineGame` automation tests;
+7. if Unreal exposes another issue, fix it and restart from preflight.
 
-The build script itself re-runs preflight, so the gate is enforced even if the command is launched directly from the Codespace terminal.
+The Windows smoke script re-runs preflight on the exact checked-out commit, so
+the heavy runner cannot bypass the cheap gate.
 
-## Codespace initialization
+## Codespace state
 
-On first creation, the Codespace automatically runs the cheap C++ preflight through `postCreateCommand`.
+On creation, the Codespace runs the preflight through `postCreateCommand`.
 
-The dev-container configuration also recommends a Codespaces secret named `CR_PAT`.
+The dev-container still documents the optional `CR_PAT` secret because it can
+authenticate to Epic's GHCR image if a future Codespaces machine has enough
+storage. That token must belong to the Epic-linked GitHub account and must never
+be committed.
 
-`CR_PAT` must belong to the Epic-linked GitHub account and have `read:packages`, because Epic's Unreal Engine development container is hosted in GitHub Container Registry.
+Do not pull the Unreal container into the current 32 GB Codespace.
 
-Do not commit this token.
+## Windows Unreal validation
 
-## Real Unreal validation
+The Windows path uses `Scripts/windows_unreal_smoke.ps1`.
 
-From the Codespace terminal:
+It:
 
-`Scripts/unreal_container_smoke.sh`
-
-Or run the VS Code task:
-
-`Unreal 5.8: Verify + Compile + Test`
-
-Default Unreal image:
-
-`ghcr.io/epicgames/unreal-engine:dev-slim-5.8.0`
-
-The smoke run:
-
-- verifies the C++ repository first;
-- authenticates to GHCR when needed;
-- pulls the UE 5.8 slim development image;
-- compiles `OfflineGameEditor` for Linux Development;
-- launches `UnrealEditor-Cmd` headlessly with NullRHI;
-- runs all tests under the `OfflineGame` automation prefix;
+- runs the repository preflight;
+- locates a prebuilt UE 5.8 installation across available drives or `UE_ROOT`;
+- limits UnrealBuildTool to one parallel action for the 8 GB fallback machine;
+- compiles `OfflineGameEditor` for Win64 Development;
+- only after compilation succeeds, launches headless automation with NullRHI;
 - exports reports to `Saved/Automation/Reports`.
 
-## Disk rule
+The full UE 5.8 compile/automation pass has **not yet been completed**. Static
+GitHub validation is green, but that is not a substitute for UHT/UBT/compiler
+execution.
 
-The first Codespaces run is also the disk-fit test. The 64 GB tier is intentionally retained because the UE 5.8 slim image is large on disk.
+## Storage rule
 
-If the 64 GB host cannot hold the Unreal image plus project intermediates, use a larger Codespaces machine/storage option rather than switching providers.
+Large Unreal assets, engine files, intermediates, and build data belong on the
+large D: storage. The system C: drive on the current fallback machine is too
+constrained for an Unreal installation.
 
 ## Cost rule
 
-Use included Codespaces allowance first.
+Use free GitHub Actions/Codespaces allowance for tasks they can handle.
 
-Any billable Codespaces usage counts against the project's USD 25 cumulative compute ceiling.
+Any paid compute counts against the project's USD 25 cumulative ceiling. Current
+recorded paid compute spend remains USD 0.

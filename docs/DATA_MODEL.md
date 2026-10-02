@@ -50,19 +50,26 @@ An important NPC may have a specific fact when story/gameplay needs it.
 
 There is no generic unlimited autobiographical memory engine.
 
-## Future migrations
+## Schema status
 
-Planned schema families, added only when their code is ready:
+Implemented authoritative schema families through migration 0006:
 
-- characters / identities / versions / owned manifestations
-- skills / progression / equipment
-- locations / territories / Domain Cores
-- resources / projects
-- dispatches
-- factions / explicit faction links / armies / wars
-- gacha state / pull history
-- discoveries / Chronicle projections
-- content package activation state
+- base entity registry, meaningful world events, knowledge facts, and content-package state;
+- owned Character Manifestations (Identity/Version definitions remain package data);
+- physical locations and authoritative world presence;
+- territories, Domain Cores, aggregate resources, and lazy Projects;
+- result-oriented dispatches;
+- factions, explicit faction links, aggregate armies, and wars;
+- persistent gacha pity/featured-guarantee state and duplicate-acquisition count.
+
+Gacha pull outcomes are stored as meaningful `world_events`; there is no
+separate pull-history subsystem.
+
+Still deferred until player-facing requirements need them:
+
+- specialized progression/equipment persistence beyond the current compact manifestation state;
+- dedicated Chronicle projections beyond meaningful world events;
+- any additional schema family required by later vertical-slice systems.
 
 ## Canonical-adult gate
 
