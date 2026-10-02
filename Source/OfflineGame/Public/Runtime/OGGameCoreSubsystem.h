@@ -24,6 +24,11 @@ public:
     UFUNCTION(BlueprintPure, Category = "OfflineGame|Core")
     bool IsCoreReady() const { return bCoreReady; }
 
+    UFUNCTION(BlueprintCallable, Category = "OfflineGame|Diagnostics")
+    bool GenerateDiagnosticsBundle(
+        FString& OutBundlePath,
+        FString& OutError);
+
     IOGWorldStore* GetWorldStore() const { return WorldStore.Get(); }
 
 private:

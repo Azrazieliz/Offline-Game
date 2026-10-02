@@ -76,8 +76,8 @@
 - [x] deterministic persistent gacha service
 - [x] pity / featured-guarantee persistence
 - [x] duplicate acquisition accounting on the owned Manifestation
-- [ ] automatic rotating snapshots
-- [ ] diagnostics bundle
+- [x] automatic rotating snapshots
+- [x] diagnostics bundle
 
 ### Checkpoint G2 - End-to-end runtime harness
 - [ ] persistent vertical-slice scenario harness

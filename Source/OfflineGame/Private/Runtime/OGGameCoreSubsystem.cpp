@@ -1,9 +1,11 @@
 #include "Runtime/OGGameCoreSubsystem.h"
 
+#include "Diagnostics/OGDiagnosticsBundle.h"
 #include "HAL/FileManager.h"
 #include "Misc/Paths.h"
 #include "OfflineGame.h"
 #include "Persistence/OGSQLiteWorldStore.h"
+#include "Persistence/OGSnapshotService.h"
 
 void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -15,6 +17,8 @@ void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
     const FString DatabasePath =
         FPaths::Combine(DatabaseDirectory, TEXT("WorldState.db"));
+    const bool bExistingDatabase =
+        IFileManager::Get().FileExists(*DatabasePath);
 
     WorldStore = MakeUnique<FOGSQLiteWorldStore>();
 
@@ -32,11 +36,60 @@ void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     }
 
     bCoreReady = true;
+
+    if (bExistingDatabase)
+    {
+        FString SnapshotPath;
+        FString SnapshotError;
+        const FString SnapshotDirectory =
+            FPaths::Combine(DatabaseDirectory, TEXT("Snapshots"));
+
+        if (!FOGSnapshotService::CreateRotatingSnapshot(
+                *WorldStore,
+                SnapshotDirectory,
+                3,
+                SnapshotPath,
+                SnapshotError))
+        {
+            UE_LOG(
+                LogOfflineGame,
+                Warning,
+                TEXT("Automatic recovery snapshot failed: %s"),
+                *SnapshotError);
+        }
+    }
+
     UE_LOG(
         LogOfflineGame,
         Log,
         TEXT("Authoritative game core initialized with schema version %d."),
         WorldStore->GetSchemaVersion(Error));
+}
+
+bool UOGGameCoreSubsystem::GenerateDiagnosticsBundle(
+    FString& OutBundlePath,
+    FString& OutError)
+{
+    OutBundlePath.Reset();
+    OutError.Reset();
+
+    if (!WorldStore || !WorldStore->IsOpen())
+    {
+        OutError = TEXT("Authoritative game core is not ready.");
+        return false;
+    }
+
+    const FString OutputDirectory =
+        FPaths::Combine(
+            FPaths::ProjectSavedDir(),
+            TEXT("OfflineGame"),
+            TEXT("Diagnostics"));
+
+    return FOGDiagnosticsBundle::Write(
+        *WorldStore,
+        OutputDirectory,
+        OutBundlePath,
+        OutError);
 }
 
 void UOGGameCoreSubsystem::Deinitialize()
