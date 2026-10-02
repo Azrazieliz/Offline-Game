@@ -1,14 +1,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Core/OGEntityId.h"
 #include "Events/OGWorldEvent.h"
 
 /**
  * Persistence boundary for authoritative mutable world state.
  *
- * This interface deliberately hides SQLite from gameplay code. Gameplay systems
- * ask for transactions/state operations; the adapter owns SQL, migrations,
- * recovery, WAL/checkpoint policy, and schema details.
+ * Gameplay systems must not issue SQL directly. The adapter owns SQL,
+ * migrations, recovery, WAL/checkpoint policy, and schema details.
  */
 class OFFLINEGAME_API IOGWorldStore
 {
@@ -24,5 +24,28 @@ public:
     virtual bool RollbackTransaction(FString& OutError) = 0;
 
     virtual int32 GetSchemaVersion(FString& OutError) const = 0;
+
+    virtual bool UpsertEntity(
+        const FOGEntityId& EntityId,
+        FName Kind,
+        int64 CreatedWorldTick,
+        const FString& StateJson,
+        FString& OutError) = 0;
+
+    virtual bool TryReadEntity(
+        const FOGEntityId& EntityId,
+        bool& bOutFound,
+        FName& OutKind,
+        FString& OutStateJson,
+        int64& OutRevision,
+        FString& OutError) const = 0;
+
     virtual bool AppendWorldEvent(const FOGWorldEvent& Event, FString& OutError) = 0;
+
+    virtual bool BackupTo(const FString& AbsoluteBackupPath, FString& OutError) = 0;
+    virtual bool RestoreFrom(const FString& AbsoluteBackupPath, FString& OutError) = 0;
+    virtual bool RunIntegrityCheck(FString& OutReport, FString& OutError) const = 0;
+    virtual bool Checkpoint(FString& OutError) = 0;
+
+    virtual const FString& GetDatabasePath() const = 0;
 };

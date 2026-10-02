@@ -20,6 +20,7 @@ public class OfflineGame : ModuleRules
             "InputCore",
             "Json",
             "JsonUtilities",
+            "SQLiteCore",
             "Slate",
             "SlateCore",
             "UMG"

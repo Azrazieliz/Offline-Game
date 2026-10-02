@@ -1,0 +1,683 @@
+#include "Persistence/OGSQLiteWorldStore.h"
+
+#include "HAL/FileManager.h"
+#include "Misc/Paths.h"
+#include "OfflineGame.h"
+#include "sqlite/sqlite3.h"
+
+namespace
+{
+struct FOGMigrationDefinition
+{
+    int32 Version;
+    const TCHAR* Name;
+    const TCHAR* Sql;
+};
+
+static const TCHAR* Migration0001Sql =
+    TEXT("CREATE TABLE IF NOT EXISTS entities (")
+    TEXT("id TEXT PRIMARY KEY,")
+    TEXT("kind TEXT NOT NULL,")
+    TEXT("created_world_tick INTEGER NOT NULL DEFAULT 0,")
+    TEXT("retired_world_tick INTEGER,")
+    TEXT("revision INTEGER NOT NULL DEFAULT 0,")
+    TEXT("state_json TEXT NOT NULL DEFAULT '{}');")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_entities_kind ON entities(kind);")
+    TEXT("CREATE TABLE IF NOT EXISTS world_events (")
+    TEXT("event_id TEXT PRIMARY KEY,")
+    TEXT("event_type TEXT NOT NULL,")
+    TEXT("world_tick INTEGER NOT NULL,")
+    TEXT("primary_entity_id TEXT,")
+    TEXT("related_entities_json TEXT NOT NULL DEFAULT '[]',")
+    TEXT("payload_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("chronicle_eligible INTEGER NOT NULL DEFAULT 0 CHECK (chronicle_eligible IN (0,1)),")
+    TEXT("FOREIGN KEY(primary_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_world_events_tick ON world_events(world_tick);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_world_events_primary ON world_events(primary_entity_id, world_tick);")
+    TEXT("CREATE TABLE IF NOT EXISTS knowledge_facts (")
+    TEXT("owner_entity_id TEXT NOT NULL,")
+    TEXT("fact_key TEXT NOT NULL,")
+    TEXT("subject_entity_id TEXT NOT NULL DEFAULT '',")
+    TEXT("value_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("learned_world_tick INTEGER NOT NULL,")
+    TEXT("updated_world_tick INTEGER NOT NULL,")
+    TEXT("PRIMARY KEY(owner_entity_id, fact_key, subject_entity_id),")
+    TEXT("FOREIGN KEY(owner_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE TABLE IF NOT EXISTS content_packages (")
+    TEXT("package_id TEXT PRIMARY KEY,")
+    TEXT("version INTEGER NOT NULL,")
+    TEXT("content_hash TEXT NOT NULL,")
+    TEXT("installed INTEGER NOT NULL DEFAULT 0 CHECK (installed IN (0,1)),")
+    TEXT("validated INTEGER NOT NULL DEFAULT 0 CHECK (validated IN (0,1)),")
+    TEXT("activated INTEGER NOT NULL DEFAULT 0 CHECK (activated IN (0,1)),")
+    TEXT("manifest_json TEXT NOT NULL DEFAULT '{}');");
+
+static const FOGMigrationDefinition Migrations[] =
+{
+    {1, TEXT("bootstrap"), Migration0001Sql},
+};
+
+FString RelatedEntitiesToJson(const TArray<FOGEntityId>& EntityIds)
+{
+    TArray<FString> Values;
+    Values.Reserve(EntityIds.Num());
+    for (const FOGEntityId& EntityId : EntityIds)
+    {
+        Values.Add(FString::Printf(TEXT("\"%s\""), *EntityId.ToString()));
+    }
+
+    return FString::Printf(TEXT("[%s]"), *FString::Join(Values, TEXT(",")));
+}
+
+bool BindText(sqlite3_stmt* Statement, int32 Index, const FString& Value)
+{
+    FTCHARToUTF8 Utf8(*Value);
+    return sqlite3_bind_text(
+        Statement,
+        Index,
+        Utf8.Get(),
+        Utf8.Length(),
+        SQLITE_TRANSIENT) == SQLITE_OK;
+}
+
+FString ColumnText(sqlite3_stmt* Statement, int32 Column)
+{
+    const unsigned char* Text = sqlite3_column_text(Statement, Column);
+    return Text ? UTF8_TO_TCHAR(reinterpret_cast<const char*>(Text)) : FString();
+}
+}
+
+FOGSQLiteWorldStore::~FOGSQLiteWorldStore()
+{
+    Close();
+}
+
+bool FOGSQLiteWorldStore::Open(const FString& AbsoluteDatabasePath, FString& OutError)
+{
+    Close();
+    OutError.Reset();
+
+    if (AbsoluteDatabasePath.IsEmpty())
+    {
+        OutError = TEXT("Database path is empty.");
+        return false;
+    }
+
+    const FString ParentDirectory = FPaths::GetPath(AbsoluteDatabasePath);
+    if (!ParentDirectory.IsEmpty() &&
+        !IFileManager::Get().MakeDirectory(*ParentDirectory, true) &&
+        !IFileManager::Get().DirectoryExists(*ParentDirectory))
+    {
+        OutError = FString::Printf(TEXT("Failed to create database directory: %s"), *ParentDirectory);
+        return false;
+    }
+
+    FTCHARToUTF8 PathUtf8(*AbsoluteDatabasePath);
+    const int32 OpenResult = sqlite3_open_v2(
+        PathUtf8.Get(),
+        &Database,
+        SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX,
+        nullptr);
+
+    if (OpenResult != SQLITE_OK || Database == nullptr)
+    {
+        OutError = LastError(TEXT("sqlite3_open_v2"));
+        Close();
+        return false;
+    }
+
+    DatabasePath = AbsoluteDatabasePath;
+    sqlite3_extended_result_codes(Database, 1);
+    sqlite3_busy_timeout(Database, 5000);
+
+    if (!ExecuteSql(TEXT("PRAGMA foreign_keys = ON;"), OutError) ||
+        !ExecuteSql(TEXT("PRAGMA journal_mode = WAL;"), OutError) ||
+        !ExecuteSql(TEXT("PRAGMA synchronous = NORMAL;"), OutError) ||
+        !ExecuteSql(TEXT("PRAGMA temp_store = MEMORY;"), OutError) ||
+        !EnsureMigrationTable(OutError) ||
+        !ApplyMigrations(OutError))
+    {
+        Close();
+        return false;
+    }
+
+    UE_LOG(LogOfflineGame, Log, TEXT("Opened authoritative world database: %s"), *DatabasePath);
+    return true;
+}
+
+void FOGSQLiteWorldStore::Close()
+{
+    if (Database == nullptr)
+    {
+        DatabasePath.Reset();
+        bTransactionActive = false;
+        return;
+    }
+
+    if (bTransactionActive)
+    {
+        char* ErrorMessage = nullptr;
+        sqlite3_exec(Database, "ROLLBACK;", nullptr, nullptr, &ErrorMessage);
+        if (ErrorMessage)
+        {
+            sqlite3_free(ErrorMessage);
+        }
+        bTransactionActive = false;
+    }
+
+    char* ErrorMessage = nullptr;
+    sqlite3_exec(Database, "PRAGMA wal_checkpoint(TRUNCATE);", nullptr, nullptr, &ErrorMessage);
+    if (ErrorMessage)
+    {
+        sqlite3_free(ErrorMessage);
+    }
+
+    sqlite3_close_v2(Database);
+    Database = nullptr;
+    DatabasePath.Reset();
+}
+
+bool FOGSQLiteWorldStore::ExecuteSql(const FString& Sql, FString& OutError) const
+{
+    if (Database == nullptr)
+    {
+        OutError = TEXT("Database is not open.");
+        return false;
+    }
+
+    FTCHARToUTF8 SqlUtf8(*Sql);
+    char* ErrorMessage = nullptr;
+    const int32 Result = sqlite3_exec(Database, SqlUtf8.Get(), nullptr, nullptr, &ErrorMessage);
+    if (Result != SQLITE_OK)
+    {
+        const FString Detail = ErrorMessage
+            ? UTF8_TO_TCHAR(ErrorMessage)
+            : UTF8_TO_TCHAR(sqlite3_errmsg(Database));
+
+        if (ErrorMessage)
+        {
+            sqlite3_free(ErrorMessage);
+        }
+
+        OutError = FString::Printf(TEXT("SQLite execution failed (%d): %s"), Result, *Detail);
+        return false;
+    }
+
+    OutError.Reset();
+    return true;
+}
+
+bool FOGSQLiteWorldStore::EnsureMigrationTable(FString& OutError)
+{
+    return ExecuteSql(
+        TEXT("CREATE TABLE IF NOT EXISTS schema_migrations (")
+        TEXT("version INTEGER PRIMARY KEY,")
+        TEXT("name TEXT NOT NULL,")
+        TEXT("applied_at_utc TEXT NOT NULL);"),
+        OutError);
+}
+
+int32 FOGSQLiteWorldStore::GetSchemaVersion(FString& OutError) const
+{
+    OutError.Reset();
+    if (Database == nullptr)
+    {
+        OutError = TEXT("Database is not open.");
+        return INDEX_NONE;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql = "SELECT COALESCE(MAX(version), 0) FROM schema_migrations;";
+    if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare schema version query"));
+        return INDEX_NONE;
+    }
+
+    int32 Version = INDEX_NONE;
+    if (sqlite3_step(Statement) == SQLITE_ROW)
+    {
+        Version = sqlite3_column_int(Statement, 0);
+    }
+    else
+    {
+        OutError = LastError(TEXT("Read schema version"));
+    }
+
+    sqlite3_finalize(Statement);
+    return Version;
+}
+
+bool FOGSQLiteWorldStore::RecordMigration(int32 Version, const TCHAR* Name, FString& OutError)
+{
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "INSERT INTO schema_migrations(version, name, applied_at_utc) "
+        "VALUES(?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now'));";
+
+    if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare migration record"));
+        return false;
+    }
+
+    const FString NameString(Name);
+    const bool bBound =
+        sqlite3_bind_int(Statement, 1, Version) == SQLITE_OK &&
+        BindText(Statement, 2, NameString);
+
+    const bool bSucceeded = bBound && sqlite3_step(Statement) == SQLITE_DONE;
+    if (!bSucceeded)
+    {
+        OutError = LastError(TEXT("Record migration"));
+    }
+
+    sqlite3_finalize(Statement);
+    return bSucceeded;
+}
+
+bool FOGSQLiteWorldStore::ApplyMigrations(FString& OutError)
+{
+    int32 CurrentVersion = GetSchemaVersion(OutError);
+    if (CurrentVersion == INDEX_NONE)
+    {
+        return false;
+    }
+
+    for (const FOGMigrationDefinition& Migration : Migrations)
+    {
+        if (Migration.Version <= CurrentVersion)
+        {
+            continue;
+        }
+
+        if (!BeginTransaction(OutError))
+        {
+            return false;
+        }
+
+        if (!ExecuteSql(Migration.Sql, OutError) ||
+            !RecordMigration(Migration.Version, Migration.Name, OutError) ||
+            !CommitTransaction(OutError))
+        {
+            FString RollbackError;
+            RollbackTransaction(RollbackError);
+            if (!RollbackError.IsEmpty())
+            {
+                OutError += FString::Printf(TEXT(" | Rollback error: %s"), *RollbackError);
+            }
+            return false;
+        }
+
+        CurrentVersion = Migration.Version;
+        UE_LOG(LogOfflineGame, Log, TEXT("Applied database migration %d (%s)."), Migration.Version, Migration.Name);
+    }
+
+    return true;
+}
+
+bool FOGSQLiteWorldStore::BeginTransaction(FString& OutError)
+{
+    if (bTransactionActive)
+    {
+        OutError = TEXT("Nested world-store transactions are not supported.");
+        return false;
+    }
+
+    if (!ExecuteSql(TEXT("BEGIN IMMEDIATE;"), OutError))
+    {
+        return false;
+    }
+
+    bTransactionActive = true;
+    return true;
+}
+
+bool FOGSQLiteWorldStore::CommitTransaction(FString& OutError)
+{
+    if (!bTransactionActive)
+    {
+        OutError = TEXT("No active world-store transaction to commit.");
+        return false;
+    }
+
+    if (!ExecuteSql(TEXT("COMMIT;"), OutError))
+    {
+        return false;
+    }
+
+    bTransactionActive = false;
+    return true;
+}
+
+bool FOGSQLiteWorldStore::RollbackTransaction(FString& OutError)
+{
+    if (!bTransactionActive)
+    {
+        OutError.Reset();
+        return true;
+    }
+
+    const bool bSucceeded = ExecuteSql(TEXT("ROLLBACK;"), OutError);
+    if (bSucceeded)
+    {
+        bTransactionActive = false;
+    }
+    return bSucceeded;
+}
+
+bool FOGSQLiteWorldStore::UpsertEntity(
+    const FOGEntityId& EntityId,
+    FName Kind,
+    int64 CreatedWorldTick,
+    const FString& StateJson,
+    FString& OutError)
+{
+    OutError.Reset();
+    if (!EntityId.IsValid() || Kind.IsNone())
+    {
+        OutError = TEXT("Cannot persist an entity without a valid ID and kind.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "INSERT INTO entities(id, kind, created_world_tick, revision, state_json) "
+        "VALUES(?, ?, ?, 0, ?) "
+        "ON CONFLICT(id) DO UPDATE SET "
+        "kind = excluded.kind, "
+        "revision = entities.revision + 1, "
+        "state_json = excluded.state_json;";
+
+    if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare entity upsert"));
+        return false;
+    }
+
+    const bool bBound =
+        BindText(Statement, 1, EntityId.ToString()) &&
+        BindText(Statement, 2, Kind.ToString()) &&
+        sqlite3_bind_int64(Statement, 3, CreatedWorldTick) == SQLITE_OK &&
+        BindText(Statement, 4, StateJson);
+
+    const bool bSucceeded = bBound && sqlite3_step(Statement) == SQLITE_DONE;
+    if (!bSucceeded)
+    {
+        OutError = LastError(TEXT("Upsert entity"));
+    }
+
+    sqlite3_finalize(Statement);
+    return bSucceeded;
+}
+
+bool FOGSQLiteWorldStore::TryReadEntity(
+    const FOGEntityId& EntityId,
+    bool& bOutFound,
+    FName& OutKind,
+    FString& OutStateJson,
+    int64& OutRevision,
+    FString& OutError) const
+{
+    bOutFound = false;
+    OutKind = NAME_None;
+    OutStateJson.Reset();
+    OutRevision = 0;
+    OutError.Reset();
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql = "SELECT kind, state_json, revision FROM entities WHERE id = ?;";
+    if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare entity read"));
+        return false;
+    }
+
+    if (!BindText(Statement, 1, EntityId.ToString()))
+    {
+        OutError = LastError(TEXT("Bind entity read"));
+        sqlite3_finalize(Statement);
+        return false;
+    }
+
+    const int32 StepResult = sqlite3_step(Statement);
+    if (StepResult == SQLITE_ROW)
+    {
+        bOutFound = true;
+        OutKind = FName(*ColumnText(Statement, 0));
+        OutStateJson = ColumnText(Statement, 1);
+        OutRevision = sqlite3_column_int64(Statement, 2);
+    }
+    else if (StepResult != SQLITE_DONE)
+    {
+        OutError = LastError(TEXT("Read entity"));
+        sqlite3_finalize(Statement);
+        return false;
+    }
+
+    sqlite3_finalize(Statement);
+    return true;
+}
+
+bool FOGSQLiteWorldStore::AppendWorldEvent(const FOGWorldEvent& Event, FString& OutError)
+{
+    if (!Event.EventId.IsValid() || Event.EventType.IsNone())
+    {
+        OutError = TEXT("World event requires a valid event ID and event type.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "INSERT INTO world_events("
+        "event_id, event_type, world_tick, primary_entity_id, related_entities_json, payload_json, chronicle_eligible"
+        ") VALUES(?, ?, ?, ?, ?, ?, ?);";
+
+    if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare world event insert"));
+        return false;
+    }
+
+    const FString PrimaryEntity = Event.PrimaryEntity.IsValid()
+        ? Event.PrimaryEntity.ToString()
+        : FString();
+
+    const bool bBound =
+        BindText(Statement, 1, Event.EventId.ToString()) &&
+        BindText(Statement, 2, Event.EventType.ToString()) &&
+        sqlite3_bind_int64(Statement, 3, Event.WorldTick) == SQLITE_OK &&
+        (PrimaryEntity.IsEmpty()
+            ? sqlite3_bind_null(Statement, 4) == SQLITE_OK
+            : BindText(Statement, 4, PrimaryEntity)) &&
+        BindText(Statement, 5, RelatedEntitiesToJson(Event.RelatedEntities)) &&
+        BindText(Statement, 6, Event.PayloadJson.IsEmpty() ? TEXT("{}") : Event.PayloadJson) &&
+        sqlite3_bind_int(Statement, 7, Event.bChronicleEligible ? 1 : 0) == SQLITE_OK;
+
+    const bool bSucceeded = bBound && sqlite3_step(Statement) == SQLITE_DONE;
+    if (!bSucceeded)
+    {
+        OutError = LastError(TEXT("Append world event"));
+    }
+
+    sqlite3_finalize(Statement);
+    return bSucceeded;
+}
+
+bool FOGSQLiteWorldStore::BackupTo(const FString& AbsoluteBackupPath, FString& OutError)
+{
+    OutError.Reset();
+    if (Database == nullptr)
+    {
+        OutError = TEXT("Database is not open.");
+        return false;
+    }
+
+    const FString ParentDirectory = FPaths::GetPath(AbsoluteBackupPath);
+    if (!ParentDirectory.IsEmpty())
+    {
+        IFileManager::Get().MakeDirectory(*ParentDirectory, true);
+    }
+
+    IFileManager::Get().Delete(*AbsoluteBackupPath, false, true, true);
+
+    sqlite3* BackupDatabase = nullptr;
+    FTCHARToUTF8 BackupPathUtf8(*AbsoluteBackupPath);
+    if (sqlite3_open_v2(
+            BackupPathUtf8.Get(),
+            &BackupDatabase,
+            SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX,
+            nullptr) != SQLITE_OK)
+    {
+        OutError = TEXT("Failed to open backup database.");
+        if (BackupDatabase)
+        {
+            sqlite3_close_v2(BackupDatabase);
+        }
+        return false;
+    }
+
+    sqlite3_backup* Backup = sqlite3_backup_init(BackupDatabase, "main", Database, "main");
+    if (!Backup)
+    {
+        OutError = UTF8_TO_TCHAR(sqlite3_errmsg(BackupDatabase));
+        sqlite3_close_v2(BackupDatabase);
+        return false;
+    }
+
+    const int32 StepResult = sqlite3_backup_step(Backup, -1);
+    const int32 FinishResult = sqlite3_backup_finish(Backup);
+    const bool bSucceeded =
+        (StepResult == SQLITE_DONE || StepResult == SQLITE_OK) &&
+        FinishResult == SQLITE_OK;
+
+    if (!bSucceeded)
+    {
+        OutError = UTF8_TO_TCHAR(sqlite3_errmsg(BackupDatabase));
+    }
+
+    sqlite3_close_v2(BackupDatabase);
+    return bSucceeded;
+}
+
+bool FOGSQLiteWorldStore::RestoreFrom(const FString& AbsoluteBackupPath, FString& OutError)
+{
+    OutError.Reset();
+    if (Database == nullptr)
+    {
+        OutError = TEXT("Database is not open.");
+        return false;
+    }
+
+    if (bTransactionActive)
+    {
+        OutError = TEXT("Cannot restore while a world-store transaction is active.");
+        return false;
+    }
+
+    sqlite3* BackupDatabase = nullptr;
+    FTCHARToUTF8 BackupPathUtf8(*AbsoluteBackupPath);
+    if (sqlite3_open_v2(
+            BackupPathUtf8.Get(),
+            &BackupDatabase,
+            SQLITE_OPEN_READONLY | SQLITE_OPEN_FULLMUTEX,
+            nullptr) != SQLITE_OK)
+    {
+        OutError = TEXT("Failed to open restore source.");
+        if (BackupDatabase)
+        {
+            sqlite3_close_v2(BackupDatabase);
+        }
+        return false;
+    }
+
+    sqlite3_backup* Restore = sqlite3_backup_init(Database, "main", BackupDatabase, "main");
+    if (!Restore)
+    {
+        OutError = LastError(TEXT("Initialize restore"));
+        sqlite3_close_v2(BackupDatabase);
+        return false;
+    }
+
+    const int32 StepResult = sqlite3_backup_step(Restore, -1);
+    const int32 FinishResult = sqlite3_backup_finish(Restore);
+    sqlite3_close_v2(BackupDatabase);
+
+    if (!((StepResult == SQLITE_DONE || StepResult == SQLITE_OK) && FinishResult == SQLITE_OK))
+    {
+        OutError = LastError(TEXT("Restore database"));
+        return false;
+    }
+
+    if (!EnsureMigrationTable(OutError) || !ApplyMigrations(OutError))
+    {
+        return false;
+    }
+
+    return Checkpoint(OutError);
+}
+
+bool FOGSQLiteWorldStore::RunIntegrityCheck(FString& OutReport, FString& OutError) const
+{
+    OutReport.Reset();
+    OutError.Reset();
+
+    sqlite3_stmt* Statement = nullptr;
+    if (sqlite3_prepare_v2(Database, "PRAGMA integrity_check;", -1, &Statement, nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare integrity check"));
+        return false;
+    }
+
+    TArray<FString> Rows;
+    bool bHealthy = true;
+
+    while (true)
+    {
+        const int32 StepResult = sqlite3_step(Statement);
+        if (StepResult == SQLITE_ROW)
+        {
+            const FString Row = ColumnText(Statement, 0);
+            Rows.Add(Row);
+            if (!Row.Equals(TEXT("ok"), ESearchCase::IgnoreCase))
+            {
+                bHealthy = false;
+            }
+            continue;
+        }
+
+        if (StepResult == SQLITE_DONE)
+        {
+            break;
+        }
+
+        OutError = LastError(TEXT("Run integrity check"));
+        sqlite3_finalize(Statement);
+        return false;
+    }
+
+    sqlite3_finalize(Statement);
+    OutReport = FString::Join(Rows, TEXT("\n"));
+
+    if (!bHealthy)
+    {
+        OutError = TEXT("SQLite integrity_check reported corruption.");
+        return false;
+    }
+
+    return true;
+}
+
+bool FOGSQLiteWorldStore::Checkpoint(FString& OutError)
+{
+    return ExecuteSql(TEXT("PRAGMA wal_checkpoint(TRUNCATE);"), OutError);
+}
+
+FString FOGSQLiteWorldStore::LastError(const TCHAR* Context) const
+{
+    const FString Detail = Database
+        ? UTF8_TO_TCHAR(sqlite3_errmsg(Database))
+        : TEXT("database handle is null");
+
+    return FString::Printf(TEXT("%s: %s"), Context, *Detail);
+}

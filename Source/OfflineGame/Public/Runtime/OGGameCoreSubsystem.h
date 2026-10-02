@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Persistence/OGWorldStore.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "OGGameCoreSubsystem.generated.h"
 
@@ -23,6 +24,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "OfflineGame|Core")
     bool IsCoreReady() const { return bCoreReady; }
 
+    IOGWorldStore* GetWorldStore() const { return WorldStore.Get(); }
+
 private:
+    TUniquePtr<IOGWorldStore> WorldStore;
     bool bCoreReady = false;
 };

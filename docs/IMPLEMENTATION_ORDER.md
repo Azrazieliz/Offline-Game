@@ -7,17 +7,23 @@
 - [x] event-ledger type
 - [x] persistence interface
 - [x] bootstrap SQLite schema
-- [ ] decide/pin actual Unreal engine version on the build runner
-- [ ] add CI formatting/static checks
+- [x] pin Unreal Engine 5.8 as the initial build target
+- [x] add repository-contract CI validation
+- [ ] add Unreal compile/test runner
 
 ## Phase B - Persistence foundation
-- [ ] SQLite adapter
-- [ ] migration runner
-- [ ] transactional unit-of-work API
-- [ ] snapshot/backup/restore
-- [ ] crash-recovery tests
-- [ ] database integrity command
-- [ ] developer state inspector
+- [x] SQLiteCore adapter
+- [x] numbered migration runner
+- [x] transactional unit-of-work API
+- [x] online SQLite backup/restore
+- [x] WAL checkpoint policy
+- [x] database integrity command
+- [x] stable entity persistence API
+- [x] restart persistence automation test
+- [x] backup/restore automation test
+- [ ] compile and run the Unreal automation tests on the real build runner
+- [ ] developer state inspector UI/commands
+- [ ] automatic rotating snapshot policy
 
 ## Phase C - Character/content identity
 - [ ] content-definition IDs
