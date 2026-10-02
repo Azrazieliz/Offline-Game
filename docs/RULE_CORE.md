@@ -48,11 +48,18 @@ Active skills, passives, ultimate and form references are stable content IDs.
 
 Evolution/Awakening/Corruption/Transcendence can all modify the same resolved-kit pipeline while remaining different player-facing concepts.
 
+## Settled crit overflow rule
+
+Crit Rate above its effective probability ceiling converts at:
+
+**1% Crit Rate overflow -> +2% Crit Damage.**
+
+The interaction order with Crit Resistance is still intentionally unresolved.
+
 ## Explicitly deferred
 
 This phase does not decide:
 - damage formula
-- crit overflow conversion
 - exact Crit/Hit/Dodge equations
 - generic cooldown usage
 - ultimate charge formula

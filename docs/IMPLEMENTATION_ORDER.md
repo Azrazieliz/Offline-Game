@@ -46,12 +46,17 @@
 - [ ] final combat formulas/tuning (intentionally deferred to Phase E)
 
 ## Phase E - Combat proof
-- [ ] minimal turn executor
-- [ ] action-combat state adapter
-- [ ] one shared character kit in both modes
-- [ ] defeat/recovery
-- [ ] combat log
-- [ ] automated deterministic replay tests
+- [x] minimal turn executor foundation
+- [x] action-combat shared-state adapter foundation
+- [x] one shared character-kit/state model in both modes
+- [x] defeat state handling inside battle
+- [x] deterministic combat log foundation
+- [x] timeline/defeat/identity-exclusivity automation tests authored
+- [ ] damage/hit/crit resolver
+- [ ] resource/cost/skill availability resolver
+- [ ] reserve-entry/defeat-trigger mechanics
+- [ ] deterministic full-battle replay test
+- [ ] compile and run Phase E Unreal automation tests on the real build runner
 
 ## Phase F - Shared world-state proof
 - [ ] location/discovery state
