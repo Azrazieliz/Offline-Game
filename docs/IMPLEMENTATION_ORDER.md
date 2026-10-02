@@ -71,9 +71,22 @@
 - [ ] compile and run Phase F Unreal automation tests on the real build runner
 
 ## Phase G - Vertical Slice 0
-- [ ] playable Android build
-- [ ] persistent end-to-end scenario
+
+### Checkpoint G1 - Persistent acquisition / recovery
+- [x] deterministic persistent gacha service
+- [x] pity / featured-guarantee persistence
+- [x] duplicate acquisition accounting on the owned Manifestation
+- [ ] automatic rotating snapshots
 - [ ] diagnostics bundle
+
+### Checkpoint G2 - End-to-end runtime harness
+- [ ] persistent vertical-slice scenario harness
+- [ ] Android runtime/build configuration
+- [ ] lightweight performance telemetry
+- [ ] real UE 5.8 compile + automation run
+
+### Device gate
+- [ ] playable Android build
 - [ ] sustained S26 Ultra profiling
 - [ ] first scope/performance audit
 

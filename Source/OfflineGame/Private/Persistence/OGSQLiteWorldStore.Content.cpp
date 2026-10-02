@@ -96,14 +96,15 @@ bool FOGSQLiteWorldStore::UpsertCharacterManifestation(
     const char* Sql =
         "INSERT INTO character_manifestations("
         "manifestation_entity_id, owning_ruler_entity_id, identity_content_id, "
-        "active_version_content_id, level, current_rarity, progression_state_json"
-        ") VALUES(?, ?, ?, ?, ?, ?, ?) "
+        "active_version_content_id, level, current_rarity, duplicate_acquisition_count, progression_state_json"
+        ") VALUES(?, ?, ?, ?, ?, ?, ?, ?) "
         "ON CONFLICT(manifestation_entity_id) DO UPDATE SET "
         "owning_ruler_entity_id = excluded.owning_ruler_entity_id, "
         "identity_content_id = excluded.identity_content_id, "
         "active_version_content_id = excluded.active_version_content_id, "
         "level = excluded.level, "
         "current_rarity = excluded.current_rarity, "
+        "duplicate_acquisition_count = excluded.duplicate_acquisition_count, "
         "progression_state_json = excluded.progression_state_json;";
 
     if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
@@ -118,9 +119,10 @@ bool FOGSQLiteWorldStore::UpsertCharacterManifestation(
         BindStoreText(Statement, 4, Manifestation.ActiveVersionId.ToString()) &&
         sqlite3_bind_int(Statement, 5, Manifestation.Level) == SQLITE_OK &&
         BindStoreText(Statement, 6, Manifestation.CurrentRarity.ToString()) &&
+        sqlite3_bind_int(Statement, 7, Manifestation.DuplicateAcquisitionCount) == SQLITE_OK &&
         BindStoreText(
             Statement,
-            7,
+            8,
             Manifestation.ProgressionStateJson.IsEmpty()
                 ? TEXT("{}")
                 : Manifestation.ProgressionStateJson);
@@ -165,7 +167,7 @@ bool FOGSQLiteWorldStore::TryReadCharacterManifestation(
     sqlite3_stmt* Statement = nullptr;
     const char* Sql =
         "SELECT owning_ruler_entity_id, identity_content_id, active_version_content_id, "
-        "level, current_rarity, progression_state_json "
+        "level, current_rarity, duplicate_acquisition_count, progression_state_json "
         "FROM character_manifestations WHERE manifestation_entity_id = ?;";
 
     if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
@@ -200,7 +202,8 @@ bool FOGSQLiteWorldStore::TryReadCharacterManifestation(
         OutManifestation.ActiveVersionId = FOGContentId(StoreColumnText(Statement, 2));
         OutManifestation.Level = sqlite3_column_int(Statement, 3);
         OutManifestation.CurrentRarity = FName(*StoreColumnText(Statement, 4));
-        OutManifestation.ProgressionStateJson = StoreColumnText(Statement, 5);
+        OutManifestation.DuplicateAcquisitionCount = sqlite3_column_int(Statement, 5);
+        OutManifestation.ProgressionStateJson = StoreColumnText(Statement, 6);
     }
     else if (StepResult != SQLITE_DONE)
     {

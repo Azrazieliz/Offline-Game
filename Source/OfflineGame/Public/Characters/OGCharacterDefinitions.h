@@ -94,6 +94,13 @@ struct OFFLINEGAME_API FOGCharacterManifestationRecord
     FName CurrentRarity = NAME_None;
 
     /**
+     * Duplicate pulls advance this persistent counter instead of creating a
+     * second local Manifestation of the same Character Identity.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 DuplicateAcquisitionCount = 0;
+
+    /**
      * Extensible progression payload until specialized progression tables are
      * introduced. This field must not become a dumping ground for indexed data.
      */

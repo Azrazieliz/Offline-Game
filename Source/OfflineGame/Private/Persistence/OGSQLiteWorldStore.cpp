@@ -224,6 +224,21 @@ static const TCHAR* Migration0005Sql =
     TEXT("FOREIGN KEY(faction_entity_id) REFERENCES factions(faction_entity_id));")
     TEXT("CREATE INDEX IF NOT EXISTS idx_wars_status ON wars(status);");
 
+static const TCHAR* Migration0006Sql =
+    TEXT("ALTER TABLE character_manifestations ")
+    TEXT("ADD COLUMN duplicate_acquisition_count INTEGER NOT NULL DEFAULT 0 ")
+    TEXT("CHECK (duplicate_acquisition_count >= 0);")
+    TEXT("CREATE TABLE IF NOT EXISTS gacha_states (")
+    TEXT("ruler_entity_id TEXT NOT NULL,")
+    TEXT("pity_category TEXT NOT NULL,")
+    TEXT("pulls_since_top_rarity INTEGER NOT NULL DEFAULT 0 CHECK (pulls_since_top_rarity >= 0),")
+    TEXT("featured_guaranteed INTEGER NOT NULL DEFAULT 0 CHECK (featured_guaranteed IN (0,1)),")
+    TEXT("total_pulls INTEGER NOT NULL DEFAULT 0 CHECK (total_pulls >= 0),")
+    TEXT("updated_world_tick INTEGER NOT NULL DEFAULT 0,")
+    TEXT("PRIMARY KEY(ruler_entity_id, pity_category),")
+    TEXT("FOREIGN KEY(ruler_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_gacha_states_ruler ON gacha_states(ruler_entity_id);");
+
 static const FOGMigrationDefinition Migrations[] =
 {
     {1, TEXT("bootstrap"), Migration0001Sql},
@@ -231,6 +246,7 @@ static const FOGMigrationDefinition Migrations[] =
     {3, TEXT("world_location_state"), Migration0003Sql},
     {4, TEXT("territory_resources_projects"), Migration0004Sql},
     {5, TEXT("dispatch_faction_war"), Migration0005Sql},
+    {6, TEXT("gacha_state"), Migration0006Sql},
 };
 
 FString RelatedEntitiesToJson(const TArray<FOGEntityId>& EntityIds)

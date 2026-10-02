@@ -5,6 +5,7 @@
 #include "Content/OGContentId.h"
 #include "Core/OGEntityId.h"
 #include "Events/OGWorldEvent.h"
+#include "Gacha/OGGachaDefinitions.h"
 #include "World/OGDispatchFactionWarRecords.h"
 #include "World/OGTerritoryStateRecords.h"
 #include "World/OGWorldStateRecords.h"
@@ -28,6 +29,10 @@ public:
 
     virtual bool UpsertCharacterManifestation(const FOGCharacterManifestationRecord&, int64, FString&) = 0;
     virtual bool TryReadCharacterManifestation(const FOGEntityId&, bool&, FOGCharacterManifestationRecord&, FString&) const = 0;
+    virtual bool TryFindCharacterManifestationByOwnerAndIdentity(const FOGEntityId&, const FOGContentId&, bool&, FOGCharacterManifestationRecord&, FString&) const = 0;
+
+    virtual bool UpsertGachaState(const FOGGachaStateRecord&, FString&) = 0;
+    virtual bool TryReadGachaState(const FOGEntityId&, FName, bool&, FOGGachaStateRecord&, FString&) const = 0;
 
     virtual bool UpsertLocation(const FOGLocationRecord&, int64, FString&) = 0;
     virtual bool TryReadLocation(const FOGEntityId&, bool&, FOGLocationRecord&, FString&) const = 0;

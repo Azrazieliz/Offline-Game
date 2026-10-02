@@ -25,6 +25,10 @@ public:
 
     virtual bool UpsertCharacterManifestation(const FOGCharacterManifestationRecord&, int64, FString&) override;
     virtual bool TryReadCharacterManifestation(const FOGEntityId&, bool&, FOGCharacterManifestationRecord&, FString&) const override;
+    virtual bool TryFindCharacterManifestationByOwnerAndIdentity(const FOGEntityId&, const FOGContentId&, bool&, FOGCharacterManifestationRecord&, FString&) const override;
+
+    virtual bool UpsertGachaState(const FOGGachaStateRecord&, FString&) override;
+    virtual bool TryReadGachaState(const FOGEntityId&, FName, bool&, FOGGachaStateRecord&, FString&) const override;
 
     virtual bool UpsertLocation(const FOGLocationRecord&, int64, FString&) override;
     virtual bool TryReadLocation(const FOGEntityId&, bool&, FOGLocationRecord&, FString&) const override;
