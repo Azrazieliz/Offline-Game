@@ -8,8 +8,8 @@ There is no DigitalOcean or self-hosted-runner path in the active workflow.
 
 The repository's `.devcontainer/devcontainer.json` requires a Codespaces host with at least:
 
-- 8 vCPU
-- 24 GB RAM
+- 4 vCPU
+- 16 GB RAM
 - 64 GB storage
 
 GitHub will only offer machine types that meet or exceed those declared host requirements.
@@ -49,7 +49,7 @@ Or run the VS Code task:
 
 Default Unreal image:
 
-`ghcr.io/epicgames/unreal-engine:dev-slim-5.8`
+`ghcr.io/epicgames/unreal-engine:dev-slim-5.8.0`
 
 The smoke run:
 
@@ -63,7 +63,7 @@ The smoke run:
 
 ## Disk rule
 
-The first Codespaces run is also the disk-fit test.
+The first Codespaces run is also the disk-fit test. The 64 GB tier is intentionally retained because the UE 5.8 slim image is large on disk.
 
 If the 64 GB host cannot hold the Unreal image plus project intermediates, use a larger Codespaces machine/storage option rather than switching providers.
 

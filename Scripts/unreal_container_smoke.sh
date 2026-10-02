@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-UE_IMAGE="${UE_IMAGE:-ghcr.io/epicgames/unreal-engine:dev-slim-5.8}"
+UE_IMAGE="${UE_IMAGE:-ghcr.io/epicgames/unreal-engine:dev-slim-5.8.0}"
 REPORT_DIR="${ROOT}/Saved/Automation/Reports"
 
 python3 "${ROOT}/Scripts/verify_unreal_cpp.py"
