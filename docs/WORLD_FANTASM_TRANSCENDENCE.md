@@ -103,10 +103,38 @@ The protagonist has no collectible Origin Rarity and must not be assigned a hidd
 
 When the protagonist is a territorial Ruler, his Ruler-side higher-order reality expression is primarily **Domain Manifestation / Domain Authority**, sourced from territorial sovereignty rather than a collectible-character World Fantasm grade.
 
-If the protagonist remains territoryless, sufficiently high personal/existential power may instead allow a **personal World Manifestation-type reality field**. Its strength is power/existence based rather than Origin-Rarity based.
+If the protagonist remains territoryless, sufficiently high personal/existential power may instead allow an intrinsic **personal World Manifestation**. Its strength is power/existence based rather than Origin-Rarity based.
 
-The protagonist may use the Ascendant / Unbound / Exalted / Transcendent / Absolute vocabulary on a personal-development basis. The exact rule is still open between:
-- progressive advancement through those grades over time; or
-- one irreversible Transcendence breakthrough whose resulting grade depends on how far the protagonist developed before taking it.
+### Protagonist Transcendence
 
-Also still open: if a territoryless protagonist unlocks personal World Manifestation and later acquires a Domain, whether both systems remain independent, fuse, or one becomes subordinate to the other.
+The protagonist Transcends **once**.
+
+Before that irreversible breakthrough, he may progressively qualify for:
+
+1. Ascendant
+2. Unbound
+3. Exalted
+4. Transcendent
+5. Absolute
+
+When he chooses to Transcend, he receives the highest grade for which the required power ceiling and bespoke save-specific conditions have already been satisfied. The resulting grade is permanent under normal progression.
+
+Waiting therefore preserves access to higher potential grades, while Transcending earlier trades that potential for immediate Transcendence power. The UI must clearly show the currently attainable grade and warn that the commitment is permanent; higher possible grades may be hinted without exposing every hidden condition.
+
+### Coexistence with Domain Authority
+
+A personal World Manifestation is intrinsic to the protagonist and **remains his** if he later gains territory and a Domain.
+
+Domain Manifestation / Domain Authority and personal World Manifestation are separate higher-order reality systems. They may:
+
+- coexist;
+- overlap;
+- reinforce one another;
+- remain independent; or
+- enter an explicitly authored combined state.
+
+They do **not** automatically fuse or stack.
+
+Losing territory can remove or weaken Domain-derived effects but does not erase the intrinsic personal World Manifestation.
+
+Personal World Manifestation, Domain Authority and other characters' World Fantasms resolve through the same established higher-order conflict principles: strength, Authority, counters, compatibility, relevance and explicit mechanics.
