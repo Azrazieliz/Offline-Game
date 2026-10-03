@@ -11,7 +11,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Existence/Power Rank architecture is RESOLVED in docs/EXISTENCE_POWER_RANK.md; exact Rank coefficient curves and per-content breakthrough requirements remain simulation/content tuning.
 - Protagonist Factor architecture is resolved. Remaining work is Factor content authoring and numerical tuning.
 - Protagonist Ascendant/Unbound/Exalted/Transcendent/Absolute qualification conditions; personal World Manifestation threshold; explicit combined-state rules with Domain Authority.
-- Character progression grammars for Rank/Rarity/Evolution/Awakening/Corruption/skills.
+- Character progression architecture is RESOLVED in docs/CHARACTER_PROGRESSION.md; remaining work is per-character route content, Grand Convergence definitions and numerical tuning.
 - World Director cadence, reruns, surprise bounds, world-state triggers, sealed-content activation and audit/reproducibility.
 - Cosmology/endgame enemy truth, dimensional preparation metaphysics and major hidden history.
 - Starting-dimension generation grammar and later-world/dimension progression grammar.
@@ -28,7 +28,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 
 ## Numerical tuning and simulation
 
-- Gacha rates, featured split, soft/hard pity, currencies, tickets, duplicates and progression costs.
+- Gacha rates, featured split, soft/hard pity, currencies, tickets, Manifestation-copy economics, Grand Convergence costs and progression costs.
 - Combat formulas and curves, Rank Suppression, effect values, readiness/timing, auto/AI policies and progression scaling.
 - Economy/resource/project/war/dispatch timing, risk and output values.
 - Equipment modifier pools, upgrade/evolution costs and crafting recipes.
