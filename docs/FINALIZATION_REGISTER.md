@@ -9,7 +9,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Ruler milestone-title catalog and exact structural predicates.
 - Class recognition: Normal/Grand thresholds, composite naming, evolution/fusion recognition, appraisal and UI.
 - Existence/Power Rank architecture is RESOLVED in docs/EXISTENCE_POWER_RANK.md; exact Rank coefficient curves and per-content breakthrough requirements remain simulation/content tuning.
-- Protagonist Factor integration, dominance, fusion, removal, physiology, unique resources and class/skill interaction.
+- Protagonist Factor architecture is resolved. Remaining work is Factor content authoring and numerical tuning.
 - Protagonist Ascendant/Unbound/Exalted/Transcendent/Absolute qualification conditions; personal World Manifestation threshold; explicit combined-state rules with Domain Authority.
 - Character progression grammars for Rank/Rarity/Evolution/Awakening/Corruption/skills.
 - World Director cadence, reruns, surprise bounds, world-state triggers, sealed-content activation and audit/reproducibility.
