@@ -8,26 +8,26 @@ This document records the current authoritative personal-power Rank architecture
 - Ranks are player-facing names rather than displayed numerals. The engine may retain an internal ordinal for ordering, arithmetic and migration only.
 - Cultures/worlds may use aliases for the same underlying Rank.
 - Current canonical ladder, low to high:
-  1. Common
+  1. Mortal
   2. Awakened
-  3. Adept
-  4. Master
-  5. Grandmaster
-  6. Saint
-  7. Sage
-  8. Venerable
+  3. Elite
+  4. Champion
+  5. Hero
+  6. Sage
+  7. Saint
+  8. Legend
   9. Mythic
   10. Astral
   11. Celestial
-  12. Empyrean
+  12. Divine
   13. Cosmic
   14. Dimensional
-  15. Primordial
+  15. Immortal
   16. Eternal
-  17. Supreme
-- Rank names are conventional ontology labels, not literal claims about profession, religion, wisdom, age or immortality.
+  17. Primordial
+- Rank names are conventional ontology labels, not literal claims about profession, morality, religion, wisdom, age, immortality or species. Sage is below Saint. Primordial is the current highest universal Rank; Eternal and every other listed Rank are below it.
 - Rank definitions are data-driven so genuinely higher future bands can be added without treating visible names as code enums.
-- Ordinary NPCs can occupy different levels inside Common Rank. The protagonist can therefore start slightly above an ordinary NPC without starting at a higher Rank.
+- Ordinary NPCs can occupy different levels inside Mortal Rank. The protagonist can therefore start slightly above an ordinary NPC without starting at a higher Rank.
 
 ## 2. Meaning and levels
 
