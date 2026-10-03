@@ -30,12 +30,21 @@ top-rarity result to a featured top-rarity entry.
 
 ## Ownership and duplicates
 
-The first acquisition creates the Ruler-specific Manifestation.
+The first acquisition creates the first Ruler-specific Manifestation.
 
-A later acquisition of the same Character Identity does not create a second
-simultaneous Manifestation. It increments DuplicateAcquisitionCount on the owned
-Manifestation. Later awakening/evolution systems can consume or interpret that
-counter without losing acquisition history.
+A later acquisition of the same Character Identity normally creates another
+persistent Manifestation of that same canonical Identity. Each copy can be
+leveled, equipped and developed independently so Evolution, Awakening,
+Corruption and future development routes can diverge.
+
+Copies are grouped under one Character Identity in presentation. They are not
+collapsed into an inert duplicate counter. Local encounter identity exclusivity
+still normally prevents simultaneous fielding of the same Character Identity
+unless a specific mechanic permits it.
+
+Fully reinforced divergent copies can later be consumed explicitly by the
+character's Grand Convergence finalization. This is character development, not
+automatic duplicate conversion.
 
 ## Transaction boundary
 
@@ -53,3 +62,12 @@ The protagonist's gacha access unlocks only after a territory has remained conti
 A successful first acquisition creates the owned Manifestation and makes her visible immediately in portrait/vertical Ruler Mode. It does not force a physical spawn at the protagonist's current World Mode location. The Manifestation becomes eligible for active World Mode deployment only after the protagonist returns to controlled territory and completes the first roster anchoring step there.
 
 All pullable Character Identities are intended to be female. This does not constrain the sex of non-gacha world NPCs, enemies, faction members, or Rulers.
+
+
+## Implementation migration note
+
+The current Phase G1 runtime implementation predates the multiple-Manifestation
+design and still uses DuplicateAcquisitionCount. Before character-progression
+implementation is considered current, that storage/acquisition path must be
+migrated transactionally to per-pull Manifestation instances while preserving
+existing acquisition history and deterministic replay compatibility.
