@@ -42,3 +42,14 @@ counter without losing acquisition history.
 Currency deduction, pity update, Manifestation creation/update, and the pull
 world event commit in one SQLite transaction. A failed pull leaves none of those
 changes partially applied.
+
+
+## Access gate and first deployment
+
+Ruler status itself does not require a subordinate contract. A solitary Ruler is valid if they genuinely control and can keep territory.
+
+The protagonist's gacha access unlocks only after a territory has remained continuously under their control for more than one in-game month. Remaining territoryless keeps gacha unavailable by choice.
+
+A successful first acquisition creates the owned Manifestation and makes her visible immediately in portrait/vertical Ruler Mode. It does not force a physical spawn at the protagonist's current World Mode location. The Manifestation becomes eligible for active World Mode deployment only after the protagonist returns to controlled territory and completes the first roster anchoring step there.
+
+All pullable Character Identities are intended to be female. This does not constrain the sex of non-gacha world NPCs, enemies, faction members, or Rulers.
