@@ -17,10 +17,11 @@ The runtime deliberately separates:
 3. **Ruler-specific Manifestation**
    - mutable persistent entity owned by one Ruler
    - independently leveled/equipped/developed
-   - points to its Character Identity and currently active Version
+   - points to its Character Identity and currently active Version/state
    - represented by a stable runtime Entity ID
+   - multiple Manifestations of the same Character Identity may be owned by the same Ruler so divergent development routes can coexist
 
-This allows several Rulers to possess independent manifestations of the same Character Identity without exhausting a global unique pool.
+This allows several Rulers to possess independent manifestations of the same Character Identity and also allows one Ruler to develop multiple copies of that Identity along different Evolution/Awakening/Corruption/other routes.
 
 ## Definition vs save state
 
@@ -30,13 +31,17 @@ Mutable manifestation state belongs to SQLite.
 
 The save does **not** duplicate whole character definitions. It stores ownership/progression/state and resolves definitions through stable content IDs.
 
-## Local identity exclusivity
+## Multiple owned Manifestations and local identity exclusivity
 
-The existing design rule remains for combat:
+A Ruler may own multiple Manifestations of the same Character Identity. Each has independent Rank/Level, Current Rarity, equipment, learned skills, development-route state, forms, history and reinforcement state.
 
-> Multiple Versions/Manifestations of the same Character Identity do not normally fight simultaneously in one local encounter unless an explicit mechanic says otherwise.
+The combat rule remains:
 
-This is a combat-team validation rule and is not enforced by the persistence layer.
+> Multiple Manifestations of the same Character Identity do not normally fight simultaneously in one local encounter unless an explicit mechanic says otherwise.
+
+This is a local encounter/team-validation rule, not a persistence ownership restriction. Copies may be trained, equipped, assigned and developed independently outside that restriction.
+
+Fully reinforced divergent Manifestations may later participate in the Character Identity's Grand Convergence finalization, producing one Grand Manifestation that preserves and synthesizes their completed development histories according to character-specific rules.
 
 ## Canonical maturity
 
