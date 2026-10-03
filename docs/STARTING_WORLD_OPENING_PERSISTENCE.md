@@ -56,6 +56,10 @@ This document records the current authoritative decisions for the starting world
 - A newly acquired Manifestation may itself be confused about the metaphysical acquisition situation when appropriate.
 - No two opening companions are pre-granted before normal gacha.
 - All pullable/gacha Character Identities are intended to be female. This does not constrain the sex of ordinary NPCs, enemies, faction members or Rulers.
+- The one-month qualification requires continuous territorial control. Losing all valid territorial control before qualification resets the timer.
+- Once gacha has been unlocked through stable sovereignty, dimensional gacha access remains permanently established even if the Ruler later becomes temporarily territoryless.
+- A permanently unlocked Ruler may pull while away from territory. Newly acquired Manifestations remain owned/visible but cannot enter active World Mode deployment until their first anchoring in controlled territory.
+- If no territory is controlled when a Manifestation is acquired, it remains unanchored until a valid territory is regained.
 
 ## 6. Narrative authorship / spoiler rule
 
