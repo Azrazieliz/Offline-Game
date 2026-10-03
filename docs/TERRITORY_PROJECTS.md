@@ -162,3 +162,16 @@ This is deliberately scary rather than normalized: a solitary Domain-bearing Rul
 Direct or hierarchical sovereignty over multiple independent Domain hearts is **Overlord-scale structure**, not ordinary single-Domain Ruler progression.
 
 An Overlord may hold several Domains directly, govern them through subordinate Rulers, or combine both arrangements. This expands the earlier Overlord rule rather than creating a separate multi-Domain title.
+
+### Core fusion remains authoritative
+
+The previously defined Core-fusion architecture remains fully in force alongside the heart/anchor rules above:
+
+- conquered/absorbed Cores preserve conceptual identity;
+- fusion can preserve, transform or synthesize abilities rather than merely adding flat power;
+- Concept/Aspect synthesis applies to elemental and non-elemental concepts;
+- fusion is asymmetric (A absorbing B may differ from B absorbing A);
+- incompatibility can destabilize, mutate, corrupt, overload or reduce control;
+- high-value combinations may receive bespoke authored upgrades after the systemic synthesis already works.
+
+Losing the fused Core therefore risks the synthesized heart of the resulting Domain rather than only one pre-fusion component.
