@@ -25,7 +25,7 @@ No title secretly grants catch-up power merely because it was recognized.
 ## 2. Milestone titles
 
 - **Ruler** is the foundational sovereignty status.
-- **Overlord** is a structural milestone reflecting actual superior authority over one or more subordinate Rulers. It is not a mandatory "next level" for every Ruler.
+- **Overlord** is a structural milestone for sovereignty spanning multiple independent Domain-scale centers/hearts. That structure may be held directly, through subordinate Rulers, or through a mixture of both. It is not a mandatory "next level" for every Ruler.
 - Further titles are data-driven.
 - A title may be universal when it describes a genuinely universal structure, or culture/world/faction/lore-specific where appropriate.
 - Milestone recognition can be gained, lost or changed if the defining state changes.
