@@ -9,19 +9,23 @@ This document records the current authoritative personal-power Rank architecture
 - Cultures/worlds may use aliases for the same underlying Rank.
 - Current canonical ladder, low to high:
   1. Common
-  2. Enhanced
-  3. Awakened
-  4. Extraordinary
-  5. Mythic
-  6. Transmundane
-  7. Astral
-  8. Celestial
-  9. Cosmic
-  10. Dimensional
-  11. Lawborne
-  12. Conceptual
-  13. Primordial
-  14. Apex
+  2. Awakened
+  3. Adept
+  4. Master
+  5. Grandmaster
+  6. Saint
+  7. Sage
+  8. Venerable
+  9. Mythic
+  10. Astral
+  11. Celestial
+  12. Empyrean
+  13. Cosmic
+  14. Dimensional
+  15. Primordial
+  16. Eternal
+  17. Supreme
+- Rank names are conventional ontology labels, not literal claims about profession, religion, wisdom, age or immortality.
 - Rank definitions are data-driven so genuinely higher future bands can be added without treating visible names as code enums.
 - Ordinary NPCs can occupy different levels inside Common Rank. The protagonist can therefore start slightly above an ordinary NPC without starting at a higher Rank.
 
