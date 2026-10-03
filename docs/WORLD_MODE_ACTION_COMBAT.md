@@ -4,7 +4,7 @@ This document records the current detailed World Mode action-combat design. It s
 
 ## Status
 
-Current authoritative baseline except the animation-cancel policy, which remains pending Creative Director clarification.
+Current authoritative baseline.
 
 ## 1. Mobile movement, attacks and targeting
 
@@ -36,7 +36,7 @@ Current authoritative baseline except the animation-cancel policy, which remains
 
 Animation canceling means interrupting an attack/skill's recovery or commitment with another action such as dodge, switch, jump or another skill before the original animation naturally finishes.
 
-**Pending:** choose whether this is broadly allowed, broadly disallowed, or only available through explicit character/action-specific cancel windows.
+Cancel behavior is character/action-dependent. Each attack, skill and state defines its own valid cancel windows and destinations. Fast/agile actions may permit extensive dodge/switch/jump/skill cancels; highly committed actions may lock the character until their authored release point unless an explicit mechanic overrides that commitment.
 
 ## 4. Party, switching and QTE
 
