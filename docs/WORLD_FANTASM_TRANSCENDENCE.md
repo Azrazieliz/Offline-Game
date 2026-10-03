@@ -95,3 +95,18 @@ The dimensional contract/gacha preparation system exists as a means granted by d
 Ordinary conflicts, Ruler progression, Domain development, roster growth and character development are also preparation for those true late-game threats.
 
 Whether dimensions consciously grant this system or whether it is an automatic multiversal defensive law remains a lore-detail decision and is not required for current implementation.
+
+
+## 6. Protagonist exception
+
+The protagonist has no collectible Origin Rarity and must not be assigned a hidden pseudo-rarity merely to fit the character tables above.
+
+When the protagonist is a territorial Ruler, his Ruler-side higher-order reality expression is primarily **Domain Manifestation / Domain Authority**, sourced from territorial sovereignty rather than a collectible-character World Fantasm grade.
+
+If the protagonist remains territoryless, sufficiently high personal/existential power may instead allow a **personal World Manifestation-type reality field**. Its strength is power/existence based rather than Origin-Rarity based.
+
+The protagonist may use the Ascendant / Unbound / Exalted / Transcendent / Absolute vocabulary on a personal-development basis. The exact rule is still open between:
+- progressive advancement through those grades over time; or
+- one irreversible Transcendence breakthrough whose resulting grade depends on how far the protagonist developed before taking it.
+
+Also still open: if a territoryless protagonist unlocks personal World Manifestation and later acquires a Domain, whether both systems remain independent, fuse, or one becomes subordinate to the other.
