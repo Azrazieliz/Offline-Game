@@ -16,7 +16,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Cosmology/endgame enemy truth, dimensional preparation metaphysics and major hidden history.
 - Starting-dimension generation grammar and later-world/dimension progression grammar.
 - Civilization development-vector model after hard simplification.
-- Territory/Domain/Core claim, awakening, loss, break/repair, absorption/fusion and Domain ability/Concept synthesis rules.
+- Territory/Domain/Core sovereignty, five-day reclamation, Core awakening/heart, Core-loss catastrophe, populationless-Domain and Overlord multi-Domain architecture are RESOLVED in docs/TERRITORY_PROJECTS.md; remaining work is per-content Concept synthesis, exact recovery costs, Main Territory UX and numerical tuning.
 - Faction/war/army/dispatch/project/logistics resolution rules.
 - World-time/calendar values and offline catch-up behavior.
 - Ruler Mode navigation and Territory/Domain UX.
