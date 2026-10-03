@@ -12,7 +12,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Protagonist Factor architecture is resolved. Remaining work is Factor content authoring and numerical tuning.
 - Protagonist Ascendant/Unbound/Exalted/Transcendent/Absolute qualification conditions; personal World Manifestation threshold; explicit combined-state rules with Domain Authority.
 - Character progression architecture is RESOLVED in docs/CHARACTER_PROGRESSION.md; remaining work is per-character route content, Grand Convergence definitions and numerical tuning.
-- World Director cadence, reruns, surprise bounds, world-state triggers, sealed-content activation and audit/reproducibility.
+- World Director architecture is RESOLVED in docs/WORLD_DIRECTOR.md; remaining work is content-specific cadence/delay definitions and tuning.
 - Cosmology/endgame enemy truth, dimensional preparation metaphysics and major hidden history.
 - Starting-dimension generation grammar and later-world/dimension progression grammar.
 - Civilization development-vector model after hard simplification.
