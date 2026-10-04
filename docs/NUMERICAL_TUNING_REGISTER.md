@@ -50,8 +50,15 @@ Currency income must be tuned against pull counts using pulls per active-hour ba
 
 ## Combat baselines
 
-- Keep the current conventional base Crit Damage bonus at +50% unless a kit overrides it.
-- Retain DEF ratio family: defense reference / (defense reference + effective DEF).
+### Per-character stat doctrine
+
+All gameplay stats are authored/resolved per character/Manifestation/build. The combat engine may use mathematical neutral fallbacks only for invalid/missing test data, but production balance never assumes every character starts from the same Crit Damage, Hit, Dodge, Block, SPD, resistance or other stat.
+
+Skills/forms/equipment/Factors/Rank/effects may modify those resolved values. This keeps stat identity part of character design rather than a hidden universal template.
+
+
+- **No universal character-stat baseline is authoritative.** Crit Damage, Crit Rate, Hit, Dodge, Block, HP, ATK, DEF, SPD, resistances and every other character-facing stat are explicit character/Manifestation content state and may differ radically by character/build.
+- Retain DEF ratio family: defense reference / (defense reference + effective DEF), with the relevant defense reference supplied by skill/content data rather than one global stat constant.
 - DefenseReference remains skill/content data rather than a universal ATK constant.
 - No undeclared random damage variance.
 - Use 2.5 seconds as the generic perfect-dodge slow baseline inside the accepted 2-3 second range; character-specific mechanics may differ.
