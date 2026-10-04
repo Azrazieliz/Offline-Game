@@ -60,24 +60,26 @@ Implemented authoritative schema families through migration 0006:
 - territories, Domain Cores, aggregate resources, and lazy Projects;
 - result-oriented dispatches;
 - factions, explicit faction links, aggregate armies, and wars;
-- persistent gacha pity/featured-guarantee state and duplicate-acquisition count.
+- persistent gacha pity/featured-guarantee state plus a **legacy pre-reconciliation duplicate-acquisition column** that is no longer design-authoritative.
 
 Gacha pull outcomes are stored as meaningful `world_events`; there is no
 separate pull-history subsystem.
 
-Still deferred until player-facing requirements need them:
+The frozen architecture now requires additional normalized schema families before the real validation gate. The exact numbered migration plan is specified in `RECONCILIATION_MIGRATION_MATRIX.md`.
 
-- specialized progression/equipment persistence beyond the current compact manifestation state;
-- dedicated Chronicle projections beyond meaningful world events;
-- any additional schema family required by later vertical-slice systems.
+The current migration-0006 database is therefore a **pre-reconciliation runtime schema**, not the final player-facing schema.
 
-## Canonical-adult gate
+## Canonical maturity / lore authority
 
-Character data must explicitly distinguish canonical age eligibility from visual appearance.
+Character maturity is content lore, not a runtime visual judgment.
 
-Mature sexual-content eligibility is never inferred from model/body design alone.
+- `Character Identity` stores the canonical lore maturity fact.
+- Appearance/body design is never used to infer or override that fact.
+- A lore-Adult Identity is adult-content capable by default; no Version-level generic permission switch may silently disable the pillar.
+- Version/form/profile data may alter presentation, available assets and physically possible actions without redefining adulthood.
+- Lore-NonAdult/minor/child Identities remain outside sexual-content packages.
 
-The specific content systems are added later; the persistence contract reserves explicit eligibility metadata rather than guessing at runtime.
+The runtime validator enforces consistency with authored lore; it does not create an independent maturity policy.
 
 ## Numbers
 
