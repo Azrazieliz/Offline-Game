@@ -111,3 +111,12 @@ This is not a save rewind or resurrection of local history:
 - story content adapts to the original death.
 
 Eligibility for heroification is content/systemic and not guaranteed for every anonymous person.
+
+
+### Ticket consumption priority
+
+When a compatible ordinary ticket and pull currency can both pay for the same pull, the default gacha action **automatically consumes compatible tickets first**, then falls back to the renewable pull currency.
+
+The confirmation UI shows what will be consumed before execution.
+
+Tickets do not expire by default. Event/banner/dimensional tickets remain stored until a compatible banner/pool returns unless the ticket's own content definition explicitly gives it another lifecycle.
