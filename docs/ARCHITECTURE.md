@@ -88,13 +88,13 @@ The implementation should resist creating one engine per design noun.
    - population as aggregate number
    - explicit war/alliance/support/subordination states
    - armies as aggregate forces until promoted near the player
-   - no politics, treaties, faction-feeling model, occupation governance, or legal system
+   - no deep internal-politics, faction-feeling-score, occupation-governance, legal-code or treaty-law simulator; compact explicit diplomatic agreements/states remain valid
 
 8. **Knowledge / Events / Chronicle**
    - facts known by the player/faction or specific important NPCs
    - meaningful world events
    - Chronicle projection
-   - no separate generic NPC-memory simulation
+   - no universal verbatim/day-life NPC-memory simulator; important named NPCs may persist compact semantic beliefs/memories/rumors
 
 9. **Gacha / Content / World Director**
    - banner definitions and state
