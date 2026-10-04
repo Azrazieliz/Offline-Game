@@ -1,53 +1,71 @@
 # Detailed Finalization Register
 
-This is the working completion checklist for systems that still need detailed design, content definition, tuning, production specification or empirical validation.
+STATUS: BROAD ARCHITECTURE FROZEN FOR TUNING AND CODE RECONCILIATION.
 
-A system is design-final when its player-facing rules, authoritative state transitions, content-authoring contract, failure/edge behavior and UI exposure are specified. Numerical values stay provisional until deterministic simulation or S26 Ultra profiling validates them. Ongoing content catalogs are production-ready when their templates and validation rules are final, even though content creation itself continues.
+A system is design-final when its player-facing rules, authoritative state transitions, content-authoring contract, failure/edge behavior and UI exposure are specified. Numerical values remain provisional until deterministic simulation or S26 Ultra profiling validates them. Ongoing content catalogs remain open-ended by design.
 
-## Creative/system finalization
+## Creative/system architecture - resolved
 
-- Ruler milestone architecture is RESOLVED in docs/RULER_PROGRESSION.md: Ruler and Overlord are the only universal sovereignty titles; Overlord is the highest, requires both personal/Authority capability and Overlord-scale sovereignty, can be satisfied by multi-Domain or single world/dimension-spanning sovereignty, supports joint Overlords, and separates active title from historical peak. Remaining work is UI tuning and content-specific/local titles.
-- Class recognition architecture is RESOLVED in docs/CLASS_ARCHITECTURE.md: automatic mastery recognition, emergent/composite Classes, non-unique Crown apex tier, one active Grand seat per canonical Class in the connected dimensional defensive order, Grand appointment/revocation, attained-vs-current expression, knowledge/appraisal and UI behavior. Remaining work is per-Class content and numerical mastery thresholds.
-- Existence/Power Rank architecture is RESOLVED in docs/EXISTENCE_POWER_RANK.md; exact Rank coefficient curves and per-content breakthrough requirements remain simulation/content tuning.
-- Protagonist Factor architecture is resolved. Remaining work is Factor content authoring and numerical tuning.
-- Protagonist higher-order progression architecture is RESOLVED in docs/WORLD_FANTASM_TRANSCENDENCE.md: universal minimum + personal-proof Transcendence qualifications, one persistent-world history, theoretically recoverable Absolute potential absent genuine irreversible foreclosure, emergent non-template personal World Manifestation, post-unlock evolution and combined Domain/Manifestation techniques. Remaining work is content-specific thresholds, generated rule synthesis and tuning.
-- Character progression architecture is RESOLVED in docs/CHARACTER_PROGRESSION.md; remaining work is per-character route content, Grand Convergence definitions and numerical tuning.
-- World Director architecture is RESOLVED in docs/WORLD_DIRECTOR.md; remaining work is content-specific cadence/delay definitions and tuning.
-- Cosmology/dimensional architecture is RESOLVED in docs/COSMOLOGY.md: semi-conscious metaphysical Dimensions, extensible higher reality structure, evolving/declining World Rank, Junctions, dimensional preparation and broad external/internal threat ecology. Remaining work is spoiler-protected authored history, specific threat content and numerical World-Rank tuning.
-- World generation / exploration architecture is RESOLVED in docs/WORLD_GENERATION_EXPLORATION.md: hybrid deterministic procedural + authored production, canonical persistent locations, causal recovery toward prior/equilibrium states over variable time, mixed-genre later realities, persistent dungeons, knowledge-driven exploration, non-scaled danger and capability-based traversal gating. Remaining work is production content and empirical streaming/performance tuning.
-- Civilization / logistics / Projects / Dispatch / population / world-time architecture is RESOLVED in docs/CIVILIZATION_LOGISTICS_TIME.md: civilization-specific multidimensional development, causal knowledge transfer, independent decline/recovery, aggregate population with promotion of important individuals, capability-aware physical logistics including teleportation, generic long-running Projects, objective-faithful autonomous Dispatch and world-specific calendars/time ratios. Remaining work is numerical/content tuning.
-- Territory/Domain/Core sovereignty, five-day reclamation, Core awakening/heart, Core-loss catastrophe, populationless-Domain and Overlord multi-Domain architecture are RESOLVED in docs/TERRITORY_PROJECTS.md; remaining work is per-content Concept synthesis, exact recovery costs, Main Territory UX and numerical tuning.
-- Faction/war/army architecture is RESOLVED in docs/DISPATCH_FACTION_WAR.md: objective-based command, commander autonomy/disobedience, continuous campaigns/fronts, non-automatic decapitation outcomes, conquest via actual control, unrestricted army composition and capability-based extreme asymmetry. Dispatch/Projects/Logistics architecture is also resolved in docs/CIVILIZATION_LOGISTICS_TIME.md; remaining work is numerical/content tuning.
-- Ruler Mode navigation and Territory/Domain UX.
-- World Mode HUD/control presentation.
-- Art direction, VFX/reality-field language, animation/cinematic tiers, voice/audio/music.
-- Mature-content production architecture and authored state/eligibility integration.
-- NPC generation/promotion and dialogue/knowledge/memory production rules.
-- Persistence/recovery UX and exact snapshot/import/migration behavior.
+- Ruler/Overlord sovereignty: `RULER_PROGRESSION.md`.
+- Class/Crown/Grand architecture: `CLASS_ARCHITECTURE.md`.
+- Existence/Power Rank: `EXISTENCE_POWER_RANK.md`.
+- Protagonist Factors: `PROTAGONIST_FACTORS.md`.
+- Protagonist Transcendence / personal World Manifestation / Domain combination: `WORLD_FANTASM_TRANSCENDENCE.md`.
+- Character progression / divergent Manifestations / Grand Convergence: `CHARACTER_PROGRESSION.md`.
+- World Director: `WORLD_DIRECTOR.md`.
+- Cosmology / World Rank / Junctions / existential-threat ecology: `COSMOLOGY.md`.
+- World generation / exploration / persistent locations / causal restoration: `WORLD_GENERATION_EXPLORATION.md`.
+- Civilization / logistics / Projects / Dispatch / population / world time: `CIVILIZATION_LOGISTICS_TIME.md`.
+- Territory / Domain Core / five-day reclamation / Core fusion: `TERRITORY_PROJECTS.md`.
+- Factions / armies / continuous war / command: `DISPATCH_FACTION_WAR.md`.
+- Ruler Mode / World HUD / controls / art / VFX / animation / voice / music: `UI_PRESENTATION.md`.
+- Mature/adult-content production and state integration: `MATURE_CONTENT.md`.
+- Equipment / skills / NPC generation-promotion / dialogue / knowledge / language / memory: `CHARACTER_SYSTEMS_PRODUCTION.md`.
+- Gacha economy / copy behavior / Heroic Record heroification: `GACHA_ECONOMY.md`.
+- Persistence / backups / content packages / Android delivery: `PERSISTENCE_PACKAGING.md`.
+- Production cadence / Worlds / bosses / challenge content / narrative continuity / device-feasibility doctrine: `CONTENT_PRODUCTION_NARRATIVE.md`.
+- Freeze status and handoff to reconciliation: `ARCHITECTURE_FREEZE.md`.
 
-## Numerical tuning and simulation
+## Numerical tuning and deterministic simulation - next
 
-- Gacha rates, featured split, soft/hard pity, currencies, tickets, Manifestation-copy economics, Grand Convergence costs and progression costs.
-- Combat formulas and curves, Rank Suppression, effect values, readiness/timing, auto/AI policies and progression scaling.
-- Economy/resource/project/war/dispatch timing, risk and output values.
-- Equipment modifier pools, upgrade/evolution costs and crafting recipes.
-- Transcendence and character-development costs.
+These values are intentionally not frozen by questionnaire and should be tuned with deterministic simulators and later physical-device validation:
 
-These should be set through deterministic simulation and playtesting rather than guessed.
+- gacha base rates, featured split, soft/hard-pity details and income cadence;
+- progression costs, Current Rarity reinforcement, Grand Convergence costs;
+- damage/DEF curves, Rank Suppression, crit/hit/dodge ordering, effect values, readiness/action-value timing and AI priorities;
+- economy/resource/project/war/dispatch timing, risk and output;
+- equipment quality/modifier distributions, evolution/forging costs;
+- Transcendence/Rank-breakthrough thresholds;
+- challenge-mode growth curves;
+- Android performance/streaming/VFX/actor budgets.
 
-## Production/content finalization
+## Production/content - open-ended by design
 
-- Large initial catalog of female gacha characters and their complete kits/progression.
-- World Fantasms, Domain abilities and VFX/collision behavior.
-- NPCs, monsters, bosses, factions, locations, dungeons, equipment, materials, Factors, Classes, story events and adult-content packages.
-- Opening and major narrative arcs remain spoiler-protected from the Creative Director unless explicitly requested.
-- Per-character action-combat attack chains, cancel windows, QTE conditions, Ultimate inputs and animations.
-- Per-boss hybrid-phase mechanics.
+- roughly 2-3 fully polished playable characters per week after the pipeline is mature;
+- complete kits/progression/animation/voice-tier/mature-content support for produced major characters;
+- character-specific World Fantasms;
+- Domain/Core Concept content;
+- NPCs, monsters, bosses, factions, locations, dungeons, equipment, materials, Factors, Classes and story events;
+- starting World depth plus parallel later-World seeding;
+- opening and major narrative arcs (spoiler-protected from the Creative Director unless explicitly requested);
+- per-character action-combat animation/cancel/QTE/Ultimate content;
+- per-boss hybrid mechanics;
+- music/audio assets from the frozen composition/audio direction.
 
-## Engineering/profile gates
+## Engineering reconciliation - immediately after tuning audit
 
-- UE 5.8 UHT/UBT/link compile and automation tests.
-- Android cook/package/install and physical S26 Ultra execution.
-- Expedition/preload size, actor/animation/VFX budgets, HLOD/streaming thresholds, texture/mesh budgets and 30/60/120 thermal profiles.
-- Content package granularity, cache/eviction/hot-set policy and real storage budgets.
-- Save migration/fuzz/corruption tests, deterministic replay, long-history catch-up tests, diagnostics and hidden repair tooling.
+- compare current schema/C++ assumptions against every frozen architecture document;
+- design numbered immutable migrations;
+- replace stale duplicate-counter gacha persistence with multiple Manifestation instances;
+- rewrite stale vertical-slice assumptions;
+- implement/reconcile Rank, Factors, Classes, progression routes, Territory control/reclamation, Core heart/fusion consequences, World Director, World Rank, UI, mature-content state, NPC/dialogue state and package delivery as needed by the first integrated build;
+- rewrite/add deterministic tests against frozen behavior.
+
+## Validation gate after reconciliation
+
+1. static Unreal C++ preflight;
+2. UE 5.8 UHT/UBT/MSVC/link compile;
+3. OfflineGame automation tests;
+4. Android cook/package/install;
+5. physical Samsung Galaxy S26 Ultra profiling;
+6. optimize by streaming/tiering/abstraction without materially changing the player-facing design.
