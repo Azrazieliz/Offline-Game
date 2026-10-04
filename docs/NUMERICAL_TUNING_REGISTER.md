@@ -36,15 +36,17 @@ Exact discrete distribution for that schedule:
 
 - mean pulls to any top rarity: 40.55;
 - median: 52;
-- mean pulls to featured with 50/50 + guarantee: 60.32;
+- mean pulls to featured with 50/50 + guarantee: **60.82**;
 - median featured: 56;
-- 75th percentile featured: 82;
-- 90th: 107;
-- 95th: 111;
-- 99th: 115;
+- 75th percentile featured: **83**;
+- 90th: **108**;
+- 95th: **112**;
+- 99th: **116**;
 - absolute featured ceiling: 140.
 
 This is a simulation baseline, not yet a frozen economy value.
+
+Featured expectation check: because the first qualifying top result is featured with probability 0.5 and an off-feature result makes the next qualifying top guaranteed, expected featured cost is exactly 1.5 times the expected top-rarity cycle length for a single-feature banner under this baseline.
 
 Currency income must be tuned against pull counts using pulls per active-hour band, pulls per in-game month, Territory/Domain passive income, one-time exploration/story/boss income, repeatable income, and offline/catch-up income. Do not freeze a real-world weekly quota because the World Director is world-time/state driven.
 
