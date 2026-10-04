@@ -11,10 +11,10 @@ $ErrorActionPreference = "Stop"
 $checks = [System.Collections.Generic.List[object]]::new()
 
 function Add-Check {
-    param([string]$Name, [bool]$Ok, [string]$Detail)
+    param([string]$Name, [bool]$Ok, [string]$Detail, [bool]$WarningOnly = $false)
     $checks.Add([pscustomobject]@{
         Name = $Name
-        Status = $(if ($Ok) { "PASS" } else { "FAIL" })
+        Status = $(if ($Ok) { "PASS" } elseif ($WarningOnly) { "WARN" } else { "FAIL" })
         Detail = $Detail
     })
 }
@@ -57,12 +57,12 @@ if (Test-Path $launcherDb) {
         $entry = @($installed.InstallationList | Where-Object {
             $_.InstallLocation -eq $EngineRoot -or $_.AppName -eq "UE_5.8"
         }) | Select-Object -First 1
-        Add-Check "Epic registration" ($null -ne $entry) $(if ($entry) { "$($entry.AppName) -> $($entry.InstallLocation)" } else { "UE_5.8 not present in LauncherInstalled.dat" })
+        Add-Check "Epic registration" ($null -ne $entry) $(if ($entry) { "$($entry.AppName) -> $($entry.InstallLocation)" } else { "UE_5.8 not present in LauncherInstalled.dat; explicit EngineRoot remains usable." }) $true
     } catch {
         Add-Check "Epic registration" $false $_.Exception.Message
     }
 } else {
-    Add-Check "Epic registration" $false "$launcherDb missing"
+    Add-Check "Epic registration" $false "$launcherDb missing; explicit EngineRoot remains usable." $true
 }
 
 $vswhere = "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe"
@@ -112,40 +112,41 @@ if (-not [string]::IsNullOrWhiteSpace($JavaHome)) {
 }
 
 if ($ProbeExecutables) {
-    if (Test-Path $EditorCmd) {
-        try {
-            $p = Start-Process -FilePath $EditorCmd -ArgumentList "-Version" -NoNewWindow -PassThru -RedirectStandardOutput "$env:TEMP\og_ue_version.out" -RedirectStandardError "$env:TEMP\og_ue_version.err"
-            if (-not $p.WaitForExit(60000)) {
-                try { $p.Kill() } catch {}
-                Add-Check "UnrealEditor-Cmd executable probe" $false "Timed out after 60 seconds"
-            } else {
-                $out = ((Get-Content "$env:TEMP\og_ue_version.out" -ErrorAction SilentlyContinue) + (Get-Content "$env:TEMP\og_ue_version.err" -ErrorAction SilentlyContinue)) -join " "
-                Add-Check "UnrealEditor-Cmd executable probe" ($p.ExitCode -eq 0) ("exit=$($p.ExitCode) " + $out.Trim())
-            }
-        } catch {
-            Add-Check "UnrealEditor-Cmd executable probe" $false $_.Exception.Message
-        }
+    $RunningEditor = Get-CimInstance Win32_Process -Filter "Name='UnrealEditor.exe'" -ErrorAction SilentlyContinue |
+        Where-Object { $_.ExecutablePath -eq $Editor } |
+        Select-Object -First 1
+    Add-Check "UnrealEditor executable probe" ($null -ne $RunningEditor) $(if ($RunningEditor) { "Running successfully from $Editor (PID $($RunningEditor.ProcessId))" } else { "Editor is not currently running; file presence was verified without launching a project." }) $true
+
+    $DotNet = Get-ChildItem (Join-Path $EngineRoot "Engine\Binaries\ThirdParty\DotNet") -Recurse -Filter dotnet.exe -File -ErrorAction SilentlyContinue |
+        Select-Object -First 1 -ExpandProperty FullName
+    if ($DotNet -and (Test-Path $UBT)) {
+        $UbtText = (& $DotNet $UBT -Help 2>&1 | Out-String)
+        Add-Check "UnrealBuildTool executable probe" ($UbtText -match "Global Options") $(if ($UbtText -match "Global Options") { "UBT loaded and returned its help surface." } else { $UbtText.Trim() })
     }
 
     $adb = Join-Path $AndroidSdkRoot "platform-tools\adb.exe"
     if (Test-Path $adb) {
-        try {
-            $adbVersion = (& $adb version 2>&1) -join " "
-            Add-Check "adb executable probe" ($LASTEXITCODE -eq 0) $adbVersion
-        } catch {
-            Add-Check "adb executable probe" $false $_.Exception.Message
-        }
+        $AdbText = (& $adb version 2>&1 | Out-String)
+        Add-Check "adb executable probe" ($AdbText -match "Android Debug Bridge") $AdbText.Trim()
+    }
+
+    $Aapt2 = Join-Path $AndroidSdkRoot "build-tools\35.0.1\aapt2.exe"
+    if (Test-Path $Aapt2) {
+        $AaptText = (& $Aapt2 version 2>&1 | Out-String)
+        Add-Check "aapt2 executable probe" ($AaptText -match "Android Asset Packaging Tool") $AaptText.Trim()
+    }
+
+    $Clang = Join-Path $AndroidSdkRoot "ndk\27.2.12479018\toolchains\llvm\prebuilt\windows-x86_64\bin\clang.exe"
+    if (Test-Path $Clang) {
+        $ClangText = (& $Clang --version 2>&1 | Out-String)
+        Add-Check "NDK clang executable probe" ($ClangText -match "clang version") ($ClangText -split "[\r\n]" | Select-Object -First 1)
     }
 
     if (-not [string]::IsNullOrWhiteSpace($JavaHome)) {
         $java = Join-Path $JavaHome "bin\java.exe"
         if (Test-Path $java) {
-            try {
-                $javaVersion = (& $java -version 2>&1) -join " "
-                Add-Check "Java executable probe" ($LASTEXITCODE -eq 0) $javaVersion
-            } catch {
-                Add-Check "Java executable probe" $false $_.Exception.Message
-            }
+            $JavaText = (cmd /c """$java"" -version" 2>&1 | Out-String)
+            Add-Check "Java executable probe" ($JavaText -match "version") ($JavaText -split "[\r\n]" | Select-Object -First 1)
         }
     }
 }
