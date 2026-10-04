@@ -43,6 +43,161 @@ struct OFFLINEGAME_API FOGTerritoryRecord
 };
 
 USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGLocationTerritoryRecord
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId LocationId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId TerritoryId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName RelationKind = FName(TEXT("contained"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 CoverageBps = 10000;
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGTerritoryClaimRecord
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId ClaimId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId TerritoryId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId RulerId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName ClaimKind = FName(TEXT("control"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName ControlState = FName(TEXT("controlled"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 ControlStrengthBps = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 ClaimStartWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasEffectiveControlStart = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 EffectiveControlStartWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasDisplacedWorldTick = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 DisplacedWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasReclaimDeadline = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 ReclaimDeadlineWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 UpdatedWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString StateJson = TEXT("{}");
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGRulerSovereigntyStateRecord
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId RulerId;
+
+    /** 'none' is a persistence sentinel, not a universal sovereignty title. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName CurrentTitle = FName(TEXT("none"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName HistoricalPeakTitle = FName(TEXT("none"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasContinuousControlStart = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 ContinuousControlStartWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasLastEffectiveControlTick = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 LastEffectiveControlWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString ScopeStateJson = TEXT("{}");
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 UpdatedWorldTick = 0;
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGRulerGachaAccessRecord
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId RulerId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasQualificationStart = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 QualificationStartWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasQualificationSuspendedTick = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 QualificationSuspendedWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasUnlockedWorldTick = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 UnlockedWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bPermanentlyUnlocked = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 UpdatedWorldTick = 0;
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGTerritoryEffectiveControlResult
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGEntityId TerritoryId;
+
+    /** Multiple entries represent genuine effective co-sovereignty/contestation. */
+    UPROPERTY(BlueprintReadOnly)
+    TArray<FOGEntityId> EffectiveRulerIds;
+
+    UPROPERTY(BlueprintReadOnly)
+    TArray<FOGEntityId> EffectiveClaimIds;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bContested = false;
+};
+
+USTRUCT(BlueprintType)
 struct OFFLINEGAME_API FOGDomainCoreAspect
 {
     GENERATED_BODY()
