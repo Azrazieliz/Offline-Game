@@ -50,14 +50,33 @@ Featured expectation check: because the first qualifying top result is featured 
 
 Currency income must be tuned against pull counts using pulls per active-hour band, pulls per in-game month, Territory/Domain passive income, one-time exploration/story/boss income, repeatable income, and offline/catch-up income. Do not freeze a real-world weekly quota because the World Director is world-time/state driven.
 
-First revised income target for simulation: **6-9 pull-equivalents per active gameplay hour averaged across a mature save**, counting burst rewards and renewable sources together rather than paying a flat hourly stipend.
+Do not tune one fixed pull-equivalent/hour target for the entire persistent game.
 
-At the current featured distribution:
-- 6/h -> mean featured about 10.1 h, median about 9.3 h, 95th about 18.7 h, hard ceiling about 23.3 h of equivalent value;
-- 8/h -> mean about 7.6 h, median 7.0 h, 95th 14.0 h, hard ceiling 17.5 h;
-- 9/h -> mean about 6.8 h, median about 6.2 h, 95th about 12.4 h, hard ceiling about 15.6 h.
+Use **progression/source bands** as simulator scenarios, not account-level multipliers:
 
-The intended economy should be bursty and world-causal: exploration, bosses, story, discoveries, events, Territory/Domain development and major achievements can give large bursts; generic repeatable farming should be lower. Because there is no IAP, economy tuning should preserve excitement without importing frustration-based monetization pacing.
+- newly qualified Ruler: test roughly 3-6 pull-equivalents/hour during acquisition-focused play;
+- established Ruler/Domain: roughly 6-12/hour;
+- ordinary Overlord-scale economy: roughly 12-25/hour;
+- extreme late-game Overlord / dedicated high-order farming: test 25-50+/hour where actual content/sovereignty/resource production justifies it.
+
+These bands count ordinary currency plus the expected acquisition value of tickets and burst rewards. They are not guaranteed wages.
+
+At 12/h, the current candidate banner's mean featured cost is about 5.1 hours of equivalent acquisition-focused value; at 25/h about 2.4 hours; at 50/h about 1.2 hours. Late-game abundance is acceptable because duplicate Manifestations remain valuable, route breadth/Convergence creates long-term demand, and the game has no monetization incentive to preserve artificial scarcity.
+
+Low-level sources keep their authored absolute payout. High-level players get richer because they unlock/own stronger economic systems and dedicated high-order farming content, not because an invisible player-level multiplier rewrites old rewards.
+
+The intended economy should be bursty and world-causal: exploration, bosses, story, discoveries, events, Territory/Domain development, challenge realms, high-order incursions and major achievements can give large bursts; generic repeatable low-level farming should be relatively inefficient.
+
+### Ticket value accounting
+
+For economy simulation, measure tickets in **pull-equivalent expected value** without displaying that abstraction to the player.
+
+- a standard one-pull ticket = 1 normal pull-equivalent;
+- a ten-pull ticket = 10 normal pull-equivalents;
+- event tickets use their compatible pool's expected value;
+- guaranteed-rarity/selector tickets use their actual restricted-pool expected value and are therefore worth more than one ordinary pull when appropriate.
+
+Ticket EV is used only for economy comparison; gameplay preserves the ticket's actual special behavior.
 
 ## Combat baselines
 
@@ -74,6 +93,45 @@ Skills/forms/equipment/Factors/Rank/effects may modify those resolved values. Th
 - No undeclared random damage variance.
 - Use 2.5 seconds as the generic perfect-dodge slow baseline inside the accepted 2-3 second range; character-specific mechanics may differ.
 - Perfect dodge has no universal reward proc.
+
+### Character-specific Rank response
+
+For magnitude-like stats, use a shared Rank scale plus a **character/stat-specific Rank response** rather than one common multiplier.
+
+Working equivalent forms:
+
+`ResolvedStat_s = Base_s × R(r) × G_s(r,l,build)`
+
+or
+
+`ResolvedStat_s = Base_s × R(r)^alpha_s × L_s(r,l) × B_s(r) × Build_s`
+
+where:
+
+- `R(r)` = common existential Rank coefficient;
+- `alpha_s` = character-specific elasticity for stat s;
+- `L_s` = character-specific within-Rank Level growth;
+- `B_s(r)` = sparse character/content breakthrough bias for exceptional Rank transitions;
+- `Build_s` = Factors, equipment, forms, skills, route state and temporary effects.
+
+The two forms are equivalent when `G_s` contains `R^(alpha_s-1)`.
+
+Initial **ordinary magnitude-stat elasticity** sweep:
+- restrained growth: alpha about 0.80-0.90;
+- broadly proportional: alpha about 0.95-1.05;
+- signature growth: alpha about 1.10-1.20;
+- exceptional concept-defined outliers may exceed those bands.
+
+At Primordial's current candidate R≈4.37e16, alpha differences intentionally create very large divergence:
+- alpha 0.8 -> about 2.0e13 scale contribution;
+- alpha 1.0 -> 4.37e16;
+- alpha 1.2 -> about 9.3e19.
+
+Thus same-Rank characters may differ by many orders of magnitude in individual stats while remaining inside the same existential band.
+
+Do **not** assign one alpha profile by generic RPG role and reuse it across the roster. Each character/Manifestation starts from authored character data; route evolution, Factors, forms and major transformations may change the response profile itself.
+
+Probability/rate/action-frequency stats can use character-specific response functions rather than blindly applying the magnitude formula. Crit/Hit/Dodge/Block/Speed may still become enormous where intended, but the runtime may analytically batch overflow effects/actions for performance instead of simulating billions of identical instances.
 
 ### Negative DEF / penetration candidate
 
