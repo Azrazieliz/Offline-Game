@@ -531,7 +531,7 @@ The full detailed contract is frozen in `TUNING_UI_FREEZE.md`.
 - filters: Rank, Classes, Rarity, World Fantasm grade;
 - sorting over the same major dimensions where meaningful;
 - user-switchable density;
-- target default viewport: three visible roster rows;
+- default dense layout: three character cards per row (three columns), with the accepted 2/3-column density switch;
 - one main roster tile per Character Identity;
 - Manifestations remain grouped beneath Identity.
 
