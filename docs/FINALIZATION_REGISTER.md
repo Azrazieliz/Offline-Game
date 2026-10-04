@@ -27,6 +27,9 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Freeze status and handoff to reconciliation: `ARCHITECTURE_FREEZE.md`.
 - Reconciliation migration/API matrix: `RECONCILIATION_MIGRATION_MATRIX.md`.
 - Tuning / detailed UI freeze: `TUNING_UI_FREEZE.md`.
+- Audio / music / voice / SFX production direction: `AUDIO_PRODUCTION_DIRECTION.md`.
+- Visual art / VFX / animation / cinematic production direction: `VISUAL_ART_DIRECTION.md`.
+- Tuning parameter ownership/versioning contract: `TUNING_PARAMETER_REGISTRY.md`.
 
 ## Numerical tuning and deterministic simulation - preference pass closed; simulator fitting remains
 
@@ -54,7 +57,7 @@ These values are intentionally not frozen by questionnaire and should be tuned w
 - per-boss hybrid mechanics;
 - music/audio assets from the frozen composition/audio direction.
 
-## Engineering reconciliation - immediately after tuning audit
+## Engineering reconciliation - ready to execute
 
 - contradiction/schema/API comparison: **audit pass 2 complete**;
 - numbered immutable migration/API design: **complete in `RECONCILIATION_MIGRATION_MATRIX.md`**;
@@ -76,3 +79,21 @@ These values are intentionally not frozen by questionnaire and should be tuned w
 ## Detailed UI checkpoint
 
 Global roster/Character Identity/Gacha/Territory/Records/combat/save/package UI preferences are frozen in `TUNING_UI_FREEZE.md`. Do not re-run that questionnaire unless explicitly revised.
+
+
+## Pre-coding finalization status
+
+The independent pre-coding audit and production-direction passes are complete.
+
+No remaining broad Creative Director architecture/design questionnaire blocks coding.
+
+Closed after the earlier freeze:
+- higher-order progression persistence for Transcendence, Manifestation World Fantasm and protagonist personal World Manifestation;
+- equipment affinity/proficiency persistence;
+- presentation/wardrobe and management-metadata persistence boundaries;
+- canonical-world versus device/profile settings separation;
+- stale inherited documentation normalization;
+- audio/music/voice/SFX production direction;
+- visual/VFX/animation/cinematic production direction.
+
+Remaining non-code work is deliberately content production or evidence-driven tuning and does not block architecture reconciliation.
