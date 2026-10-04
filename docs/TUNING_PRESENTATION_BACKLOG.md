@@ -29,11 +29,15 @@ Do not re-ask settled UI/tuning preferences.
 - spacing/touch targets for the frozen roster/character/gacha/Territory/Records layouts;
 - physical-device usability/performance tuning.
 
-## Explicitly separate next design passes
+## Production-direction passes - complete
 
-- music / voice / SFX;
-- visual art direction.
+- music / voice / SFX: complete in `AUDIO_PRODUCTION_DIRECTION.md`;
+- visual art / VFX / animation / cinematics: complete in `VISUAL_ART_DIRECTION.md`.
 
-These are not part of this backlog's numerical/UI preference questionnaire.
+No further broad Creative Director presentation questionnaire is required before coding.
 
-After those documentation passes, proceed with reconciled schema/C++ implementation and the mandatory Unreal/Android validation order.
+Proceed with:
+1. versioned deterministic simulator fitting for values above;
+2. reconciled schema/C++ implementation;
+3. mandatory Unreal/Android validation order;
+4. S26 Ultra calibration for the explicitly device-profiled quantities.
