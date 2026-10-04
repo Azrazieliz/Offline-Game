@@ -29,7 +29,14 @@ public:
 
     virtual bool UpsertCharacterManifestation(const FOGCharacterManifestationRecord&, int64, FString&) = 0;
     virtual bool TryReadCharacterManifestation(const FOGEntityId&, bool&, FOGCharacterManifestationRecord&, FString&) const = 0;
-    virtual bool TryFindCharacterManifestationByOwnerAndIdentity(const FOGEntityId&, const FOGContentId&, bool&, FOGCharacterManifestationRecord&, FString&) const = 0;
+    virtual bool ListCharacterManifestationsByOwnerAndIdentity(
+        const FOGEntityId&, const FOGContentId&, TArray<FOGCharacterManifestationRecord>&, FString&) const = 0;
+    virtual bool ListCharacterManifestationsByOwner(
+        const FOGEntityId&, TArray<FOGCharacterManifestationRecord>&, FString&) const = 0;
+    virtual bool SetManifestationAnchor(
+        const FOGEntityId&, const FOGEntityId&, int64, FString&) = 0;
+    virtual bool SetManifestationLifecycle(
+        const FOGEntityId&, FName, FString&) = 0;
 
     virtual bool UpsertGachaState(const FOGGachaStateRecord&, FString&) = 0;
     virtual bool TryReadGachaState(const FOGEntityId&, FName, bool&, FOGGachaStateRecord&, FString&) const = 0;

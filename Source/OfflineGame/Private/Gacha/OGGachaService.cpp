@@ -298,49 +298,54 @@ bool FOGGachaService::Pull(
         bTopRarity = true;
     }
 
-    bool bManifestationFound = false;
-    FOGCharacterManifestationRecord Manifestation;
-    if (!Store.TryFindCharacterManifestationByOwnerAndIdentity(
+    TArray<FOGCharacterManifestationRecord> ExistingManifestations;
+    if (!Store.ListCharacterManifestationsByOwnerAndIdentity(
             RulerId,
             Selected->IdentityId,
-            bManifestationFound,
-            Manifestation,
+            ExistingManifestations,
             Error))
     {
         return Fail(Error);
     }
 
-    const bool bDuplicate = bManifestationFound;
-    if (bDuplicate)
-    {
-        ++Manifestation.DuplicateAcquisitionCount;
-        Manifestation.ActiveVersionId = Selected->VersionId;
+    const bool bDuplicate =
+        !ExistingManifestations.IsEmpty();
 
-        if (!Store.UpsertCharacterManifestation(
-                Manifestation,
-                WorldTick,
-                Error))
-        {
-            return Fail(Error);
-        }
+    int32 AcquisitionOrdinal = 0;
+    for (const FOGCharacterManifestationRecord& Existing :
+         ExistingManifestations)
+    {
+        AcquisitionOrdinal =
+            FMath::Max(
+                AcquisitionOrdinal,
+                Existing.AcquisitionOrdinal + 1);
     }
-    else
-    {
-        Manifestation.ManifestationId = FOGEntityId::NewId();
-        Manifestation.OwningRulerId = RulerId;
-        Manifestation.IdentityId = Selected->IdentityId;
-        Manifestation.ActiveVersionId = Selected->VersionId;
-        Manifestation.Level = 1;
-        Manifestation.CurrentRarity = Selected->Rarity;
-        Manifestation.DuplicateAcquisitionCount = 0;
 
-        if (!Store.UpsertCharacterManifestation(
-                Manifestation,
-                WorldTick,
-                Error))
-        {
-            return Fail(Error);
-        }
+    FOGWorldEvent Event;
+    Event.EventId = FOGEntityId::NewId();
+    Event.EventType = TEXT("gacha_pull");
+    Event.WorldTick = WorldTick;
+    Event.PrimaryEntity = RulerId;
+    Event.bChronicleEligible = false;
+
+    FOGCharacterManifestationRecord Manifestation;
+    Manifestation.ManifestationId = FOGEntityId::NewId();
+    Manifestation.OwningRulerId = RulerId;
+    Manifestation.IdentityId = Selected->IdentityId;
+    Manifestation.ActiveVersionId = Selected->VersionId;
+    Manifestation.Level = 1;
+    Manifestation.CurrentRarity = Selected->Rarity;
+    Manifestation.AcquisitionWorldTick = WorldTick;
+    Manifestation.AcquisitionOrdinal = AcquisitionOrdinal;
+    Manifestation.OriginPullEventId = Event.EventId;
+    Manifestation.LifecycleState = FName(TEXT("active"));
+
+    if (!Store.UpsertCharacterManifestation(
+            Manifestation,
+            WorldTick,
+            Error))
+    {
+        return Fail(Error);
     }
 
     if (Banner.PullCost > 0 &&
@@ -373,13 +378,7 @@ bool FOGGachaService::Pull(
         return Fail(Error);
     }
 
-    FOGWorldEvent Event;
-    Event.EventId = FOGEntityId::NewId();
-    Event.EventType = TEXT("gacha_pull");
-    Event.WorldTick = WorldTick;
-    Event.PrimaryEntity = RulerId;
     Event.RelatedEntities.Add(Manifestation.ManifestationId);
-    Event.bChronicleEligible = false;
     Event.PayloadJson = FString::Printf(
         TEXT("{\"banner\":\"%s\",\"identity\":\"%s\",\"version\":\"%s\",")
         TEXT("\"rarity\":\"%s\",\"featured\":%s,\"duplicate\":%s,")
@@ -413,8 +412,6 @@ bool FOGGachaService::Pull(
     OutResult.bTopRarity = bTopRarity;
     OutResult.bFeatured = Selected->bFeatured;
     OutResult.bDuplicateIdentity = bDuplicate;
-    OutResult.DuplicateAcquisitionCount =
-        Manifestation.DuplicateAcquisitionCount;
     OutResult.Seed = Seed;
     OutResult.RngDrawCount =
         static_cast<int64>(Rng.GetDrawCount());

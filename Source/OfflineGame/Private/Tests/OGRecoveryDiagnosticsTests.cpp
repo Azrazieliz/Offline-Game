@@ -206,12 +206,20 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     }
 
     TestTrue(
-        TEXT("Downgrade fixture to schema 5"),
+        TEXT("Downgrade fixture to schema 6"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DROP TABLE IF EXISTS gacha_states;"
-            "ALTER TABLE character_manifestations DROP COLUMN duplicate_acquisition_count;"
-            "DELETE FROM schema_migrations WHERE version = 6;",
+            "DROP INDEX IF EXISTS idx_manifestations_owner_identity;"
+            "DROP INDEX IF EXISTS idx_manifestations_owner_identity_ordinal;"
+            "DROP INDEX IF EXISTS idx_manifestations_anchor;"
+            "ALTER TABLE character_manifestations DROP COLUMN build_label;"
+            "ALTER TABLE character_manifestations DROP COLUMN lifecycle_state;"
+            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_tick;"
+            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_territory_id;"
+            "ALTER TABLE character_manifestations DROP COLUMN origin_pull_event_id;"
+            "ALTER TABLE character_manifestations DROP COLUMN acquisition_ordinal;"
+            "ALTER TABLE character_manifestations DROP COLUMN acquisition_world_tick;"
+            "DELETE FROM schema_migrations WHERE version = 7;",
             Error));
 
     FOGWorldBootstrapResult Result;
@@ -226,9 +234,9 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestTrue(TEXT("Migration was promoted"),
         Result.bMigrationPerformed);
     TestEqual(TEXT("Source schema recorded"),
-        Result.SourceSchemaVersion, 5);
+        Result.SourceSchemaVersion, 6);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 6);
+        Result.TargetSchemaVersion, 7);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -240,8 +248,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 6"),
-            Store.GetSchemaVersion(Error), 6);
+        TestEqual(TEXT("Promoted schema is 7"),
+            Store.GetSchemaVersion(Error), 7);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -305,14 +313,14 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Leave migration-0006 schema effects in place while removing only its
-    // ledger row. Reapplying 0006 must fail on the working copy because the
-    // duplicate_acquisition_count column already exists.
+    // Leave migration-0007 schema effects in place while removing only its
+    // ledger row. Reapplying 0007 must fail on the working copy because the
+    // acquisition_world_tick column already exists.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DELETE FROM schema_migrations WHERE version = 6;",
+            "DELETE FROM schema_migrations WHERE version = 7;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -363,6 +371,211 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
             *Result.MigrationReportPath));
     TestTrue(TEXT("Report records migration_failed status"),
         ReportJson.Contains(TEXT("migration_failed")));
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGManifestation0007LegacyFanOutTest,
+    "OfflineGame.Persistence.Migration0007.LegacyDuplicateCounterFansOutDeterministically",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
+{
+    const FString Directory = MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(Directory, TEXT("legacy_manifestations.db"));
+    const FString ReplayPath =
+        FPaths::Combine(Directory, TEXT("legacy_manifestations_replay.db"));
+    IFileManager::Get().MakeDirectory(*Directory, true);
+
+    const FOGEntityId RulerId = FOGEntityId::NewId();
+    const FOGEntityId LegacyManifestationId = FOGEntityId::NewId();
+    const FOGEntityId FirstPullEventId = FOGEntityId::NewId();
+    const FOGEntityId SecondPullEventId = FOGEntityId::NewId();
+    const FOGContentId IdentityId(TEXT("test:character.migration_alpha"));
+    const FOGContentId BaseVersionId(TEXT("test:character.migration_alpha.base"));
+    const FOGContentId AltVersionId(TEXT("test:character.migration_alpha.alt"));
+
+    FString Error;
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(TEXT("Create schema-7 fixture"),
+            Store.Open(DatabasePath, Error));
+        TestTrue(TEXT("Persist migration-test Ruler"),
+            Store.UpsertEntity(
+                RulerId,
+                TEXT("ruler"),
+                0,
+                TEXT("{}"),
+                Error));
+
+        FOGCharacterManifestationRecord Legacy;
+        Legacy.ManifestationId = LegacyManifestationId;
+        Legacy.OwningRulerId = RulerId;
+        Legacy.IdentityId = IdentityId;
+        Legacy.ActiveVersionId = BaseVersionId;
+        Legacy.Level = 44;
+        Legacy.CurrentRarity = FName(TEXT("SR"));
+        Legacy.ProgressionStateJson =
+            TEXT("{\"legacy_progress\":44}");
+        Legacy.AcquisitionWorldTick = 10;
+        Legacy.AcquisitionOrdinal = 0;
+        Legacy.LifecycleState = FName(TEXT("active"));
+
+        TestTrue(TEXT("Persist legacy Manifestation"),
+            Store.UpsertCharacterManifestation(
+                Legacy,
+                10,
+                Error));
+
+        FOGWorldEvent FirstPull;
+        FirstPull.EventId = FirstPullEventId;
+        FirstPull.EventType = FName(TEXT("gacha_pull"));
+        FirstPull.WorldTick = 10;
+        FirstPull.PrimaryEntity = RulerId;
+        FirstPull.RelatedEntities.Add(LegacyManifestationId);
+        FirstPull.PayloadJson =
+            TEXT("{\"banner\":\"test:banner\",\"identity\":\"test:character.migration_alpha\",")
+            TEXT("\"version\":\"test:character.migration_alpha.base\",\"rarity\":\"SR\",")
+            TEXT("\"featured\":true,\"duplicate\":false,\"seed\":1,\"rng_draws\":1}");
+        TestTrue(TEXT("Persist original acquisition event"),
+            Store.AppendWorldEvent(FirstPull, Error));
+
+        FOGWorldEvent SecondPull;
+        SecondPull.EventId = SecondPullEventId;
+        SecondPull.EventType = FName(TEXT("gacha_pull"));
+        SecondPull.WorldTick = 20;
+        SecondPull.PrimaryEntity = RulerId;
+        SecondPull.RelatedEntities.Add(LegacyManifestationId);
+        SecondPull.PayloadJson =
+            TEXT("{\"banner\":\"test:banner\",\"identity\":\"test:character.migration_alpha\",")
+            TEXT("\"version\":\"test:character.migration_alpha.alt\",\"rarity\":\"SSR\",")
+            TEXT("\"featured\":false,\"duplicate\":true,\"seed\":2,\"rng_draws\":1}");
+        TestTrue(TEXT("Persist repeat acquisition event"),
+            Store.AppendWorldEvent(SecondPull, Error));
+
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to legacy schema 6 with duplicate counter"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP INDEX IF EXISTS idx_manifestations_owner_identity;"
+            "DROP INDEX IF EXISTS idx_manifestations_owner_identity_ordinal;"
+            "DROP INDEX IF EXISTS idx_manifestations_anchor;"
+            "ALTER TABLE character_manifestations DROP COLUMN build_label;"
+            "ALTER TABLE character_manifestations DROP COLUMN lifecycle_state;"
+            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_tick;"
+            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_territory_id;"
+            "ALTER TABLE character_manifestations DROP COLUMN origin_pull_event_id;"
+            "ALTER TABLE character_manifestations DROP COLUMN acquisition_ordinal;"
+            "ALTER TABLE character_manifestations DROP COLUMN acquisition_world_tick;"
+            "DELETE FROM schema_migrations WHERE version = 7;",
+            Error));
+
+    TestTrue(
+        TEXT("Clone schema-6 source for deterministic replay"),
+        IFileManager::Get().Copy(
+            *ReplayPath,
+            *DatabasePath,
+            true,
+            true) == COPY_OK);
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(TEXT("Migrate legacy source through safe bootstrap"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+
+    FOGEntityId MigratedRepeatId;
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(TEXT("Open migrated source"),
+            Store.Open(DatabasePath, Error));
+
+        TArray<FOGCharacterManifestationRecord> Manifestations;
+        TestTrue(TEXT("List migrated Manifestations"),
+            Store.ListCharacterManifestationsByOwnerAndIdentity(
+                RulerId,
+                IdentityId,
+                Manifestations,
+                Error));
+        TestEqual(TEXT("Legacy counter becomes two full Manifestations"),
+            Manifestations.Num(), 2);
+
+        if (Manifestations.Num() == 2)
+        {
+            const FOGCharacterManifestationRecord& Original =
+                Manifestations[0];
+            const FOGCharacterManifestationRecord& Repeat =
+                Manifestations[1];
+
+            TestTrue(TEXT("Original Manifestation ID is preserved"),
+                Original.ManifestationId == LegacyManifestationId);
+            TestEqual(TEXT("Original progression is preserved"),
+                Original.Level, 44);
+            TestEqual(TEXT("Original acquisition ordinal is zero"),
+                Original.AcquisitionOrdinal, 0);
+            TestTrue(TEXT("Original pull provenance is recovered"),
+                Original.OriginPullEventId == FirstPullEventId);
+
+            TestTrue(TEXT("Repeat is a distinct persistent Manifestation"),
+                Repeat.ManifestationId != LegacyManifestationId);
+            TestEqual(TEXT("Repeat acquisition ordinal is one"),
+                Repeat.AcquisitionOrdinal, 1);
+            TestTrue(TEXT("Repeat pull provenance is recovered"),
+                Repeat.OriginPullEventId == SecondPullEventId);
+            TestEqual(TEXT("Repeat Version comes from historical event"),
+                Repeat.ActiveVersionId, AltVersionId);
+            TestEqual(TEXT("Repeat Rarity comes from historical event"),
+                Repeat.CurrentRarity, FName(TEXT("SSR")));
+
+            MigratedRepeatId = Repeat.ManifestationId;
+        }
+
+        Store.Close();
+    }
+
+    FOGWorldBootstrapResult ReplayMigration;
+    TestTrue(TEXT("Migrate identical schema-6 source again"),
+        FOGWorldBootstrap::PrepareWorld(
+            ReplayPath,
+            ReplayMigration,
+            Error));
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(TEXT("Open deterministic replay migration"),
+            Store.Open(ReplayPath, Error));
+
+        TArray<FOGCharacterManifestationRecord> Manifestations;
+        TestTrue(TEXT("List replay Manifestations"),
+            Store.ListCharacterManifestationsByOwnerAndIdentity(
+                RulerId,
+                IdentityId,
+                Manifestations,
+                Error));
+        TestEqual(TEXT("Replay also has two Manifestations"),
+            Manifestations.Num(), 2);
+
+        if (Manifestations.Num() == 2)
+        {
+            TestTrue(TEXT("Reconstructed Manifestation ID is deterministic"),
+                Manifestations[1].ManifestationId ==
+                    MigratedRepeatId);
+        }
+
+        Store.Close();
+    }
 
     IFileManager::Get().DeleteDirectory(
         *Directory,

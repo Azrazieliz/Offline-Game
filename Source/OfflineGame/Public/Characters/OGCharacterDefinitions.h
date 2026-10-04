@@ -93,12 +93,33 @@ struct OFFLINEGAME_API FOGCharacterManifestationRecord
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     FName CurrentRarity = NAME_None;
 
-    /**
-     * Duplicate pulls advance this persistent counter instead of creating a
-     * second local Manifestation of the same Character Identity.
-     */
+    /** Canonical world tick at which this owned Manifestation was acquired. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    int32 DuplicateAcquisitionCount = 0;
+    int64 AcquisitionWorldTick = 0;
+
+    /** Zero-based acquisition order among this Ruler's Manifestations of the Identity. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 AcquisitionOrdinal = 0;
+
+    /** Gacha-pull world event that created this Manifestation, if one is known. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId OriginPullEventId;
+
+    /** First controlled Territory in which World Mode deployment was anchored. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId WorldModeAnchorTerritoryId;
+
+    /** Canonical tick of first World Mode anchoring; zero while unanchored. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 WorldModeAnchorTick = 0;
+
+    /** Active / archived / converged / other lifecycle states remain data-defined. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName LifecycleState = FName(TEXT("active"));
+
+    /** Player-editable copy/build label. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString BuildLabel;
 
     /**
      * Extensible progression payload until specialized progression tables are

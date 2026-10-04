@@ -119,9 +119,6 @@ struct OFFLINEGAME_API FOGGachaPullResult
     bool bDuplicateIdentity = false;
 
     UPROPERTY(BlueprintReadOnly)
-    int32 DuplicateAcquisitionCount = 0;
-
-    UPROPERTY(BlueprintReadOnly)
     int64 Seed = 0;
 
     UPROPERTY(BlueprintReadOnly)
