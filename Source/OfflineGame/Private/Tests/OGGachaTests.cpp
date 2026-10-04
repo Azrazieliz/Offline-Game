@@ -73,7 +73,7 @@ bool FOGGachaPersistenceAndDuplicateTest::RunTest(const FString& Parameters)
         TestFalse(TEXT("First pull is not duplicate"), First.bDuplicateIdentity);
         TestTrue(TEXT("First pull is featured"), First.bFeatured);
         FirstManifestationId = First.ManifestationId;
-        TestEqual(TEXT("First acquisition ordinal is zero"),
+        TestEqual(TEXT("First pull increments persistent total"),
             First.UpdatedState.TotalPulls, static_cast<int64>(1));
 
         FOGGachaPullResult Second;
