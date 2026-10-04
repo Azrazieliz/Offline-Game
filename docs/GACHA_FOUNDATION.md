@@ -71,3 +71,15 @@ design and still uses DuplicateAcquisitionCount. Before character-progression
 implementation is considered current, that storage/acquisition path must be
 migrated transactionally to per-pull Manifestation instances while preserving
 existing acquisition history and deterministic replay compatibility.
+
+## Economy and repeat-acquisition freeze
+
+The game is a standalone offline-first gacha RPG. Gacha access is earned through gameplay/world systems; there are no real-money purchases or IAP.
+
+Pull currency remains renewable so the one persistent world cannot permanently exhaust acquisition access.
+
+Repeat pulls create full persistent Manifestations rather than fragments or automatic material conversion. There is no hard copy cap. Copies exist for divergent development and later Grand Convergence; see `GACHA_ECONOMY.md` and `CHARACTER_PROGRESSION.md`.
+
+There is no generic unwanted-copy-to-shards action in the frozen architecture. A Manifestation ceases independent existence only through an actual supported mechanic such as Grand Convergence or character-specific fusion/absorption.
+
+The provisional pity foundation remains subject to deterministic tuning rather than being treated as final numerical balance.
