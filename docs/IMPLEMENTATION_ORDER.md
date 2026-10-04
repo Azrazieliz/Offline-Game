@@ -86,7 +86,11 @@
 - [x] **environment-readiness verification only**: UE 5.8.3 (CL 58210709), Build.bat, UnrealEditor-Cmd, UBT, VS 2026/MSVC 14.51, Windows SDK 10.0.26100, Java 21, Android API 35 / Build Tools 35.0.1 / NDK r27c / adb verified usable without compiling OfflineGame. Epic Launcher registration is empty but explicit EngineRoot is usable and non-blocking.
 - [x] finish the broad design-finalization pass; architecture frozen in docs/ARCHITECTURE_FREEZE.md
 - [x] complete contradiction/supersession audit pass 2 + exact schema/API migration matrix
-- [ ] normalize cumulative master with the completed detailed tuning/UI freeze
+- [x] independently re-audit full pre-coding architecture and close missing persistence/settings contracts
+- [x] freeze music / voice / SFX production direction
+- [x] freeze visual art / VFX / animation / cinematic production direction
+- [x] define versioned tuning-parameter ownership/registry contract
+- [ ] normalize cumulative master into the final pre-coding handoff
 - [ ] run deterministic simulator fitting for the already-selected tuning candidates
 - [ ] execute design-to-code reconciliation using docs/RECONCILIATION_MIGRATION_MATRIX.md
 - [ ] migrate/rebuild stale runtime contracts to the frozen architecture
@@ -103,10 +107,11 @@
 - [ ] add Factor architecture and class/progression state required by the finalized player-facing systems
 - [ ] add World Director scheduling/audit/offline-consequence framework before relying on Director tests
 - [ ] add World Rank/cosmology state only where required by the first implemented content slice
-- [ ] reconcile protagonist and character Transcendence / personal World Manifestation data contracts
+- [x] specify protagonist/character Transcendence, World Fantasm and personal World Manifestation data contracts in the reconciliation matrix
+- [ ] implement those reconciled higher-order progression contracts
 - [ ] implement frozen Ruler Mode/World HUD contracts and Android notification bridge
 - [ ] implement lore-authoritative mature-content profile/state interfaces and privacy-presentation mask with **no secondary adult-access/appearance gate**
-- [ ] implement equipment/inventory/skill provenance changes needed by the first integrated content slice
+- [ ] implement equipment/inventory/skill provenance changes, including frozen affinity/proficiency and presentation-state contracts, needed by the first integrated content slice
 - [ ] implement NPC promotion/knowledge/belief/language/dialogue persistence contracts
 - [ ] reconcile package manager, external storage, backup/migration and offline update behavior
 - [ ] add Heroic Record/heroification content-state support where required by authored narrative/gacha content
