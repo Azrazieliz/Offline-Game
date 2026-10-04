@@ -95,9 +95,9 @@ All canonically adult/mature eligible characters may potentially participate, in
 - promoted NPCs;
 - other adult persistent characters.
 
-Actual availability still depends on content compatibility and current state.
+Adult-content access itself does not become unavailable because of relationship, mood, injury, Version, body type or other gameplay state. Those facts select or adapt the expression that is physically/lore-valid. A specific act/animation may be incompatible with a particular anatomy or state, in which case the system selects/adapts another valid interaction rather than turning the entire adult-content pillar off.
 
-Multi-partner scenes are supported when the involved adult characters and current scene state are compatible.
+Multi-partner scenes are supported when the involved adult characters and physical/asset state can express them; incompatibility changes the available scene construction rather than redefining adulthood.
 
 ## 7. Persistent physical state
 
@@ -115,7 +115,7 @@ Adult presentation uses the character's actual current state when compatible:
 
 The scene system should not silently revert the character to a generic base body merely because a scene package was authored earlier.
 
-Serious injuries are condition-dependent: scenes may reflect them, require recovery, include adaptation, or be unavailable according to the actual character/state. There is no one blanket recovery rule.
+Serious injuries are condition-dependent in **presentation and possible actions**: scenes may reflect them, use adapted poses/actions, or include recovery where that character would actually choose/use it. Injury does not become a generic adult-content lock; it can only make specific physically impossible actions unavailable.
 
 ## 8. Modular production architecture
 
