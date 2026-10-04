@@ -36,6 +36,25 @@ Equipment fusion/absorption exists only when an item, forge, ability or process 
 
 Items may become semi-sentient/sentient through actual development/history/mechanics.
 
+### Equipment affinity and proficiency presentation
+
+Equipment-owner affinity is an established persistent relationship between a specific item and owner.
+
+- it may improve performance, unlock functions or enable evolution according to that item's rules;
+- transfer preserves item history while owner-specific affinity may be reduced/rebuilt;
+- affinity is separate from user proficiency;
+- internal affinity may be continuous plus milestones, while player-facing UI defaults to authored grades/stages;
+- proficiency also defaults to grades, using raw numbers only when useful;
+- neither system receives one universal "+X% damage per affinity/proficiency point" rule.
+
+### Skins / outfits / clothing state
+
+Skins/outfits are first-class presentation state but do not automatically create a new Identity/Version/form.
+
+Visible equipment remains physically layered/compatible.
+
+Removing all removable clothing/equipment leaves the actual underlying body/clothing state rather than forcing a hidden fallback costume.
+
 ## 2. Crafting
 
 Preserve both learned recipes and genuine experimentation/invention.
