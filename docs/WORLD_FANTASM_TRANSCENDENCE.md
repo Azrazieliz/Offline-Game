@@ -94,7 +94,7 @@ The dimensional contract/gacha preparation system exists as a means granted by d
 
 Ordinary conflicts, Ruler progression, Domain development, roster growth and character development are also preparation for those true late-game threats.
 
-Whether dimensions consciously grant this system or whether it is an automatic multiversal defensive law remains a lore-detail decision and is not required for current implementation.
+The dimensional preparation system is **semi-conscious in a metaphysical/homeostatic sense**, not a normally self-aware speaking administrator. It can recognize broad existential conditions, compatible candidates and defensive needs without thinking/acting like a human mind. Specific historical origins, interventions or entities that may have modified the mechanism remain spoiler-protected story material.
 
 
 ## 6. Protagonist exception
