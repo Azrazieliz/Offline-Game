@@ -19,7 +19,7 @@ The app may check for updates when internet is available.
 
 Small metadata/package-index checks may be automatic.
 
-Large content downloads are user-controllable. Optional settings may permit automatic download on unmetered/Wi-Fi/power conditions.
+Large content downloads default to **automatic download on Wi-Fi/unmetered connections**, with a user setting to disable or further restrict that behavior. Metered/mobile-data downloads require explicit user permission unless the user changes the preference.
 
 Update availability never blocks already-installed offline content merely because the device is offline.
 
