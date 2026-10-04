@@ -352,7 +352,7 @@ Do not clutter the normal recap with shielding, damage prevented, damage taken, 
 
 The game has a real title/opening screen rather than booting directly into a utility menu.
 
-Presentation may ultimately be moving/cinematic like HSR or still/illustrated like FGO; that art-direction choice is deliberately deferred.
+Presentation target is the animated/moving premium title treatment frozen in `VISUAL_ART_DIRECTION.md`, with a reduced-motion/static fallback. This supersedes the earlier moving-vs-still deferral.
 
 Primary opening actions:
 - **Continue** prominently;
