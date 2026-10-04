@@ -1,6 +1,6 @@
 # Contradiction / Supersession Audit
 
-STATUS: ACTIVE - PASS 1 COMPLETE (design/runtime contract audit). No Unreal compile/test has been run.
+STATUS: ACTIVE - PASS 2 COMPLETE (design/runtime contract + dedicated-doc normalization + exact migration/API plan). No Unreal compile/test has been run.
 
 ## Audit authority / precedence
 
@@ -514,3 +514,30 @@ The current codebase is a useful **pre-detailing proof-of-architecture**, not a 
 The persistence, deterministic core and several low-level services can be evolved in place.
 
 However, the gacha/character/territory integration and several tests encode superseded assumptions strongly enough that the first real UE compile should wait until reconciliation, as previously decided.
+
+
+# F. Pass 2 normalization results
+
+Pass 2 completed the following without compiling/running Unreal:
+
+- reconciled `PROTAGONIST_PROGRESSION.md` to the resolved Class/Factor/Rank/Transcendence architecture;
+- resolved the dimensional-preparation mechanism as semi-conscious in a metaphysical/homeostatic sense;
+- normalized `DATA_MODEL.md` so migration-0006 is explicitly pre-reconciliation and adulthood is lore-authoritative;
+- rewrote recovery documentation around untouched pre-migration preservation;
+- rewrote `VERTICAL_SLICE.md` as the frozen target contract;
+- marked the current G2 harness as stale proof infrastructure rather than certification;
+- removed remaining second-gate mature-content terminology from the dedicated mature-content contract;
+- produced the exact numbered schema/API plan in `RECONCILIATION_MIGRATION_MATRIX.md`.
+
+## Remaining audit work before code edits
+
+The design contradictions are now sufficiently classified to begin **cumulative-master normalization and numerical-tuning audit**.
+
+No additional creative questionnaire is required.
+
+The next implementation-affecting deliverables are:
+1. normalized cumulative master baseline;
+2. deterministic tuning assumptions/parameter registry;
+3. code migration implementation following the matrix;
+4. test rewrites;
+5. only then the mandatory Unreal validation sequence.
