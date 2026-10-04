@@ -25,6 +25,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Persistence / backups / content packages / Android delivery: `PERSISTENCE_PACKAGING.md`.
 - Production cadence / Worlds / bosses / challenge content / narrative continuity / device-feasibility doctrine: `CONTENT_PRODUCTION_NARRATIVE.md`.
 - Freeze status and handoff to reconciliation: `ARCHITECTURE_FREEZE.md`.
+- Reconciliation migration/API matrix: `RECONCILIATION_MIGRATION_MATRIX.md`.
 
 ## Numerical tuning and deterministic simulation - next
 
@@ -54,8 +55,8 @@ These values are intentionally not frozen by questionnaire and should be tuned w
 
 ## Engineering reconciliation - immediately after tuning audit
 
-- compare current schema/C++ assumptions against every frozen architecture document;
-- design numbered immutable migrations;
+- contradiction/schema/API comparison: **audit pass 2 complete**;
+- numbered immutable migration/API design: **complete in `RECONCILIATION_MIGRATION_MATRIX.md`**;
 - replace stale duplicate-counter gacha persistence with multiple Manifestation instances;
 - rewrite stale vertical-slice assumptions;
 - implement/reconcile Rank, Factors, Classes, progression routes, Territory control/reclamation, Core heart/fusion consequences, World Director, World Rank, UI, mature-content state, NPC/dialogue state and package delivery as needed by the first integrated build;
