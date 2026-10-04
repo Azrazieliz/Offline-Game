@@ -17,7 +17,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Starting-dimension generation grammar and later-world/dimension progression grammar.
 - Civilization development-vector model after hard simplification.
 - Territory/Domain/Core sovereignty, five-day reclamation, Core awakening/heart, Core-loss catastrophe, populationless-Domain and Overlord multi-Domain architecture are RESOLVED in docs/TERRITORY_PROJECTS.md; remaining work is per-content Concept synthesis, exact recovery costs, Main Territory UX and numerical tuning.
-- Faction/war/army/dispatch/project/logistics resolution rules.
+- Faction/war/army architecture is RESOLVED in docs/DISPATCH_FACTION_WAR.md: objective-based command, commander autonomy/disobedience, continuous campaigns/fronts, non-automatic decapitation outcomes, conquest via actual control, unrestricted army composition and capability-based extreme asymmetry. Remaining work is numerical tuning plus the separate Dispatch/Projects/Logistics detail pass.
 - World-time/calendar values and offline catch-up behavior.
 - Ruler Mode navigation and Territory/Domain UX.
 - World Mode HUD/control presentation.
