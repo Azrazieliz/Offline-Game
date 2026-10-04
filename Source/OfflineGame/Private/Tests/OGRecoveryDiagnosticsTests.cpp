@@ -1,6 +1,7 @@
 #include "Diagnostics/OGDiagnosticsBundle.h"
 #include "Persistence/OGSQLiteWorldStore.h"
 #include "Persistence/OGSnapshotService.h"
+#include "Persistence/OGWorldBootstrap.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -8,6 +9,7 @@
 #include "Misc/AutomationTest.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "sqlite/sqlite3.h"
 
 namespace
 {
@@ -17,6 +19,55 @@ FString MakeRecoveryTestDirectory()
         FPaths::ProjectSavedDir(),
         TEXT("Automation"),
         FGuid::NewGuid().ToString(EGuidFormats::Digits));
+}
+
+bool ExecuteRawDatabaseSql(
+    const FString& DatabasePath,
+    const char* Sql,
+    FString& OutError)
+{
+    OutError.Reset();
+
+    sqlite3* Database = nullptr;
+    FTCHARToUTF8 PathUtf8(*DatabasePath);
+    if (sqlite3_open_v2(
+            PathUtf8.Get(),
+            &Database,
+            SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX,
+            nullptr) != SQLITE_OK ||
+        Database == nullptr)
+    {
+        OutError = TEXT("Failed to open raw test database.");
+        if (Database)
+        {
+            sqlite3_close_v2(Database);
+        }
+        return false;
+    }
+
+    char* ErrorMessage = nullptr;
+    const int32 Result =
+        sqlite3_exec(
+            Database,
+            Sql,
+            nullptr,
+            nullptr,
+            &ErrorMessage);
+
+    if (Result != SQLITE_OK)
+    {
+        OutError = ErrorMessage
+            ? UTF8_TO_TCHAR(ErrorMessage)
+            : UTF8_TO_TCHAR(sqlite3_errmsg(Database));
+    }
+
+    if (ErrorMessage)
+    {
+        sqlite3_free(ErrorMessage);
+    }
+
+    sqlite3_close_v2(Database);
+    return Result == SQLITE_OK;
 }
 }
 
@@ -121,6 +172,202 @@ bool FOGDiagnosticsBundleTest::RunTest(const FString& Parameters)
 
     Store.Close();
     IFileManager::Get().DeleteDirectory(*Directory, false, true);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGMigrationSafeBootstrapPromotionTest,
+    "OfflineGame.Persistence.MigrationBootstrap.PromotesValidatedWorkingCopy",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
+{
+    const FString Directory = MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(Directory, TEXT("world.db"));
+    IFileManager::Get().MakeDirectory(*Directory, true);
+
+    const FOGEntityId MarkerId = FOGEntityId::NewId();
+    FString Error;
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(TEXT("Create current-schema database"),
+            Store.Open(DatabasePath, Error));
+        TestTrue(TEXT("Persist pre-migration marker"),
+            Store.UpsertEntity(
+                MarkerId,
+                TEXT("migration_marker"),
+                42,
+                TEXT("{\"preserve\":true}"),
+                Error));
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Downgrade fixture to schema 5"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS gacha_states;"
+            "ALTER TABLE character_manifestations DROP COLUMN duplicate_acquisition_count;"
+            "DELETE FROM schema_migrations WHERE version = 6;",
+            Error));
+
+    FOGWorldBootstrapResult Result;
+    TestTrue(
+        TEXT("Migration-safe bootstrap succeeds"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Result,
+            Error));
+    TestTrue(TEXT("Migration was required"),
+        Result.bMigrationRequired);
+    TestTrue(TEXT("Migration was promoted"),
+        Result.bMigrationPerformed);
+    TestEqual(TEXT("Source schema recorded"),
+        Result.SourceSchemaVersion, 5);
+    TestEqual(TEXT("Target schema recorded"),
+        Result.TargetSchemaVersion, 6);
+    TestTrue(TEXT("Untouched recovery database retained"),
+        IFileManager::Get().FileExists(
+            *Result.RecoveryDatabasePath));
+    TestTrue(TEXT("Migration report retained"),
+        IFileManager::Get().FileExists(
+            *Result.MigrationReportPath));
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(TEXT("Open promoted authoritative database"),
+            Store.Open(DatabasePath, Error));
+        TestEqual(TEXT("Promoted schema is 6"),
+            Store.GetSchemaVersion(Error), 6);
+
+        bool bFound = false;
+        FName Kind = NAME_None;
+        FString StateJson;
+        int64 Revision = -1;
+        TestTrue(TEXT("Read pre-migration marker"),
+            Store.TryReadEntity(
+                MarkerId,
+                bFound,
+                Kind,
+                StateJson,
+                Revision,
+                Error));
+        TestTrue(TEXT("Marker survived migration"),
+            bFound);
+        TestEqual(TEXT("Marker state survived migration"),
+            StateJson,
+            FString(TEXT("{\"preserve\":true}")));
+    }
+
+    FString ReportJson;
+    TestTrue(TEXT("Read migration report"),
+        FFileHelper::LoadFileToString(
+            ReportJson,
+            *Result.MigrationReportPath));
+    TestTrue(TEXT("Report records promoted status"),
+        ReportJson.Contains(TEXT("\"promoted\"")));
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGMigrationSafeBootstrapFailureTest,
+    "OfflineGame.Persistence.MigrationBootstrap.FailurePreservesAuthoritativeDatabase",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
+{
+    const FString Directory = MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(Directory, TEXT("world.db"));
+    IFileManager::Get().MakeDirectory(*Directory, true);
+
+    FString Error;
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(TEXT("Create current-schema database"),
+            Store.Open(DatabasePath, Error));
+        TestTrue(TEXT("Persist failure-test marker"),
+            Store.UpsertEntity(
+                FOGEntityId::NewId(),
+                TEXT("failure_marker"),
+                99,
+                TEXT("{\"stable\":true}"),
+                Error));
+        Store.Close();
+    }
+
+    // Leave migration-0006 schema effects in place while removing only its
+    // ledger row. Reapplying 0006 must fail on the working copy because the
+    // duplicate_acquisition_count column already exists.
+    TestTrue(
+        TEXT("Create deterministic migration-failure fixture"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DELETE FROM schema_migrations WHERE version = 6;",
+            Error));
+
+    TArray<uint8> BeforeBytes;
+    TestTrue(TEXT("Read authoritative bytes before failed bootstrap"),
+        FFileHelper::LoadFileToArray(
+            BeforeBytes,
+            *DatabasePath));
+
+    FOGWorldBootstrapResult Result;
+    TestFalse(
+        TEXT("Unsafe migration is refused"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Result,
+            Error));
+    TestTrue(TEXT("Bootstrap reports migration failure"),
+        Error.Contains(TEXT("Working-copy migration failed")));
+    TestTrue(TEXT("Pre-migration recovery is retained"),
+        IFileManager::Get().FileExists(
+            *Result.RecoveryDatabasePath));
+    TestTrue(TEXT("Failure report is retained"),
+        IFileManager::Get().FileExists(
+            *Result.MigrationReportPath));
+
+    TArray<uint8> AfterBytes;
+    TestTrue(TEXT("Read authoritative bytes after failed bootstrap"),
+        FFileHelper::LoadFileToArray(
+            AfterBytes,
+            *DatabasePath));
+    TestEqual(TEXT("Authoritative byte count is unchanged"),
+        AfterBytes.Num(),
+        BeforeBytes.Num());
+
+    const bool bBytesUnchanged =
+        AfterBytes.Num() == BeforeBytes.Num() &&
+        (AfterBytes.Num() == 0 ||
+         FMemory::Memcmp(
+             AfterBytes.GetData(),
+             BeforeBytes.GetData(),
+             AfterBytes.Num()) == 0);
+    TestTrue(TEXT("Authoritative database remains untouched"),
+        bBytesUnchanged);
+
+    FString ReportJson;
+    TestTrue(TEXT("Read failed migration report"),
+        FFileHelper::LoadFileToString(
+            ReportJson,
+            *Result.MigrationReportPath));
+    TestTrue(TEXT("Report records migration_failed status"),
+        ReportJson.Contains(TEXT("migration_failed")));
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
     return true;
 }
 

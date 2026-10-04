@@ -12,6 +12,8 @@ struct FOGMigrationDefinition
     int32 Version;
     const TCHAR* Name;
     const TCHAR* Sql;
+    TFunction<bool(FOGSQLiteWorldStore&, FString&)> DataTransform;
+    TFunction<bool(FOGSQLiteWorldStore&, FString&)> Validate;
 };
 
 static const TCHAR* Migration0001Sql =
@@ -241,12 +243,12 @@ static const TCHAR* Migration0006Sql =
 
 static const FOGMigrationDefinition Migrations[] =
 {
-    {1, TEXT("bootstrap"), Migration0001Sql},
-    {2, TEXT("character_manifestations"), Migration0002Sql},
-    {3, TEXT("world_location_state"), Migration0003Sql},
-    {4, TEXT("territory_resources_projects"), Migration0004Sql},
-    {5, TEXT("dispatch_faction_war"), Migration0005Sql},
-    {6, TEXT("gacha_state"), Migration0006Sql},
+    {1, TEXT("bootstrap"), Migration0001Sql, {}, {}},
+    {2, TEXT("character_manifestations"), Migration0002Sql, {}, {}},
+    {3, TEXT("world_location_state"), Migration0003Sql, {}, {}},
+    {4, TEXT("territory_resources_projects"), Migration0004Sql, {}, {}},
+    {5, TEXT("dispatch_faction_war"), Migration0005Sql, {}, {}},
+    {6, TEXT("gacha_state"), Migration0006Sql, {}, {}},
 };
 
 FString RelatedEntitiesToJson(const TArray<FOGEntityId>& EntityIds)
@@ -440,6 +442,143 @@ int32 FOGSQLiteWorldStore::GetSchemaVersion(FString& OutError) const
     return Version;
 }
 
+int32 FOGSQLiteWorldStore::LatestSchemaVersion()
+{
+    return Migrations[UE_ARRAY_COUNT(Migrations) - 1].Version;
+}
+
+bool FOGSQLiteWorldStore::RunApplicationValidation(
+    FString& OutReport,
+    FString& OutError) const
+{
+    OutReport.Reset();
+    OutError.Reset();
+
+    if (Database == nullptr)
+    {
+        OutError = TEXT("Database is not open.");
+        return false;
+    }
+
+    FString SchemaError;
+    const int32 SchemaVersion = GetSchemaVersion(SchemaError);
+    if (SchemaVersion == INDEX_NONE)
+    {
+        OutError = SchemaError;
+        return false;
+    }
+
+    if (SchemaVersion != LatestSchemaVersion())
+    {
+        OutError = FString::Printf(
+            TEXT("Schema version %d does not match runtime target %d."),
+            SchemaVersion,
+            LatestSchemaVersion());
+        return false;
+    }
+
+    sqlite3_stmt* MigrationStatement = nullptr;
+    const char* MigrationSql =
+        "SELECT COUNT(*), COALESCE(MIN(version), 0), COALESCE(MAX(version), 0) "
+        "FROM schema_migrations;";
+
+    if (sqlite3_prepare_v2(
+            Database,
+            MigrationSql,
+            -1,
+            &MigrationStatement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare migration-continuity validation"));
+        return false;
+    }
+
+    int32 MigrationCount = 0;
+    int32 MinimumVersion = 0;
+    int32 MaximumVersion = 0;
+
+    if (sqlite3_step(MigrationStatement) == SQLITE_ROW)
+    {
+        MigrationCount = sqlite3_column_int(MigrationStatement, 0);
+        MinimumVersion = sqlite3_column_int(MigrationStatement, 1);
+        MaximumVersion = sqlite3_column_int(MigrationStatement, 2);
+    }
+    else
+    {
+        OutError = LastError(TEXT("Read migration-continuity validation"));
+        sqlite3_finalize(MigrationStatement);
+        return false;
+    }
+
+    sqlite3_finalize(MigrationStatement);
+
+    if (MigrationCount != LatestSchemaVersion() ||
+        MinimumVersion != 1 ||
+        MaximumVersion != LatestSchemaVersion())
+    {
+        OutError = FString::Printf(
+            TEXT("Migration ledger is not contiguous (count=%d, min=%d, max=%d, expected=1..%d)."),
+            MigrationCount,
+            MinimumVersion,
+            MaximumVersion,
+            LatestSchemaVersion());
+        return false;
+    }
+
+    sqlite3_stmt* ForeignKeyStatement = nullptr;
+    if (sqlite3_prepare_v2(
+            Database,
+            "PRAGMA foreign_key_check;",
+            -1,
+            &ForeignKeyStatement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare foreign-key validation"));
+        return false;
+    }
+
+    const int32 ForeignKeyStep =
+        sqlite3_step(ForeignKeyStatement);
+    if (ForeignKeyStep == SQLITE_ROW)
+    {
+        const FString TableName =
+            ColumnText(ForeignKeyStatement, 0);
+        const int64 RowId =
+            sqlite3_column_int64(ForeignKeyStatement, 1);
+        sqlite3_finalize(ForeignKeyStatement);
+
+        OutError = FString::Printf(
+            TEXT("Foreign-key validation failed in table %s at row %lld."),
+            *TableName,
+            static_cast<long long>(RowId));
+        return false;
+    }
+
+    if (ForeignKeyStep != SQLITE_DONE)
+    {
+        OutError = LastError(TEXT("Run foreign-key validation"));
+        sqlite3_finalize(ForeignKeyStatement);
+        return false;
+    }
+
+    sqlite3_finalize(ForeignKeyStatement);
+
+    FString IntegrityReport;
+    if (!RunIntegrityCheck(
+            IntegrityReport,
+            OutError))
+    {
+        return false;
+    }
+
+    OutReport = FString::Printf(
+        TEXT("schema=%d; migrations=%d; foreign_keys=ok; integrity=%s"),
+        SchemaVersion,
+        MigrationCount,
+        *IntegrityReport);
+    return true;
+}
+
 bool FOGSQLiteWorldStore::RecordMigration(int32 Version, const TCHAR* Name, FString& OutError)
 {
     sqlite3_stmt* Statement = nullptr;
@@ -488,9 +627,39 @@ bool FOGSQLiteWorldStore::ApplyMigrations(FString& OutError)
             return false;
         }
 
-        if (!ExecuteSql(Migration.Sql, OutError) ||
-            !RecordMigration(Migration.Version, Migration.Name, OutError) ||
-            !CommitTransaction(OutError))
+        bool bMigrationSucceeded =
+            ExecuteSql(Migration.Sql, OutError);
+
+        if (bMigrationSucceeded &&
+            Migration.DataTransform)
+        {
+            bMigrationSucceeded =
+                Migration.DataTransform(*this, OutError);
+        }
+
+        if (bMigrationSucceeded)
+        {
+            bMigrationSucceeded =
+                RecordMigration(
+                    Migration.Version,
+                    Migration.Name,
+                    OutError);
+        }
+
+        if (bMigrationSucceeded &&
+            Migration.Validate)
+        {
+            bMigrationSucceeded =
+                Migration.Validate(*this, OutError);
+        }
+
+        if (bMigrationSucceeded)
+        {
+            bMigrationSucceeded =
+                CommitTransaction(OutError);
+        }
+
+        if (!bMigrationSucceeded)
         {
             FString RollbackError;
             RollbackTransaction(RollbackError);

@@ -20,6 +20,13 @@ public:
     virtual bool RollbackTransaction(FString&) override;
     virtual int32 GetSchemaVersion(FString&) const override;
 
+    static int32 LatestSchemaVersion();
+    bool RunApplicationValidation(FString& OutReport, FString& OutError) const;
+
+    // Persistence-internal migration helpers. This concrete header lives under
+    // Private; gameplay/UI code must continue to use IOGWorldStore instead.
+    bool ExecuteSql(const FString&, FString&) const;
+
     virtual bool UpsertEntity(const FOGEntityId&, FName, int64, const FString&, FString&) override;
     virtual bool TryReadEntity(const FOGEntityId&, bool&, FName&, FString&, int64&, FString&) const override;
 
@@ -74,7 +81,6 @@ public:
     virtual const FString& GetDatabasePath() const override { return DatabasePath; }
 
 private:
-    bool ExecuteSql(const FString&, FString&) const;
     bool EnsureMigrationTable(FString&);
     bool ApplyMigrations(FString&);
     bool RecordMigration(int32, const TCHAR*, FString&);
