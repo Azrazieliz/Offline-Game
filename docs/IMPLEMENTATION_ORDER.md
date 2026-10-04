@@ -90,7 +90,7 @@
 - [x] freeze music / voice / SFX production direction
 - [x] freeze visual art / VFX / animation / cinematic production direction
 - [x] define versioned tuning-parameter ownership/registry contract
-- [ ] normalize cumulative master into the final pre-coding handoff
+- [x] normalize cumulative master into `Offline_Adult_Gacha_RPG_Master_Architecture_Baseline_v0.40_FINAL_PRECODING_FREEZE.docx`
 - [ ] run deterministic simulator fitting for the already-selected tuning candidates
 - [ ] execute design-to-code reconciliation using docs/RECONCILIATION_MIGRATION_MATRIX.md
 - [ ] migrate/rebuild stale runtime contracts to the frozen architecture
