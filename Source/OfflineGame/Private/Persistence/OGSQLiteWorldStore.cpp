@@ -241,6 +241,21 @@ static const TCHAR* Migration0006Sql =
     TEXT("FOREIGN KEY(ruler_entity_id) REFERENCES entities(id));")
     TEXT("CREATE INDEX IF NOT EXISTS idx_gacha_states_ruler ON gacha_states(ruler_entity_id);");
 
+static const TCHAR* Migration0007Sql =
+    TEXT("ALTER TABLE character_manifestations ADD COLUMN acquisition_world_tick INTEGER NOT NULL DEFAULT 0;")
+    TEXT("ALTER TABLE character_manifestations ADD COLUMN acquisition_ordinal INTEGER NOT NULL DEFAULT 0 CHECK (acquisition_ordinal >= 0);")
+    TEXT("ALTER TABLE character_manifestations ADD COLUMN origin_pull_event_id TEXT;")
+    TEXT("ALTER TABLE character_manifestations ADD COLUMN world_mode_anchor_territory_id TEXT;")
+    TEXT("ALTER TABLE character_manifestations ADD COLUMN world_mode_anchor_tick INTEGER;")
+    TEXT("ALTER TABLE character_manifestations ADD COLUMN lifecycle_state TEXT NOT NULL DEFAULT 'active';")
+    TEXT("ALTER TABLE character_manifestations ADD COLUMN build_label TEXT NOT NULL DEFAULT '';")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_manifestations_owner_identity ")
+    TEXT("ON character_manifestations(owning_ruler_entity_id, identity_content_id);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_manifestations_owner_identity_ordinal ")
+    TEXT("ON character_manifestations(owning_ruler_entity_id, identity_content_id, acquisition_ordinal);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_manifestations_anchor ")
+    TEXT("ON character_manifestations(world_mode_anchor_territory_id);");
+
 static const FOGMigrationDefinition Migrations[] =
 {
     {1, TEXT("bootstrap"), Migration0001Sql, {}, {}},
@@ -249,6 +264,19 @@ static const FOGMigrationDefinition Migrations[] =
     {4, TEXT("territory_resources_projects"), Migration0004Sql, {}, {}},
     {5, TEXT("dispatch_faction_war"), Migration0005Sql, {}, {}},
     {6, TEXT("gacha_state"), Migration0006Sql, {}, {}},
+    {
+        7,
+        TEXT("manifestation_instances"),
+        Migration0007Sql,
+        [](FOGSQLiteWorldStore& Store, FString& Error)
+        {
+            return Store.MigrateLegacyDuplicateManifestations0007(Error);
+        },
+        [](FOGSQLiteWorldStore& Store, FString& Error)
+        {
+            return Store.ValidateManifestationMigration0007(Error);
+        }
+    },
 };
 
 FString RelatedEntitiesToJson(const TArray<FOGEntityId>& EntityIds)
