@@ -62,13 +62,23 @@ Crit Rate above its effective probability ceiling converts at:
 
 Crit Rate Resistance is applied before overflow conversion, as specified in `COMBAT_MATH.md`.
 
-## Explicitly deferred
+## Current tuning / content boundary
 
-This phase does not decide:
-- damage formula
-- exact Crit/Hit/Dodge equations
-- generic cooldown usage
-- ultimate charge formula
-- final stat list
-- exact action-value formula
-- final rarity progression numbers
+The original Phase-D deferrals have since been resolved or reclassified by later authoritative documents.
+
+Resolved architecture:
+- generic damage / DEF / negative-DEF behavior: `COMBAT_MATH.md`;
+- Crit and Hit/Dodge overflow ordering: `COMBAT_MATH.md`;
+- no universal cooldown/team-skill-point model: `SKILL_READINESS.md`;
+- character-owned Ultimate resource/threshold/tiers: `SKILL_READINESS.md`;
+- character-facing stats are explicit per Character/Manifestation/build: this document + `COMBAT_MATH.md`;
+- Rarity/Rank/progression architecture: dedicated progression documents.
+
+Still intentionally simulator/content-tunable:
+- exact SPD -> action-value coefficients;
+- individual skill/resource values;
+- per-character stat sets and growth response;
+- content-specific cooldown/readiness mechanics;
+- final balance coefficients.
+
+These are not missing Creative Director architecture and must live in the versioned tuning/content contracts rather than being guessed into C++.
