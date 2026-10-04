@@ -716,9 +716,24 @@ bool FOGSQLiteWorldStore::MigrateLegacyDuplicateManifestations0007(
 
     sqlite3_finalize(LegacyStatement);
 
+    TMap<FString, int32> NextOrdinalByOwnerIdentity;
+
     for (FLegacyManifestationMigrationRow& Row :
          LegacyRows)
     {
+        const FString GroupKey = FString::Printf(
+            TEXT("%s|%s"),
+            *Row.Manifestation.OwningRulerId.ToString(),
+            *Row.Manifestation.IdentityId.ToString());
+        int32& NextOrdinal =
+            NextOrdinalByOwnerIdentity.FindOrAdd(GroupKey);
+        const int32 BaseAcquisitionOrdinal =
+            NextOrdinal;
+        Row.Manifestation.AcquisitionOrdinal =
+            BaseAcquisitionOrdinal;
+        NextOrdinal +=
+            Row.DuplicateCount + 1;
+
         TArray<FLegacyGachaEvent> Events;
 
         sqlite3_stmt* EventStatement = nullptr;
@@ -849,32 +864,37 @@ bool FOGSQLiteWorldStore::MigrateLegacyDuplicateManifestations0007(
         TArray<FOGEntityId> ReconstructedIds;
         int32 MissingHistoricalEvents = 0;
 
-        for (int32 Ordinal = 1;
-             Ordinal <= Row.DuplicateCount;
-             ++Ordinal)
+        for (int32 LocalRepeatOrdinal = 1;
+             LocalRepeatOrdinal <= Row.DuplicateCount;
+             ++LocalRepeatOrdinal)
         {
+            const int32 AcquisitionOrdinal =
+                BaseAcquisitionOrdinal +
+                LocalRepeatOrdinal;
+
             FOGCharacterManifestationRecord Copy;
             Copy.ManifestationId =
                 StableMigrationEntityId(
                     Row.Manifestation.ManifestationId,
                     FString::Printf(
                         TEXT("manifestation:%d"),
-                        Ordinal));
+                        AcquisitionOrdinal));
             Copy.OwningRulerId =
                 Row.Manifestation.OwningRulerId;
             Copy.IdentityId =
                 Row.Manifestation.IdentityId;
             Copy.Level = 1;
-            Copy.AcquisitionOrdinal = Ordinal;
+            Copy.AcquisitionOrdinal =
+                AcquisitionOrdinal;
             Copy.LifecycleState =
                 FName(TEXT("active"));
             Copy.ProgressionStateJson =
                 TEXT("{}");
 
-            if (Events.IsValidIndex(Ordinal))
+            if (Events.IsValidIndex(LocalRepeatOrdinal))
             {
                 const FLegacyGachaEvent& Event =
-                    Events[Ordinal];
+                    Events[LocalRepeatOrdinal];
                 Copy.ActiveVersionId =
                     Event.VersionId;
                 Copy.CurrentRarity =
