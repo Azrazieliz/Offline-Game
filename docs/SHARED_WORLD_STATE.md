@@ -15,10 +15,12 @@ Current minimal Location record stores:
 - stable location entity ID
 - optional parent location
 - location kind
-- optional territory
-- whether it is currently physically accessible
+- physical/reality containment and state needed to resolve traversal;
+- legacy territory linkage only where retained as a non-authoritative cache during reconciliation.
 
 Discovery is **not** part of Location truth.
+
+There is **no universal persistent `physically_accessible` boolean** that acts as a progression gate. Traversal/access is resolved causally from the location, route, environment, world law, current body/abilities, equipment, infrastructure, knowledge and explicit mechanics. A cached query result may exist for presentation/performance, but it is never authoritative truth.
 
 A ruin can physically exist while the player, another faction, or an important NPC does not know it exists.
 
@@ -60,7 +62,7 @@ World Mode may:
 
 Ruler Mode then reads those same records.
 
-Ruler Mode may later issue projects/orders against known physical locations. Their results update the same authoritative state and can become visible when World Mode streams that location.
+Ruler Mode may issue projects/orders against known physical locations. Their results update the same authoritative state and can become visible when World Mode streams that location.
 
 Neither mode owns a private canonical copy.
 
