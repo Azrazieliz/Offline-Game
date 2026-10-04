@@ -1,130 +1,156 @@
 # Remaining Tuning / Presentation Backlog
 
-STATUS: ACTIVE. Architecture is frozen; these are tuning/content-presentation decisions before code reconciliation.
+STATUS: RE-AUDITED AGAINST CURRENT AUTHORITATIVE BASELINE. This file lists only genuinely unresolved global/system tuning. Character-specific authored content is not treated as a missing global rule.
 
-## 1. Rank / Level / stat progression
-- Universal Rank coefficient candidate remains under simulation.
-- Per-character/per-stat alpha is a positive decimal in [1.10, 2.50] at every Rank.
-- Still tune within-Rank Level growth, breakthrough share, sparse breakthrough biases and route/form/Factor changes to stat response.
-- Same-Rank individual stats may differ by many orders of magnitude.
+## Already resolved - do not reopen
 
-## 2. Combat math
-- Tune negative-DEF exponential base/reference.
-- Tune Rank Suppression separately by interaction channel.
-- Tune Crit/Hit/Dodge/Block overflow behavior and extreme-value batching.
-- Tune effect grades, stacking/duration, debuff application/resistance, HP-loss caps, charge/readiness and enemy AI priorities.
-- Tune encounter-specific TTK envelopes without imposing one universal TTK.
+- Core combat stats: HP, ATK, DEF, SPD plus character-specific special stats.
+- Crit order and overflow: target Crit Rate Resistance first; effective Crit above 100% converts 1% -> +2% Crit Damage.
+- Hit/Dodge overflow: full +100% effective Hit bands create additional eligible hit instances; remainder is a probability for one more.
+- DEF/resistance penetration may exceed 100% where rules permit.
+- Separate percentage-modifier categories multiply; authored multipliers within a category also multiply unless explicitly additive.
+- No universal Healing Done/Received stat.
+- Regeneration baseline is Max-HP based and normally triggers on the affected character's turn unless authored otherwise.
+- Ordinary healing caps at Max HP unless a character/effect explicitly creates shield/overflow/additional HP.
+- Effect state primarily uses Stack Count + Turns; potency uses authored grades/names rather than one universal potency number.
+- Effect stack limits, duration decrement, cleanse, transfer, reflection, copying, spread, detonation and permanence are effect-defined.
+- Authority is separate from ordinary effect grade.
+- No universal elemental weakness chart.
+- Equipment affinity exists and is distinct from proficiency; it may improve performance, unlock functions or drive evolution. Transfer preserves history while owner-specific affinity may be reduced/rebuilt according to the item's own mechanics.
+- Generic relationship/affection dimensions are not a system. Important relationships are authored/event-history/specific-bond/synergy state only.
+- GP/Power is visible summary information only and never determines combat outcome.
+- On-field damage text is compact and switches to abbreviated/scientific-style representation for large values; battle recap is analytical.
+- Turn auto combat is required and supports tactical priorities/conditional rules; deterministic presets remain the reliable foundation.
+- Turn presentation includes at least 1x and 2x speed; Ultimate/cinematic repeat behavior is independently configurable.
+- Ruler Mode navigation, Records/Territory structure, Home philosophy, Android-notification policy, World HUD/minimap behavior, touch/gamepad accessibility, art direction, VFX language, HI3-style animation direction, cinematics, Japanese voice strategy and adaptive-music philosophy are frozen in UI_PRESENTATION.md.
+- World Mode controls, targeting, dodge/parry/guard, cancel policy, party/switch/QTE, combat/traversal continuity and boss hybrid rules are frozen in WORLD_MODE_ACTION_COMBAT.md.
+- Gacha tickets exist as secondary access items alongside the renewable main pull currency; standard/multi/event/guaranteed-rarity/special selector-style ticket definitions are data-driven.
+- High-level gacha income scales through richer actual content/sovereignty sources, not an invisible player-level payout multiplier.
+- Every character-facing stat is character/Manifestation/build specific.
+- Rank-stat elasticity alpha is a positive decimal in [1.10, 2.50] for every stat using the elasticity model.
 
-## 3. Affinity families
-Affinity must not become one overloaded universal meter.
+## Genuinely unresolved global/system tuning
 
-### Equipment-owner affinity
-Existing design remains: long-term use can improve performance, unlock functions or drive evolution; transfer preserves item history while owner-specific affinity may partially reset/rebuild according to the item's mechanics.
+### 1. Rank / Level growth
+Need deterministic simulation for:
+- final universal Rank coefficient curve;
+- exact within-Rank Level 1-100 contribution;
+- how much of each Rank step is gradual Level growth versus the breakthrough itself;
+- default handling of sparse breakthrough-specific stat biases;
+- regression tests proving late Rank steps remain superlinear while same/adjacent Rank combat stays mechanically meaningful.
 
-Tune:
-- whether affinity uses hidden continuous state, authored milestones or both;
-- gain/decay/transfer behavior;
-- how proficiency differs from affinity;
-- item-specific unlock/evolution thresholds.
+These are system numbers; the actual per-stat alpha/base/build response remains character-specific.
 
-### Character relationships
-Do not use one universal affection score. Persist semantic relationship/history state and only add numeric axes where a real mechanic needs them.
+### 2. DEF and Rank Suppression
+Need deterministic simulation for:
+- final negative-DEF branch and its default exponential base/reference;
+- exact channel-by-channel Rank Suppression curves for damage, effect penetration, control, perception, presence/environment tolerance and resistance breaking;
+- interaction between raw stat disparity and categorical Rank Suppression.
 
-Adult-content access is never controlled by relationship affinity.
+No universal damage cap is to be introduced.
 
-### Elemental / conceptual / biological / world affinity
-Use content-defined compatibility/resistance relationships, not a mandatory universal rock-paper-scissors element chart.
-Tune multipliers/grades per system and allow explicit abilities to override them.
+### 3. SPD / action-value timing
+Continuous action value is frozen, but still tune:
+- exact SPD -> action-delay mapping;
+- reserve-entry delay baseline;
+- action advance/delay conversion;
+- deterministic detection of accidental infinite action loops.
 
-## 4. Gacha economy / tickets
-- Tune base rates/pity after deterministic simulation.
-- Tune progression-specific currency sources rather than one global income multiplier.
-- Tune standard/multi/event/guaranteed/selector ticket reward cadence.
-- Tune high-level dedicated farming and Territory/Domain/Overlord production.
-- Model ticket expected value for economy only; preserve actual ticket behavior in gameplay.
+There is no artificial rule preventing an intentionally extreme speed character from taking many actions if the build genuinely produces that result.
 
-## 5. Equipment / crafting economy
-- Tune item quality distribution, modifier counts/strengths, durability impact, repair/forging costs, evolution costs, proficiency and affinity.
-- Preserve deterministic item identity and avoid random-affix loot spam.
-- Tune historical/named-item emergence and transfer economics.
+### 4. Gacha probability / income / ticket cadence
+Still tune:
+- whether the current 1.2% / soft-50 / hard-70 / 50-50->guarantee candidate becomes final;
+- exact renewable-income curves by progression/content source;
+- ticket reward frequency and guaranteed-ticket rarity;
+- high-level dedicated farming output;
+- banner-category carry rules where categories differ;
+- expected acquisition pace versus the mature 2-3-character/week production target.
 
-## 6. Strategic simulation
-- Tune Project duration/acceleration/interruption.
-- Tune Dispatch risk/outcomes.
-- Tune route capacity/blockade/logistics.
-- Tune war attrition, siege and capability resolution.
-- Tune civilization vector growth/decline and high-level resource generation.
-- Tune offline compression error against full-resolution reference.
+Low-level and late-game incomes are intentionally different because their available content/economies are different.
 
-## 7. World time / Director / notifications
-- Tune per-world calendars and time ratios as content.
-- Tune Director earliest/preferred/latest windows.
-- Tune offline consequence weight budget.
-- Tune Android notification thresholds/categories/quiet behavior without making notifications authoritative.
+### 5. Progression economy
+Still tune character/content cost grammars for:
+- Current Rarity reinforcement/promotion;
+- Rank breakthroughs;
+- Evolution/Awakening/Corruption/other route nodes;
+- Transcendence;
+- Grand Convergence;
+- high-order Factor development/fusion;
+- item Rank/evolution/forging.
 
-## 8. UI numerical presentation
-The stronger Rank/stat model supersedes the old assumption that late-game values would remain only in B/Q-scale ranges.
+These should not become one universal currency curve; simulation should establish useful cost bands and scarcity ratios that content then specializes.
 
-Tune:
-- on-field significant digits;
-- suffix vs scientific/engineering notation;
-- exact-detail display;
-- HP/resource bar normalization;
-- damage-number aggregation for extreme multi-hit/overflow;
-- stat comparison deltas;
-- knowledge-limited exactness for unknown entities;
-- whether GP/Power remains visible and, if so, how its logarithmic/uncertain estimate is calculated.
+### 6. Equipment affinity / proficiency numbers
+The behavior is already defined; only numerical representation is open.
 
-## 9. Ruler Mode / character UI presentation
-Architecture is fixed; tune density and interaction:
-- character Identity -> Manifestation grouping;
-- stat/progression/route comparison screens;
-- equipment affinity/history presentation;
-- Territory/Domain/Dispatch/Project/map information density;
-- Reports/Chronicle/Codex filters;
-- gacha ticket/currency/pity presentation;
-- notification badge behavior.
+Need tune/choose implementation defaults for:
+- proficiency gain curve;
+- owner-item affinity gain/decay/transfer retention;
+- how authored affinity milestones map to item unlock/evolution;
+- whether a specific item's affinity is continuous, milestone-only or hybrid.
 
-## 10. World Mode presentation
-Tune:
-- FOV/camera distance;
-- lock-on transition speed;
-- camera shake/hit-stop/motion blur;
-- damage-number lifetime/stacking;
-- HUD fade timing;
-- status icon density;
-- target information precision;
-- QTE/perfect-dodge feedback windows;
-- haptic intensity patterns.
+There should be no universal affinity = +X% damage formula. The item definition decides what affinity means mechanically.
 
-## 11. Turn-combat presentation / auto
-- Tune 1x/2x/additional speed options.
-- Tune animation compression vs readability.
-- Tune auto-battle priority rules and conditional presets.
-- Tune reserve-entry delay and timeline visualization.
+### 7. GP / Power estimate
+Visibility and non-authoritative status are resolved. Still need a stable estimate formula that:
+- handles enormous stats without overflow;
+- remains readable across Rank bands;
+- incorporates kit/equipment/Rank without pretending to solve every matchup;
+- can show Unknown/Estimated/ranges when knowledge is incomplete.
 
-## 12. Art / VFX / animation / audio
-Architecture is fixed; production tuning remains per content:
-- material/lighting/render variation by World;
-- VFX density/readability/performance;
-- reality-field collision visualization;
-- animation cancel windows and hit timing;
-- cinematic camera language;
-- Japanese voice coverage details;
-- mix loudness, dynamic range, leitmotif transition timings and adaptive-music states.
+A logarithmic estimate is the current engineering preference, not yet frozen.
 
-## 13. Mature-content presentation
-Architecture is frozen; tune character-specific production variables such as libido/profile representation, scene pacing, animation compatibility, camera/presentation settings and Privacy/SFW masking. No generic adult-access gate is introduced.
+### 8. Strategic simulation coefficients
+Architecture is resolved; numbers remain:
+- Project durations/acceleration/interruption loss;
+- Dispatch risk/partial/abort/injury/death calibration;
+- logistics route capacity/risk/blockade effects;
+- war attrition/siege/capability resolution coefficients;
+- civilization-vector growth/decline rates;
+- Territory/Domain resource generation rates;
+- offline compression error tolerance.
 
-## 14. Mobile budgets
-Hard actor/VFX/streaming/memory/thermal budgets are deferred until physical S26 Ultra profiling. The design may be implemented through streaming/tiering/aggregation rather than cut.
+### 9. World Director / offline numeric bounds
+Behavior is resolved; still tune:
+- event cadence ranges by content type;
+- quiet-period/delay budgets;
+- offline consequence strategic-weight budget;
+- catch-up compression limits.
 
-## Recommended tuning order
-1. Rank/Level/stat growth + combat math.
-2. Affinity families + equipment.
-3. Gacha/tickets/economy.
-4. UI/large-number presentation.
-5. Turn/action presentation.
-6. Strategic timing/economy.
-7. World Director/time/offline.
-8. Physical device presentation/performance budgets.
+These are not creative presentation questions.
+
+### 10. Large-number UI implementation
+The presentation principle is already resolved: compact on-field text, abbreviated/scientific-style large values, analytical recap.
+
+Only implementation defaults remain:
+- exact threshold where Auto formatting switches from normal digits/suffixes to scientific/engineering notation;
+- significant-digit count by context;
+- aggregation threshold for enormous repeated hit instances;
+- exact-detail inspection formatting.
+
+These can be chosen during UI implementation and usability testing rather than reopened as architecture.
+
+### 11. Per-device presentation/performance calibration
+Art/VFX/animation/audio direction is frozen. Physical S26 Ultra profiling must determine:
+- actor/component budgets;
+- VFX density/LOD;
+- streaming distances/cache sizes;
+- memory budgets;
+- 30/60/120 FPS tradeoffs;
+- thermal fallback behavior;
+- camera shake/motion-blur defaults only insofar as comfort/performance testing requires adjustment.
+
+Character-specific cancel windows, QTE conditions, animation timings, boss telegraphs, music transitions, scene pacing and similar values are content authoring, not missing global tuning.
+
+## Recommended closure order
+
+1. Rank/Level curve + DEF/Rank Suppression.
+2. SPD/action-value.
+3. Gacha probability/income/tickets.
+4. Progression-economy cost bands.
+5. Equipment affinity/proficiency defaults + GP estimate.
+6. Strategic/Director coefficients.
+7. Large-number formatting defaults.
+8. Implement reconciled code.
+9. Physical-device presentation/performance calibration after the first working Android build.
