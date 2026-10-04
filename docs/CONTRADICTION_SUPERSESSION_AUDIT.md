@@ -118,6 +118,21 @@ Frozen design applies local Identity exclusivity to a local fight unless an expl
 
 ---
 
+## A6. Current startup snapshot occurs **after** migrations
+
+**Files**
+- `OGGameCoreSubsystem.cpp`
+- `OGSQLiteWorldStore.cpp`
+- `OGSnapshotService.cpp`
+
+Current startup detects an existing DB, calls `WorldStore->Open(...)`, and `Open()` immediately applies migrations. Only **after that** does GameCore create the rotating snapshot.
+
+Frozen recovery rule requires the untouched pre-migration history to survive if migration fails.
+
+**Impact:** a later migration sequence could leave the sole local DB partially upgraded across successfully committed earlier migration steps before a later step fails, without an untouched pre-migration snapshot.
+
+**Reconciliation:** before opening/migrating the authoritative DB, create/preserve an external or side-by-side pre-migration copy; migrate a working copy; integrity-validate; atomically promote only on success. Keep numbered immutable migrations.
+
 # B. P1 - schema/service architecture mismatches
 
 ## B1. Territory model cannot represent overlapping control/claims
@@ -361,6 +376,18 @@ Current combat units do not yet expose the frozen physical equipment/inventory/h
 **Reconciliation:** add equipment/item entities and storage capability without introducing loot-bloat schemas.
 
 ---
+
+## B25. Package dependencies are validated syntactically but not enforced at activation
+
+`FOGContentManifestValidator` checks dependency IDs/minimum versions structurally, but `SetContentPackageActivated` currently only checks the package's own installed/validated flags. It does not prove required dependency packages are installed, active and at sufficient versions.
+
+**Reconciliation:** dependency resolution becomes part of package activation with cycle detection, minimum-version checks and deterministic error reporting.
+
+## B26. Orientation is automatic, but runtime orientation lock is not implemented
+
+`DefaultEngine.ini` currently uses Android `Orientation=Sensor`, which is compatible with automatic portrait/landscape switching, but the frozen player-facing manual orientation lock does not yet exist as a runtime setting/control.
+
+**Reconciliation:** retain automatic sensor behavior as default and add an explicit player lock that Ruler/World Mode transitions respect.
 
 # C. P2 - cumulative-baseline supersession / documentation normalization
 
