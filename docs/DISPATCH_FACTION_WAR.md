@@ -186,3 +186,11 @@ The engine may maintain compact aggregate capability vectors for performance, bu
 - objective progress and casualty/attrition state.
 
 Exact coefficients remain simulation/tuning data.
+
+## Dispatch objective fidelity
+
+Dispatch autonomy is subordinate to the assigned mission. The player specifies a primary objective, optional secondary objectives, hard constraints, risk tolerance and abort conditions.
+
+Participants may improvise tactically and exploit opportunities only when doing so does not materially compromise the mission. A rescue team does not abandon its rescue target to farm unrelated resources. Priority order is: mandatory objective/constraints -> survival/abort rules -> secondary objectives -> compatible opportunistic actions.
+
+True disobedience remains possible when personality, loyalty, fear, conflicting Authority or another causal factor justifies it, and is recorded as such.
