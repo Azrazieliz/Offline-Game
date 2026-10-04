@@ -26,14 +26,15 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Production cadence / Worlds / bosses / challenge content / narrative continuity / device-feasibility doctrine: `CONTENT_PRODUCTION_NARRATIVE.md`.
 - Freeze status and handoff to reconciliation: `ARCHITECTURE_FREEZE.md`.
 - Reconciliation migration/API matrix: `RECONCILIATION_MIGRATION_MATRIX.md`.
+- Tuning / detailed UI freeze: `TUNING_UI_FREEZE.md`.
 
-## Numerical tuning and deterministic simulation - next
+## Numerical tuning and deterministic simulation - preference pass closed; simulator fitting remains
 
 These values are intentionally not frozen by questionnaire and should be tuned with deterministic simulators and later physical-device validation:
 
-- gacha base rates, featured split, soft/hard-pity details and income cadence;
+- validate the accepted standard-banner candidate, progression-specific income bands and ticket cadence;
 - progression costs, Current Rarity reinforcement, Grand Convergence costs;
-- damage/DEF curves, Rank Suppression, crit/hit/dodge ordering, effect values, readiness/action-value timing and AI priorities;
+- validate accepted DEF/negative-DEF behavior, Rank Suppression envelope, 35/65 Level/breakthrough split, SPD/action-value timing and AI priorities;
 - economy/resource/project/war/dispatch timing, risk and output;
 - equipment quality/modifier distributions, evolution/forging costs;
 - Transcendence/Rank-breakthrough thresholds;
@@ -70,3 +71,8 @@ These values are intentionally not frozen by questionnaire and should be tuned w
 4. Android cook/package/install;
 5. physical Samsung Galaxy S26 Ultra profiling;
 6. optimize by streaming/tiering/abstraction without materially changing the player-facing design.
+
+
+## Detailed UI checkpoint
+
+Global roster/Character Identity/Gacha/Territory/Records/combat/save/package UI preferences are frozen in `TUNING_UI_FREEZE.md`. Do not re-run that questionnaire unless explicitly revised.
