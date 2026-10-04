@@ -167,3 +167,30 @@ Languages can be learned normally or bypassed through valid translation capabili
 Unknown writing/scripts similarly require actual knowledge/translation instead of automatic omniscient UI translation.
 
 Language difficulty is used where it enriches the world rather than as universal repetitive friction.
+
+
+## 8. Skins / appearance variants
+
+Characters may own cosmetic **Skins** in addition to lore-significant Versions/forms.
+
+A Skin:
+- changes presentation/outfit/appearance without silently creating a new Character Identity or gameplay Version;
+- may be equipped per Manifestation unless content declares a broader shared rule;
+- can coexist with equipment visibility, clothing damage and mature-content presentation where the asset set supports it;
+- is recorded in historical/replay presentation when relevant;
+- may include alternate voice/UI/cut-in presentation only when explicitly authored;
+- does not change combat stats unless it is actually a gameplay-bearing Version/form rather than a cosmetic Skin.
+
+Archive/replay can use historical appearance or current appearance, including compatible Skin selection.
+
+## 9. Equipment affinity and proficiency presentation
+
+Equipment affinity behavior remains item-specific.
+
+Default UI presentation:
+- affinity is shown primarily through **named grades/milestones** and progress where useful;
+- precise hidden/internal values may exist for deterministic state but are not shown unless a mechanic genuinely benefits from exact numbers;
+- proficiency is shown separately from affinity and may use grades as the normal presentation;
+- exact numerical proficiency values appear only where mechanically useful.
+
+There is no universal affinity-to-stat formula.
