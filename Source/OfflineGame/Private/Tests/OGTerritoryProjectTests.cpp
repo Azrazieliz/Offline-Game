@@ -75,7 +75,7 @@ bool FOGDomainCoreCaptureBreakTest::RunTest(
             Error));
 
     TestEqual(
-        TEXT("Schema version is 6"),
+        TEXT("Schema version is 7"),
         Store.GetSchemaVersion(Error),
         6);
 
