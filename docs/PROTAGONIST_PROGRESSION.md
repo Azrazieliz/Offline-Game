@@ -1,68 +1,103 @@
 # Protagonist Factors, Classes and Personal Progression
 
-This document records the current protagonist-specific progression rules. It supersedes older assumptions where they conflict.
+STATUS: AUTHORITATIVE / RECONCILED.
 
-## Starting state
+This document records protagonist-specific progression rules and points to the dedicated subsystem documents for the complete contracts.
 
-- Protagonist begins with **no Factor**.
-- Human-like starting anatomy does not secretly count as a Human Factor.
-- Starting physical capability is only slightly above that of a random ordinary NPC.
-- He starts unarmed.
-- Bare-handed fighting is possible, but early avoidance is often the rational choice.
-- He begins classless.
+## 1. Starting state
+
+- The protagonist begins with **no Factor**. Human-like starting anatomy does not secretly count as a Human Factor.
+- Starting physical capability is only slightly above that of a random ordinary NPC within the lowest Existence Rank.
+- He begins unarmed and classless.
 - There is no canonical starter weapon.
+- Bare-handed fighting is possible; early avoidance can be the rational choice.
 
-## Classes
+## 2. Classes
 
-Classes exist, but are **specializations rather than hard permission locks**.
+Classes are causal mastery states, not equipped jobs or permission locks.
 
-A Swordmaster can still pick up and use a bow, rifle or magic if physically/metaphysically capable. Without the relevant training/talent, off-specialty use is less effective rather than forbidden.
+- Skills, practice, demonstrated capability and integrated disciplines cause Class recognition.
+- Multiple Classes may coexist.
+- Composite/emergent Classes are valid.
+- Off-discipline actions are allowed whenever the protagonist is actually capable of them.
+- **Crown** is the non-unique apex of ordinary mastery.
+- **Grand** is a unique metaphysical Class office/seat: at most one active Grand bearer exists per canonical Class across the connected dimensional defensive order.
+- Losing the anatomy/capability required to express a Class does not erase attained mastery; restoration/adaptation may restore or derive expression.
 
-Pugilist is a valid example class/specialization.
+Full contract: `CLASS_ARCHITECTURE.md`.
 
-Factors are expected to be more fundamental to long-term protagonist development than class labels.
+## 3. Skill learning
 
-Still open:
-- how classes are acquired;
-- whether several classes can be active/recognized at once;
-- class advancement/evolution;
-- class switching;
-- how class proficiency and Factors modify one another.
+The protagonist can learn through training, observation, teachers, books, artifacts, Factors, technology, cultivation, supernatural events and other causal sources.
 
-## Skill learning
+He may reproduce another being's technique through understanding and training when his actual body/Factors/capabilities support it. This is not a universal magical copy power.
 
-The protagonist can learn through training, observation, teachers, books, artifacts, Factors, technology, cultivation, supernatural events and other logical sources.
+Skills may mutate/evolve when Factors, forms, anatomy, energy systems or later development change the way the technique can be performed.
 
-He can learn another being's technique through understanding and training when his body/Factors/capabilities permit it. This is not a universal magical copy function.
+There is no universal skill-level template. Provenance and real development mechanisms are preserved.
 
-Skills may mutate or evolve when Factors alter the anatomy, energy system, instincts or execution method behind them.
+## 4. Factors
 
-## Factors
+Factors are incorporated causal pieces/aspects of existence, never inert race tags.
 
-- Acquisition is Factor-specific rather than one universal ritual.
-- Valid sources can include absorption, inheritance, exposure, ritual, implantation, consumption, transformation, infection/corruption, experimentation, training and other appropriate mechanisms.
-- Factors may be acquired involuntarily when the source mechanic allows it.
-- There is no fixed Factor-count cap. Hundreds of Factors are theoretically possible if the content set supports them.
-- Incompatibility does not create generic automatic damage/rejection. Harm, mutation or destabilization requires an explicit integration/absorption/conflict mechanic.
-- Factors have unequal ontological weight/potency; a Dragon Factor may naturally dominate a weak Human Factor.
-- Factors can suppress/domininate one another when their actual rules/power justify it.
-- Compatible Factors can fuse into new hybrid Factors.
-- Removal is possible only through suitable mechanics and is normally difficult once a Factor is deeply integrated.
-- Factors may produce major anatomical/physiological changes.
-- Cosmetic traits may be suppressed/hidden where physically/metaphysically plausible without deleting the Factor.
-- Factors may create entirely new resources, senses, movement modes, vulnerabilities, transformations, abilities and gameplay grammars. They are not merely stat packages.
+- Acquisition is Factor-specific.
+- Factors may be acquired involuntarily when their actual source mechanic permits it.
+- There is no hard Factor-count cap.
+- Every acquired Factor remains causally present unless an explicit removal/fusion/transformation mechanic changes that fact.
+- A more powerful Factor may dominate phenotype/output without generically suppressing/deleting weaker Factors.
+- Conflict, instability, damage, mutation or incompatibility exists only when the involved Factors' actual rules cause it.
+- Compatible Factors may synthesize/fuse while retaining provenance.
+- Main/expressed Factors are a presentation/development emphasis, not equipped slots that disable the rest.
+- Factors may create resources, senses, anatomy, vulnerabilities, movement, transformations, skills and Rank-breakthrough changes.
 
-## Higher-order progression
+Full contract: `PROTAGONIST_FACTORS.md`.
 
-The protagonist has no collectible rarity.
+## 5. Existence Rank
 
-Territorial route:
-- higher-order reality expression is primarily Domain Manifestation / Domain Authority.
+The protagonist uses the same universal Existence/Power Rank ontology as other beings.
 
-Territoryless route:
-- sufficiently high personal/existential power may unlock a personal World Manifestation-type field.
+Current ladder:
+Mortal -> Awakened -> Elite -> Champion -> Hero -> Sage -> Saint -> Legend -> Mythic -> Astral -> Celestial -> Divine -> Cosmic -> Dimensional -> Immortal -> Eternal -> Primordial.
 
-Transcendence vocabulary can apply by actual personal development:
-Ascendant -> Unbound -> Exalted -> Transcendent -> Absolute.
+Each Rank contains Levels 1-100 and requires an actual breakthrough to advance. Attained and current effective Rank are separate when suppression/injury/sealing changes current expression.
 
-The exact protagonist Transcendence progression model remains open and should be resolved before implementation.
+Full contract: `EXISTENCE_POWER_RANK.md`.
+
+## 6. Higher-order reality expression
+
+The protagonist has no collectible Origin Rarity.
+
+A sufficiently developed protagonist may possess an **intrinsic personal World Manifestation** generated from his actual persistent existence/history. It is emergent rather than selected from a template.
+
+If he becomes a territorial Ruler, **Domain Manifestation / Domain Authority** is a separate sovereignty-anchored system.
+
+Personal World Manifestation and Domain Authority may coexist, overlap, reinforce or form explicit combined techniques when their actual rules support it. They do not automatically fuse or stack.
+
+Losing Territory can weaken/remove Domain-derived effects but does not erase an intrinsic personal World Manifestation.
+
+## 7. Protagonist Transcendence
+
+The protagonist Transcends **once**.
+
+Before committing, he may progressively qualify for:
+1. Ascendant
+2. Unbound
+3. Exalted
+4. Transcendent
+5. Absolute
+
+At the irreversible breakthrough he receives the highest grade whose:
+- universal minimum power/Existence foundation; and
+- bespoke persistent-world personal proofs
+
+are both satisfied.
+
+The proof set is generated from what he actually becomes/does rather than a fixed universal quest checklist.
+
+There are no alternate ordinary save branches. Absolute remains theoretically reachable in the one continuing history unless a genuinely irreversible causal act makes a route impossible.
+
+Full contract: `WORLD_FANTASM_TRANSCENDENCE.md`.
+
+## 8. Engineering rule
+
+Do not encode the protagonist as a special bundle of fake tags. Persist/query the same underlying causal systems used by the rest of the world, with protagonist-specific rules only where the design genuinely differs (no collectible rarity, one irreversible personal Transcendence decision, emergent personal World Manifestation).
