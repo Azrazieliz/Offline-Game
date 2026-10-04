@@ -116,18 +116,29 @@ where:
 
 The two forms are equivalent when `G_s` contains `R^(alpha_s-1)`.
 
-Initial **ordinary magnitude-stat elasticity** sweep:
-- restrained growth: alpha about 0.80-0.90;
-- broadly proportional: alpha about 0.95-1.05;
-- signature growth: alpha about 1.10-1.20;
-- exceptional concept-defined outliers may exceed those bands.
+### Divine+ alpha restriction
 
-At Primordial's current candidate R≈4.37e16, alpha differences intentionally create very large divergence:
-- alpha 0.8 -> about 2.0e13 scale contribution;
-- alpha 1.0 -> 4.37e16;
-- alpha 1.2 -> about 9.3e19.
+Treat **D+ as Divine Rank and above** for this tuning rule.
 
-Thus same-Rank characters may differ by many orders of magnitude in individual stats while remaining inside the same existential band.
+For any stat using the Rank-elasticity model, the resolved character-specific alpha in Divine+ must remain within:
+
+**1.10 <= alpha_s <= 2.50**
+
+This is a hard tuning envelope for Divine, Cosmic, Dimensional, Immortal, Eternal and Primordial unless an explicit future architecture revision changes it.
+
+Below Divine, alpha remains character/stat-specific and may use a different lower-order tuning envelope.
+
+Within D+, alpha is still independently authored per character/stat/build. A character may have HP alpha 2.35, ATK alpha 1.42 and DEF alpha 2.10 while another has the inverse.
+
+At Primordial's current candidate R≈4.37e16, this D+ envelope permits enormous divergence:
+- alpha 1.10 -> about 8.6e18 scale contribution;
+- alpha 1.50 -> about 9.1e24;
+- alpha 2.00 -> about 1.9e33;
+- alpha 2.50 -> about 4.0e41.
+
+The large-number combat representation is expected to support these magnitudes.
+
+Thus same-Rank Divine+ characters may differ by many orders of magnitude in individual stats while remaining inside the same existential band.
 
 Do **not** assign one alpha profile by generic RPG role and reuse it across the roster. Each character/Manifestation starts from authored character data; route evolution, Factors, forms and major transformations may change the response profile itself.
 
