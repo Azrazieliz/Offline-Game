@@ -290,3 +290,14 @@ Exact values for:
 - world time ratios
 
 remain simulation/content tuning and should be validated deterministically rather than guessed into the architecture.
+
+
+## Project timing presentation clarification
+
+Project timing does not imply worker-pawn micromanagement.
+
+Duration derives from workload plus relevant aggregate capacity/infrastructure/facilities/resources, assigned named specialists where meaningful, techniques/Authority/automation, environment and other causal capabilities.
+
+The player does not maintain a roster of generic worker pawns as a separate management game.
+
+World/local day-night presentation is not globally Earth-like. Familiar pacing is used only in Territories/Worlds whose authored cosmology/environment supports it.
