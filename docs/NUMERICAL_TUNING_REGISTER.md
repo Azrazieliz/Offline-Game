@@ -116,21 +116,17 @@ where:
 
 The two forms are equivalent when `G_s` contains `R^(alpha_s-1)`.
 
-### Divine+ alpha restriction
+### Alpha domain restriction
 
-Treat **D+ as Divine Rank and above** for this tuning rule.
+Here **D+ means positive decimal domain**, not Divine Rank and above.
 
-For any stat using the Rank-elasticity model, the resolved character-specific alpha in Divine+ must remain within:
+For every stat using the Rank-elasticity model at every Rank, the authored character-specific alpha must be a positive decimal within:
 
 **1.10 <= alpha_s <= 2.50**
 
-This is a hard tuning envelope for Divine, Cosmic, Dimensional, Immortal, Eternal and Primordial unless an explicit future architecture revision changes it.
+This is a universal tuning-domain restriction on alpha itself, while the actual alpha value remains independently authored per character/stat/build. A character may have HP alpha 2.35, ATK alpha 1.42 and DEF alpha 2.10 while another has the inverse.
 
-Below Divine, alpha remains character/stat-specific and may use a different lower-order tuning envelope.
-
-Within D+, alpha is still independently authored per character/stat/build. A character may have HP alpha 2.35, ATK alpha 1.42 and DEF alpha 2.10 while another has the inverse.
-
-At Primordial's current candidate R≈4.37e16, this D+ envelope permits enormous divergence:
+At Primordial's current candidate R≈4.37e16, this alpha envelope permits enormous divergence:
 - alpha 1.10 -> about 8.6e18 scale contribution;
 - alpha 1.50 -> about 9.1e24;
 - alpha 2.00 -> about 1.9e33;
@@ -138,7 +134,7 @@ At Primordial's current candidate R≈4.37e16, this D+ envelope permits enormous
 
 The large-number combat representation is expected to support these magnitudes.
 
-Thus same-Rank Divine+ characters may differ by many orders of magnitude in individual stats while remaining inside the same existential band.
+Thus same-Rank characters may differ by many orders of magnitude in individual stats while remaining inside the same existential band.
 
 Do **not** assign one alpha profile by generic RPG role and reuse it across the roster. Each character/Manifestation starts from authored character data; route evolution, Factors, forms and major transformations may change the response profile itself.
 
