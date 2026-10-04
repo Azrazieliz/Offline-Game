@@ -12,7 +12,40 @@ Acquisition should not be trivial: obtaining a desired character must still prod
 
 Long-term scarcity may concentrate in difficult development, evolution, Transcendence, rare conditions/materials and Grand Convergence rather than making basic acquisition intolerably drought-prone.
 
-## 2. Existing pity foundation
+## 2. Tickets are secondary acquisition instruments
+
+The original economy rule is preserved: **one renewable earnable pull currency is the core economy; tickets are additional access items, not a second mandatory currency grind.**
+
+Supported ticket families are data-defined, including:
+
+- **Standard/compatible summon ticket** - performs one normal pull on a compatible banner and advances that banner/category's ordinary pity/featured-guarantee state exactly like spending pull currency.
+- **Multi-pull ticket** - performs the authored number of normal pulls and uses the same pity rules.
+- **Event / banner / dimensional ticket** - usable only on the declared banner/category/pool; if it performs ordinary pulls, those pulls advance the corresponding pity unless the ticket definition explicitly describes a separate guaranteed pool.
+- **Guaranteed-rarity ticket** - resolves through its own declared guaranteed-rarity or restricted pool. It does not silently reset ordinary limited-banner pity unless its definition explicitly routes through that banner.
+- **Special selector/designation tickets** may exist as exceptional high-order rewards where the content explicitly supports them; they are not routine currency replacements.
+
+Tickets are earnable from gameplay and may be granted by story, bosses, achievements, World Director events, Territory/Domain development, high-order challenge content and other causal sources.
+
+High-level content may award rarer/stronger ticket types rather than only larger quantities of the same currency.
+
+### Progression-scaled acquisition economy
+
+There is **no universal fixed pulls-per-hour income** applied to every stage of the game.
+
+A newly qualified Ruler, an established Domain sovereign, an Overlord and an extreme late-game multi-world/dimensional Overlord have access to radically different productive systems and challenge content.
+
+The economy therefore scales because the available **sources themselves** scale:
+
+- early qualified Ruler: exploration/story/first-clear rewards, small Territory production, ordinary events and accessible repeatable content;
+- established Ruler/Domain: stronger Projects, Dispatches, Domain resources, advanced challenge content and larger renewable sources;
+- Overlord: multi-Domain/large-sovereignty production, high-order World Director content, major incursions/challenges and stronger ticket access;
+- extreme late game: dedicated high-order renewable gacha-currency/ticket farming content whose actual danger, dimensional scale and reward sources justify much larger acquisition output.
+
+Low-level content does not magically change its payout because the protagonist became stronger. It simply becomes economically insignificant relative to late-game sources.
+
+This allows the player to become dramatically richer in acquisition resources through actual progression without introducing a fake account-level income multiplier.
+
+## 3. Existing pity foundation
 
 The existing provisional foundation remains for later simulation/tuning:
 - standard limited hard pity around 70 pulls;
@@ -26,7 +59,7 @@ The existing provisional foundation remains for later simulation/tuning:
 
 Exact rates/thresholds are not frozen until deterministic simulation.
 
-## 3. Repeat acquisition
+## 4. Repeat acquisition
 
 Every qualifying repeat acquisition normally creates a **new full persistent Manifestation** of the Character Identity.
 
@@ -50,7 +83,7 @@ There is no generic "burn unwanted copy into shards" action in the frozen archit
 
 Archiving/roster filtering may hide a copy from ordinary management without destroying it.
 
-## 4. Grand Convergence visibility
+## 5. Grand Convergence visibility
 
 The Identity page can show known Convergence-relevant completed/missing lineages.
 
@@ -58,13 +91,13 @@ Secret route requirements remain hidden until the player gains enough knowledge 
 
 Grand Convergence remains an actual character-development finalization, not duplicate currency conversion.
 
-## 5. Banner/world relationship
+## 6. Banner/world relationship
 
 Permanent, limited, event/themed, faction/world and other banner families remain valid.
 
 The World Director may select/schedule banners according to world/story relevance, sealed content, variety and valid timing without pretending the featured Identity is physically local.
 
-## 6. Heroification / posthumous gacha preservation
+## 7. Heroification / posthumous gacha preservation
 
 If an important authored/potential story character dies in the persistent world before the player ever has a meaningful opportunity to encounter/recruit them, that history does not necessarily remove them from collectible content.
 
