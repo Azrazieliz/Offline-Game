@@ -1,10 +1,10 @@
 # Tuning and Detailed UI Freeze
 
-STATUS: AUTHORITATIVE PRE-AUDIO / PRE-ART-DIRECTION CHECKPOINT.
+STATUS: AUTHORITATIVE UI/TUNING FREEZE. AUDIO AND VISUAL PRODUCTION DIRECTION NOW FROZEN IN DEDICATED DOCUMENTS.
 
 This checkpoint records the Creative Director's completed global numerical/UI questionnaire after the architecture freeze and contradiction audit. It supersedes older OPEN/provisional wording on the same details.
 
-Music, voice/SFX production design and visual art-direction production are intentionally not re-opened here.
+Music/voice/SFX and visual/VFX/animation/cinematic production direction are now frozen in `AUDIO_PRODUCTION_DIRECTION.md` and `VISUAL_ART_DIRECTION.md`; this document remains authoritative for UI/tuning decisions.
 
 ## 1. Rank / stat progression
 
@@ -440,10 +440,12 @@ Global numerical/UI preference questionnaire is now closed sufficiently for reco
 
 Remaining work before/alongside implementation:
 - deterministic numerical simulations for coefficients still explicitly marked simulator-tunable;
-- music / voice / SFX design pass;
-- visual art-direction production pass;
 - reconciled schema/C++ implementation;
 - mandatory Unreal/Android validation;
 - physical S26 Ultra performance/usability calibration.
+
+Production-direction passes are complete:
+- audio/music/voice/SFX: `AUDIO_PRODUCTION_DIRECTION.md`;
+- visual art/VFX/animation/cinematics: `VISUAL_ART_DIRECTION.md`.
 
 Do not re-ask the decisions frozen in this document unless the Creative Director explicitly revises them.
