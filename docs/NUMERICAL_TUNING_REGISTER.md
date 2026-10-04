@@ -285,3 +285,80 @@ The 2-3 fully polished playable characters/week goal is a mature-pipeline throug
 7. package/storage/streaming budget estimation.
 
 Simulation outputs become versioned tuning data.
+
+## Frozen tuning decisions - post questionnaire
+
+### Rank / Level growth
+
+Freeze the current universal Rank coefficient candidate:
+
+`R(r) = 10^(0.40r + 0.040r²)`
+
+with Mortal r=0 through Primordial r=16.
+
+For the ordinary Rank-step envelope:
+- approximately **35%** of the logarithmic Rank-step gain is expressed through Levels 1-100;
+- approximately **65%** is reserved for the qualitative breakthrough into the next Rank.
+
+The Level 1-100 curve is **character-specific**, not one shared shape. Content must still remain inside the expected Rank envelope unless a real mechanic explicitly breaks it.
+
+Sparse breakthrough-specific stat biases are allowed to be dramatic when the transformation/lore warrants it.
+
+### Negative DEF and Rank Suppression
+
+Freeze the generic negative-DEF baseline:
+
+`DEF < 0: multiplier = 2^(-DEF / DefenseReference)`
+
+Character/skill-specific rules may author another exponential base/reference.
+
+Freeze the first generic lower->higher Rank-Suppression envelope as:
+- gap 0: 100%;
+- gap 1: 100%;
+- gap 2: 75%;
+- gap 3: 40%;
+- gap 4: 15%;
+- gap 5+: 3%;
+
+with separate channel tuning for damage, control, effect penetration, perception, presence/environment tolerance and resistance breaking.
+
+### GP / Power
+
+GP remains a visible estimate only.
+
+**Implementation rule:** compute GP in log-space internally to avoid overflow, but do **not** display the logarithm itself.
+
+Use a magnitude-preserving estimate:
+
+`log10(GP) = weighted aggregate of log10(resolved capabilities) + kit/rank/equipment terms`
+
+then convert that result back into the same large-number display family used by combat/stat values.
+
+Therefore a character with quadrillion-scale or far larger actual capabilities does not show a trivial GP such as "32" merely because logarithms are used internally. Log-space is only an implementation technique.
+
+GP may still mis-rank unusual matchup-specific kits, which is intentional and already established.
+
+### Gacha acquisition income bands
+
+Increase the progression-source simulation bands slightly:
+
+- newly qualified Ruler: about **4-8 pull-equivalents/hour** during acquisition-focused play;
+- established Ruler/Domain: about **7-14/hour**;
+- ordinary Overlord-scale economy: about **14-27/hour**;
+- extreme late-game Overlord / dedicated high-order farming: about **27-52+/hour**, with no hard ceiling where future content genuinely supports more.
+
+These remain source/content bands, not automatic wages or hidden account-level multipliers.
+
+### Strategic/offline
+
+The normal newly-generated offline irreversible-loss governor may use roughly **15% of current sovereign strategic weight as a ceiling per catch-up resolution**.
+
+This is a **maximum safety bound, not a target loss**. Reconnecting does not cause a routine 15% loss. Most catch-ups may produce no territorial loss at all.
+
+Only actual causally generated events can consume part of that budget. Already causally locked consequences remain exempt from the newly-generated-loss ceiling.
+
+### World time
+
+Earth-like day/night pacing is not a universal default.
+
+Use familiar day/night pacing only for Territories/Worlds whose actual temporal/environmental rules support it. Other realities may use radically different day lengths, cycles, calendars or no ordinary day/night cycle at all.
