@@ -96,16 +96,24 @@ bool FOGSQLiteWorldStore::UpsertCharacterManifestation(
     const char* Sql =
         "INSERT INTO character_manifestations("
         "manifestation_entity_id, owning_ruler_entity_id, identity_content_id, "
-        "active_version_content_id, level, current_rarity, duplicate_acquisition_count, progression_state_json"
-        ") VALUES(?, ?, ?, ?, ?, ?, ?, ?) "
+        "active_version_content_id, level, current_rarity, progression_state_json, "
+        "acquisition_world_tick, acquisition_ordinal, origin_pull_event_id, "
+        "world_mode_anchor_territory_id, world_mode_anchor_tick, lifecycle_state, build_label"
+        ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
         "ON CONFLICT(manifestation_entity_id) DO UPDATE SET "
         "owning_ruler_entity_id = excluded.owning_ruler_entity_id, "
         "identity_content_id = excluded.identity_content_id, "
         "active_version_content_id = excluded.active_version_content_id, "
         "level = excluded.level, "
         "current_rarity = excluded.current_rarity, "
-        "duplicate_acquisition_count = excluded.duplicate_acquisition_count, "
-        "progression_state_json = excluded.progression_state_json;";
+        "progression_state_json = excluded.progression_state_json, "
+        "acquisition_world_tick = excluded.acquisition_world_tick, "
+        "acquisition_ordinal = excluded.acquisition_ordinal, "
+        "origin_pull_event_id = excluded.origin_pull_event_id, "
+        "world_mode_anchor_territory_id = excluded.world_mode_anchor_territory_id, "
+        "world_mode_anchor_tick = excluded.world_mode_anchor_tick, "
+        "lifecycle_state = excluded.lifecycle_state, "
+        "build_label = excluded.build_label;";
 
     if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
     {
@@ -119,13 +127,48 @@ bool FOGSQLiteWorldStore::UpsertCharacterManifestation(
         BindStoreText(Statement, 4, Manifestation.ActiveVersionId.ToString()) &&
         sqlite3_bind_int(Statement, 5, Manifestation.Level) == SQLITE_OK &&
         BindStoreText(Statement, 6, Manifestation.CurrentRarity.ToString()) &&
-        sqlite3_bind_int(Statement, 7, Manifestation.DuplicateAcquisitionCount) == SQLITE_OK &&
         BindStoreText(
             Statement,
-            8,
+            7,
             Manifestation.ProgressionStateJson.IsEmpty()
                 ? TEXT("{}")
-                : Manifestation.ProgressionStateJson);
+                : Manifestation.ProgressionStateJson) &&
+        sqlite3_bind_int64(
+            Statement,
+            8,
+            Manifestation.AcquisitionWorldTick) == SQLITE_OK &&
+        sqlite3_bind_int(
+            Statement,
+            9,
+            Manifestation.AcquisitionOrdinal) == SQLITE_OK &&
+        (Manifestation.OriginPullEventId.IsValid()
+            ? BindStoreText(
+                Statement,
+                10,
+                Manifestation.OriginPullEventId.ToString())
+            : sqlite3_bind_null(Statement, 10) == SQLITE_OK) &&
+        (Manifestation.WorldModeAnchorTerritoryId.IsValid()
+            ? BindStoreText(
+                Statement,
+                11,
+                Manifestation.WorldModeAnchorTerritoryId.ToString())
+            : sqlite3_bind_null(Statement, 11) == SQLITE_OK) &&
+        (Manifestation.WorldModeAnchorTerritoryId.IsValid()
+            ? sqlite3_bind_int64(
+                Statement,
+                12,
+                Manifestation.WorldModeAnchorTick) == SQLITE_OK
+            : sqlite3_bind_null(Statement, 12) == SQLITE_OK) &&
+        BindStoreText(
+            Statement,
+            13,
+            Manifestation.LifecycleState.IsNone()
+                ? TEXT("active")
+                : Manifestation.LifecycleState.ToString()) &&
+        BindStoreText(
+            Statement,
+            14,
+            Manifestation.BuildLabel);
 
     const bool bSucceeded = bBound && sqlite3_step(Statement) == SQLITE_DONE;
     const FString SqlError = bSucceeded
@@ -167,7 +210,9 @@ bool FOGSQLiteWorldStore::TryReadCharacterManifestation(
     sqlite3_stmt* Statement = nullptr;
     const char* Sql =
         "SELECT owning_ruler_entity_id, identity_content_id, active_version_content_id, "
-        "level, current_rarity, duplicate_acquisition_count, progression_state_json "
+        "level, current_rarity, progression_state_json, acquisition_world_tick, "
+        "acquisition_ordinal, origin_pull_event_id, world_mode_anchor_territory_id, "
+        "world_mode_anchor_tick, lifecycle_state, build_label "
         "FROM character_manifestations WHERE manifestation_entity_id = ?;";
 
     if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
@@ -202,8 +247,44 @@ bool FOGSQLiteWorldStore::TryReadCharacterManifestation(
         OutManifestation.ActiveVersionId = FOGContentId(StoreColumnText(Statement, 2));
         OutManifestation.Level = sqlite3_column_int(Statement, 3);
         OutManifestation.CurrentRarity = FName(*StoreColumnText(Statement, 4));
-        OutManifestation.DuplicateAcquisitionCount = sqlite3_column_int(Statement, 5);
-        OutManifestation.ProgressionStateJson = StoreColumnText(Statement, 6);
+        OutManifestation.ProgressionStateJson = StoreColumnText(Statement, 5);
+        OutManifestation.AcquisitionWorldTick = sqlite3_column_int64(Statement, 6);
+        OutManifestation.AcquisitionOrdinal = sqlite3_column_int(Statement, 7);
+
+        const FString OriginEvent = StoreColumnText(Statement, 8);
+        if (!OriginEvent.IsEmpty())
+        {
+            FGuid OriginGuid;
+            if (!FGuid::Parse(OriginEvent, OriginGuid))
+            {
+                OutError = TEXT("Stored Character Manifestation has an invalid origin pull event ID.");
+                sqlite3_finalize(Statement);
+                return false;
+            }
+            OutManifestation.OriginPullEventId = FOGEntityId(OriginGuid);
+        }
+
+        const FString AnchorTerritory = StoreColumnText(Statement, 9);
+        if (!AnchorTerritory.IsEmpty())
+        {
+            FGuid AnchorGuid;
+            if (!FGuid::Parse(AnchorTerritory, AnchorGuid))
+            {
+                OutError = TEXT("Stored Character Manifestation has an invalid anchor Territory ID.");
+                sqlite3_finalize(Statement);
+                return false;
+            }
+            OutManifestation.WorldModeAnchorTerritoryId = FOGEntityId(AnchorGuid);
+        }
+
+        OutManifestation.WorldModeAnchorTick =
+            sqlite3_column_type(Statement, 10) == SQLITE_NULL
+                ? 0
+                : sqlite3_column_int64(Statement, 10);
+        OutManifestation.LifecycleState =
+            FName(*StoreColumnText(Statement, 11));
+        OutManifestation.BuildLabel =
+            StoreColumnText(Statement, 12);
     }
     else if (StepResult != SQLITE_DONE)
     {
