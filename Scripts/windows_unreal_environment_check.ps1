@@ -132,7 +132,8 @@ if ($ProbeExecutables) {
 
     $Aapt2 = Join-Path $AndroidSdkRoot "build-tools\35.0.1\aapt2.exe"
     if (Test-Path $Aapt2) {
-        $AaptText = (& $Aapt2 version 2>&1 | Out-String)
+        $AaptCommand = '"' + $Aapt2 + '" version 2>&1'
+        $AaptText = (& cmd.exe /d /c $AaptCommand | Out-String)
         Add-Check "aapt2 executable probe" ($AaptText -match "Android Asset Packaging Tool") $AaptText.Trim()
     }
 
@@ -145,7 +146,8 @@ if ($ProbeExecutables) {
     if (-not [string]::IsNullOrWhiteSpace($JavaHome)) {
         $java = Join-Path $JavaHome "bin\java.exe"
         if (Test-Path $java) {
-            $JavaText = (cmd /c """$java"" -version" 2>&1 | Out-String)
+            $JavaCommand = '"' + $java + '" -version 2>&1'
+            $JavaText = (& cmd.exe /d /c $JavaCommand | Out-String)
             Add-Check "Java executable probe" ($JavaText -match "version") ($JavaText -split "[\r\n]" | Select-Object -First 1)
         }
     }
