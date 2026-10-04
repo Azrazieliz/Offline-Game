@@ -597,22 +597,28 @@ bool FOGVerticalSliceScenarioHarness::VerifyAfterRestart(
     }
 
     bool bFound = false;
-    FOGCharacterManifestationRecord Manifestation;
-    if (!Store.TryFindCharacterManifestationByOwnerAndIdentity(
+    TArray<FOGCharacterManifestationRecord> Manifestations;
+    if (!Store.ListCharacterManifestationsByOwnerAndIdentity(
             ScenarioRulerId(),
             AcquiredIdentityId(),
-            bFound,
-            Manifestation,
-            OutError) ||
-        !bFound ||
-        Manifestation.ManifestationId !=
-            OutResult.ManifestationId)
+            Manifestations,
+            OutError))
     {
-        if (OutError.IsEmpty())
-        {
-            OutError =
-                TEXT("Acquired Manifestation did not survive restart.");
-        }
+        return false;
+    }
+
+    const FOGCharacterManifestationRecord* Manifestation =
+        Manifestations.FindByPredicate(
+            [&OutResult](const FOGCharacterManifestationRecord& Candidate)
+            {
+                return Candidate.ManifestationId ==
+                    OutResult.ManifestationId;
+            });
+
+    if (Manifestation == nullptr)
+    {
+        OutError =
+            TEXT("Acquired Manifestation did not survive restart.");
         return false;
     }
 
