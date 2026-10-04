@@ -26,6 +26,25 @@ The vector set itself is data-driven. A historical-medieval society may have no 
 
 Cross-vector asymmetry is expected and desirable.
 
+## 1.1 Advancement preserves civilization identity
+
+Civilization advancement is **not convergence toward modern Earth urbanism, industrialism or generic futurism**.
+
+Each civilization develops along the aesthetic, metaphysical, technological, cultural and social line that defines it unless actual history changes that identity.
+
+Examples:
+
+- a wuxia/cultivation civilization becomes more grand, sophisticated, powerful and institutionally mature **as a cultivation civilization** rather than eventually turning into a modern city;
+- an eldritch realm deepens its impossible architecture, rituals, entities and metaphysical infrastructure rather than converging on ordinary contemporary infrastructure;
+- a magical empire develops larger, more capable and more intricate magical systems, cities, institutions and logistics without needing mundane industrial modernity;
+- dragon/elf/undead/divine/cyber/post-apocalyptic and other civilizations preserve and elaborate their own design language and causal technologies.
+
+Development vectors therefore describe **increasing capability inside the civilization's authored genre/identity**, not a universal historical ladder.
+
+Cross-cultural borrowing remains possible, but adoption is selective and transformed by the receiving civilization. A civilization may reject, reinterpret, ritualize, biologize, magicalize or otherwise assimilate foreign capability without losing its own identity.
+
+Only actual world history, conquest, cultural transformation, deliberate hybridization or player/NPC choices may substantially redirect a civilization's development line. The simulation never modernizes a civilization merely because enough time or development has passed.
+
 ## 2. Development follows actual civilization capability
 
 A civilization advances because people, institutions, infrastructure, resources, knowledge and world laws make that advancement possible.
