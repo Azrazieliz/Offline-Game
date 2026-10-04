@@ -121,3 +121,14 @@ Every activation, delay, rerun, composition choice and offline escalation decisi
 Sealed package manifests may expose hashes/versions for validation while keeping contents spoiler-hidden from the Creative Director.
 
 Debug tooling may replay a Director decision from the same seed/state without normal UI revealing future sealed content.
+
+
+## Numerical catch-up guard checkpoint
+
+For normal newly generated offline consequences, use roughly **15% of current sovereign strategic weight as a maximum irreversible-loss budget**, not as a target.
+
+This never means the player loses 15% whenever they reconnect. Most catch-up periods may cause no permanent Territory loss.
+
+Consequences already causally locked before logout may exceed/ignore this protective budget when the prior active world state genuinely made them unavoidable.
+
+There is no one global event-every-N-hours cadence. Each Director content family authors eligibility, earliest/preferred/latest windows and cooldown/relevance bounds.
