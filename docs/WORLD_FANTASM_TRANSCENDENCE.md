@@ -117,9 +117,38 @@ Before that irreversible breakthrough, he may progressively qualify for:
 4. Transcendent
 5. Absolute
 
-When he chooses to Transcend, he receives the highest grade for which the required power ceiling and bespoke save-specific conditions have already been satisfied. The resulting grade is permanent under normal progression.
+When he chooses to Transcend, he receives the highest grade for which both the universal minimum power/Existence foundation and his bespoke persistent-world personal proofs/conditions have already been satisfied. There are no alternate save branches: this is evaluated against the one continuing world/history. The resulting grade is permanent under normal progression.
 
-Waiting therefore preserves access to higher potential grades, while Transcending earlier trades that potential for immediate Transcendence power. The UI must clearly show the currently attainable grade and warn that the commitment is permanent; higher possible grades may be hinted without exposing every hidden condition.
+Waiting therefore preserves access to higher potential grades, while Transcending earlier trades that potential for immediate Transcendence power. Absolute remains theoretically reachable in the continuing world unless the player performs a genuinely irreversible act that causally makes it impossible; the game must not silently brick ultimate potential because of an arbitrary hidden branch. The UI must clearly show the currently attainable grade and warn that the commitment is permanent; higher possible grades may be hinted without exposing every hidden condition.
+
+
+### Qualification grammar
+
+- Each protagonist Transcendence grade has a **universal minimum power / Existence requirement** so a weak protagonist cannot bypass the scale through an obscure proof alone.
+- Above that floor, qualification requires **bespoke personal proofs** generated from what the protagonist has actually become and accomplished in the one persistent world.
+- Proofs may involve Rank breakthroughs, Factors, Classes, combat feats, survival, Authority, knowledge, reality manipulation, relationships to world structures, unique achievements or other causally relevant history.
+- The proof set is not a fixed quest checklist shared by every possible protagonist development path.
+- The Director/UI may reveal progress or hints where the protagonist has a valid way to know them, but hidden metaphysical criteria are permitted.
+
+### Personal World Manifestation: emergent, not templated
+
+The protagonist's personal World Manifestation has **no fixed thematic template** and is not selected from an authored list of preset inner worlds.
+
+It is synthesized from the protagonist's actual persistent history and existence, including Factors, developed Classes, learned skills, Rank, repeated choices, formative experiences, worldview, powers, major losses/victories, metaphysical encounters and other genuinely causal state.
+
+The implementation may use reusable lower-level effect/VFX/rule primitives for feasibility, but those primitives must not turn the resulting Manifestation into a disguised preset template. Its identity, rules and presentation emerge from the protagonist that actually exists.
+
+The personal World Manifestation remains mutable after unlock. Later Factors, breakthroughs, transformations, major experiences and existential changes may alter its laws, visuals, scale, efficiency, counters and available expressions while preserving historical continuity.
+
+### Dual-reality mastery
+
+If the protagonist possesses both an intrinsic personal World Manifestation and a territorial Domain, advanced development may create deliberate **combined techniques/states** using both systems.
+
+- They remain independently owned powers.
+- Combination is never an automatic additive stack or generic x2 multiplier.
+- The combined result must follow actual compatibility between the protagonist's personal reality and the Domain's Concepts/Authority.
+- Different Domains may therefore produce different combined expressions with the same protagonist.
+- Losing the Domain removes Domain-dependent combined states but does not erase the intrinsic World Manifestation.
 
 ### Coexistence with Domain Authority
 
