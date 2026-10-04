@@ -7,7 +7,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 ## Creative/system finalization
 
 - Ruler milestone-title catalog and exact structural predicates.
-- Class recognition: Normal/Grand thresholds, composite naming, evolution/fusion recognition, appraisal and UI.
+- Class recognition architecture is RESOLVED in docs/CLASS_ARCHITECTURE.md: automatic mastery recognition, emergent/composite Classes, non-unique Crown apex tier, one active Grand seat per canonical Class in the connected dimensional defensive order, Grand appointment/revocation, attained-vs-current expression, knowledge/appraisal and UI behavior. Remaining work is per-Class content and numerical mastery thresholds.
 - Existence/Power Rank architecture is RESOLVED in docs/EXISTENCE_POWER_RANK.md; exact Rank coefficient curves and per-content breakthrough requirements remain simulation/content tuning.
 - Protagonist Factor architecture is resolved. Remaining work is Factor content authoring and numerical tuning.
 - Protagonist higher-order progression architecture is RESOLVED in docs/WORLD_FANTASM_TRANSCENDENCE.md: universal minimum + personal-proof Transcendence qualifications, one persistent-world history, theoretically recoverable Absolute potential absent genuine irreversible foreclosure, emergent non-template personal World Manifestation, post-unlock evolution and combined Domain/Manifestation techniques. Remaining work is content-specific thresholds, generated rule synthesis and tuning.
