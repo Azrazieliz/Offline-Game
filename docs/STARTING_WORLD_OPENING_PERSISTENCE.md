@@ -85,3 +85,9 @@ This document records the current authoritative decisions for the starting world
 
 - A pull does not force a physical World Mode spawn at the protagonist's current location.
 - The character appears immediately in the vertical Ruler presentation, but active field availability begins only after the protagonist returns to controlled territory and the Manifestation is anchored there.
+
+## 9. World-generation / exploration reconciliation
+
+The detailed hybrid generation, canonical persistence, causal restoration, persistent-dungeon, knowledge-driven exploration, danger-distribution and traversal-gating rules are consolidated in `docs/WORLD_GENERATION_EXPLORATION.md`.
+
+Destroyed/changed locations may return toward earlier viable states over content-specific time, but only through defined natural/systemic recovery or actual reconstruction; the world never silently rolls back historical state.
