@@ -77,6 +77,12 @@ Destruction remains tiered for feasibility.
 
 Physics/VFX are presentation; persistent structural state is authoritative.
 
+## 4.1 Civilizations do not converge toward a generic modern endpoint
+
+World evolution must preserve authored civilization identity. Increasing development means becoming more capable, grand, complex and internally mature along the civilization's own line, not replacing distinctive settings with contemporary cities.
+
+A setting can combine genres when its history supports that combination, but the simulation never treats modernity as the default endpoint or as intrinsically more advanced than cultivation, magic, divine, eldritch, biological, draconic, cybernetic or other world-specific systems.
+
 ## 5. Later worlds and dimensions are not genre silos
 
 A World/Dimension may combine genres, technologies, metaphysics and physical laws when its history makes the combination coherent.
