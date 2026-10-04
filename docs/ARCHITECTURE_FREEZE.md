@@ -13,16 +13,17 @@ From this point:
 
 ## Remaining work before the real Unreal validation gate
 
-1. contradiction/reconciliation audit across cumulative design documents and current code;
-2. numerical tuning framework/simulators where values materially affect architecture;
-3. schema migration design;
-4. C++/data/UI implementation updates;
-5. test rewrite/additions;
-6. static Unreal C++ preflight;
-7. UE 5.8 UHT/UBT/MSVC/link;
-8. automation tests;
-9. Android cook/package/install;
-10. physical S26 Ultra profiling and optimization.
+The finite architecture, contradiction audit, schema/API migration design, production-direction passes and cumulative-master normalization are complete.
+
+Remaining work is engineering/testing:
+1. deterministic simulator fitting for explicitly tunable coefficients;
+2. C++/SQLite/data/UI reconciliation following `RECONCILIATION_MIGRATION_MATRIX.md`;
+3. test rewrite/additions;
+4. static Unreal C++ preflight;
+5. UE 5.8 UHT/UBT/MSVC/link;
+6. automation tests;
+7. Android cook/package/install;
+8. physical S26 Ultra profiling and optimization.
 
 The architecture is not immutable; explicit later Creative Director revisions supersede it. But ordinary design discovery is considered complete enough to begin reconciliation.
 
