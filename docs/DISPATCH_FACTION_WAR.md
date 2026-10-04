@@ -114,3 +114,75 @@ The automation proof covers:
 - declaring war between never-allied factions does not fabricate alliance history
 - war objective/status/participants persist
 - war resolution occurs only through an explicit final-state operation
+
+## Campaign, command and conquest architecture
+
+### High-level command, not tactical micromanagement
+
+The player's default strategic command model is **intent/objective based**. Orders can specify goals and constraints such as:
+
+- take/hold a location;
+- protect a Domain Core or route;
+- raid/disrupt logistics;
+- avoid excessive casualties;
+- capture rather than destroy;
+- delay the enemy;
+- disengage if a threshold is crossed;
+- prioritize/avoid specific targets.
+
+Competent commanders choose tactical means according to their actual knowledge, personality, doctrine, skills, resources and local situation. The player may still intervene personally or issue unusually precise orders when a valid command mechanism permits it.
+
+### Commander autonomy and disobedience
+
+Named commanders are causal characters, not obedient pathfinding nodes. They may reinterpret, delay, refuse or disobey an order when loyalty, personality, knowledge, fear, survival instinct, conflicting Authority, impossible conditions or another real factor justifies it.
+
+The result is recorded as a world event/command outcome; the game does not silently rewrite the original order.
+
+### Continuous wars, campaigns and fronts
+
+A War is a persistent world state, not a series of isolated battle instances.
+
+One War may contain multiple campaigns/fronts/objectives that change over time. Participants may enter/leave, sides may fragment or merge, objectives may evolve, and the War may continue for months or years of world time.
+
+Physical battles, strategic resolutions, sieges, raids, retreats, diplomacy and Ruler interventions all update the same authoritative War state.
+
+### Decapitation does not automatically end war
+
+Death/capture/removal of a Ruler, supreme commander or faction leader never has one universal outcome. Depending on the faction's actual structure it may cause surrender, succession, fragmentation, civil conflict, morale collapse, continued resistance, radicalization or little immediate change.
+
+### Conquest is effective control, not a capture flag
+
+Winning a battle or entering a location does not automatically transfer Territory. Military presence, surviving Authority, resistance, logistics, local factions and the established five-day territorial reclamation rules determine when control actually becomes real.
+
+Occupation/governance micromanagement remains outside scope; only strategically meaningful control state is represented.
+
+### Armies have no universal composition template
+
+An Army may coherently consist of ordinary soldiers, monsters, undead, constructs, summons, vehicles, fleets, flying units, dimensional forces, elite squads, enormous singular entities, mixed formations or another world-valid military structure.
+
+The strategic representation is capability-based rather than assuming every Army is 'N humanoid soldiers'. Content defines the relevant mobility, range, logistics, durability, special capabilities, commanders and counters.
+
+### Extreme power asymmetry is preserved
+
+Headcount does not receive artificial anti-character scaling. If one named character is actually powerful enough to destroy an ordinary army, the strategic resolver accepts that fact.
+
+Conversely, a lower-personal-Rank force can threaten a much stronger individual when its actual formations, artifacts, sealing, specialized weapons, terrain, attrition, logistics or conceptual counters justify it.
+
+Strategic resolution therefore uses real capabilities and interactions rather than a universal army-power number as the sole truth.
+
+### Resolution model
+
+The engine may maintain compact aggregate capability vectors for performance, but they are projections of actual authored state. At minimum, strategic resolution can reason about:
+
+- effective fighting power and relevant Rank bands;
+- mobility and reach;
+- command quality;
+- morale/cohesion where meaningful;
+- logistics/supply sufficiency;
+- fortification/siege capability;
+- special/Authority/Domain counters;
+- terrain/environment compatibility;
+- named-character intervention;
+- objective progress and casualty/attrition state.
+
+Exact coefficients remain simulation/tuning data.
