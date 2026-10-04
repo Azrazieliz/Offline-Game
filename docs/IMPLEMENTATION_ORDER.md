@@ -80,10 +80,26 @@
 - [x] diagnostics bundle
 
 ### Checkpoint G2 - End-to-end runtime harness
-- [x] persistent vertical-slice scenario harness
+- [x] persistent vertical-slice scenario harness authored against the pre-detailing architecture
 - [x] Android runtime/build configuration
 - [x] lightweight performance telemetry
-- [ ] real UE 5.8 compile + automation run
+- [ ] **environment-readiness verification only**: confirm UE 5.8 installation, Build.bat, UnrealEditor-Cmd, UBT, MSVC/Windows SDK and Android JDK/SDK/NDK are present/usable without compiling OfflineGame
+- [ ] finish the current design-finalization/reconciliation pass
+- [ ] migrate/rebuild stale runtime contracts to the finalized architecture
+- [ ] restart mandatory validation from static Unreal C++ preflight
+- [ ] real UE 5.8 UHT/UBT/MSVC/link compile
+- [ ] OfflineGame automation run
+
+### Known design-to-code reconciliation before the real gate
+- [ ] replace duplicate-acquisition counter semantics with multiple persistent Manifestations per Character Identity + migration
+- [ ] update vertical-slice acquisition flow so it no longer assumes immediate gacha before stable-territory unlock/anchoring rules
+- [ ] extend Territory persistence/control for overlapping claims and five-day reclamation state
+- [ ] implement Domain Core heart-loss / ruined-Domain consequences while preserving existing Broken/capture invariants and Core fusion architecture
+- [ ] add named Existence/Power Rank + attained/effective Rank model and Rank Suppression data
+- [ ] add Factor architecture and class/progression state required by the finalized player-facing systems
+- [ ] add World Director scheduling/audit/offline-consequence framework before relying on Director tests
+- [ ] add World Rank/cosmology state only where required by the first implemented content slice
+- [ ] reconcile protagonist and character Transcendence / personal World Manifestation data contracts
 
 ### Device gate
 - [ ] playable Android build
@@ -93,3 +109,5 @@
 ## Engineering rule
 
 Do not implement a later simulation because the design mentions it. Implement it when a vertical player-facing requirement needs it.
+
+During the active design-finalization pass, do **not** spend the first real UE compile gate proving architecture that is already known to be stale. Verify the local engine/toolchain environment separately, complete design reconciliation, update the runtime contracts, then execute the mandatory preflight -> UHT/UBT compile -> automation sequence on the reconciled code.
