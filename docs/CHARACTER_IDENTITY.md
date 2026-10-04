@@ -43,22 +43,26 @@ This is a local encounter/team-validation rule, not a persistence ownership rest
 
 Fully reinforced divergent Manifestations may later participate in the Character Identity's Grand Convergence finalization, producing one Grand Manifestation that preserves and synthesizes their completed development histories according to character-specific rules.
 
-## Canonical maturity / sexual-content eligibility
+## Canonical maturity / lore authority
 
-Sexual-content eligibility is explicit and cannot be inferred from appearance, local marriage law, social status or gameplay power.
+Adulthood/maturity is a **canonical lore fact** attached to Character Identity. Appearance is never used to infer or override it.
 
-Character Identity stores a validated maturity classification:
+Character Identity stores:
 - Unknown
 - NonAdult
 - Adult
 
-A Version may reference sexual content only when the defining package verifies that the parent Identity is canonically an adult/mature character. Characters canonically treated as minors/children remain excluded from sexual-content packages.
+This field must reflect the lore and nothing else.
 
-Setting-specific concepts of adulthood may separately affect politics, inheritance, military service, social roles or other fictional institutions; those do not silently override the sexual-content eligibility classification.
+If the lore defines the Identity as Adult, adult-content support is allowed by default; no second gameplay/visual eligibility classifier is added on top.
 
-Scene participation uses the character-specific sexual-profile / scene-validity system defined in `MATURE_CONTENT.md`, not a universal affection or consent meter.
+If the lore defines the Identity as NonAdult/minor/child, sexual-content packages are not valid for that Identity.
 
-Blood, injury, clothing/equipment damage and other nonsexual mature-presentation systems are separate from this sexual-content gate.
+Setting-specific adulthood can also affect political/cultural systems, but the stored canonical maturity value remains the authoritative data fact used by content validation.
+
+Preferences/libido/personality/state shape adult-content expression rather than redefining adulthood.
+
+Blood, injury, clothing/equipment damage and other nonsexual mature-presentation systems are separate from this classification.
 
 ## Content IDs
 
