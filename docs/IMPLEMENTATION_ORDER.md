@@ -86,7 +86,8 @@
 - [x] **environment-readiness verification only**: UE 5.8.3 (CL 58210709), Build.bat, UnrealEditor-Cmd, UBT, VS 2026/MSVC 14.51, Windows SDK 10.0.26100, Java 21, Android API 35 / Build Tools 35.0.1 / NDK r27c / adb verified usable without compiling OfflineGame. Epic Launcher registration is empty but explicit EngineRoot is usable and non-blocking.
 - [x] finish the broad design-finalization pass; architecture frozen in docs/ARCHITECTURE_FREEZE.md
 - [x] complete contradiction/supersession audit pass 2 + exact schema/API migration matrix
-- [ ] normalize cumulative master + complete deterministic numerical-tuning audit
+- [ ] normalize cumulative master with the completed detailed tuning/UI freeze
+- [ ] run deterministic simulator fitting for the already-selected tuning candidates
 - [ ] execute design-to-code reconciliation using docs/RECONCILIATION_MIGRATION_MATRIX.md
 - [ ] migrate/rebuild stale runtime contracts to the frozen architecture
 - [ ] restart mandatory validation from static Unreal C++ preflight
@@ -120,3 +121,5 @@
 Do not implement a later simulation because the design mentions it. Implement it when a vertical player-facing requirement needs it.
 
 During the active design-finalization pass, do **not** spend the first real UE compile gate proving architecture that is already known to be stale. Verify the local engine/toolchain environment separately, complete design reconciliation, update the runtime contracts, then execute the mandatory preflight -> UHT/UBT compile -> automation sequence on the reconciled code.
+
+Detailed UI/tuning implementation contract: `docs/TUNING_UI_FREEZE.md`.
