@@ -86,6 +86,22 @@ DEF penetration is percentage-based. Penetration beyond 100% becomes negative-de
 
 Separate authored multiplier categories are applied multiplicatively.
 
+## Negative DEF
+
+For ordinary progressive DEF, positive DEF remains:
+
+`M = DefenseReference / (DefenseReference + DEF)`
+
+When penetration or another valid rule drives effective DEF below zero, the accepted generic tuning baseline is:
+
+`M = 2^(-DEF / DefenseReference)`
+
+for `DEF < 0`.
+
+This avoids the singularity of extending the positive-DEF denominator through zero while preserving unbounded high-damage scaling. Character/skill/content rules may explicitly author another negative-DEF base/reference.
+
+There is no universal damage ceiling.
+
 ## True Damage
 
 True Damage ignores:
