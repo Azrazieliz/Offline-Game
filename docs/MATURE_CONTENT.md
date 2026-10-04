@@ -4,19 +4,19 @@ STATUS: ARCHITECTURE FROZEN FOR RECONCILIATION.
 
 This document covers sexual/adult presentation, nudity, severe violence, injury, gore and clothing/equipment damage as integrated parts of the game.
 
-## 1. Eligibility terminology
+## 1. Lore-grounded adult-content rule
 
-The project does **not** use a universal "consent meter" or require an explicit verbal-consent prompt before every adult scene.
+For characters that the **canonical lore defines as adult/mature**, adult sexual content is architecturally allowed by default. There is no additional gameplay permission layer, affection threshold, romance gate, visual-age heuristic or appearance-based filter.
 
-Instead the runtime uses **sexual-participation eligibility and scene-validity state** derived from character identity, current character state, preferences, libido, relationship/history context, scene context and character-specific behavior.
+Content data must mirror the lore rather than silently invent a second classification system. Appearance is never used to decide adulthood or adult-content availability.
 
-Tsundere presentation, role-play, teasing, contradictory dialogue style or other personality expression does not automatically invalidate a scene when the underlying character state represents voluntary participation.
+Preferences, libido, personality, relationship/history context, Version/form and current state shape **how** adult content is expressed and which authored/systemic scene variants are appropriate; they are not a generic lock that makes an adult character unavailable for the pillar.
 
-Ruler Authority, contracts and supernatural obedience are not automatic sexual-access keys.
+Tsundere behavior, role-play, teasing, contradictory surface dialogue or similar character presentation is treated as characterization, not as an automatic system veto.
 
-Explicit sexual content remains restricted to characters established by canonical game data as adults/mature characters; characters canonically treated as minors/children are not sexual-content eligible. Setting-specific social adulthood may govern political/cultural systems separately from this content-safety classification.
+Ruler Authority/contracts are not used as a substitute for character-specific adult-content characterization; scene behavior is still authored from the character's actual lore/state.
 
-Appearance alone does not determine eligibility.
+Characters canonically treated in lore as minors/children remain outside sexual-content packages.
 
 ## 2. Adult content is a core pillar
 
@@ -190,10 +190,12 @@ Character-specific causal consequences are allowed when the character's actual n
 
 Examples can include development catalysts, species-specific resource interactions, transformation/evolution effects or biography/history changes.
 
-## 14. Production safety boundary
+## 14. Lore-fidelity validation boundary
 
-Sexual content packages require an explicit adult/mature eligibility flag verified at content-validation time.
+The package validator does not invent its own maturity judgment from appearance.
 
-The package validator rejects sexual-scene references for identities classified as minors/non-adult.
+It verifies that sexual-content references are consistent with the Character Identity's canonical lore classification. If the lore defines the character as adult/mature, adult-content packages are valid; if the lore defines the character as a minor/child, sexual-content packages are rejected.
 
-Nonsexual mature systems such as blood, injury, gore and equipment/clothing damage use separate eligibility/content rules.
+The validation layer therefore enforces **lore consistency**, not an independent visual-age or gameplay-age policy.
+
+Nonsexual mature systems such as blood, injury, gore and equipment/clothing damage use separate content rules.
