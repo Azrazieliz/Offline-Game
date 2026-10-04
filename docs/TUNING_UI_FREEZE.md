@@ -82,7 +82,7 @@ Target behavior:
 - search control prominently available;
 - compact filter/sort access;
 - user-switchable density remains supported;
-- target default viewport should present **three visible roster rows** rather than four;
+- default dense roster uses **three character cards per row (three columns)** rather than the four-across composition shown in the supplied reference; the previously accepted 2/3-column density switch remains available;
 - one main roster tile per Character Identity, not one unrelated tile per Manifestation;
 - card exposes only compact useful state (name, relevant rarity/Rank indicators, selected/last-used Manifestation cue, etc.) without turning the tile into a spreadsheet.
 
