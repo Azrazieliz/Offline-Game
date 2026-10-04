@@ -58,6 +58,16 @@ For every Rank, any stat using this elasticity form must use a positive-decimal 
 
 This allows same-Rank characters to differ by many orders of magnitude in individual stats without making Rank meaningless.
 
+### Within-Rank Levels vs breakthrough
+
+Current accepted tuning target:
+- about 35% of a Rank step's logarithmic growth occurs through Levels 1-100;
+- about 65% is reserved for the actual next-Rank breakthrough.
+
+The Level curve itself is character-specific and normalized to that shared envelope rather than universally linear.
+
+Character/stat-specific breakthrough biases can exceed the smooth projection when the actual transformation/lore supports it.
+
 ## 4. Breakthroughs
 
 - Reaching Level 100 unlocks eligibility to attempt/fulfill a next-Rank breakthrough rather than overflowing XP into the next Rank.
