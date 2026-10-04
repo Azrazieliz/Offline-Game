@@ -481,14 +481,13 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
             "DELETE FROM schema_migrations WHERE version = 7;",
             Error));
 
-    TestEqual(
+    TestTrue(
         TEXT("Clone schema-6 source for deterministic replay"),
         IFileManager::Get().Copy(
             *ReplayPath,
             *DatabasePath,
             true,
-            true),
-        COPY_OK);
+            true) == COPY_OK);
 
     FOGWorldBootstrapResult Migration;
     TestTrue(TEXT("Migrate legacy source through safe bootstrap"),
