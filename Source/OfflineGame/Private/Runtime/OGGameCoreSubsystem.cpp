@@ -7,6 +7,7 @@
 #include "OfflineGame.h"
 #include "Persistence/OGSQLiteWorldStore.h"
 #include "Persistence/OGSnapshotService.h"
+#include "Persistence/OGWorldBootstrap.h"
 
 void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -28,9 +29,23 @@ void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     const bool bExistingDatabase =
         IFileManager::Get().FileExists(*DatabasePath);
 
-    WorldStore = MakeUnique<FOGSQLiteWorldStore>();
-
+    FOGWorldBootstrapResult BootstrapResult;
     FString Error;
+    if (!FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            BootstrapResult,
+            Error))
+    {
+        UE_LOG(
+            LogOfflineGame,
+            Error,
+            TEXT("Migration-safe world bootstrap refused continuation: %s"),
+            *Error);
+        bCoreReady = false;
+        return;
+    }
+
+    WorldStore = MakeUnique<FOGSQLiteWorldStore>();
     if (!WorldStore->Open(DatabasePath, Error))
     {
         UE_LOG(
@@ -44,6 +59,16 @@ void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     }
 
     bCoreReady = true;
+
+    if (BootstrapResult.bMigrationPerformed)
+    {
+        UE_LOG(
+            LogOfflineGame,
+            Log,
+            TEXT("World migration promoted safely. Recovery=%s Report=%s"),
+            *BootstrapResult.RecoveryDatabasePath,
+            *BootstrapResult.MigrationReportPath);
+    }
 
     if (bExistingDatabase)
     {
