@@ -54,7 +54,9 @@ For each character/Manifestation, individual stats use authored Rank-response be
 
 A useful tuning form is `BaseStat × R(r)^alpha_s × localLevelGrowth × sparseBreakthroughBias × build modifiers`, with `alpha_s` and related response data defined per character/stat and mutable through real progression when appropriate.
 
-This allows same-Rank characters to differ by multiple orders of magnitude in individual stats without making Rank meaningless.
+For **Divine Rank and above**, any stat using this elasticity form must resolve to **alpha_s in [1.10, 2.50]**. This bound is character/stat-specific, not one shared value. Lower Ranks may use a separate tuning envelope.
+
+This allows same-Rank characters to differ by many orders of magnitude in individual stats without making Rank meaningless.
 
 ## 4. Breakthroughs
 
