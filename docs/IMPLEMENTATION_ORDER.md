@@ -83,7 +83,7 @@
 - [x] persistent vertical-slice scenario harness authored against the pre-detailing architecture
 - [x] Android runtime/build configuration
 - [x] lightweight performance telemetry
-- [ ] **environment-readiness verification only**: confirm UE 5.8 installation, Build.bat, UnrealEditor-Cmd, UBT, MSVC/Windows SDK and Android JDK/SDK/NDK are present/usable without compiling OfflineGame
+- [x] **environment-readiness verification only**: UE 5.8.3 (CL 58210709), Build.bat, UnrealEditor-Cmd, UBT, VS 2026/MSVC 14.51, Windows SDK 10.0.26100, Java 21, Android API 35 / Build Tools 35.0.1 / NDK r27c / adb verified usable without compiling OfflineGame. Epic Launcher registration is empty but explicit EngineRoot is usable and non-blocking.
 - [ ] finish the current design-finalization/reconciliation pass
 - [ ] migrate/rebuild stale runtime contracts to the finalized architecture
 - [ ] restart mandatory validation from static Unreal C++ preflight
