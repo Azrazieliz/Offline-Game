@@ -6,7 +6,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 
 ## Creative/system finalization
 
-- Ruler milestone-title catalog and exact structural predicates.
+- Ruler milestone architecture is RESOLVED in docs/RULER_PROGRESSION.md: Ruler and Overlord are the only universal sovereignty titles; Overlord is the highest, requires both personal/Authority capability and Overlord-scale sovereignty, can be satisfied by multi-Domain or single world/dimension-spanning sovereignty, supports joint Overlords, and separates active title from historical peak. Remaining work is UI tuning and content-specific/local titles.
 - Class recognition architecture is RESOLVED in docs/CLASS_ARCHITECTURE.md: automatic mastery recognition, emergent/composite Classes, non-unique Crown apex tier, one active Grand seat per canonical Class in the connected dimensional defensive order, Grand appointment/revocation, attained-vs-current expression, knowledge/appraisal and UI behavior. Remaining work is per-Class content and numerical mastery thresholds.
 - Existence/Power Rank architecture is RESOLVED in docs/EXISTENCE_POWER_RANK.md; exact Rank coefficient curves and per-content breakthrough requirements remain simulation/content tuning.
 - Protagonist Factor architecture is resolved. Remaining work is Factor content authoring and numerical tuning.
