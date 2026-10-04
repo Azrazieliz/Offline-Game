@@ -387,6 +387,49 @@ Evolution/Awakening/Corruption are content route families, not C++ enum limits.
 - `updated_world_tick INTEGER NOT NULL`
 - `state_json TEXT NOT NULL DEFAULT '{}'`
 
+## Higher-order progression state
+
+The frozen Transcendence / World-Fantasm / protagonist personal-World-Manifestation architecture must not disappear into opaque progression JSON.
+
+### `entity_transcendence_state`
+
+- `entity_id TEXT PRIMARY KEY`
+- `grade_content_id TEXT NOT NULL`
+- `breakthrough_world_tick INTEGER NOT NULL`
+- `qualification_snapshot_json TEXT NOT NULL DEFAULT '{}'`
+- `proof_provenance_json TEXT NOT NULL DEFAULT '{}'`
+- `state_json TEXT NOT NULL DEFAULT '{}'`
+
+Rules:
+- the breakthrough is irreversible under ordinary progression;
+- character grade follows the frozen collectible-character rules unless explicit content overrides through an allowed mechanic;
+- protagonist grade is the highest grade actually qualified for at the chosen irreversible breakthrough;
+- qualification/proof state is persisted only to the extent required for deterministic explanation/history and must not become a fixed universal quest checklist.
+
+### `manifestation_world_fantasm_state`
+
+- `manifestation_entity_id TEXT PRIMARY KEY`
+- `grade_content_id TEXT NOT NULL`
+- `unlocked_world_tick INTEGER NOT NULL`
+- `expression_profile_content_id TEXT`
+- `evolution_state_json TEXT NOT NULL DEFAULT '{}'`
+- `updated_world_tick INTEGER NOT NULL`
+
+The base Fantasm grade is derived from immutable Origin Rarity at Current-Rarity MR unlock, but the unlocked/evolved expression is persisted because later Transcendence, routes and authored development may change scale, efficiency, laws, counters or presentation without changing the base grade.
+
+### `protagonist_world_manifestation_state`
+
+- `owner_entity_id TEXT PRIMARY KEY`
+- `unlocked_world_tick INTEGER NOT NULL`
+- `expression_profile_content_id TEXT`
+- `provenance_state_json TEXT NOT NULL DEFAULT '{}'`
+- `evolution_state_json TEXT NOT NULL DEFAULT '{}'`
+- `updated_world_tick INTEGER NOT NULL`
+
+This state is intrinsic to the protagonist and remains independent of territorial Domain Authority.
+
+Combined Domain + personal-World-Manifestation techniques use the ordinary learned-skill/effect provenance system with explicit references to both sources. Do not create a generic automatic fusion/stack state.
+
 ## `character_convergences`
 
 - `convergence_entity_id TEXT PRIMARY KEY`
@@ -414,6 +457,7 @@ Add:
 - `FOGClassRecognitionService`
 - `FOGCharacterProgressionService`
 - `FOGGrandConvergenceService`
+- higher-order progression support for Transcendence, Manifestation World Fantasm and protagonist personal World Manifestation
 
 Combat consumes a resolved projection of these systems rather than owning them.
 
@@ -627,6 +671,48 @@ Slots are character/body-definition driven, not a universal armor enum.
 - amount for aggregatable stackable items
 - PRIMARY KEY
 
+### `item_owner_affinity`
+
+- item entity ID
+- owner entity ID
+- internal affinity value/state
+- current milestone/grade content ID
+- updated world tick
+- state JSON
+- PRIMARY KEY `(item_entity_id, owner_entity_id)`
+
+Affinity is a persistent relationship between a specific item and owner. Transfer preserves item history; owner-specific affinity may change according to the item definition. No universal affinity-to-damage formula exists.
+
+### `entity_equipment_proficiency`
+
+- owner entity ID
+- proficiency content ID
+- internal proficiency value/state
+- current grade content ID
+- updated world tick
+- state JSON
+- PRIMARY KEY `(owner_entity_id, proficiency_content_id)`
+
+Items/content declare which proficiency identity applies. Proficiency is separate from item-owner affinity and is not forced to be per-item.
+
+### Presentation / wardrobe state
+
+Add `manifestation_presentation_state`:
+- manifestation entity ID PK
+- selected skin content ID
+- outfit/clothing state JSON
+- presentation variant state JSON
+- updated world tick
+
+Add `owned_presentation_unlocks` where an unlock is not already represented by an item/package entitlement:
+- owner/ruler entity ID
+- presentation content ID
+- acquired world tick
+- state
+- PRIMARY KEY
+
+Skins/outfits remain presentation state unless their definition explicitly points to a gameplay-bearing Version/form. Physical equipment remains in the item/equipment model.
+
 ## Knowledge / belief
 
 Extend `knowledge_facts` with:
@@ -741,6 +827,39 @@ Add `report_delivery`:
 - PRIMARY KEY `(report_id, channel)`
 
 Android notifications are projections of Reports and never authoritative world state.
+
+## Player management state vs device-local settings
+
+Do not mix canonical world history with presentation preferences.
+
+### Canonical world-linked management metadata
+
+Persist in the world database because it protects or selects persistent entities:
+- Favorite flag;
+- Protected/Locked flag used to guard destructive/Convergence operations;
+- editable Manifestation build label;
+- last-used Manifestation selection by gameplay context where the context is part of the persistent world/party/Dispatch state.
+
+Use normalized metadata tables rather than UI-only widget state. A Protected/Locked Manifestation must remain protected after restart, backup/restore and device migration.
+
+### Non-authoritative player/device settings
+
+Store outside canonical world causality, in a versioned settings/profile sidecar that can optionally be exported/backed up:
+- Privacy/SFW Presentation;
+- orientation lock;
+- roster density;
+- audio volumes/dynamic-range profile;
+- haptics;
+- control layout/sensitivity;
+- reduced motion/camera shake;
+- damage-number presentation;
+- cinematic repetition/shortening preferences;
+- network/auto-download preferences;
+- other accessibility/presentation settings.
+
+These settings may change presentation and input policy but never rewrite world events or canonical character/world state.
+
+Auto-combat rule presets/team policies are player-command preferences. Persist them in the non-authoritative profile unless a specific queued/offline action has already been committed to authoritative world state; committed actions store the resolved command/order, not a live dependency on later preference changes.
 
 ## Backup/recovery catalog
 
@@ -876,7 +995,19 @@ No real Unreal tests are to be run until implementation catches up.
 - Crown is non-unique;
 - one active Grand seat per canonical Class;
 - route nodes are open-ended content IDs;
-- source Manifestations become historical/converged, not deleted.
+- source Manifestations become historical/converged, not deleted;
+- Transcendence grade/provenance survives restart and cannot silently reroll;
+- Manifestation World Fantasm unlock/evolution state survives restart while base grade remains consistent with Origin Rarity;
+- protagonist personal World Manifestation remains independent of Domain state and survives Territory loss.
+
+## Equipment / presentation state
+
+- item-owner affinity persists across restart and remains distinct from user proficiency;
+- transfer preserves item history and applies item-authored affinity behavior;
+- proficiency persists by its authored proficiency identity rather than being forced to one item;
+- selected Skin/outfit state persists without creating a fake gameplay Version;
+- Protected/Locked survives restart/backup and blocks destructive/Convergence actions until explicit confirmation;
+- Privacy/orientation/roster-density and similar presentation preferences remain outside canonical world causality.
 
 ## Combat
 
@@ -928,8 +1059,8 @@ No real Unreal tests are to be run until implementation catches up.
 6. shared combat Identity/Rank hooks;
 7. 0011 time/cosmology/World Director;
 8. 0012 strategic/civilization/logistics expansion;
-9. 0013 items/knowledge/NPC/adult-state/Heroic Records;
-10. 0014 packages/Reports/Android/recovery catalog;
+9. 0013 items/knowledge/NPC/adult-state/Heroic Records, including affinity/proficiency and presentation state;
+10. 0014 packages/Reports/Android/recovery catalog plus explicit world-management vs device-settings persistence;
 11. reconciled UI/view-model projections;
 12. rewrite vertical-slice and automation tests;
 13. static Unreal C++ preflight;
