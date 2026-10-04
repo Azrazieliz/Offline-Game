@@ -529,15 +529,26 @@ Pass 2 completed the following without compiling/running Unreal:
 - removed remaining second-gate mature-content terminology from the dedicated mature-content contract;
 - produced the exact numbered schema/API plan in `RECONCILIATION_MIGRATION_MATRIX.md`.
 
-## Remaining audit work before code edits
+## Pre-coding audit closure
 
-The design contradictions are now sufficiently classified to begin **cumulative-master normalization and numerical-tuning audit**.
+A subsequent independent full-architecture audit rechecked the cumulative master, dedicated architecture documents, inherited implementation-era documents and the reconciliation matrix rather than relying on this pass's completion claim.
 
-No additional creative questionnaire is required.
+Additional omissions found and closed:
+- explicit Transcendence / World-Fantasm / protagonist personal-World-Manifestation persistence contract;
+- item-owner affinity and equipment-proficiency persistence;
+- Skin/outfit/presentation state;
+- persistent Favorite/Protected/last-used management metadata versus non-authoritative device/profile settings;
+- stale Rule-Core deferrals;
+- stale universal Location accessibility wording;
+- duplicated pre-freeze UI details.
 
-The next implementation-affecting deliverables are:
+Audio and visual production-direction passes are also complete in dedicated authoritative documents.
+
+No additional broad Creative Director questionnaire is required before code edits.
+
+The remaining implementation-affecting work is:
 1. normalized cumulative master baseline;
-2. deterministic tuning assumptions/parameter registry;
-3. code migration implementation following the matrix;
+2. deterministic simulator fitting using `TUNING_PARAMETER_REGISTRY.md`;
+3. code migration implementation following `RECONCILIATION_MIGRATION_MATRIX.md`;
 4. test rewrites;
-5. only then the mandatory Unreal validation sequence.
+5. mandatory Unreal/Android/device validation.
