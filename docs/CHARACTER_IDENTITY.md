@@ -43,18 +43,22 @@ This is a local encounter/team-validation rule, not a persistence ownership rest
 
 Fully reinforced divergent Manifestations may later participate in the Character Identity's Grand Convergence finalization, producing one Grand Manifestation that preserves and synthesizes their completed development histories according to character-specific rules.
 
-## Canonical maturity
+## Canonical maturity / sexual-content eligibility
 
-Sexual-content eligibility is explicit and cannot be inferred from appearance.
+Sexual-content eligibility is explicit and cannot be inferred from appearance, local marriage law, social status or gameplay power.
 
-Character Identity stores:
+Character Identity stores a validated maturity classification:
 - Unknown
 - NonAdult
 - Adult
 
-A Version may reference sexual content only when the defining package can verify that the parent Identity is canonically Adult.
+A Version may reference sexual content only when the defining package verifies that the parent Identity is canonically an adult/mature character. Characters canonically treated as minors/children remain excluded from sexual-content packages.
 
-Blood, injury, clothing/equipment damage and other mature combat-presentation systems are separate from this sexual-content gate.
+Setting-specific concepts of adulthood may separately affect politics, inheritance, military service, social roles or other fictional institutions; those do not silently override the sexual-content eligibility classification.
+
+Scene participation uses the character-specific sexual-profile / scene-validity system defined in `MATURE_CONTENT.md`, not a universal affection or consent meter.
+
+Blood, injury, clothing/equipment damage and other nonsexual mature-presentation systems are separate from this sexual-content gate.
 
 ## Content IDs
 
