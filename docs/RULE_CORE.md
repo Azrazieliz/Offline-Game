@@ -48,13 +48,19 @@ Active skills, passives, ultimate and form references are stable content IDs.
 
 Evolution/Awakening/Corruption/Transcendence can all modify the same resolved-kit pipeline while remaining different player-facing concepts.
 
+## Character stat ownership
+
+Every character-facing combat stat belongs to the resolved entity/build state rather than a universal base template. This includes Crit Damage and Crit Rate as well as Hit, Dodge, Block, SPD, HP, ATK, DEF, resistances and future character-facing stats.
+
+Shared combat math defines **how** values interact; character/content data defines **what those values are**.
+
 ## Settled crit overflow rule
 
 Crit Rate above its effective probability ceiling converts at:
 
 **1% Crit Rate overflow -> +2% Crit Damage.**
 
-The interaction order with Crit Resistance is still intentionally unresolved.
+Crit Rate Resistance is applied before overflow conversion, as specified in `COMBAT_MATH.md`.
 
 ## Explicitly deferred
 
