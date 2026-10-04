@@ -1,65 +1,73 @@
-# Vertical Slice 0 - Architectural Proof
+# Vertical Slice 0 - Reconciled Architectural Proof
 
-The first slice is intentionally small. Its purpose is to prove the shared-state architecture, not approximate final content quantity.
+STATUS: TARGET CONTRACT. The existing G2 harness predates the frozen architecture and must be rewritten before the real Unreal validation gate.
 
-## Required proof
+The slice remains intentionally compact in content quantity. Its job is to prove that the finalized systems share one trustworthy persistent state.
 
-A single save/history must survive this loop:
+## Required proof loop
 
-1. launch in Ruler Mode
-2. perform a gacha pull
-3. configure/use acquired characters
-4. enter landscape World Mode
-5. explore and discover a physical location
-6. fight using protagonist + switch/QTE companions
-7. cause a meaningful persistent state change
-8. return to Ruler Mode and observe that change
-9. start/resolve one project or dispatch
-10. run one turn battle
-11. close the process completely
-12. reopen the game
-13. verify the same characters, discovery, project, battle consequences, and world state still exist
+One canonical history must survive this sequence:
+
+1. create/load the persistent protagonist/world;
+2. enter/establish real Territory control;
+3. preserve continuous valid sovereignty for the configured one-month qualification period;
+4. unlock gacha permanently;
+5. perform a deterministic pull;
+6. create a **new full Manifestation instance** even when the Identity was previously owned;
+7. present the acquisition immediately in portrait Ruler Mode;
+8. prove it remains unanchored for World Mode until a controlled Territory is reached;
+9. anchor the Manifestation in controlled Territory;
+10. enter landscape World Mode with protagonist + valid switch/QTE companions;
+11. explore/discover a physical Location and persist knowledge separately from truth;
+12. fight and create a meaningful persistent consequence;
+13. exercise Territory/Domain state, including at least one control/reclamation or Core-heart rule;
+14. start/resolve one Project or Dispatch with objective fidelity;
+15. run one deterministic turn battle with the same local Character-Identity exclusivity rule as action combat;
+16. return to Ruler Mode and observe the same world facts;
+17. close the process completely;
+18. reopen;
+19. verify Manifestations, gacha state, anchoring, discovery, projects/dispatch, battle consequences, Territory/Core state and event history survived.
+
+A second acquisition of the same Character Identity should be included in the proof so multiple independent Manifestations are tested explicitly.
 
 ## Slice content target
 
-Provisional engineering content only:
+Engineering/proof content only:
+- one compact starting-world test region;
+- protagonist;
+- several test Character Identities/Versions;
+- repeated-acquisition test Identity;
+- one deterministic banner with tunable pity;
+- one enemy family and one substantial boss;
+- one action-combat encounter;
+- one turn encounter;
+- one Territory with reclaimable control state;
+- one Domain Core with heart-state/fusion-compatible schema;
+- aggregate resources;
+- one Project;
+- one objective-driven Dispatch;
+- minimal faction/war state;
+- knowledge/discovery state;
+- package/content validation;
+- SQLite persistence/recovery;
+- developer diagnostics.
 
-- one compact wilderness test region
-- protagonist
-- 6-10 test Character Identities
-- Character Identity -> Version -> owned instance path
-- one test banner with configurable pity
-- one enemy family
-- one substantial boss
-- one turn encounter
-- action party: Ruler + two switch/QTE companions
-- one territory
-- one Domain Core
-- a few resource definitions
-- one construction/reconstruction project
-- one dispatch
-- one discovery becoming visible on the Ruler map
-- minimal faction hostility/war state
-- blood and defined equipment/clothing damage state hooks
-- SQLite persistence
-- developer diagnostics/state repair
+The slice does not limit final roster/world/content quantity.
 
-## Explicitly not required for Slice 0
+## Not required to be final for this proof
 
-- final name/icon/branding
-- final story/cosmology
-- final art direction
-- large roster
-- final gacha rates
-- final damage formulas
-- full Domain concept grammar
-- underwater civilization
-- space
-- full World Director content library
-- full mature-content library
-- final voices/cinematics
-- remote multi-year world simulation
+- final branding;
+- final story/cosmology content;
+- final art assets;
+- production roster quantity;
+- final gacha/damage/progression coefficients;
+- full Domain Concept library;
+- full World Director event library;
+- full mature-content asset library;
+- final voice/cinematic/music asset production.
+
+However, **data contracts used by the proof may not contradict the frozen architecture simply because assets/content are provisional**.
 
 ## Acceptance rule
 
-The slice is successful when the core state model is trustworthy enough that adding content no longer requires redesigning persistence or identity.
+The slice passes only when adding production content no longer requires redesigning identity, persistence, Territory/Core continuity, gacha acquisition semantics, progression state or the shared action/turn combat contracts.
