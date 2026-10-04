@@ -8,6 +8,12 @@ This document records rules already established in the master architecture and t
 
 This avoids float probability drift in authoritative combat logic.
 
+## Character-dependent stat doctrine
+
+HP, ATK, DEF, SPD, Crit Rate, Crit Damage, Crit resistances, Hit, Dodge, Block, damage/resistance values and other character-facing stats are resolved from the specific Character/Manifestation/build.
+
+The engine must not balance around a hidden universal base profile. Test fixtures may supply neutral fallback values only to make isolated formula tests valid; production character data must be explicit.
+
 ## Crit
 
 Order is authoritative:
@@ -29,13 +35,13 @@ Example:
 
 The ordinary baseline does not make a critical hit deal less than a normal hit if Crit Damage Resistance exceeds the available Crit Damage bonus; the bonus bottoms at zero. A bespoke rule can override that if ever desired.
 
-Current provisional conventional base Crit Damage bonus is +50% (x1.5 total critical damage before other categories). It is a replaceable default, not architecture.
+Crit Damage is a resolved **character/Manifestation stat**, not a universal +50% baseline. Different characters/builds may have radically different natural Crit Damage profiles. A skill may also override or transform the applicable crit behavior explicitly.
 
 ## Hit / Dodge overflow
 
-Normal attacks use 100% baseline Hit.
+Hit is a resolved **character/Manifestation stat** and may be modified by the specific skill/action. There is no universal production value that every character inherits.
 
-Effective Hit = Hit - Dodge.
+Effective Hit = applicable attacker Hit - target Dodge.
 
 Every complete 100% effective Hit band creates one guaranteed eligible hit instance.
 
@@ -54,7 +60,7 @@ Whether a multi-hit skill rolls crit/status once for the sequence or separately 
 
 ## Block
 
-Block Rate and Block Reduction are separate values.
+Block Rate and Block Reduction are separate resolved character/build values.
 
 A successful ordinary block applies its authored reduction after ordinary physical damage modifiers.
 
