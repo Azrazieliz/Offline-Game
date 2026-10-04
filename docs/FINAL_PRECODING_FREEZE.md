@@ -1,6 +1,8 @@
 # Final Pre-Coding Architecture / Production Freeze
 
-STATUS: COMPLETE. CODING / TESTING HANDOFF READY SUBJECT TO CUMULATIVE MASTER EXPORT.
+STATUS: COMPLETE. CODING / TESTING HANDOFF READY.
+
+Cumulative master: `Offline_Adult_Gacha_RPG_Master_Architecture_Baseline_v0.40_FINAL_PRECODING_FREEZE.docx`.
 
 ## 1. Audit basis
 
