@@ -69,3 +69,24 @@ Portrait Ruler Mode / landscape World Mode switch automatically by default.
 The player can lock orientation when desired.
 
 Android notifications integrate with the Reports system as specified in docs/UI_PRESENTATION.md.
+
+
+## Player-facing opening / recovery UX
+
+Use a real title/opening presentation before the main world.
+
+Primary actions:
+- Continue;
+- Recover Existing World;
+- Import Backup;
+- Settings.
+
+Clear World is destructive/secondary and must not read like a routine New Game action.
+
+Backup UI exposes automatic/manual snapshots, date/time, world/schema/build information, integrity state and explicit Export/Import/Restore.
+
+Package manager exposes installed package size/version/location/update state plus move/archive controls where supported.
+
+Metadata/update checks may occur automatically online.
+
+Large package downloads default to **automatic Wi-Fi/unmetered download**; user settings may disable or further constrain it.
