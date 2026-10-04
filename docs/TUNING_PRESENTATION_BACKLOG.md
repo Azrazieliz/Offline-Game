@@ -1,6 +1,6 @@
 # Remaining Tuning / Presentation Backlog
 
-STATUS: RE-AUDITED AGAINST CURRENT AUTHORITATIVE BASELINE. This file lists only genuinely unresolved global/system tuning. Character-specific authored content is not treated as a missing global rule.
+STATUS: POST-QUESTIONNAIRE. Most global/UI choices are now frozen. Remaining work is deterministic coefficient simulation plus implementation/device calibration.
 
 ## Already resolved - do not reopen
 
@@ -154,3 +154,48 @@ Character-specific cancel windows, QTE conditions, animation timings, boss teleg
 7. Large-number formatting defaults.
 8. Implement reconciled code.
 9. Physical-device presentation/performance calibration after the first working Android build.
+
+
+## Post-questionnaire closures
+
+Frozen in the latest UI/tuning pass:
+- Rank coefficient candidate accepted;
+- Level-vs-breakthrough split 35/65;
+- within-Rank Level shape character-specific;
+- dramatic authored breakthrough stat biases allowed;
+- negative DEF base-2 generic branch accepted;
+- first Rank-Suppression envelope accepted;
+- GP uses internal log-space but magnitude-preserving displayed output;
+- progression has no universal real-time completion target;
+- current standard limited-banner candidate accepted;
+- all acquisition-income source bands raised modestly;
+- ticket taxonomy accepted, no default expiration, compatible tickets auto-consume first;
+- character roster/Identity/Manifestation UI structure frozen;
+- hidden formulas/alpha/Rank contribution are not exposed to normal players;
+- massive skill libraries use focused resolved-kit UI with lazy/filter drill-down;
+- Skins added as cosmetic appearance variants distinct from gameplay Versions/forms;
+- equipment affinity/proficiency presentation is grade-first;
+- gacha primary/details UI structure frozen;
+- map-first Territory UI and fragmented/hierarchical large-sovereignty navigation frozen;
+- Records always returns to the category chooser;
+- World Mode switch portraits placed upper-right;
+- player-facing large-number UI uses suffix/integer notation, not scientific notation;
+- repeated extreme-hit presentation does not use synthetic xN aggregation labels;
+- turn mode includes 3x, timeline strip, presets + advanced auto rules;
+- recap reduced to per-character active damage / DoT / healing-sustain;
+- premium opening screen / recovery / package UI direction frozen;
+- Project duration is capability-driven without a literal worker-count simulation;
+- Dispatch/War UI exposes knowledge-limited risk/estimates rather than fake exact percentages;
+- offline 15% strategic-weight value is a maximum safety bound, not expected reconnect loss;
+- World Director cadence remains content-defined;
+- Earth-like time presentation only applies where the Territory/World supports it.
+
+Remaining global work:
+1. deterministic simulation/validation of Rank, Level, DEF and Rank-Suppression coefficients;
+2. final SPD/action-value numeric function;
+3. gacha/ticket/income simulation against release cadence;
+4. progression-economy cost bands;
+5. equipment affinity/proficiency numerical curves where individual items need them;
+6. GP estimator calibration;
+7. strategic/Director coefficient calibration;
+8. device-specific presentation/performance calibration after Android build.
