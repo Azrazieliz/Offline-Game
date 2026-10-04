@@ -40,6 +40,14 @@ High-severity crises crossing that threshold use escalation gates: they may dama
 
 This safeguard constrains the Director rather than secretly weakening enemies or rewriting prior decisions.
 
+### Strategic-weight catch-up ceiling
+
+For newly generated offline consequences, the normal safety ceiling is approximately **15% of current sovereign strategic weight per catch-up resolution**.
+
+This is a ceiling, not a periodic tax or expected loss. Reconnecting must never itself cause an arbitrary 15% loss. Most catch-ups can resolve with zero territorial loss.
+
+Only actual eligible causal events may consume any of this budget. Consequences that were already causally locked before logout remain governed by their prior state rather than retroactively protected by this ceiling.
+
 ## 4. Approved event composition
 
 The Director may compose systemic events from approved templates and approved characters, factions, locations, enemies, rewards and world states.
