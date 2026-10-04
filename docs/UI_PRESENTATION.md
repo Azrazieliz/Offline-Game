@@ -410,7 +410,7 @@ Normal player-facing recap is intentionally limited per character to:
 
 ## 24. Opening / recovery / package UI
 
-Use a real title/opening screen, not a bare utility menu. Final moving-vs-still treatment is deferred to the later presentation/art pass.
+Use a real title/opening screen, not a bare utility menu. The final production target is an animated/moving premium title presentation with a reduced-motion/static fallback, as frozen in `VISUAL_ART_DIRECTION.md`.
 
 Primary opening actions:
 - Continue;
