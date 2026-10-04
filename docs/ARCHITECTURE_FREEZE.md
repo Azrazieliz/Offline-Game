@@ -25,3 +25,7 @@ From this point:
 10. physical S26 Ultra profiling and optimization.
 
 The architecture is not immutable; explicit later Creative Director revisions supersede it. But ordinary design discovery is considered complete enough to begin reconciliation.
+
+## Active reconciliation audit
+
+The contradiction/supersession audit is tracked in `docs/CONTRADICTION_SUPERSESSION_AUDIT.md`. Pass 1 has identified direct runtime contradictions, schema gaps, stale cumulative wording and one confirmed static test/header mismatch. No Unreal compile/test has been run during this audit.
