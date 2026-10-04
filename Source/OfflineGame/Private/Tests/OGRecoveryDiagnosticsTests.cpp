@@ -206,12 +206,20 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     }
 
     TestTrue(
-        TEXT("Downgrade fixture to schema 5"),
+        TEXT("Downgrade fixture to schema 6"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DROP TABLE IF EXISTS gacha_states;"
-            "ALTER TABLE character_manifestations DROP COLUMN duplicate_acquisition_count;"
-            "DELETE FROM schema_migrations WHERE version = 6;",
+            "DROP INDEX IF EXISTS idx_manifestations_owner_identity;"
+            "DROP INDEX IF EXISTS idx_manifestations_owner_identity_ordinal;"
+            "DROP INDEX IF EXISTS idx_manifestations_anchor;"
+            "ALTER TABLE character_manifestations DROP COLUMN build_label;"
+            "ALTER TABLE character_manifestations DROP COLUMN lifecycle_state;"
+            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_tick;"
+            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_territory_id;"
+            "ALTER TABLE character_manifestations DROP COLUMN origin_pull_event_id;"
+            "ALTER TABLE character_manifestations DROP COLUMN acquisition_ordinal;"
+            "ALTER TABLE character_manifestations DROP COLUMN acquisition_world_tick;"
+            "DELETE FROM schema_migrations WHERE version = 7;",
             Error));
 
     FOGWorldBootstrapResult Result;
@@ -226,9 +234,9 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestTrue(TEXT("Migration was promoted"),
         Result.bMigrationPerformed);
     TestEqual(TEXT("Source schema recorded"),
-        Result.SourceSchemaVersion, 5);
+        Result.SourceSchemaVersion, 6);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 6);
+        Result.TargetSchemaVersion, 7);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -240,8 +248,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 6"),
-            Store.GetSchemaVersion(Error), 6);
+        TestEqual(TEXT("Promoted schema is 7"),
+            Store.GetSchemaVersion(Error), 7);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -305,14 +313,14 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Leave migration-0006 schema effects in place while removing only its
-    // ledger row. Reapplying 0006 must fail on the working copy because the
-    // duplicate_acquisition_count column already exists.
+    // Leave migration-0007 schema effects in place while removing only its
+    // ledger row. Reapplying 0007 must fail on the working copy because the
+    // acquisition_world_tick column already exists.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DELETE FROM schema_migrations WHERE version = 6;",
+            "DELETE FROM schema_migrations WHERE version = 7;",
             Error));
 
     TArray<uint8> BeforeBytes;
