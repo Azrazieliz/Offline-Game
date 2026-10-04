@@ -13,7 +13,7 @@ A system is design-final when its player-facing rules, authoritative state trans
 - Protagonist Ascendant/Unbound/Exalted/Transcendent/Absolute qualification conditions; personal World Manifestation threshold; explicit combined-state rules with Domain Authority.
 - Character progression architecture is RESOLVED in docs/CHARACTER_PROGRESSION.md; remaining work is per-character route content, Grand Convergence definitions and numerical tuning.
 - World Director architecture is RESOLVED in docs/WORLD_DIRECTOR.md; remaining work is content-specific cadence/delay definitions and tuning.
-- Cosmology/endgame enemy truth, dimensional preparation metaphysics and major hidden history.
+- Cosmology/dimensional architecture is RESOLVED in docs/COSMOLOGY.md: semi-conscious metaphysical Dimensions, extensible higher reality structure, evolving/declining World Rank, Junctions, dimensional preparation and broad external/internal threat ecology. Remaining work is spoiler-protected authored history, specific threat content and numerical World-Rank tuning.
 - Starting-dimension generation grammar and later-world/dimension progression grammar.
 - Civilization development-vector model after hard simplification.
 - Territory/Domain/Core sovereignty, five-day reclamation, Core awakening/heart, Core-loss catastrophe, populationless-Domain and Overlord multi-Domain architecture are RESOLVED in docs/TERRITORY_PROJECTS.md; remaining work is per-content Concept synthesis, exact recovery costs, Main Territory UX and numerical tuning.
