@@ -28,6 +28,10 @@ Tickets are earnable from gameplay and may be granted by story, bosses, achievem
 
 High-level content may award rarer/stronger ticket types rather than only larger quantities of the same currency.
 
+Tickets normally do **not expire**. Event/banner-specific tickets remain stored for compatible reruns unless that ticket's actual authored mechanic explicitly says otherwise.
+
+When a compatible ordinary-pull ticket and pull currency are both available, the default spending rule is **ticket-first automatic consumption**, then pull currency.
+
 ### Progression-scaled acquisition economy
 
 There is **no universal fixed pulls-per-hour income** applied to every stage of the game.
@@ -120,3 +124,14 @@ When a compatible ordinary ticket and pull currency can both pay for the same pu
 The confirmation UI shows what will be consumed before execution.
 
 Tickets do not expire by default. Event/banner/dimensional tickets remain stored until a compatible banner/pool returns unless the ticket's own content definition explicitly gives it another lifecycle.
+
+
+## Progression-band tuning checkpoint
+
+Current simulator bands for acquisition-focused play:
+- newly qualified Ruler: ~4-8 pull-equivalents/hour;
+- established Ruler/Domain: ~7-14/hour;
+- ordinary Overlord-scale economy: ~14-27/hour;
+- extreme late-game / dedicated high-order farming: ~27-52+/hour where justified.
+
+These are not wages or hidden player-level multipliers. They describe the aggregate value of the actual content/economic sources available at those progression scales.
