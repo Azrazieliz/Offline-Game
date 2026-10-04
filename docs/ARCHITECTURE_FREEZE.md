@@ -29,3 +29,7 @@ The architecture is not immutable; explicit later Creative Director revisions su
 ## Active reconciliation audit
 
 The contradiction/supersession audit is tracked in `docs/CONTRADICTION_SUPERSESSION_AUDIT.md`. Pass 2 has normalized the dedicated authoritative docs, classified direct runtime/schema/test contradictions, and produced the exact numbered plan in `docs/RECONCILIATION_MIGRATION_MATRIX.md`. No Unreal compile/test has been run during this audit.
+
+## Detailed tuning/UI freeze
+
+The Creative Director's global numerical/UI questionnaire is frozen in `docs/TUNING_UI_FREEZE.md`. It includes Rank/Level split, accepted DEF/Suppression candidates, revised gacha-income/ticket behavior, detailed Character/Manifestation UI, skins, equipment affinity/proficiency presentation, Gacha/Territory/Records/World/Turn UI, number formatting, recovery/package UX and offline-loss semantics. Do not re-ask these decisions unless explicitly revised.
