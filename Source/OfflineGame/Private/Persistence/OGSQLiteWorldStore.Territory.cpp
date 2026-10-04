@@ -243,6 +243,23 @@ bool FOGSQLiteWorldStore::UpsertTerritory(
         return Fail(LocationError);
     }
 
+    FOGLocationTerritoryRecord RootRelation;
+    RootRelation.LocationId =
+        Territory.RootLocationId;
+    RootRelation.TerritoryId =
+        Territory.TerritoryId;
+    RootRelation.RelationKind =
+        FName(TEXT("contained"));
+    RootRelation.CoverageBps = 10000;
+
+    FString RelationError;
+    if (!UpsertLocationTerritory(
+            RootRelation,
+            RelationError))
+    {
+        return Fail(RelationError);
+    }
+
     if (bOwnTransaction &&
         !CommitTransaction(OutError))
     {
