@@ -175,3 +175,11 @@ The previously defined Core-fusion architecture remains fully in force alongside
 - high-value combinations may receive bespoke authored upgrades after the systemic synthesis already works.
 
 Losing the fused Core therefore risks the synthesized heart of the resulting Domain rather than only one pre-fusion component.
+
+## Strategic logistics / Project clarification
+
+Resource balances remain aggregate, but availability and transfer obey actual geography, infrastructure, world laws and owned capabilities. Teleportation, flight, dimensional transit or other valid transport mechanisms may legitimately bypass ordinary routes when their real constraints permit it; the game never forbids a capability merely to force conventional logistics.
+
+The common Project framework is the default for any long-running undertaking whose progression matters: construction, reconstruction, research, training programs, fortification, infrastructure, rituals, Core recovery, reverse engineering and similar work. Bespoke phases are added only when the specific undertaking needs them.
+
+Detailed civilization, logistics, Dispatch and world-time rules are defined in docs/CIVILIZATION_LOGISTICS_TIME.md.
