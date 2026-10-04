@@ -36,7 +36,7 @@ Romance/partnership may exist independently and imposes no universal sexual-cont
 
 ## 3. Character sexual profile
 
-Eligible characters can define character-specific:
+Canonically adult characters can define character-specific:
 - libido / sexual drive intensity;
 - preferences;
 - initiative tendency;
@@ -89,7 +89,7 @@ The systemic layer and premium layer coexist rather than one replacing the other
 
 Adult scenes may occur in any physically/contextually appropriate location rather than one dedicated menu/gallery room.
 
-All canonically adult/mature eligible characters may potentially participate, including:
+All characters whose canonical lore defines them as adult/mature may potentially participate, including:
 - gacha Manifestations;
 - adult world-born NPCs;
 - promoted NPCs;
@@ -130,7 +130,7 @@ To scale across a very large roster, the adult-content pipeline uses:
 
 Systemic scenes are composed only from validated compatible assets/state. The runtime does not procedurally invent production-quality explicit assets.
 
-Every major adult-eligible gacha character should ship with meaningful mature-content support in the initial character package, and the long-term target is meaningful mature-content coverage for the full eligible roster rather than a tiny special subset.
+Every major canonically adult gacha character should ship with meaningful mature-content support in the initial character package, and the long-term target is meaningful mature-content coverage for the full canonically adult roster rather than a tiny special subset.
 
 ## 9. Archive / replay
 
@@ -162,7 +162,7 @@ Violence materials are target-specific:
 - energy disruption;
 - other appropriate material behavior.
 
-Clothing/outfit damage is stateful and can expose the body on eligible adult characters when the actual clothing state reaches that point.
+Clothing/outfit damage is stateful and can expose the body on canonically adult characters when the actual clothing state reaches that point.
 
 ## 11. Privacy / SFW presentation mode
 
