@@ -50,6 +50,15 @@ Featured expectation check: because the first qualifying top result is featured 
 
 Currency income must be tuned against pull counts using pulls per active-hour band, pulls per in-game month, Territory/Domain passive income, one-time exploration/story/boss income, repeatable income, and offline/catch-up income. Do not freeze a real-world weekly quota because the World Director is world-time/state driven.
 
+First revised income target for simulation: **6-9 pull-equivalents per active gameplay hour averaged across a mature save**, counting burst rewards and renewable sources together rather than paying a flat hourly stipend.
+
+At the current featured distribution:
+- 6/h -> mean featured about 10.1 h, median about 9.3 h, 95th about 18.7 h, hard ceiling about 23.3 h of equivalent value;
+- 8/h -> mean about 7.6 h, median 7.0 h, 95th 14.0 h, hard ceiling 17.5 h;
+- 9/h -> mean about 6.8 h, median about 6.2 h, 95th about 12.4 h, hard ceiling about 15.6 h.
+
+The intended economy should be bursty and world-causal: exploration, bosses, story, discoveries, events, Territory/Domain development and major achievements can give large bursts; generic repeatable farming should be lower. Because there is no IAP, economy tuning should preserve excitement without importing frustration-based monetization pacing.
+
 ## Combat baselines
 
 ### Per-character stat doctrine
@@ -66,11 +75,65 @@ Skills/forms/equipment/Factors/Rank/effects may modify those resolved values. Th
 - Use 2.5 seconds as the generic perfect-dodge slow baseline inside the accepted 2-3 second range; character-specific mechanics may differ.
 - Perfect dodge has no universal reward proc.
 
+### Negative DEF / penetration candidate
+
+The positive-DEF family remains:
+
+`DEF >= 0: M = R / (R + DEF)`
+
+To preserve unbounded large-damage potential without the singularity produced by extending that denominator through negative DEF, test an exponential negative-DEF branch:
+
+`DEF < 0: M = B^(-DEF / R)`
+
+where `R` is the skill/content defense reference and `B` is an authored negative-defense growth base. First baseline sweep uses `B = 2`.
+
+With B=2:
+- DEF = -R -> x2;
+- DEF = -2R -> x4;
+- DEF = -5R -> x32;
+- DEF = -10R -> x1024;
+- deeper negative DEF continues without a hard ceiling.
+
+Skills/characters specialized around defense destruction may author a different B/reference behavior. The large-number combat type handles extreme results; tuning should prevent accidental explosions without imposing an arbitrary damage ceiling.
+
 ## Rank power and suppression
 
-Do not hard-code one visible stat multiplier per Rank. Use a data-defined Rank band coefficient beneath normalized player-facing stats.
+Rank uses a **shared existential Rank coefficient plus character/stat-specific growth**, not one universal stat multiplier.
 
-The coefficient curve must be strictly increasing and superlinear: late breakthroughs can exceed several early breakthroughs combined, while same/adjacent Rank fights still mostly use ordinary mechanics.
+First stronger simulator candidate:
+
+`R(r) = 10^(0.40r + 0.040r²)`
+
+where Mortal is r=0 and Primordial is r=16.
+
+Approximate coefficient checkpoints:
+- Mortal = 1;
+- Awakened = 2.75;
+- Hero = 1.74e2;
+- Sage = 1.00e3;
+- Saint = 6.92e3;
+- Legend = 5.75e4;
+- Celestial = 1.00e8;
+- Divine = 1.74e9;
+- Cosmic = 3.63e10;
+- Dimensional = 9.12e11;
+- Immortal = 2.75e13;
+- Eternal = 1.00e15;
+- Primordial = 4.37e16.
+
+Late single-step ratios therefore become much larger than early steps; Eternal -> Primordial is about x43.65 in the common existential coefficient.
+
+For ordinary magnitude stats, the initial model is:
+
+`ResolvedStat_s = CharacterBase_s × R(r) × CharacterRankFactor_s(r, build)`
+
+where `CharacterRankFactor_s` is different for every stat/character/build and may itself evolve with Levels, Factors, equipment, forms and route state.
+
+Probability/rate stats such as Crit Rate, Hit, Dodge and Block remain character-specific too; they should use stat-appropriate response/overflow semantics rather than blindly treating the existential coefficient as a literal percentage multiplier.
+
+The Rank coefficient is therefore a shared scale contribution, while individual stat identity remains character-authored.
+
+The coefficient curve must be strictly increasing and superlinear. Same/adjacent Rank interactions use ordinary mechanics rather than an extra categorical suppression layer, even though raw stat differences may already be very large.
 
 Initial simulator sweep categories:
 
@@ -80,7 +143,9 @@ Initial simulator sweep categories:
 - about 4: strong suppression;
 - >=5 or equivalent high-band coefficient gap: extreme/existence-level suppression without a bypass.
 
-At high Ranks, use coefficient gap rather than only ordinal distance.
+First channel-suppression sweep for lower -> higher interaction: approximately 100% / 100% / 75% / 40% / 15% / 3% at gaps 0 / 1 / 2 / 3 / 4 / 5+, subject to channel-specific retuning.
+
+At high Ranks, use coefficient gap as well as ordinal distance.
 
 Tune separate channels for physical damage, effect/debuff penetration, control, perception/sensing, presence/environment tolerance, and resistance breaking.
 
