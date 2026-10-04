@@ -1,19 +1,17 @@
 # G2 Runtime Harness
 
-Checkpoint G2 remains an architectural proof. It does not freeze any of the
-mechanics that the master design baseline still marks OPEN.
+Checkpoint G2 is retained as **pre-reconciliation proof infrastructure**. It is not the current player-facing contract and must not be compiled/tested as if its acquisition/Territory assumptions were final.
 
 ## Persistent scenario harness
 
-`FOGVerticalSliceScenarioHarness` connects the existing authoritative systems
-through one SQLite history:
+`FOGVerticalSliceScenarioHarness` currently connects the older runtime systems through one SQLite history. The present sequence is intentionally documented here as **stale behavior to replace**:
 
 1. create the proof Ruler and physical wilderness location;
 2. seed aggregate pull/build resources;
-3. perform one deterministic persistent gacha pull;
+3. perform one deterministic persistent gacha pull **before Territory exists (superseded; must be removed)**;
 4. validate a World Mode switch party using the acquired Manifestation;
 5. persist physical presence and an Explored location-knowledge fact;
-6. create one territory and Domain Core;
+6. create one territory and Domain Core **after the pull (superseded order)**;
 7. apply a persistent World Mode consequence by damaging the Domain Core;
 8. start and lazily complete one aggregate Project;
 9. run one deterministic turn-battle replay;
@@ -80,3 +78,9 @@ existence does not mean an Android package has passed yet.
 Diagnostics generated through `UOGGameCoreSubsystem` now include the current
 aggregate performance snapshot alongside schema/integrity metadata, without
 copying world/save payloads.
+
+## Reconciliation target
+
+Before the real build gate, rewrite this harness to match `VERTICAL_SLICE.md` and `RECONCILIATION_MIGRATION_MATRIX.md`, including one-month sovereignty qualification, permanent gacha unlock, multiple same-Identity Manifestations, first Territory anchoring, five-day reclamation/Core-heart state, and shared action/turn identity-exclusivity validation.
+
+No UE compile/automation result obtained from the current stale harness is considered architectural certification.
