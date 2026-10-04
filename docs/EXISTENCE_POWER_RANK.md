@@ -46,6 +46,16 @@ This document records the current authoritative personal-power Rank architecture
 - Exact coefficients are tuning data.
 - Build identity, counters and explicit mechanics continue to matter.
 
+### Character-specific stat response
+
+The common Rank coefficient contributes to character magnitude but does not force every stat to grow by the same ratio.
+
+For each character/Manifestation, individual stats use authored Rank-response behavior. A tank may gain HP/DEF faster than ATK; a speed specialist may disproportionately increase speed/perception; a glass cannon may do the inverse.
+
+A useful tuning form is `BaseStat × R(r)^alpha_s × localLevelGrowth × sparseBreakthroughBias × build modifiers`, with `alpha_s` and related response data defined per character/stat and mutable through real progression when appropriate.
+
+This allows same-Rank characters to differ by multiple orders of magnitude in individual stats without making Rank meaningless.
+
 ## 4. Breakthroughs
 
 - Reaching Level 100 unlocks eligibility to attempt/fulfill a next-Rank breakthrough rather than overflowing XP into the next Rank.
