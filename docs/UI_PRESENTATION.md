@@ -517,3 +517,171 @@ Backup manager shows snapshot date, world progress, schema/build version and int
 Package manager exposes installed Worlds/regions/characters/media packages, size, version, storage location, update state and move/archive controls.
 
 Large package downloads default to Wi-Fi/unmetered automatic download, configurable in Settings.
+
+
+## 15. Detailed character / roster UI freeze
+
+The full detailed contract is frozen in `TUNING_UI_FREEZE.md`.
+
+### Roster
+
+- visual/card-first Character Identity roster;
+- rarity-specific card borders/frames;
+- search plus compact sort/filter;
+- filters: Rank, Classes, Rarity, World Fantasm grade;
+- sorting over the same major dimensions where meaningful;
+- user-switchable density;
+- target default viewport: three visible roster rows;
+- one main roster tile per Character Identity;
+- Manifestations remain grouped beneath Identity.
+
+Favorite and Protected/Locked are separate concepts.
+
+### Character Identity page
+
+The user-supplied reference establishes a character-art-first composition: character presentation dominates the page while identity/progression/equipment/navigation information frames it.
+
+Major bottom tabs:
+1. Overview
+2. Skills / World Fantasm
+3. Equipment
+4. Progression
+
+Separate upper/utility destinations:
+- Forms
+- Manifestations
+- History
+- Adult
+
+The current display follows the **last-used Manifestation**.
+
+Manifestations support editable build labels and side-by-side comparison.
+
+Internal combat formulas, alpha values and Rank-contribution decomposition are not exposed in player UI.
+
+The main character page does not dump an exhaustive 1000+ learned-skill list. It shows the resolved/currently relevant kit and manageable grouped/searchable subsets.
+
+## 16. Skins / wardrobe
+
+Skins/outfits are first-class presentation content but do not automatically create a new Identity, Version, form or power state.
+
+- compatible with body/form/Version constraints;
+- cosmetic unless authored mechanics say otherwise;
+- wardrobe access is contextual to the character presentation;
+- archive/replay can filter by skin/outfit;
+- compatible physical equipment can remain visible over/with a skin;
+- removing all removable clothing/equipment reveals the actual underlying body/clothing state rather than forcing a fake permanent fallback costume.
+
+## 17. Mature-content character UI
+
+For canonically lore-adult characters, Adult is an always-accessible utility destination from the Character Identity page.
+
+It may expose:
+- profile;
+- direct interaction;
+- available systemic interactions;
+- Archive-Replay.
+
+Libido/preferences use descriptive presentation plus exact values where detailed inspection is useful.
+
+Contextual world prompts remain subtle. Archive filters include participant, Version/form, outfit/skin and location.
+
+Fast Privacy/SFW Presentation toggle is available from a convenient pause/profile surface.
+
+## 18. Equipment UI / affinity / proficiency
+
+Equipment layout follows the character's actual body/slot schema.
+
+Affinity and proficiency are separate:
+- both default to grades/stages in player UI;
+- raw numeric values appear only when genuinely useful;
+- affinity may use a continuous internal value plus authored milestones;
+- affinity never means one universal +X% damage rule.
+
+Equipment comparison includes resolved deltas, gained/lost skills/functions, compatibility, Item Rank/Quality/Evolution, affinity/proficiency implications and history.
+
+Historically significant items receive a Chronicle-style history view.
+
+Crafting UI has Known and Experiment modes.
+
+## 19. Gacha UI
+
+Banner page keeps featured presentation primary and directly shows:
+- pull currency;
+- compatible tickets;
+- pity count;
+- featured-guarantee state;
+- pull controls;
+- Details;
+- History.
+
+Details contains exact probabilities, pity behavior, pool and carry category.
+
+Pull history is filterable by banner, Identity, rarity and date.
+
+Multi-feature banners may expose an authored target/designation selector.
+
+## 20. Territory / Records UI
+
+Territory is map-first, with selected-Territory detail and quick access to Territory, Domain/Core, Dispatch, Projects, Armies/War and Logistics.
+
+Territory and Domain remain distinct.
+
+Large sovereignty navigation is hierarchical or fragmented when that is more usable.
+
+Major analytical overlays are tap-to-enable and normally one major overlay is active at once.
+
+Records always opens to its general chooser/hub rather than remembering the last internal tab.
+
+Chronicle is timeline-first/filterable; Intelligence marks Confirmed/Estimated/Rumor/Contradicted/Outdated; Codex uses searchable entity categories.
+
+## 21. World Mode HUD details
+
+Companion switch portraits/status are placed on the **upper-right** in an HI3-like composition rather than next to the lower-right combat controls.
+
+The controlled character receives the main HP/resource presentation.
+
+Status icons are tappable for detailed information; hold is not required.
+
+## 22. Number presentation
+
+Player-facing numbers do **not** use scientific notation or x10^n notation.
+
+Use integer/suffix notation (for example 6B = 6 billion) and extend the suffix system to larger magnitudes.
+
+Stat/character screens have no fixed ten-character limit and can use the available width without absurdly shrinking text.
+
+Floating combat numbers target roughly ten visible characters maximum:
+- Unknown when knowledge does not permit precision;
+- Exceed when the compact display range is exceeded.
+
+For extremely large logical hit counts, do not show `value × N`. Resolve all hits authoritatively but repeat representative integer/suffix trigger popups only a few times for presentation.
+
+## 23. Turn battle UI
+
+Add 3x speed beside 1x/2x.
+
+Use an upcoming-action timeline strip with advances/delays/interrupts.
+
+Auto has quick presets and an advanced per-team conditional rule editor.
+
+Normal player-facing recap is intentionally limited per character to:
+- direct/active damage dealt;
+- DoT damage dealt;
+- total healing/restoration delivered by any means.
+
+## 24. Opening / recovery / package UI
+
+Use a real title/opening screen, not a bare utility menu. Final moving-vs-still treatment is deferred to the later presentation/art pass.
+
+Primary opening actions:
+- Continue;
+- Recover Existing World;
+- Import Backup;
+- Settings.
+
+Clear World is secondary/destructive.
+
+Backup manager and package/storage manager expose the detailed state defined in `TUNING_UI_FREEZE.md`.
+
+Large package downloads default to automatic download on Wi-Fi/unmetered connection.
