@@ -54,10 +54,10 @@ Do not tune one fixed pull-equivalent/hour target for the entire persistent game
 
 Use **progression/source bands** as simulator scenarios, not account-level multipliers:
 
-- newly qualified Ruler: test roughly 3-6 pull-equivalents/hour during acquisition-focused play;
-- established Ruler/Domain: roughly 6-12/hour;
-- ordinary Overlord-scale economy: roughly 12-25/hour;
-- extreme late-game Overlord / dedicated high-order farming: test 25-50+/hour where actual content/sovereignty/resource production justifies it.
+- newly qualified Ruler: roughly **4-8 pull-equivalents/hour** during acquisition-focused play;
+- established Ruler/Domain: roughly **7-14/hour**;
+- ordinary Overlord-scale economy: roughly **14-27/hour**;
+- extreme late-game Overlord / dedicated high-order farming: roughly **27-52+/hour** where actual content/sovereignty/resource production justifies it.
 
 These bands count ordinary currency plus the expected acquisition value of tickets and burst rewards. They are not guaranteed wages.
 
@@ -127,7 +127,7 @@ For every stat using the Rank-elasticity model at every Rank, the authored chara
 This is a universal tuning-domain restriction on alpha itself, while the actual alpha value remains independently authored per character/stat/build. A character may have HP alpha 2.35, ATK alpha 1.42 and DEF alpha 2.10 while another has the inverse.
 
 At Primordial's current candidate R≈4.37e16, this alpha envelope permits enormous divergence:
-- alpha 1.10 -> about 8.6e18 scale contribution;
+- alpha 1.10 -> about 2.02e18 scale contribution;
 - alpha 1.50 -> about 9.1e24;
 - alpha 2.00 -> about 1.9e33;
 - alpha 2.50 -> about 4.0e41.
@@ -140,6 +140,16 @@ Do **not** assign one alpha profile by generic RPG role and reuse it across the 
 
 Probability/rate/action-frequency stats can use character-specific response functions rather than blindly applying the magnitude formula. Crit/Hit/Dodge/Block/Speed may still become enormous where intended, but the runtime may analytically batch overflow effects/actions for performance instead of simulating billions of identical instances.
 
+### Within-Rank Level / breakthrough split
+
+Accepted target:
+- approximately **35% of each Rank step's logarithmic growth** is distributed through Levels 1-100;
+- approximately **65%** is delivered by the actual breakthrough into the next Rank.
+
+The Level 1-100 curve is character-specific, not universally linear. Each authored curve is normalized to the shared 35% envelope.
+
+Character/stat-specific breakthrough biases may exceed the smooth Rank projection when the actual transformation/lore warrants it.
+
 ### Negative DEF / penetration candidate
 
 The positive-DEF family remains:
@@ -150,7 +160,7 @@ To preserve unbounded large-damage potential without the singularity produced by
 
 `DEF < 0: M = B^(-DEF / R)`
 
-where `R` is the skill/content defense reference and `B` is an authored negative-defense growth base. First baseline sweep uses `B = 2`.
+where `R` is the skill/content defense reference and `B` is an authored negative-defense growth base. The accepted generic baseline is `B = 2`; skills/characters may explicitly author another base/reference.
 
 With B=2:
 - DEF = -R -> x2;
@@ -213,6 +223,14 @@ First channel-suppression sweep for lower -> higher interaction: approximately 1
 At high Ranks, use coefficient gap as well as ordinal distance.
 
 Tune separate channels for physical damage, effect/debuff penetration, control, perception/sensing, presence/environment tolerance, and resistance breaking.
+
+### GP / Power presentation constraint
+
+GP/Power remains a non-authoritative summary estimate.
+
+A logarithmic representation may be used **internally** to combine extreme values safely, but the raw logarithm is never shown as GP. Player-facing GP must be converted back into the normal large-number/suffix presentation so it remains intuitively magnitude-relative to the underlying stats.
+
+Exact weighting/calibration remains simulator-tunable.
 
 ## Turn timing
 
