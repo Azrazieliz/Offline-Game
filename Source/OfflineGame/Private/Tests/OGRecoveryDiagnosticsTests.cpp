@@ -209,6 +209,23 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS logistics_routes;"
+            "DROP TABLE IF EXISTS civilization_dimensions;"
+            "DROP TABLE IF EXISTS civilization_state;"
+            "DROP TABLE IF EXISTS project_assignments;"
+            "DROP TABLE IF EXISTS project_phases;"
+            "DROP TABLE IF EXISTS army_capabilities;"
+            "DROP TABLE IF EXISTS war_participant_history;"
+            "DROP TABLE IF EXISTS war_orders;"
+            "DROP TABLE IF EXISTS war_objectives;"
+            "DROP TABLE IF EXISTS war_fronts;"
+            "DROP TABLE IF EXISTS dispatch_constraints;"
+            "DROP TABLE IF EXISTS dispatch_objectives;"
+            "ALTER TABLE dispatches DROP COLUMN delay_until_world_tick;"
+            "ALTER TABLE dispatches DROP COLUMN outcome_state;"
+            "ALTER TABLE dispatches DROP COLUMN abort_policy_json;"
+            "ALTER TABLE dispatches DROP COLUMN risk_tolerance_bps;"
+            "DELETE FROM schema_migrations WHERE version = 12;"
             "DROP TABLE IF EXISTS offline_simulation_state;"
             "DROP TABLE IF EXISTS content_unlock_state;"
             "DROP TABLE IF EXISTS world_director_schedule;"
@@ -253,7 +270,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestEqual(TEXT("Source schema recorded"),
         Result.SourceSchemaVersion, 8);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 11);
+        Result.TargetSchemaVersion, 12);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -265,7 +282,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 11"),
+        TestEqual(TEXT("Promoted schema is 12"),
             Store.GetSchemaVersion(Error), 12);
 
         bool bFound = false;
@@ -330,15 +347,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0011 table while removing only its ledger row.
+    // Break a migration-0012 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
     // working-copy validation must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE time_domains DROP COLUMN rate_denominator;"
-            "DELETE FROM schema_migrations WHERE version = 11;",
+            "ALTER TABLE project_phases DROP COLUMN progress_bps;"
+            "DELETE FROM schema_migrations WHERE version = 12;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -486,6 +503,23 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS logistics_routes;"
+            "DROP TABLE IF EXISTS civilization_dimensions;"
+            "DROP TABLE IF EXISTS civilization_state;"
+            "DROP TABLE IF EXISTS project_assignments;"
+            "DROP TABLE IF EXISTS project_phases;"
+            "DROP TABLE IF EXISTS army_capabilities;"
+            "DROP TABLE IF EXISTS war_participant_history;"
+            "DROP TABLE IF EXISTS war_orders;"
+            "DROP TABLE IF EXISTS war_objectives;"
+            "DROP TABLE IF EXISTS war_fronts;"
+            "DROP TABLE IF EXISTS dispatch_constraints;"
+            "DROP TABLE IF EXISTS dispatch_objectives;"
+            "ALTER TABLE dispatches DROP COLUMN delay_until_world_tick;"
+            "ALTER TABLE dispatches DROP COLUMN outcome_state;"
+            "ALTER TABLE dispatches DROP COLUMN abort_policy_json;"
+            "ALTER TABLE dispatches DROP COLUMN risk_tolerance_bps;"
+            "DELETE FROM schema_migrations WHERE version = 12;"
             "DROP TABLE IF EXISTS offline_simulation_state;"
             "DROP TABLE IF EXISTS content_unlock_state;"
             "DROP TABLE IF EXISTS world_director_schedule;"
@@ -753,6 +787,23 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS logistics_routes;"
+            "DROP TABLE IF EXISTS civilization_dimensions;"
+            "DROP TABLE IF EXISTS civilization_state;"
+            "DROP TABLE IF EXISTS project_assignments;"
+            "DROP TABLE IF EXISTS project_phases;"
+            "DROP TABLE IF EXISTS army_capabilities;"
+            "DROP TABLE IF EXISTS war_participant_history;"
+            "DROP TABLE IF EXISTS war_orders;"
+            "DROP TABLE IF EXISTS war_objectives;"
+            "DROP TABLE IF EXISTS war_fronts;"
+            "DROP TABLE IF EXISTS dispatch_constraints;"
+            "DROP TABLE IF EXISTS dispatch_objectives;"
+            "ALTER TABLE dispatches DROP COLUMN delay_until_world_tick;"
+            "ALTER TABLE dispatches DROP COLUMN outcome_state;"
+            "ALTER TABLE dispatches DROP COLUMN abort_policy_json;"
+            "ALTER TABLE dispatches DROP COLUMN risk_tolerance_bps;"
+            "DELETE FROM schema_migrations WHERE version = 12;"
             "DROP TABLE IF EXISTS offline_simulation_state;"
             "DROP TABLE IF EXISTS content_unlock_state;"
             "DROP TABLE IF EXISTS world_director_schedule;"
@@ -802,7 +853,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        11);
+        12);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1091,6 +1142,23 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS logistics_routes;"
+            "DROP TABLE IF EXISTS civilization_dimensions;"
+            "DROP TABLE IF EXISTS civilization_state;"
+            "DROP TABLE IF EXISTS project_assignments;"
+            "DROP TABLE IF EXISTS project_phases;"
+            "DROP TABLE IF EXISTS army_capabilities;"
+            "DROP TABLE IF EXISTS war_participant_history;"
+            "DROP TABLE IF EXISTS war_orders;"
+            "DROP TABLE IF EXISTS war_objectives;"
+            "DROP TABLE IF EXISTS war_fronts;"
+            "DROP TABLE IF EXISTS dispatch_constraints;"
+            "DROP TABLE IF EXISTS dispatch_objectives;"
+            "ALTER TABLE dispatches DROP COLUMN delay_until_world_tick;"
+            "ALTER TABLE dispatches DROP COLUMN outcome_state;"
+            "ALTER TABLE dispatches DROP COLUMN abort_policy_json;"
+            "ALTER TABLE dispatches DROP COLUMN risk_tolerance_bps;"
+            "DELETE FROM schema_migrations WHERE version = 12;"
             "DROP TABLE IF EXISTS offline_simulation_state;"
             "DROP TABLE IF EXISTS content_unlock_state;"
             "DROP TABLE IF EXISTS world_director_schedule;"
@@ -1135,7 +1203,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        11);
+        12);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1317,6 +1385,23 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 9"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS logistics_routes;"
+            "DROP TABLE IF EXISTS civilization_dimensions;"
+            "DROP TABLE IF EXISTS civilization_state;"
+            "DROP TABLE IF EXISTS project_assignments;"
+            "DROP TABLE IF EXISTS project_phases;"
+            "DROP TABLE IF EXISTS army_capabilities;"
+            "DROP TABLE IF EXISTS war_participant_history;"
+            "DROP TABLE IF EXISTS war_orders;"
+            "DROP TABLE IF EXISTS war_objectives;"
+            "DROP TABLE IF EXISTS war_fronts;"
+            "DROP TABLE IF EXISTS dispatch_constraints;"
+            "DROP TABLE IF EXISTS dispatch_objectives;"
+            "ALTER TABLE dispatches DROP COLUMN delay_until_world_tick;"
+            "ALTER TABLE dispatches DROP COLUMN outcome_state;"
+            "ALTER TABLE dispatches DROP COLUMN abort_policy_json;"
+            "ALTER TABLE dispatches DROP COLUMN risk_tolerance_bps;"
+            "DELETE FROM schema_migrations WHERE version = 12;"
             "DROP TABLE IF EXISTS offline_simulation_state;"
             "DROP TABLE IF EXISTS content_unlock_state;"
             "DROP TABLE IF EXISTS world_director_schedule;"
@@ -1356,7 +1441,7 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        11);
+        12);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1480,6 +1565,23 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 10"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS logistics_routes;"
+            "DROP TABLE IF EXISTS civilization_dimensions;"
+            "DROP TABLE IF EXISTS civilization_state;"
+            "DROP TABLE IF EXISTS project_assignments;"
+            "DROP TABLE IF EXISTS project_phases;"
+            "DROP TABLE IF EXISTS army_capabilities;"
+            "DROP TABLE IF EXISTS war_participant_history;"
+            "DROP TABLE IF EXISTS war_orders;"
+            "DROP TABLE IF EXISTS war_objectives;"
+            "DROP TABLE IF EXISTS war_fronts;"
+            "DROP TABLE IF EXISTS dispatch_constraints;"
+            "DROP TABLE IF EXISTS dispatch_objectives;"
+            "ALTER TABLE dispatches DROP COLUMN delay_until_world_tick;"
+            "ALTER TABLE dispatches DROP COLUMN outcome_state;"
+            "ALTER TABLE dispatches DROP COLUMN abort_policy_json;"
+            "ALTER TABLE dispatches DROP COLUMN risk_tolerance_bps;"
+            "DELETE FROM schema_migrations WHERE version = 12;"
             "DROP TABLE IF EXISTS offline_simulation_state;"
             "DROP TABLE IF EXISTS content_unlock_state;"
             "DROP TABLE IF EXISTS world_director_schedule;"
@@ -1491,7 +1593,7 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 10 to 11"),
+        TEXT("Safe bootstrap migrates schema 10 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -1503,12 +1605,12 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        11);
+        12);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-11 database"),
+            TEXT("Open migrated current-schema database"),
             Store.Open(
                 DatabasePath,
                 Error));
