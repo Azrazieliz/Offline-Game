@@ -4,41 +4,72 @@ bool FOGActionCombatAdapter::ValidateSwitchParty(
     const TArray<FOGCombatUnitState>& Party,
     FString& OutError)
 {
+    return ValidateSwitchParty(
+        Party,
+        FOGIdentityExclusivityContext(),
+        OutError);
+}
+
+bool FOGActionCombatAdapter::ValidateSwitchParty(
+    const TArray<FOGCombatUnitState>& Party,
+    const FOGIdentityExclusivityContext& IdentityContext,
+    FString& OutError)
+{
     OutError.Reset();
 
     // Ruler + up to two switch/QTE companions.
-    if (Party.IsEmpty() || Party.Num() > 3)
+    if (Party.IsEmpty() ||
+        Party.Num() > 3)
     {
-        OutError = TEXT("World Mode action party must contain one to three characters.");
+        OutError =
+            TEXT("World Mode action party must contain one to three characters.");
         return false;
     }
 
     TSet<FOGEntityId> Units;
-    TSet<FOGContentId> Identities;
 
-    for (const FOGCombatUnitState& Unit : Party)
+    for (const FOGCombatUnitState& Unit :
+         Party)
     {
-        if (!Unit.UnitEntityId.IsValid() || !Unit.IdentityId.IsValid())
+        if (!Unit.UnitEntityId.IsValid() ||
+            !Unit.IdentityId.IsValid())
         {
-            OutError = TEXT("Action party contains invalid unit/identity data.");
+            OutError =
+                TEXT("Action party contains invalid unit/identity data.");
             return false;
         }
 
-        if (Units.Contains(Unit.UnitEntityId))
+        if (Units.Contains(
+                Unit.UnitEntityId))
         {
-            OutError = TEXT("Action party contains the same Manifestation more than once.");
+            OutError =
+                TEXT("Action party contains the same Manifestation more than once.");
             return false;
         }
 
-        if (Identities.Contains(Unit.IdentityId))
-        {
-            OutError = TEXT("Action party violates local Character Identity exclusivity.");
-            return false;
-        }
-
-        Units.Add(Unit.UnitEntityId);
-        Identities.Add(Unit.IdentityId);
+        Units.Add(
+            Unit.UnitEntityId);
     }
 
-    return true;
+    return ValidateLocalIdentityExclusivity(
+        Party,
+        IdentityContext,
+        OutError);
+}
+
+bool FOGActionCombatAdapter::ResolveRankSuppressionMultiplier(
+    const FOGCombatUnitState& Source,
+    const FOGCombatUnitState& Target,
+    FName ChannelId,
+    const FOGRankSuppressionResolver& Resolver,
+    int32& OutMultiplierBps,
+    FString& OutError)
+{
+    return FOGCombatRankHooks::ResolveChannelMultiplier(
+        Source,
+        Target,
+        ChannelId,
+        Resolver,
+        OutMultiplierBps,
+        OutError);
 }
