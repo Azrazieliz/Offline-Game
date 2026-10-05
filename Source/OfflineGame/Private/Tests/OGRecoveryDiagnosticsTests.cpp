@@ -1664,4 +1664,317 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
     return true;
 }
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGStrategy0012LegacyProjectionMigrationTest,
+    "OfflineGame.Persistence.Migration0012.PreservesWarHistoryWithoutFabricatingCapabilities",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_strategy.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId OwnerId =
+        FOGEntityId::NewId();
+    const FOGEntityId ParticipantId =
+        FOGEntityId::NewId();
+    const FOGEntityId FactionA =
+        FOGEntityId::NewId();
+    const FOGEntityId FactionB =
+        FOGEntityId::NewId();
+    const FOGEntityId LocationId =
+        FOGEntityId::NewId();
+    const FOGEntityId ArmyId =
+        FOGEntityId::NewId();
+    const FOGEntityId DispatchId =
+        FOGEntityId::NewId();
+    const FOGEntityId WarId =
+        FOGEntityId::NewId();
+
+    FString Error;
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema strategy fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 12"),
+            Store.GetSchemaVersion(
+                Error),
+            12);
+
+        TestTrue(
+            TEXT("Persist legacy Dispatch owner"),
+            Store.UpsertEntity(
+                OwnerId,
+                FName(TEXT("ruler")),
+                0,
+                TEXT("{}"),
+                Error));
+        TestTrue(
+            TEXT("Persist legacy Dispatch participant"),
+            Store.UpsertEntity(
+                ParticipantId,
+                FName(TEXT("character")),
+                0,
+                TEXT("{}"),
+                Error));
+
+        FOGDispatchRecord Dispatch;
+        Dispatch.DispatchId =
+            DispatchId;
+        Dispatch.OwnerEntityId =
+            OwnerId;
+        Dispatch.Status =
+            EOGDispatchStatus::Succeeded;
+        Dispatch.ParticipantEntityIds =
+            {ParticipantId};
+        Dispatch.StartWorldTick = 10;
+        Dispatch.ResolveWorldTick = 20;
+        Dispatch.RiskBps = 2500;
+        Dispatch.ResultJson =
+            TEXT("{\"legacy_success\":true}");
+
+        TestTrue(
+            TEXT("Persist pre-0012-style successful Dispatch"),
+            Store.UpsertDispatch(
+                Dispatch,
+                10,
+                Error));
+
+        FOGFactionRecord A;
+        A.FactionId =
+            FactionA;
+        A.Kind =
+            FName(TEXT("faction"));
+        A.Population = 100;
+
+        FOGFactionRecord B =
+            A;
+        B.FactionId =
+            FactionB;
+
+        TestTrue(
+            TEXT("Persist legacy faction A"),
+            Store.UpsertFaction(
+                A,
+                0,
+                Error));
+        TestTrue(
+            TEXT("Persist legacy faction B"),
+            Store.UpsertFaction(
+                B,
+                0,
+                Error));
+
+        FOGLocationRecord Location;
+        Location.LocationId =
+            LocationId;
+        Location.Kind =
+            FName(TEXT("region"));
+        TestTrue(
+            TEXT("Persist legacy Army location"),
+            Store.UpsertLocation(
+                Location,
+                0,
+                Error));
+
+        FOGArmyRecord Army;
+        Army.ArmyId =
+            ArmyId;
+        Army.FactionId =
+            FactionA;
+        Army.LocationId =
+            LocationId;
+        Army.Headcount = 50;
+        Army.EffectivePower =
+            FOGLargeNumber::FromInt64(
+                5000);
+        Army.State =
+            FName(TEXT("ready"));
+
+        TestTrue(
+            TEXT("Persist legacy Army summary"),
+            Store.UpsertArmy(
+                Army,
+                0,
+                Error));
+
+        FOGWarRecord War;
+        War.WarId =
+            WarId;
+        War.Status =
+            EOGWarStatus::Active;
+        War.ObjectiveType =
+            FName(TEXT("legacy_control"));
+        War.ObjectiveTargetEntityId =
+            LocationId;
+        War.StartWorldTick = 30;
+
+        FOGWarParticipant PA;
+        PA.FactionId =
+            FactionA;
+        PA.SideIndex = 0;
+        PA.bPrimary = true;
+
+        FOGWarParticipant PB;
+        PB.FactionId =
+            FactionB;
+        PB.SideIndex = 1;
+        PB.bPrimary = true;
+
+        War.Participants =
+            {PA, PB};
+
+        TestTrue(
+            TEXT("Persist legacy continuous War parent"),
+            Store.UpsertWar(
+                War,
+                30,
+                Error));
+
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 11"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS logistics_routes;"
+            "DROP TABLE IF EXISTS civilization_dimensions;"
+            "DROP TABLE IF EXISTS civilization_state;"
+            "DROP TABLE IF EXISTS project_assignments;"
+            "DROP TABLE IF EXISTS project_phases;"
+            "DROP TABLE IF EXISTS army_capabilities;"
+            "DROP TABLE IF EXISTS war_participant_history;"
+            "DROP TABLE IF EXISTS war_orders;"
+            "DROP TABLE IF EXISTS war_objectives;"
+            "DROP TABLE IF EXISTS war_fronts;"
+            "DROP TABLE IF EXISTS dispatch_constraints;"
+            "DROP TABLE IF EXISTS dispatch_objectives;"
+            "ALTER TABLE dispatches DROP COLUMN delay_until_world_tick;"
+            "ALTER TABLE dispatches DROP COLUMN outcome_state;"
+            "ALTER TABLE dispatches DROP COLUMN abort_policy_json;"
+            "ALTER TABLE dispatches DROP COLUMN risk_tolerance_bps;"
+            "DELETE FROM schema_migrations WHERE version = 12;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 11 to 12"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("Strategy migration source schema"),
+        Migration.SourceSchemaVersion,
+        11);
+    TestEqual(
+        TEXT("Strategy migration target schema"),
+        Migration.TargetSchemaVersion,
+        12);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-12 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        bool bDispatchFound = false;
+        FOGDispatchRecord Dispatch;
+        TestTrue(
+            TEXT("Read migrated Dispatch"),
+            Store.TryReadDispatch(
+                DispatchId,
+                bDispatchFound,
+                Dispatch,
+                Error));
+        TestTrue(
+            TEXT("Legacy Dispatch survives migration"),
+            bDispatchFound);
+        TestEqual(
+            TEXT("Migration applies normalized risk-tolerance default"),
+            Dispatch.RiskToleranceBps,
+            5000);
+        TestEqual(
+            TEXT("Legacy successful Dispatch receives inferable outcome label"),
+            Dispatch.OutcomeState,
+            FName(TEXT("success")));
+
+        TArray<FOGDispatchObjectiveRecord> Objectives;
+        TestTrue(
+            TEXT("Read migrated Dispatch objectives"),
+            Store.ListDispatchObjectives(
+                DispatchId,
+                Objectives,
+                Error));
+        TestTrue(
+            TEXT("Migration never fabricates mission objectives"),
+            Objectives.IsEmpty());
+
+        TArray<FOGArmyCapabilityRecord> Capabilities;
+        TestTrue(
+            TEXT("Read migrated Army capability vector"),
+            Store.ListArmyCapabilities(
+                ArmyId,
+                Capabilities,
+                Error));
+        TestTrue(
+            TEXT("Migration never invents capability identities from cached EffectivePower"),
+            Capabilities.IsEmpty());
+
+        TArray<FOGWarParticipantHistoryRecord> History;
+        TestTrue(
+            TEXT("Read projected War participant history"),
+            Store.ListWarParticipantHistory(
+                WarId,
+                History,
+                Error));
+        TestEqual(
+            TEXT("Both authoritative legacy participants become history rows"),
+            History.Num(),
+            2);
+        TestEqual(
+            TEXT("Projected history uses canonical War start tick"),
+            History[0].JoinedWorldTick,
+            static_cast<int64>(30));
+
+        bool bCivilizationFound = false;
+        FOGCivilizationStateRecord Civilization;
+        TestTrue(
+            TEXT("Civilization lookup remains valid"),
+            Store.TryReadCivilizationState(
+                FactionA,
+                bCivilizationFound,
+                Civilization,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate a universal civilization profile"),
+            bCivilizationFound);
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
 #endif
