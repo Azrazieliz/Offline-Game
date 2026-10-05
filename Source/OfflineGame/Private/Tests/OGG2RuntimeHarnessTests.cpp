@@ -10,7 +10,7 @@
 
 namespace
 {
-FString MakeG2TestDirectory()
+FString MakeVerticalSlice0TestDirectory()
 {
     return FPaths::Combine(
         FPaths::ProjectSavedDir(),
@@ -22,7 +22,7 @@ FString MakeG2TestDirectory()
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGVerticalSliceRuntimeHarnessTest,
-    "OfflineGame.VerticalSlice.G2.PersistentEndToEndRestart",
+    "OfflineGame.VerticalSlice.Reconciled.PersistentEndToEndRestart",
     EAutomationTestFlags::ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
@@ -30,11 +30,11 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
     const FString& Parameters)
 {
     const FString Directory =
-        MakeG2TestDirectory();
+        MakeVerticalSlice0TestDirectory();
     const FString DatabasePath =
         FPaths::Combine(
             Directory,
-            TEXT("g2_slice.db"));
+            TEXT("vertical_slice0.db"));
 
     IFileManager::Get().MakeDirectory(
         *Directory,
@@ -47,7 +47,7 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
         FString Error;
 
         TestTrue(
-            TEXT("Open fresh G2 world store"),
+            TEXT("Open fresh reconciled Vertical Slice 0 world store"),
             Store.Open(
                 DatabasePath,
                 Error));
@@ -69,8 +69,37 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
             Fresh.bSucceeded);
 
         TestTrue(
-            TEXT("Fresh scenario persists a battle fingerprint"),
-            !Fresh.BattleFingerprint.IsEmpty());
+            TEXT("Fresh scenario persists a turn-battle fingerprint"),
+            !Fresh.TurnBattleFingerprint.IsEmpty());
+
+        TestTrue(
+            TEXT("Fresh scenario persists action-combat presentation"),
+            !Fresh.ActionDamageDisplay.IsEmpty());
+
+        TestTrue(
+            TEXT("Repeated pull creates two distinct full Manifestations"),
+            Fresh.FirstManifestationId.IsValid() &&
+            Fresh.SecondManifestationId.IsValid() &&
+            Fresh.FirstManifestationId !=
+                Fresh.SecondManifestationId);
+
+        TestTrue(
+            TEXT("Project proof identity is persisted"),
+            Fresh.ProjectId.IsValid());
+
+        TestTrue(
+            TEXT("Objective-driven Dispatch proof identity is persisted"),
+            Fresh.DispatchId.IsValid());
+
+        TestTrue(
+            TEXT("Continuous War proof identity is persisted"),
+            Fresh.WarId.IsValid() &&
+            Fresh.WarFrontId.IsValid());
+
+        TestTrue(
+            TEXT("Action consequence and Report provenance IDs are persisted"),
+            Fresh.ActionCombatEventId.IsValid() &&
+            Fresh.ReportId.IsValid());
 
         Store.Close();
     }
@@ -81,7 +110,7 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
         FOGVerticalSliceScenarioResult Restarted;
 
         TestTrue(
-            TEXT("Reopen G2 world store"),
+            TEXT("Reopen reconciled Vertical Slice 0 world store"),
             Store.Open(
                 DatabasePath,
                 Error));
@@ -99,18 +128,47 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
 
         TestEqual(
             TEXT("Turn-battle fingerprint survives restart"),
-            Restarted.BattleFingerprint,
-            Fresh.BattleFingerprint);
+            Restarted.TurnBattleFingerprint,
+            Fresh.TurnBattleFingerprint);
+
+        TestEqual(
+            TEXT("Action-combat presentation checkpoint survives restart"),
+            Restarted.ActionDamageDisplay,
+            Fresh.ActionDamageDisplay);
 
         TestTrue(
-            TEXT("Acquired Manifestation identity survives restart"),
-            Restarted.ManifestationId ==
-                Fresh.ManifestationId);
+            TEXT("First independent Manifestation survives restart"),
+            Restarted.FirstManifestationId ==
+                Fresh.FirstManifestationId);
+
+        TestTrue(
+            TEXT("Second independent Manifestation survives restart"),
+            Restarted.SecondManifestationId ==
+                Fresh.SecondManifestationId);
 
         TestTrue(
             TEXT("Completed Project identity survives restart"),
             Restarted.ProjectId ==
                 Fresh.ProjectId);
+
+        TestTrue(
+            TEXT("Objective-driven Dispatch identity survives restart"),
+            Restarted.DispatchId ==
+                Fresh.DispatchId);
+
+        TestTrue(
+            TEXT("Continuous War and front identities survive restart"),
+            Restarted.WarId ==
+                Fresh.WarId &&
+            Restarted.WarFrontId ==
+                Fresh.WarFrontId);
+
+        TestTrue(
+            TEXT("Action consequence and Report provenance survive restart"),
+            Restarted.ActionCombatEventId ==
+                Fresh.ActionCombatEventId &&
+            Restarted.ReportId ==
+                Fresh.ReportId);
 
         Store.Close();
     }
