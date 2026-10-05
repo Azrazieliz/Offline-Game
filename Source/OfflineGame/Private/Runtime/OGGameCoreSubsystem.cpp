@@ -3,6 +3,7 @@
 #include "Containers/Ticker.h"
 #include "Diagnostics/OGDiagnosticsBundle.h"
 #include "HAL/FileManager.h"
+#include "Misc/App.h"
 #include "Misc/Paths.h"
 #include "OfflineGame.h"
 #include "Persistence/OGSQLiteWorldStore.h"
@@ -77,10 +78,18 @@ void UOGGameCoreSubsystem::Initialize(FSubsystemCollectionBase& Collection)
         const FString SnapshotDirectory =
             FPaths::Combine(DatabaseDirectory, TEXT("Snapshots"));
 
+        const FString RecoveryCatalogPath =
+            FPaths::Combine(
+                DatabaseDirectory,
+                TEXT("RecoveryCatalog.json"));
+
         if (!FOGSnapshotService::CreateRotatingSnapshot(
                 *WorldStore,
                 SnapshotDirectory,
                 3,
+                RecoveryCatalogPath,
+                TEXT("offlinegame:canonical_world"),
+                FApp::GetBuildVersion(),
                 SnapshotPath,
                 SnapshotError))
         {
