@@ -989,17 +989,30 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
         return false;
     }
 
-    if (!Store.SetManifestationAnchor(
+    FOGEntityId FirstAnchorTerritory;
+    FOGEntityId SecondAnchorTerritory;
+    if (!TerritoryControl.AnchorManifestationForWorldMode(
+            RulerId,
             OutResult.FirstManifestationId,
-            PreferredTerritory,
             13,
+            FirstAnchorTerritory,
             OutError) ||
-        !Store.SetManifestationAnchor(
+        !TerritoryControl.AnchorManifestationForWorldMode(
+            RulerId,
             OutResult.SecondManifestationId,
-            PreferredTerritory,
             13,
-            OutError))
+            SecondAnchorTerritory,
+            OutError) ||
+        FirstAnchorTerritory !=
+            PreferredTerritory ||
+        SecondAnchorTerritory !=
+            PreferredTerritory)
     {
+        if (OutError.IsEmpty())
+        {
+            OutError =
+                TEXT("Explicit World Mode roster anchoring did not use controlled Territory.");
+        }
         return false;
     }
 
