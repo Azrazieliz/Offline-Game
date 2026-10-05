@@ -766,3 +766,127 @@ bool FOGSQLiteWorldStore::TryReadKnowledgeFact(
     sqlite3_finalize(Statement);
     return true;
 }
+
+bool FOGSQLiteWorldStore::ListKnowledgeFactsByOwner(
+    const FOGEntityId& OwnerEntityId,
+    TArray<FOGKnowledgeFactRecord>& OutFacts,
+    FString& OutError) const
+{
+    OutFacts.Reset();
+    OutError.Reset();
+
+    if (!OwnerEntityId.IsValid())
+    {
+        OutError =
+            TEXT("Knowledge fact list requires a valid owner.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "SELECT fact_key, subject_entity_id "
+        "FROM knowledge_facts "
+        "WHERE owner_entity_id = ? "
+        "ORDER BY updated_world_tick DESC, fact_key, subject_entity_id;";
+
+    if (sqlite3_prepare_v2(
+            Database,
+            Sql,
+            -1,
+            &Statement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError =
+            LastError(
+                TEXT("Prepare knowledge fact owner list"));
+        return false;
+    }
+
+    if (!BindWorldText(
+            Statement,
+            1,
+            OwnerEntityId.ToString()))
+    {
+        OutError =
+            LastError(
+                TEXT("Bind knowledge fact owner list"));
+        sqlite3_finalize(
+            Statement);
+        return false;
+    }
+
+    TArray<TPair<FName, FOGEntityId>> Keys;
+    while (true)
+    {
+        const int32 Step =
+            sqlite3_step(
+                Statement);
+        if (Step == SQLITE_DONE)
+        {
+            break;
+        }
+        if (Step != SQLITE_ROW)
+        {
+            OutError =
+                LastError(
+                    TEXT("Read knowledge fact owner list"));
+            sqlite3_finalize(
+                Statement);
+            return false;
+        }
+
+        const FName FactKey(
+            *WorldColumnText(
+                Statement,
+                0));
+        const FOGEntityId SubjectId =
+            ParseWorldEntityId(
+                WorldColumnText(
+                    Statement,
+                    1));
+
+        if (FactKey.IsNone())
+        {
+            OutError =
+                TEXT("Stored knowledge fact owner list contains an empty fact key.");
+            sqlite3_finalize(
+                Statement);
+            return false;
+        }
+
+        Keys.Emplace(
+            FactKey,
+            SubjectId);
+    }
+    sqlite3_finalize(
+        Statement);
+
+    for (const TPair<FName, FOGEntityId>& Key :
+         Keys)
+    {
+        bool bFound = false;
+        FOGKnowledgeFactRecord Fact;
+        if (!TryReadKnowledgeFact(
+                OwnerEntityId,
+                Key.Key,
+                Key.Value,
+                bFound,
+                Fact,
+                OutError) ||
+            !bFound)
+        {
+            if (OutError.IsEmpty())
+            {
+                OutError =
+                    TEXT("Knowledge fact disappeared during owner-list read.");
+            }
+            OutFacts.Reset();
+            return false;
+        }
+        OutFacts.Add(
+            MoveTemp(
+                Fact));
+    }
+
+    return true;
+}
