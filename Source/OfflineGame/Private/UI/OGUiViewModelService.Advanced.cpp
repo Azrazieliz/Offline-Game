@@ -770,6 +770,190 @@ bool FOGUiViewModelService::BuildManifestationDetail(
     return true;
 }
 
+bool FOGUiViewModelService::BuildCharacterHistory(
+    const FOGEntityId& RulerId,
+    const FOGContentId& IdentityId,
+    int32 Limit,
+    FOGCharacterHistoryViewModel& OutViewModel,
+    FString& OutError) const
+{
+    OutViewModel =
+        FOGCharacterHistoryViewModel();
+    OutViewModel.IdentityId =
+        IdentityId;
+    OutError.Reset();
+
+    if (!RulerId.IsValid() ||
+        !IdentityId.IsValid() ||
+        Limit <= 0 ||
+        Limit > 1000)
+    {
+        OutError =
+            TEXT("Character History projection request is invalid.");
+        return false;
+    }
+
+    TArray<FOGCharacterManifestationRecord> Manifestations;
+    if (!Store.ListCharacterManifestationsByOwnerAndIdentity(
+            RulerId,
+            IdentityId,
+            Manifestations,
+            OutError))
+    {
+        return false;
+    }
+
+    TSet<FOGEntityId> SeenWorldEvents;
+
+    for (const FOGCharacterManifestationRecord& Manifestation :
+         Manifestations)
+    {
+        FOGCharacterHistoryEntryViewModel Acquisition;
+        Acquisition.WorldTick =
+            Manifestation.AcquisitionWorldTick;
+        Acquisition.Category =
+            FName(TEXT("acquisition"));
+        Acquisition.EventOrEntityId =
+            Manifestation.ManifestationId;
+        Acquisition.ManifestationId =
+            Manifestation.ManifestationId;
+        Acquisition.ContentId =
+            Manifestation.ActiveVersionId;
+        OutViewModel.Entries.Add(
+            MoveTemp(Acquisition));
+
+        TArray<FOGManifestationRouteNodeRecord> Routes;
+        if (!Store.ListManifestationRouteNodes(
+                Manifestation.ManifestationId,
+                Routes,
+                OutError))
+        {
+            return false;
+        }
+
+        for (const FOGManifestationRouteNodeRecord& Route :
+             Routes)
+        {
+            if (!Route.bHasEnteredWorldTick &&
+                !Route.bHasCompletedWorldTick)
+            {
+                continue;
+            }
+
+            FOGCharacterHistoryEntryViewModel RouteEntry;
+            RouteEntry.WorldTick =
+                Route.bHasCompletedWorldTick
+                    ? Route.CompletedWorldTick
+                    : Route.EnteredWorldTick;
+            RouteEntry.Category =
+                Route.bHasCompletedWorldTick
+                    ? FName(TEXT("route_breakthrough"))
+                    : FName(TEXT("route_choice"));
+            RouteEntry.ManifestationId =
+                Manifestation.ManifestationId;
+            RouteEntry.ContentId =
+                Route.NodeId;
+            RouteEntry.StateJson =
+                Route.StateJson;
+            OutViewModel.Entries.Add(
+                MoveTemp(RouteEntry));
+        }
+
+        TArray<FOGWorldEvent> Events;
+        if (!Store.ListWorldEvents(
+                Manifestation.ManifestationId,
+                NAME_None,
+                true,
+                1000,
+                Events,
+                OutError))
+        {
+            return false;
+        }
+
+        for (const FOGWorldEvent& Event :
+             Events)
+        {
+            if (SeenWorldEvents.Contains(
+                    Event.EventId))
+            {
+                continue;
+            }
+            SeenWorldEvents.Add(
+                Event.EventId);
+
+            FOGCharacterHistoryEntryViewModel EventEntry;
+            EventEntry.WorldTick =
+                Event.WorldTick;
+            EventEntry.Category =
+                Event.EventType;
+            EventEntry.EventOrEntityId =
+                Event.EventId;
+            EventEntry.ManifestationId =
+                Manifestation.ManifestationId;
+            EventEntry.StateJson =
+                Event.PayloadJson;
+            OutViewModel.Entries.Add(
+                MoveTemp(EventEntry));
+        }
+    }
+
+    TArray<FOGCharacterConvergenceRecord> Convergences;
+    if (!Store.ListCharacterConvergencesByIdentity(
+            IdentityId,
+            Convergences,
+            OutError))
+    {
+        return false;
+    }
+
+    for (const FOGCharacterConvergenceRecord& Convergence :
+         Convergences)
+    {
+        FOGCharacterHistoryEntryViewModel Entry;
+        Entry.WorldTick =
+            Convergence.WorldTick;
+        Entry.Category =
+            FName(TEXT("convergence"));
+        Entry.EventOrEntityId =
+            Convergence.ConvergenceId;
+        Entry.ManifestationId =
+            Convergence.ResultManifestationId;
+        Entry.ContentId =
+            Convergence.RuleId;
+        Entry.StateJson =
+            Convergence.StateJson;
+        OutViewModel.Entries.Add(
+            MoveTemp(Entry));
+    }
+
+    OutViewModel.Entries.Sort(
+        [](const FOGCharacterHistoryEntryViewModel& A,
+           const FOGCharacterHistoryEntryViewModel& B)
+        {
+            if (A.WorldTick !=
+                B.WorldTick)
+            {
+                return A.WorldTick >
+                    B.WorldTick;
+            }
+
+            return A.Category.ToString().Compare(
+                B.Category.ToString(),
+                ESearchCase::CaseSensitive) < 0;
+        });
+
+    if (OutViewModel.Entries.Num() >
+        Limit)
+    {
+        OutViewModel.Entries.SetNum(
+            Limit,
+            EAllowShrinking::No);
+    }
+
+    return true;
+}
+
 bool FOGUiViewModelService::BuildManifestationComparison(
     const FOGEntityId& RulerId,
     const FOGEntityId& LeftManifestationId,
@@ -1244,6 +1428,23 @@ bool FOGUiViewModelService::BuildGachaHistoryFiltered(
     TArray<FOGGachaHistoryEntryViewModel>& OutHistory,
     FString& OutError) const
 {
+    return BuildGachaHistoryFiltered(
+        RulerId,
+        Filter,
+        Limit,
+        FOGWorldTickDisplayResolver(),
+        OutHistory,
+        OutError);
+}
+
+bool FOGUiViewModelService::BuildGachaHistoryFiltered(
+    const FOGEntityId& RulerId,
+    const FOGGachaHistoryFilter& Filter,
+    int32 Limit,
+    const FOGWorldTickDisplayResolver& DateResolver,
+    TArray<FOGGachaHistoryEntryViewModel>& OutHistory,
+    FString& OutError) const
+{
     OutHistory.Reset();
     OutError.Reset();
 
@@ -1268,7 +1469,7 @@ bool FOGUiViewModelService::BuildGachaHistoryFiltered(
         return false;
     }
 
-    for (const FOGGachaHistoryEntryViewModel& Entry :
+    for (FOGGachaHistoryEntryViewModel Entry :
          Raw)
     {
         if (Filter.BannerId.IsValid() &&
@@ -1298,8 +1499,20 @@ bool FOGUiViewModelService::BuildGachaHistoryFiltered(
             continue;
         }
 
+        if (DateResolver)
+        {
+            if (!DateResolver(
+                    Entry.WorldTick,
+                    Entry.DateDisplay,
+                    OutError))
+            {
+                OutHistory.Reset();
+                return false;
+            }
+        }
+
         OutHistory.Add(
-            Entry);
+            MoveTemp(Entry));
         if (OutHistory.Num() >=
             Limit)
         {
@@ -1336,6 +1549,40 @@ bool FOGUiViewModelService::SetActiveTerritoryOverlay(
     // previous one instead of stacking unreadable strategic layers.
     InOutViewModel.ActiveOverlay =
         Overlay;
+    return true;
+}
+
+bool FOGUiViewModelService::SetTerritoryNavigationPath(
+    FOGTerritoryViewModel& InOutViewModel,
+    const TArray<FOGEntityId>& NavigationNodeIds,
+    FString& OutError)
+{
+    OutError.Reset();
+
+    if (NavigationNodeIds.Num() >
+        InOutViewModel.HierarchyLevels.Num())
+    {
+        OutError =
+            TEXT("Territory navigation path contains more nodes than the frozen hierarchy exposes.");
+        return false;
+    }
+
+    TSet<FOGEntityId> Seen;
+    for (const FOGEntityId& NodeId :
+         NavigationNodeIds)
+    {
+        if (!NodeId.IsValid() ||
+            Seen.Contains(NodeId))
+        {
+            OutError =
+                TEXT("Territory navigation path contains invalid or duplicate nodes.");
+            return false;
+        }
+        Seen.Add(NodeId);
+    }
+
+    InOutViewModel.NavigationNodeIds =
+        NavigationNodeIds;
     return true;
 }
 
@@ -1734,6 +1981,8 @@ FOGBackupManagerViewModel FOGUiViewModelService::BuildBackupManager(
             Entry.BackupId;
         Backup.SchemaVersion =
             Entry.SchemaVersion;
+        Backup.WorldIdentity =
+            Entry.WorldIdentity;
         Backup.CreatedUtc =
             Entry.CreatedUtc;
         Backup.SourceBuildVersion =
@@ -1787,7 +2036,11 @@ bool FOGUiViewModelService::BuildPackageStorage(
             Package.Category;
         View.StorageClass =
             Package.StorageClass;
+        View.InstallUri =
+            Package.InstallUri;
         View.DownloadState =
+            Package.DownloadState;
+        View.UpdateState =
             Package.DownloadState;
 
         if (SizeResolver)
