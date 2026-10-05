@@ -101,6 +101,9 @@ struct OFFLINEGAME_API FOGRosterIdentityViewModel
     FOGContentId IdentityId;
 
     UPROPERTY(BlueprintReadOnly)
+    FString DisplayNameKey;
+
+    UPROPERTY(BlueprintReadOnly)
     FOGEntityId SelectedManifestationId;
 
     UPROPERTY(BlueprintReadOnly)
@@ -315,6 +318,18 @@ struct OFFLINEGAME_API FOGTerritoryViewModel
 
     UPROPERTY(BlueprintReadOnly)
     FName ActiveOverlay = NAME_None;
+
+    UPROPERTY(BlueprintReadOnly)
+    TArray<FName> HierarchyLevels;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bFragmentedCosmologyNavigationSupported = true;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bDedicatedDomainListAvailable = false;
+
+    UPROPERTY(BlueprintReadOnly)
+    TArray<FOGEntityId> DomainTerritoryIds;
 };
 
 USTRUCT(BlueprintType)
@@ -357,6 +372,9 @@ struct OFFLINEGAME_API FOGChronicleEntryViewModel
 
     UPROPERTY(BlueprintReadOnly)
     FString PayloadJson;
+
+    UPROPERTY(BlueprintReadOnly)
+    FName Importance = FName(TEXT("significant"));
 };
 
 USTRUCT(BlueprintType)
@@ -456,6 +474,12 @@ struct OFFLINEGAME_API FOGWorldHudViewModel
 
     UPROPERTY(BlueprintReadOnly)
     bool bShowExactEnemyState = false;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bHasPrimaryTarget = false;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGEntityId PrimaryTargetEntityId;
 };
 
 USTRUCT(BlueprintType)
