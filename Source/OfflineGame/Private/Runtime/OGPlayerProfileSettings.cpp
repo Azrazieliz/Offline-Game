@@ -116,7 +116,7 @@ bool FOGPlayerProfileSettingsService::Load(
         FName(*JsonOrDefault(
             Root,
             TEXT("roster_density"),
-            TEXT("comfortable")));
+            TEXT("dense")));
 
     OutSettings.MasterVolume =
         FMath::Clamp(
@@ -187,12 +187,12 @@ bool FOGPlayerProfileSettingsService::Load(
         BoolOrDefault(
             Root,
             TEXT("auto_download"),
-            false);
+            true);
     OutSettings.NetworkPreferencesJson =
         JsonOrDefault(
             Root,
             TEXT("network_preferences_json"),
-            TEXT("{}"));
+            TEXT("{\"large_downloads\":\"unmetered_only\"}"));
     OutSettings.AccessibilityJson =
         JsonOrDefault(
             Root,
