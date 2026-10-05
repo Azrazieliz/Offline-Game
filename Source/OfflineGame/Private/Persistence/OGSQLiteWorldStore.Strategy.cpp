@@ -78,7 +78,12 @@ bool FOGSQLiteWorldStore::UpsertDispatch(
         Dispatch.ResolveWorldTick <
             Dispatch.StartWorldTick ||
         Dispatch.RiskBps < 0 ||
-        Dispatch.RiskBps > 10000)
+        Dispatch.RiskBps > 10000 ||
+        Dispatch.RiskToleranceBps < 0 ||
+        Dispatch.RiskToleranceBps > 10000 ||
+        (Dispatch.bHasDelayUntilWorldTick &&
+         Dispatch.DelayUntilWorldTick <
+             Dispatch.StartWorldTick))
     {
         OutError =
             TEXT("Dispatch record is invalid.");
@@ -142,8 +147,9 @@ bool FOGSQLiteWorldStore::UpsertDispatch(
     const char* Sql =
         "INSERT INTO dispatches("
         "dispatch_entity_id, owner_entity_id, target_entity_id, dispatch_type, status, "
-        "start_world_tick, resolve_world_tick, risk_bps, resolution_seed, result_json"
-        ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+        "start_world_tick, resolve_world_tick, risk_bps, risk_tolerance_bps, "
+        "abort_policy_json, outcome_state, delay_until_world_tick, resolution_seed, result_json"
+        ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
         "ON CONFLICT(dispatch_entity_id) DO UPDATE SET "
         "owner_entity_id = excluded.owner_entity_id, "
         "target_entity_id = excluded.target_entity_id, "
@@ -152,6 +158,10 @@ bool FOGSQLiteWorldStore::UpsertDispatch(
         "start_world_tick = excluded.start_world_tick, "
         "resolve_world_tick = excluded.resolve_world_tick, "
         "risk_bps = excluded.risk_bps, "
+        "risk_tolerance_bps = excluded.risk_tolerance_bps, "
+        "abort_policy_json = excluded.abort_policy_json, "
+        "outcome_state = excluded.outcome_state, "
+        "delay_until_world_tick = excluded.delay_until_world_tick, "
         "resolution_seed = excluded.resolution_seed, "
         "result_json = excluded.result_json;";
 
@@ -207,14 +217,39 @@ bool FOGSQLiteWorldStore::UpsertDispatch(
             8,
             Dispatch.RiskBps) ==
             SQLITE_OK &&
-        sqlite3_bind_int64(
+        sqlite3_bind_int(
             Statement,
             9,
-            Dispatch.ResolutionSeed) ==
+            Dispatch.RiskToleranceBps) ==
             SQLITE_OK &&
         BindStrategyText(
             Statement,
             10,
+            Dispatch.AbortPolicyJson.IsEmpty()
+                ? TEXT("{}")
+                : Dispatch.AbortPolicyJson) &&
+        BindStrategyText(
+            Statement,
+            11,
+            Dispatch.OutcomeState.IsNone()
+                ? FString()
+                : Dispatch.OutcomeState.ToString()) &&
+        (Dispatch.bHasDelayUntilWorldTick
+            ? sqlite3_bind_int64(
+                Statement,
+                12,
+                Dispatch.DelayUntilWorldTick) == SQLITE_OK
+            : sqlite3_bind_null(
+                Statement,
+                12) == SQLITE_OK) &&
+        sqlite3_bind_int64(
+            Statement,
+            13,
+            Dispatch.ResolutionSeed) ==
+            SQLITE_OK &&
+        BindStrategyText(
+            Statement,
+            14,
             Dispatch.ResultJson.IsEmpty()
                 ? TEXT("{}")
                 : Dispatch.ResultJson);
@@ -358,7 +393,8 @@ bool FOGSQLiteWorldStore::TryReadDispatch(
     sqlite3_stmt* Statement = nullptr;
     const char* Sql =
         "SELECT owner_entity_id, target_entity_id, dispatch_type, status, "
-        "start_world_tick, resolve_world_tick, risk_bps, resolution_seed, result_json "
+        "start_world_tick, resolve_world_tick, risk_bps, risk_tolerance_bps, "
+        "abort_policy_json, outcome_state, delay_until_world_tick, resolution_seed, result_json "
         "FROM dispatches WHERE dispatch_entity_id = ?;";
 
     if (sqlite3_prepare_v2(
@@ -437,14 +473,45 @@ bool FOGSQLiteWorldStore::TryReadDispatch(
             sqlite3_column_int(
                 Statement,
                 6);
-        OutDispatch.ResolutionSeed =
-            sqlite3_column_int64(
+        OutDispatch.RiskToleranceBps =
+            sqlite3_column_int(
                 Statement,
                 7);
-        OutDispatch.ResultJson =
+        OutDispatch.AbortPolicyJson =
             StrategyColumnText(
                 Statement,
                 8);
+
+        const FString OutcomeState =
+            StrategyColumnText(
+                Statement,
+                9);
+        if (!OutcomeState.IsEmpty())
+        {
+            OutDispatch.OutcomeState =
+                FName(*OutcomeState);
+        }
+
+        if (sqlite3_column_type(
+                Statement,
+                10) != SQLITE_NULL)
+        {
+            OutDispatch.bHasDelayUntilWorldTick =
+                true;
+            OutDispatch.DelayUntilWorldTick =
+                sqlite3_column_int64(
+                    Statement,
+                    10);
+        }
+
+        OutDispatch.ResolutionSeed =
+            sqlite3_column_int64(
+                Statement,
+                11);
+        OutDispatch.ResultJson =
+            StrategyColumnText(
+                Statement,
+                12);
     }
     else if (Step != SQLITE_DONE)
     {
