@@ -94,7 +94,7 @@
 - [ ] run deterministic simulator fitting for selected tuning candidates when balance evidence is needed (non-blocking for the first Unreal compile gate)
 - [x] execute design-to-code reconciliation using docs/RECONCILIATION_MIGRATION_MATRIX.md
 - [x] migrate/rebuild stale runtime contracts to the frozen architecture
-- [ ] complete the dedicated pre-Unreal completeness/functionality audit and static gates before any real Unreal invocation
+- [x] complete the dedicated pre-Unreal completeness/functionality audit and static gates before any real Unreal invocation
 - [ ] real UE 5.8 UHT/UBT/MSVC/link compile
 - [ ] OfflineGame automation run
 
