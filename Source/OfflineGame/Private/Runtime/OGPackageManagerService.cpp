@@ -63,6 +63,20 @@ bool FOGPackageManagerService::SetDependency(
         return false;
     }
 
+    // Changing dependency semantics invalidates any prior activation proof for
+    // this package and every package above it in the dependency graph.
+    TSet<FOGContentId> Visited;
+    if (!DeactivatePackageAndDependents(
+            Dependency.PackageId,
+            Visited,
+            OutError))
+    {
+        FString RollbackError;
+        Store.RollbackTransaction(
+            RollbackError);
+        return false;
+    }
+
     if (!Store.CommitTransaction(
             OutError))
     {
