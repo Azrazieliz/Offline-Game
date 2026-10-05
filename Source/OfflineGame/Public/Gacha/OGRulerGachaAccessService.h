@@ -7,7 +7,8 @@
 /**
  * Persistent first-unlock gate for the gameplay-earned gacha.
  *
- * This service owns qualification continuity, not calendar conversion.
+ * This service derives qualification continuity from authoritative Territory
+ * claims. It does not own calendar conversion.
  * bMoreThanOneInGameMonthElapsed must come from the authoritative world/time
  * layer and means strictly more than one local in-game month has elapsed since
  * the stored qualification start. Schema 0011 supplies that calendar mapping.
@@ -29,8 +30,6 @@ public:
     bool RefreshGachaQualification(
         const FOGEntityId& RulerId,
         int64 WorldTick,
-        bool bHasEffectiveTerritoryControl,
-        bool bInReclamationGrace,
         bool bMoreThanOneInGameMonthElapsed,
         FOGRulerGachaAccessRecord& OutAccess,
         FString& OutError);
