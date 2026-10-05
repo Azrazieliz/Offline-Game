@@ -6,17 +6,6 @@
 
 namespace
 {
-bool ContainsEntityId(
-    const TArray<FOGEntityId>& Values,
-    const FOGEntityId& Value)
-{
-    return Values.ContainsByPredicate(
-        [&Value](const FOGEntityId& Candidate)
-        {
-            return Candidate == Value;
-        });
-}
-
 int32 DecimalDigits(int64 Value)
 {
     uint64 Absolute =
