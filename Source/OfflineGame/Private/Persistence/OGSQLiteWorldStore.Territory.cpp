@@ -649,6 +649,64 @@ bool FOGSQLiteWorldStore::UpsertDomainCore(
         {
             return Fail(AspectError);
         }
+
+        // Migration 0009 promotes Aspects into normalized Concepts. Keep the
+        // legacy projection populated for new Cores without overwriting richer
+        // fusion/synthesis provenance that may already exist.
+        sqlite3_stmt* ConceptStatement = nullptr;
+        const char* ConceptSql =
+            "INSERT OR IGNORE INTO domain_core_concepts("
+            "core_entity_id, concept_content_id, grade, "
+            "origin_source_core_entity_id, synthesis_rule_content_id, state_json"
+            ") VALUES(?, ?, ?, ?, NULL, '{}');";
+
+        if (sqlite3_prepare_v2(
+                Database,
+                ConceptSql,
+                -1,
+                &ConceptStatement,
+                nullptr) != SQLITE_OK)
+        {
+            return Fail(
+                LastError(
+                    TEXT("Prepare Domain Core Concept projection")));
+        }
+
+        const bool bConceptBound =
+            BindTerritoryText(
+                ConceptStatement,
+                1,
+                Core.CoreId.ToString()) &&
+            BindTerritoryText(
+                ConceptStatement,
+                2,
+                Aspect.AspectId.ToString()) &&
+            sqlite3_bind_int(
+                ConceptStatement,
+                3,
+                Aspect.Grade) == SQLITE_OK &&
+            BindTerritoryText(
+                ConceptStatement,
+                4,
+                Core.CoreId.ToString());
+
+        const bool bConceptSucceeded =
+            bConceptBound &&
+            sqlite3_step(ConceptStatement) ==
+                SQLITE_DONE;
+        const FString ConceptError =
+            bConceptSucceeded
+                ? FString()
+                : LastError(
+                    TEXT("Project Domain Core Concept"));
+
+        sqlite3_finalize(
+            ConceptStatement);
+
+        if (!bConceptSucceeded)
+        {
+            return Fail(ConceptError);
+        }
     }
 
     if (bOwnTransaction &&
