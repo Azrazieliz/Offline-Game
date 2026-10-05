@@ -212,6 +212,44 @@ bool FOGDispatchService::ResolveDispatch(
     FOGDispatchRecord& OutDispatch,
     FString& OutError)
 {
+    TArray<FOGDispatchObjectiveRecord> Objectives;
+    TArray<FOGDispatchConstraintRecord> Constraints;
+    FOGDispatchRecord Existing;
+    bool bFound = false;
+
+    if (!Store.TryReadDispatch(
+            DispatchId,
+            bFound,
+            Existing,
+            OutError) ||
+        !bFound ||
+        !Store.ListDispatchObjectives(
+            DispatchId,
+            Objectives,
+            OutError) ||
+        !Store.ListDispatchConstraints(
+            DispatchId,
+            Constraints,
+            OutError))
+    {
+        if (OutError.IsEmpty())
+        {
+            OutError =
+                TEXT("Dispatch does not exist.");
+        }
+        return false;
+    }
+
+    if (!Objectives.IsEmpty() ||
+        !Constraints.IsEmpty() ||
+        (!Existing.AbortPolicyJson.IsEmpty() &&
+         Existing.AbortPolicyJson != TEXT("{}")))
+    {
+        OutError =
+            TEXT("Policy-bearing Dispatch must use ResolveDispatchWithPolicy.");
+        return false;
+    }
+
     return ResolveDispatchWithPolicy(
         DispatchId,
         CurrentWorldTick,
