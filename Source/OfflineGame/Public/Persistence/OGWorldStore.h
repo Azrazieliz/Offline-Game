@@ -273,6 +273,8 @@ public:
         const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentBindingRecord&, FString&) const = 0;
     virtual bool ListEquipmentBindings(
         const FOGEntityId&, TArray<FOGEquipmentBindingRecord>&, FString&) const = 0;
+    virtual bool DeleteEquipmentBindingsForItem(
+        const FOGEntityId&, FString&) = 0;
     virtual bool UpsertInventoryContainer(
         const FOGInventoryContainerRecord&, int64, FString&) = 0;
     virtual bool TryReadInventoryContainer(
@@ -282,6 +284,8 @@ public:
     virtual bool UpsertContainerContent(const FOGContainerContentRecord&, FString&) = 0;
     virtual bool ListContainerContents(
         const FOGEntityId&, TArray<FOGContainerContentRecord>&, FString&) const = 0;
+    virtual bool DeleteContainerContentsForItem(
+        const FOGEntityId&, FString&) = 0;
     virtual bool UpsertItemOwnerAffinity(
         const FOGItemOwnerAffinityRecord&, FString&) = 0;
     virtual bool TryReadItemOwnerAffinity(
