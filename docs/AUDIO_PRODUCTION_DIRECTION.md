@@ -30,7 +30,7 @@ Each major World defines a music profile containing:
 - cultural or metaphysical constraints;
 - permitted cross-World hybridization rules.
 
-A historical-medieval starting region should sound grounded in its local cultures and materials. Later magical, post-apocalyptic, cybernetic, cosmic or abnormal-physics Worlds may radically change instrumentation and production while retaining motif continuity where narrative lineage exists.
+The starting World is an original established-fantasy region and should sound grounded in its own local cultures, materials and low-proficiency fantasy practices rather than simulating real historical music. Later magical, post-apocalyptic, cybernetic, cosmic or abnormal-physics Worlds may radically change instrumentation and production while retaining motif continuity where narrative lineage exists.
 
 ## 3. Leitmotif system
 
@@ -71,6 +71,31 @@ Transitions should preserve musical continuity when practical rather than restar
 
 Combat intensity may add or remove layers, change arrangement, or transition to a related cue. High-order reality effects may temporarily dominate or deform the current music rather than always replacing it with a separate track.
 
+
+## 4A. Situational score separation
+
+The soundtrack uses **separate situational compositions** rather than one universal adaptive suite for all contexts.
+
+Core initial categories include:
+- Starting World wilderness / exploration;
+- settlement / safe social space;
+- tension / suspicion / political danger;
+- standard turn combat;
+- elite / high-stakes turn combat;
+- World Mode action combat;
+- boss / major encounter;
+- World Fantasm / Domain conflict;
+- Ruler Mode;
+- anomaly / cosmology / forbidden discovery;
+- character themes and their state variants;
+- major vocal songs;
+- aftermath / loss;
+- title / opening.
+
+Cohesion comes from shared motif, harmony, instrumentation, timbre and transformation relationships where narratively appropriate. Separate situational tracks do not need to be literal arrangements of one another.
+
+The rule is: **separate situational tracks, shared musical DNA when meaningful.**
+
 ## 5. Domain / World Fantasm audio
 
 Reality fields alter sound according to their actual rules.
@@ -107,6 +132,31 @@ Performance direction favors character authenticity and emotional specificity ov
 Combat voice should use multiple variants and cooldown/throttling rules so frequently repeated actions do not become exhausting.
 
 Critical information must never depend on spoken dialogue alone.
+
+
+## 6A. Vocal-song production baseline
+
+Major vocal songs use a darker, predominantly minor/modal language and are authored as narrative events.
+
+Baseline:
+- Japanese is the default lyric language, with other languages allowed when content supports them;
+- strong melody and leitmotif identity;
+- intimate-to-explosive dynamic architecture;
+- orchestral / rock / electronic / choral hybridization as appropriate;
+- no requirement for heroic or major-key resolution;
+- vocals may carry sensuality, danger, grief, defiance, psychological fracture or transcendence depending on the scene.
+
+Refined phrasing/performance rules:
+- silence and negative space are compositional tools, not dead air;
+- sudden dropouts and explosive leitmotif re-entry are explicitly encouraged;
+- lyric density must fit the rhythm;
+- do not force every word to complete smoothly if that harms groove or emotional phrasing;
+- syllables and words may be split, delayed, repeated, clipped, stretched, interrupted or offset asymmetrically;
+- breaths, rests and silence may occur inside a lexical phrase when musically intentional;
+- vocal delivery should show large emotional/timbral variation rather than one stable polished tone;
+- original performances may use breathy intimacy, dark low-register color, sharp attacks, whisper, controlled rasp/strain, raw belt and abrupt dynamic changes.
+
+Reference qualities associated with Ado, Aimer and MYTH & ROID are used at the level of **dynamic contrast, expressive intensity, rhythmic treatment and silence-to-explosion architecture**. Production must not attempt to clone or impersonate a specific real singer's voice.
 
 ## 7. NPC voice scalability
 
