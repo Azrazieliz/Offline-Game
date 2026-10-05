@@ -296,6 +296,8 @@ public:
         const FOGEquipmentProficiencyRecord&, FString&) = 0;
     virtual bool TryReadEquipmentProficiency(
         const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentProficiencyRecord&, FString&) const = 0;
+    virtual bool ListEquipmentProficienciesByOwner(
+        const FOGEntityId&, TArray<FOGEquipmentProficiencyRecord>&, FString&) const = 0;
     virtual bool UpsertManifestationPresentationState(
         const FOGManifestationPresentationStateRecord&, FString&) = 0;
     virtual bool TryReadManifestationPresentationState(
