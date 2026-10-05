@@ -158,6 +158,37 @@ Refined phrasing/performance rules:
 
 Reference qualities associated with Ado, Aimer and MYTH & ROID are used at the level of **dynamic contrast, expressive intensity, rhythmic treatment and silence-to-explosion architecture**. Production must not attempt to clone or impersonate a specific real singer's voice.
 
+### 6A.1 Main vocal-track correction
+
+The main vocal-song line must remain **dark, threatening, highly sensual and highly emotional**. This is the default baseline, not an optional flavor.
+
+Primary reference weighting for the main line:
+- **MYTH & ROID — Greatest Gloria / STYX HELIX / Ender Ember**: macro-architecture, silence-to-eruption contrast, dark harmonic pressure, dramatic hook deployment and hybrid escalation;
+- **Heaven's Feel song family**: sensual darkness, intimate emotional gravity, piano/string-led tension, restrained-to-devastating escalation;
+- Ado / Aimer / ASCA remain strong vocal-performance references for expressivity, breath, timbral variation and phrasing, but the main-line arrangement must not drift toward festive, dance-like or beat-led energy.
+
+Main-line instrumentation rule:
+- **piano + cello/viola/strings are the emotional center**;
+- electronic elements are **secondary, sparse and brief**;
+- electronics should appear mainly as transient pressure, distortion, texture or explosive accent around major vocal/leitmotif moments;
+- avoid a continuous beat-like electronic groove;
+- percussion should feel dramatic and physical rather than dance-oriented;
+- silence, breath and acoustic decay are as important as added layers.
+
+The central emotional target is dangerous intimacy: desire, grief, obsession, surrender, tenderness, dread and irreversible emotional consequence may coexist. The music should feel close to the body and psychologically exposed before it becomes large.
+
+### 6A.2 Side-specific electronic / doll branch
+
+The more beat-driven, synthetic and rhythm-forward vocal direction explored in the later prototype batch is **not** part of the main vocal baseline.
+
+Retain it as a side-specific palette for:
+- doll / puppet / artificial-body characters;
+- manufactured, synthetic or uncanny personalities;
+- scenes where mechanical repetition, artificial affect or controlled performance is narratively appropriate;
+- selected cybernetic / laboratory / constructed-identity contexts.
+
+This branch may use stronger electronic pulse, rigid rhythmic behavior, synthetic percussion and less organic sensuality where the character/scene specifically warrants it. It must not leak back into the default main vocal-song identity.
+
 ## 7. NPC voice scalability
 
 Ordinary NPC voice families are organized by relevant physical/cultural attributes rather than by one global male/female bucket.
