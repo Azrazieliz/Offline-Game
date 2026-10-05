@@ -35,6 +35,13 @@ using FOGPackageSizeResolver =
         int64& OutSizeBytes,
         FString& OutError)>;
 
+using FOGPackageStorageActionResolver =
+    TFunction<bool(
+        const FOGContentPackageRecord& Package,
+        bool& bOutMoveAllowed,
+        bool& bOutArchiveAllowed,
+        FString& OutError)>;
+
 class OFFLINEGAME_API FOGUiViewModelService
 {
 public:
@@ -229,6 +236,7 @@ public:
 
     bool BuildPackageStorage(
         const FOGPackageSizeResolver& SizeResolver,
+        const FOGPackageStorageActionResolver& ActionResolver,
         FOGPackageStorageViewModel& OutViewModel,
         FString& OutError) const;
 
