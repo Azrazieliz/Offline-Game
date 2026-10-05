@@ -5,6 +5,21 @@ FOGReplayResult FOGBattleReplay::Run(
     uint64 Seed,
     const TArray<FOGReplayActionCommand>& Commands)
 {
+    return Run(
+        InitialState,
+        Seed,
+        Commands,
+        FOGIdentityExclusivityContext(),
+        FOGRankSuppressionResolver());
+}
+
+FOGReplayResult FOGBattleReplay::Run(
+    const FOGTurnBattleState& InitialState,
+    uint64 Seed,
+    const TArray<FOGReplayActionCommand>& Commands,
+    FOGIdentityExclusivityContext IdentityContext,
+    FOGRankSuppressionResolver RankResolver)
+{
     FOGReplayResult Result;
     Result.Seed = Seed;
 
@@ -13,6 +28,10 @@ FOGReplayResult FOGBattleReplay::Run(
 
     if (!Battle.Initialize(
             InitialState,
+            TArray<FOGCombatTriggerBinding>(),
+            FOGCombatConditionEvaluator(),
+            MoveTemp(IdentityContext),
+            MoveTemp(RankResolver),
             Error))
     {
         Result.Error = Error;
@@ -63,6 +82,17 @@ FOGReplayResult FOGBattleReplay::Run(
         DamageRequest.bAllowHitOverflowReplication =
             Command.bAllowHitOverflowReplication;
 
+        if (!Battle.ResolveRankSuppressionMultiplier(
+                Command.SourceUnitId,
+                Command.TargetUnitId,
+                OGRankSuppressionChannels::Damage(),
+                DamageRequest.RankSuppressionMultiplierBps,
+                Error))
+        {
+            Result.Error = Error;
+            return Result;
+        }
+
         const FOGDamageResolution Damage =
             FOGCombatMath::ResolveDamage(
                 DamageRequest,
@@ -96,7 +126,7 @@ FOGReplayResult FOGBattleReplay::Run(
             Command.ActionDelay;
         Action.ResolutionJson =
             FString::Printf(
-                TEXT("{\"hits\":%d,\"crit\":%s,\"block\":%s,\"damage\":\"%s\",\"rng_draws\":%llu}"),
+                TEXT("{\"hits\":%d,\"crit\":%s,\"block\":%s,\"rank_bps\":%d,\"damage\":\"%s\",\"rng_draws\":%llu}"),
                 Damage.Hit.ResolvedHitInstances,
                 Damage.Crit.bCritical
                     ? TEXT("true")
@@ -104,6 +134,7 @@ FOGReplayResult FOGBattleReplay::Run(
                 Damage.Block.bBlocked
                     ? TEXT("true")
                     : TEXT("false"),
+                Damage.RankSuppressionMultiplierBps,
                 *Damage.TotalDamage.ToDebugString(),
                 Rng.GetDrawCount());
 
