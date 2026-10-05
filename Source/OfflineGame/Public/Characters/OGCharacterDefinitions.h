@@ -57,11 +57,20 @@ struct OFFLINEGAME_API FOGCharacterVersionDefinition
     FName VersionKind = NAME_None;
 
     /**
-     * Explicit permission for sexual-content references attached to this Version.
-     * Validation rejects this unless the Character Identity is canonically Adult.
+     * Descriptive authored adult-content profile. Presence is valid only when the
+     * referenced Character Identity is canonically Adult; this is not an access
+     * or consent gate and cannot override Identity maturity.
      */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    bool bSexualContentEligible = false;
+    FOGContentId AdultContentProfileId;
+
+    /** Descriptive adult presentation tags; appearance never determines maturity. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TArray<FName> AdultPresentationTags;
+
+    /** Version/form scene-library references, descriptive rather than permission flags. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TArray<FOGContentId> AdultSceneLibraryIds;
 
     /** General mature visual support such as blood/injury/clothing-damage hooks. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
