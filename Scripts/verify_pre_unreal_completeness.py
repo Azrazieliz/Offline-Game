@@ -64,6 +64,7 @@ service_cpp = (
 required_model_markers = {
     "roster search/filter/sort/density": "FOGRosterQuery",
     "side-by-side Manifestation comparison": "FOGManifestationComparisonViewModel",
+    "meaningful Character History": "FOGCharacterHistoryViewModel",
     "skill/progression subset": "FOGManifestationDetailViewModel",
     "wardrobe/skin compatibility": "FOGWardrobeViewModel",
     "adult utility": "FOGAdultUtilityViewModel",
@@ -71,6 +72,7 @@ required_model_markers = {
     "Known/Experiment crafting": "FOGCraftingViewModel",
     "gacha details": "FOGGachaDetailsViewModel",
     "gacha history filtering": "FOGGachaHistoryFilter",
+    "authored gacha date display": "DateDisplay",
     "Chronicle filtering": "FOGChronicleFilter",
     "Intelligence filtering": "FOGIntelligenceFilter",
     "Codex searchable categories": "FOGCodexViewModel",
@@ -91,6 +93,7 @@ for label, marker in required_model_markers.items():
 required_service_methods = [
     "BuildRosterWithQuery",
     "BuildManifestationDetail",
+    "BuildCharacterHistory",
     "BuildManifestationComparison",
     "BuildWardrobe",
     "BuildAdultUtility",
@@ -99,6 +102,7 @@ required_service_methods = [
     "BuildGachaDetails",
     "BuildGachaHistoryFiltered",
     "SetActiveTerritoryOverlay",
+    "SetTerritoryNavigationPath",
     "BuildChronicleFiltered",
     "BuildIntelligenceFiltered",
     "BuildCodex",
@@ -140,6 +144,16 @@ if "DirectDamage" not in models or "DotDamage" not in models or "TotalHealing" n
 for forbidden in ("Shielding", "DamagePrevented", "DamageTaken", "CritAnalytics"):
     if forbidden in models:
         fail(f"normal battle recap leaked forbidden analytics: {forbidden}")
+if "FOGWorldTickDisplayResolver" not in service_h:
+    fail("gacha history date presentation is not authored-calendar resolver driven")
+if "WorldIdentity" not in models:
+    fail("backup manager does not expose world identity metadata")
+if "InstallUri" not in models or "UpdateState" not in models:
+    fail("package/storage manager lacks storage-location or update-state metadata")
+if "NavigationNodeIds" not in models:
+    fail("Territory hierarchy lacks explicit navigation path projection")
+if "BuildCharacterHistory" not in service_cpp or "route_breakthrough" not in service_cpp:
+    fail("meaningful Character History acquisition/breakthrough projection is incomplete")
 if "AuthoredBandThresholdBps" not in service_h:
     fail("risk bands are not explicitly tuning/content-owned")
 if "Clamped < 2500" in service_cpp or "Clamped < 5000" in service_cpp or "Clamped < 7500" in service_cpp:
@@ -176,6 +190,11 @@ for marker in (
     "CharacterRosterDetailWardrobeAdultEquipment",
     "GachaRecordsTerritoryWorldHudTurnBattle",
     "RecoveryPackageProjectDispatchWarRisk",
+    "Build meaningful Character History",
+    "authored calendar/date display",
+    "Territory hierarchy accepts fragmented",
+    "Package storage location is exposed",
+    "Backup manager exposes world identity",
 ):
     if marker not in ui_tests:
         fail(f"pre-Unreal completeness automation coverage missing: {marker}")
