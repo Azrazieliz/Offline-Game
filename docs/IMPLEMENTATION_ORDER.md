@@ -30,7 +30,7 @@
 - [x] Character Identity
 - [x] Version
 - [x] owned manifestation/instance
-- [x] explicit canonical-adult eligibility metadata
+- [x] canonical Identity maturity lore plus descriptive adult-content references; no secondary eligibility gate
 - [x] package manifest validation
 - [x] package activation registry
 - [ ] compile and run Phase C Unreal automation tests on the real build runner
@@ -80,7 +80,7 @@
 - [x] diagnostics bundle
 
 ### Checkpoint G2 - End-to-end runtime harness
-- [x] persistent vertical-slice scenario harness authored against the pre-detailing architecture
+- [x] persistent Vertical Slice 0 scenario harness rewritten against the reconciled architecture
 - [x] Android runtime/build configuration
 - [x] lightweight performance telemetry
 - [x] **environment-readiness verification only**: UE 5.8.3 (CL 58210709), Build.bat, UnrealEditor-Cmd, UBT, VS 2026/MSVC 14.51, Windows SDK 10.0.26100, Java 21, Android API 35 / Build Tools 35.0.1 / NDK r27c / adb verified usable without compiling OfflineGame. Epic Launcher registration is empty but explicit EngineRoot is usable and non-blocking.
