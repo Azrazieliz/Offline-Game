@@ -92,29 +92,31 @@
 - [x] define versioned tuning-parameter ownership/registry contract
 - [x] normalize cumulative master into `Offline_Adult_Gacha_RPG_Master_Architecture_Baseline_v0.40_FINAL_PRECODING_FREEZE.docx`
 - [ ] run deterministic simulator fitting for the already-selected tuning candidates
-- [ ] execute design-to-code reconciliation using docs/RECONCILIATION_MIGRATION_MATRIX.md
-- [ ] migrate/rebuild stale runtime contracts to the frozen architecture
+- [x] execute design-to-code reconciliation using docs/RECONCILIATION_MIGRATION_MATRIX.md
+- [x] migrate/rebuild stale runtime contracts to the frozen architecture
 - [ ] restart mandatory validation from static Unreal C++ preflight
 - [ ] real UE 5.8 UHT/UBT/MSVC/link compile
 - [ ] OfflineGame automation run
 
 ### Known design-to-code reconciliation before the real gate
-- [ ] replace duplicate-acquisition counter semantics with multiple persistent Manifestations per Character Identity + migration
-- [ ] update vertical-slice acquisition flow so it no longer assumes immediate gacha before stable-territory unlock/anchoring rules
-- [ ] extend Territory persistence/control for overlapping claims and five-day reclamation state
-- [ ] implement Domain Core heart-loss / ruined-Domain consequences while preserving existing Broken/capture invariants and Core fusion architecture
-- [ ] add named Existence/Power Rank + attained/effective Rank model and Rank Suppression data
-- [ ] add Factor architecture and class/progression state required by the finalized player-facing systems
-- [ ] add World Director scheduling/audit/offline-consequence framework before relying on Director tests
-- [ ] add World Rank/cosmology state only where required by the first implemented content slice
+- [x] replace duplicate-acquisition counter semantics with multiple persistent Manifestations per Character Identity + migration
+- [x] update vertical-slice acquisition flow so it no longer assumes immediate gacha before stable-territory unlock/anchoring rules
+- [x] extend Territory persistence/control for overlapping claims and five-day reclamation state
+- [x] implement Domain Core heart-loss / ruined-Domain consequences while preserving existing Broken/capture invariants and Core fusion architecture
+- [x] add named Existence/Power Rank + attained/effective Rank model and Rank Suppression data
+- [x] add Factor architecture and class/progression state required by the finalized player-facing systems
+- [x] add World Director scheduling/audit/offline-consequence framework before relying on Director tests
+- [x] add World Rank/cosmology state only where required by the first implemented content slice
 - [x] specify protagonist/character Transcendence, World Fantasm and personal World Manifestation data contracts in the reconciliation matrix
-- [ ] implement those reconciled higher-order progression contracts
-- [ ] implement frozen Ruler Mode/World HUD contracts and Android notification bridge
-- [ ] implement lore-authoritative mature-content profile/state interfaces and privacy-presentation mask with **no secondary adult-access/appearance gate**
-- [ ] implement equipment/inventory/skill provenance changes, including frozen affinity/proficiency and presentation-state contracts, needed by the first integrated content slice
-- [ ] implement NPC promotion/knowledge/belief/language/dialogue persistence contracts
-- [ ] reconcile package manager, external storage, backup/migration and offline update behavior
-- [ ] add Heroic Record/heroification content-state support where required by authored narrative/gacha content
+- [x] implement those reconciled higher-order progression contracts
+- [x] implement frozen Ruler Mode/World HUD contracts and Android notification bridge
+- [x] implement lore-authoritative mature-content profile/state interfaces and privacy-presentation mask with **no secondary adult-access/appearance gate**
+- [x] implement equipment/inventory/skill provenance changes, including frozen affinity/proficiency and presentation-state contracts, needed by the first integrated content slice
+- [x] implement NPC promotion/knowledge/belief/language/dialogue persistence contracts
+- [x] reconcile package manager, external storage, backup/migration and offline update behavior
+- [x] add Heroic Record/heroification content-state support where required by authored narrative/gacha content
+- [x] implement reconciled UI/view-model projections over canonical state
+- [x] rewrite Vertical Slice 0 and its restart automation over the reconciled architecture
 
 ### Device gate
 - [ ] playable Android build
