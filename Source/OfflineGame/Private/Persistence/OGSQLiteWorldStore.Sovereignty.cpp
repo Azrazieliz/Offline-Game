@@ -895,13 +895,23 @@ bool FOGSQLiteWorldStore::UpsertRulerSovereigntyState(
 {
     OutError.Reset();
 
+    const auto IsUniversalSovereigntyTitle =
+        [](FName Title)
+        {
+            return Title == FName(TEXT("none")) ||
+                Title == FName(TEXT("ruler")) ||
+                Title == FName(TEXT("overlord"));
+        };
+
     if (!State.RulerId.IsValid() ||
-        State.CurrentTitle.IsNone() ||
-        State.HistoricalPeakTitle.IsNone() ||
+        !IsUniversalSovereigntyTitle(
+            State.CurrentTitle) ||
+        !IsUniversalSovereigntyTitle(
+            State.HistoricalPeakTitle) ||
         State.UpdatedWorldTick < 0)
     {
         OutError =
-            TEXT("Ruler sovereignty state is invalid.");
+            TEXT("Ruler sovereignty state must use only the universal Ruler/Overlord titles (or internal 'none' sentinel).");
         return false;
     }
 
