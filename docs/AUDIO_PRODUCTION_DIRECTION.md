@@ -177,6 +177,22 @@ Main-line instrumentation rule:
 
 The central emotional target is dangerous intimacy: desire, grief, obsession, surrender, tenderness, dread and irreversible emotional consequence may coexist. The music should feel close to the body and psychologically exposed before it becomes large.
 
+### 6A.3 Mainline vocal eligibility and anti-drift guardrails
+
+For the default/mainline vocal-song family:
+
+- **solo lead vocals are female**;
+- male lead vocals are not valid for this mainline family;
+- male vocals are allowed only in an explicitly authored duet / ensemble context where the scene and composition call for them (for example, a dramatic male-female exchange), never as an accidental substitute for the intended female lead;
+- the mainline arrangement must not drift into funk, dance-pop, groove-led pop, bouncy syncopation, or beat-driven electronic production;
+- piano, cello, viola and strings carry the harmonic/emotional body;
+- percussion is sparse, dramatic and subordinate;
+- electronics are transient accents, pressure textures, distortion or explosive punctuation, not the continuous engine of the track;
+- silence, breath, sustain and acoustic decay are primary structural materials;
+- the target remains dark, threatening, sensual, intimate and emotionally volatile.
+
+If a generation violates these guardrails, it is rejected as an invalid mainline candidate even if other qualities are strong.
+
 ### 6A.2 Side-specific electronic / doll branch
 
 The more beat-driven, synthetic and rhythm-forward vocal direction explored in the later prototype batch is **not** part of the main vocal baseline.
