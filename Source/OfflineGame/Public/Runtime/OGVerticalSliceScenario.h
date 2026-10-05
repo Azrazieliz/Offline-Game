@@ -7,17 +7,28 @@ struct OFFLINEGAME_API FOGVerticalSliceScenarioResult
 {
     bool bSucceeded = false;
     FString Error;
-    FString BattleFingerprint;
-    FOGEntityId ManifestationId;
+
+    FString TurnBattleFingerprint;
+    FString ActionDamageDisplay;
+
+    FOGEntityId FirstManifestationId;
+    FOGEntityId SecondManifestationId;
     FOGEntityId ProjectId;
+    FOGEntityId DispatchId;
+    FOGEntityId WarId;
+    FOGEntityId WarFrontId;
+    FOGEntityId ActionCombatEventId;
+    FOGEntityId ReportId;
 };
 
 /**
- * Deterministic architectural proof that connects the already-implemented
- * acquisition, shared-world, action-party, project and turn-combat foundations
- * through one authoritative SQLite history.
+ * Reconciled Vertical Slice 0 architectural proof.
  *
- * It is developer/test infrastructure, not production content.
+ * This is deterministic developer/test infrastructure, not production content.
+ * It proves one canonical history across qualification, repeated full
+ * Manifestations, portrait Ruler projections, Territory loss/reclamation and
+ * anchoring, landscape World Mode, action + turn combat, Domain consequences,
+ * objective-faithful Dispatch, Project, War, package validation and restart.
  */
 class OFFLINEGAME_API FOGVerticalSliceScenarioHarness
 {
@@ -37,4 +48,9 @@ public:
     static FOGEntityId ScenarioTerritoryId();
     static FOGEntityId ScenarioCoreId();
     static FOGEntityId ScenarioCheckpointId();
+
+    static FOGContentId ScenarioPackageId();
+    static FOGContentId AcquiredIdentityId();
+    static FOGContentId AcquiredVersionId();
 };
+
