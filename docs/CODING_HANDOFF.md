@@ -7,7 +7,7 @@ Use this document as the execution contract for the next conversation/workstream
 - Repository: `Azrazieliz/Offline-Game`
 - Active branch: `phase-g2-runtime-harness`
 - Do not restart from `main`.
-- Existing runtime through G2 is a pre-reconciliation proof foundation, not final architecture certification.
+- Runtime reconciliation through schema 0014, UI projections and Vertical Slice 0 is implemented; real Unreal certification remains pending.
 
 ## Authority order
 
@@ -33,11 +33,15 @@ Make routine engineering choices autonomously.
 
 Only return to Creative Director design if a newly discovered contradiction makes two frozen player-facing requirements impossible to satisfy simultaneously.
 
-## First engineering task
+## Current engineering task
 
-Start with migration-safe world bootstrap and pre-migration recovery, then implement the numbered reconciliation sequence.
+Complete the dedicated pre-Unreal completeness/functionality audit. Fix every
+source, persistence, test and documentation inconsistency found, then require
+Repository Validation and Unreal C++ Preflight to be green on the exact audit
+head. Do not invoke Unreal until that gate is clean.
 
-Before touching schema 0007+, preserve the untouched authoritative database, migrate a working copy, validate integrity/application state, and atomically promote only on success.
+The numbered reconciliation sequence through schema 0014, UI projections and
+Vertical Slice 0 has already been implemented.
 
 ## Tuning
 
