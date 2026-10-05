@@ -386,6 +386,11 @@ public:
     virtual bool IsContentPackageActivated(const FOGContentId&, bool&, bool&, FString&) const override;
 
     virtual bool AppendWorldEvent(const FOGWorldEvent&, FString&) override;
+    virtual bool TryReadWorldEvent(
+        const FOGEntityId&, bool&, FOGWorldEvent&, FString&) const override;
+    virtual bool ListWorldEvents(
+        const FOGEntityId&, FName, bool, int32,
+        TArray<FOGWorldEvent>&, FString&) const override;
 
     virtual bool BackupTo(const FString&, FString&) override;
     virtual bool RestoreFrom(const FString&, FString&) override;
