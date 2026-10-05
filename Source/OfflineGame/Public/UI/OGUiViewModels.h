@@ -1175,6 +1175,9 @@ struct OFFLINEGAME_API FOGBackupEntryViewModel
     FName ValidationState = NAME_None;
 
     UPROPERTY(BlueprintReadOnly)
+    FName SnapshotKind = FName(TEXT("manual"));
+
+    UPROPERTY(BlueprintReadOnly)
     TArray<FName> Actions;
 };
 
