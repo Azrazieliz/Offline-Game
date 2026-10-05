@@ -230,8 +230,14 @@ Interpretation:
 
 ## 8. Music production direction derived from references
 
-### 8.1 Vocals
+### 8.1 Vocals and song language
 Vocals are important but should remain event-significant.
+
+Japanese is the **default / most common vocal language**, matching the game's primary authored spoken-language identity.
+
+Song language is not globally restricted. English, German and other languages are explicitly valid when the track, character, World, faction, cultural context or dramatic intent benefits from them. Invented/ritual languages and non-lexical choral writing are also valid where appropriate.
+
+Language choice is therefore content-authored rather than a fixed soundtrack rule. Japanese should remain the dominant overall presence without preventing individual tracks from using another language.
 
 Use full vocal tracks particularly for:
 - major story climaxes;
@@ -284,16 +290,20 @@ Combination is content-driven rather than a global requirement.
 ## 9. Combat / cinematic sound direction
 
 Broad sound-design target:
-- HI3-style cinematic emotional synchronization for major sequences;
+- **moment-to-moment combat leans toward PGR / Wuthering Waves-style tactile aggression and physical impact**;
+- **major cinematic/character moments lean toward HI3-style audiovisual synchronization and controlled dramatic timing**;
 - strong character-specific signatures;
 - clear parry/dodge/impact readability;
-- physical/material weight where appropriate;
+- material/anatomy/environment-specific weight;
 - no universal overcompressed loudness wall.
 
-Action combat should feel immediate and tactile.
-Turn combat should preserve strong impact timing, character identity and cinematic skill presentation despite being menu/timeline driven.
+Action combat should feel immediate, sharp and tactile. Weapon contacts, parries, dodges, heavy impacts and movement should have enough physical weight to make direct control satisfying without turning every action into maximum-volume noise.
 
-Major Ultimates, World Fantasms, Domains and phase transitions may deliberately synchronize animation, SFX, music and silence.
+Turn combat should preserve equally strong impact identity through timing, animation, camera, hit-stop where appropriate, sound layering and character-specific signatures despite its timeline/menu execution.
+
+Ultimates, World Fantasms, Domains, major boss transitions and story combat may deliberately tighten audiovisual synchronization toward the HI3 cinematic reference: animation, SFX, music, vocals and silence can be composed as one event.
+
+High-order power may become quieter or cleaner when metaphysical precision is more appropriate than brute force.
 
 Silence is an authored tool.
 
