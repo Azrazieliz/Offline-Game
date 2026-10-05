@@ -262,6 +262,18 @@ Previous generated tracks, including **Fractured Echoes** and all later correcti
 
 They may be reviewed only as historical experiments showing what did or did not work. New mainline work must be derived from the MYTH & ROID + Aimer reference corpus above.
 
+### 6A.9 Approved prototype keeper
+
+**Half-lit Remnants — revision 221321 / hash f1857ca5** is retained as an approved strong prototype asset.
+
+Creative Director assessment:
+- the second version (approximately 3:56) is **very good** and should be kept;
+- it is not the sole or final mainline benchmark;
+- it occupies a somewhat more active / forward emotional slot than the calmer, darker and more intensely restrained song the Creative Director originally expected;
+- future compositions should not be forced to imitate it simply because it is approved.
+
+This track is therefore a **keeper in the soundtrack palette**, not a replacement for the broader MYTH & ROID + Aimer direction.
+
 ### 6A.8 Side-specific electronic / doll branch
 
 The earlier beat-driven, synthetic and rhythm-forward direction remains available only as a **separate side-specific palette** for:
