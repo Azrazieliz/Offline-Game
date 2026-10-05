@@ -1845,14 +1845,32 @@ bool FOGUiViewModelService::BuildPackageStorage(
     return true;
 }
 
-FOGQualitativeRiskViewModel FOGUiViewModelService::ProjectRisk(
+bool FOGUiViewModelService::ProjectRisk(
     int32 RiskBps,
     EOGUiKnowledgeState KnowledgeState,
-    bool bExactProbabilityAuthorized)
+    bool bExactProbabilityAuthorized,
+    const TArray<int32>& AuthoredBandThresholdBps,
+    FOGQualitativeRiskViewModel& OutViewModel,
+    FString& OutError)
 {
-    FOGQualitativeRiskViewModel View;
-    View.KnowledgeState =
+    OutViewModel =
+        FOGQualitativeRiskViewModel();
+    OutViewModel.KnowledgeState =
         KnowledgeState;
+    OutError.Reset();
+
+    if (AuthoredBandThresholdBps.Num() != 3 ||
+        AuthoredBandThresholdBps[0] < 0 ||
+        AuthoredBandThresholdBps[0] >=
+            AuthoredBandThresholdBps[1] ||
+        AuthoredBandThresholdBps[1] >=
+            AuthoredBandThresholdBps[2] ||
+        AuthoredBandThresholdBps[2] > 10000)
+    {
+        OutError =
+            TEXT("Qualitative risk projection requires three increasing authored thresholds within 0..10000 bps.");
+        return false;
+    }
 
     if (KnowledgeState ==
             EOGUiKnowledgeState::Unknown ||
@@ -1861,7 +1879,7 @@ FOGQualitativeRiskViewModel FOGUiViewModelService::ProjectRisk(
         KnowledgeState ==
             EOGUiKnowledgeState::Outdated)
     {
-        return View;
+        return true;
     }
 
     const int32 Clamped =
@@ -1870,38 +1888,41 @@ FOGQualitativeRiskViewModel FOGUiViewModelService::ProjectRisk(
             0,
             10000);
 
-    if (Clamped < 2500)
+    if (Clamped <
+        AuthoredBandThresholdBps[0])
     {
-        View.Band =
+        OutViewModel.Band =
             EOGUiRiskBand::Low;
     }
-    else if (Clamped < 5000)
+    else if (Clamped <
+             AuthoredBandThresholdBps[1])
     {
-        View.Band =
+        OutViewModel.Band =
             EOGUiRiskBand::Moderate;
     }
-    else if (Clamped < 7500)
+    else if (Clamped <
+             AuthoredBandThresholdBps[2])
     {
-        View.Band =
+        OutViewModel.Band =
             EOGUiRiskBand::High;
     }
     else
     {
-        View.Band =
+        OutViewModel.Band =
             EOGUiRiskBand::Critical;
     }
 
-    View.bExactProbabilityVisible =
+    OutViewModel.bExactProbabilityVisible =
         bExactProbabilityAuthorized &&
         KnowledgeState ==
             EOGUiKnowledgeState::Confirmed;
-    if (View.bExactProbabilityVisible)
+    if (OutViewModel.bExactProbabilityVisible)
     {
-        View.ExactProbabilityBps =
+        OutViewModel.ExactProbabilityBps =
             Clamped;
     }
 
-    return View;
+    return true;
 }
 
 bool FOGUiViewModelService::BuildProject(
@@ -1986,6 +2007,7 @@ bool FOGUiViewModelService::BuildDispatch(
     const FOGEntityId& DispatchId,
     EOGUiKnowledgeState RiskKnowledgeState,
     bool bExactRiskAuthorized,
+    const TArray<int32>& AuthoredRiskBandThresholdBps,
     FOGDispatchViewModel& OutViewModel,
     FString& OutError) const
 {
@@ -2015,11 +2037,16 @@ bool FOGUiViewModelService::BuildDispatch(
     OutViewModel.Status =
         DispatchStatusName(
             Dispatch.Status);
-    OutViewModel.Risk =
-        ProjectRisk(
+    if (!ProjectRisk(
             Dispatch.RiskBps,
             RiskKnowledgeState,
-            bExactRiskAuthorized);
+            bExactRiskAuthorized,
+            AuthoredRiskBandThresholdBps,
+            OutViewModel.Risk,
+            OutError))
+    {
+        return false;
+    }
 
     TArray<FOGDispatchObjectiveRecord> Objectives;
     if (!Store.ListDispatchObjectives(
@@ -2067,6 +2094,7 @@ bool FOGUiViewModelService::BuildWar(
     EOGUiKnowledgeState OutcomeKnowledgeState,
     int32 OutcomeRiskBps,
     bool bExactOutcomeAuthorized,
+    const TArray<int32>& AuthoredRiskBandThresholdBps,
     FOGWarViewModel& OutViewModel,
     FString& OutError) const
 {
@@ -2096,11 +2124,16 @@ bool FOGUiViewModelService::BuildWar(
     OutViewModel.Status =
         WarStatusName(
             War.Status);
-    OutViewModel.OutcomeConfidence =
-        ProjectRisk(
+    if (!ProjectRisk(
             OutcomeRiskBps,
             OutcomeKnowledgeState,
-            bExactOutcomeAuthorized);
+            bExactOutcomeAuthorized,
+            AuthoredRiskBandThresholdBps,
+            OutViewModel.OutcomeConfidence,
+            OutError))
+    {
+        return false;
+    }
 
     TArray<FOGWarFrontRecord> Fronts;
     if (!Store.ListWarFronts(
