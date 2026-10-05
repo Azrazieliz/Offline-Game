@@ -206,14 +206,14 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     }
 
     TestTrue(
-        TEXT("Downgrade fixture to schema 7"),
+        TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DROP TABLE IF EXISTS ruler_gacha_access;"
-            "DROP TABLE IF EXISTS ruler_sovereignty_state;"
-            "DROP TABLE IF EXISTS territory_claims;"
-            "DROP TABLE IF EXISTS location_territories;"
-            "DELETE FROM schema_migrations WHERE version = 8;",
+            "DROP TABLE IF EXISTS domain_core_lineage;"
+            "DROP TABLE IF EXISTS domain_core_fusions;"
+            "DROP TABLE IF EXISTS domain_core_concepts;"
+            "DROP TABLE IF EXISTS territory_domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;",
             Error));
 
     FOGWorldBootstrapResult Result;
@@ -228,9 +228,9 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestTrue(TEXT("Migration was promoted"),
         Result.bMigrationPerformed);
     TestEqual(TEXT("Source schema recorded"),
-        Result.SourceSchemaVersion, 7);
+        Result.SourceSchemaVersion, 8);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 8);
+        Result.TargetSchemaVersion, 9);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -242,8 +242,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 8"),
-            Store.GetSchemaVersion(Error), 8);
+        TestEqual(TEXT("Promoted schema is 9"),
+            Store.GetSchemaVersion(Error), 9);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -307,15 +307,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0008 table while removing only its ledger row.
+    // Break a migration-0009 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
-    // working-copy validation must fail while the authoritative DB is untouched.
+    // working-copy transform must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE ruler_gacha_access DROP COLUMN permanently_unlocked;"
-            "DELETE FROM schema_migrations WHERE version = 8;",
+            "ALTER TABLE territory_domain_state DROP COLUMN domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -463,6 +463,11 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS domain_core_lineage;"
+            "DROP TABLE IF EXISTS domain_core_fusions;"
+            "DROP TABLE IF EXISTS domain_core_concepts;"
+            "DROP TABLE IF EXISTS territory_domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;"
             "DROP TABLE IF EXISTS ruler_gacha_access;"
             "DROP TABLE IF EXISTS ruler_sovereignty_state;"
             "DROP TABLE IF EXISTS territory_claims;"
@@ -621,9 +626,9 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 8"),
+            TEXT("Fixture begins at schema 9"),
             Store.GetSchemaVersion(Error),
-            8);
+            9);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -702,6 +707,11 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS domain_core_lineage;"
+            "DROP TABLE IF EXISTS domain_core_fusions;"
+            "DROP TABLE IF EXISTS domain_core_concepts;"
+            "DROP TABLE IF EXISTS territory_domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;"
             "DROP TABLE IF EXISTS ruler_gacha_access;"
             "DROP TABLE IF EXISTS ruler_sovereignty_state;"
             "DROP TABLE IF EXISTS territory_claims;"
@@ -711,7 +721,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 7 to 8"),
+        TEXT("Safe bootstrap migrates schema 7 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -723,12 +733,12 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        8);
+        9);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-8 database"),
+            TEXT("Open migrated current-schema database"),
             Store.Open(
                 DatabasePath,
                 Error));
