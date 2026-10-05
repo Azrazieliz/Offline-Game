@@ -364,6 +364,11 @@ public:
     virtual bool IsContentPackageActivated(const FOGContentId&, bool&, bool&, FString&) const = 0;
 
     virtual bool AppendWorldEvent(const FOGWorldEvent&, FString&) = 0;
+    virtual bool TryReadWorldEvent(
+        const FOGEntityId&, bool&, FOGWorldEvent&, FString&) const = 0;
+    virtual bool ListWorldEvents(
+        const FOGEntityId&, FName, bool, int32,
+        TArray<FOGWorldEvent>&, FString&) const = 0;
 
     virtual bool BackupTo(const FString&, FString&) = 0;
     virtual bool RestoreFrom(const FString&, FString&) = 0;
