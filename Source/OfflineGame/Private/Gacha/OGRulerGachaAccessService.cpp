@@ -39,8 +39,6 @@ bool FOGRulerGachaAccessService::CanUseGacha(
 bool FOGRulerGachaAccessService::RefreshGachaQualification(
     const FOGEntityId& RulerId,
     int64 WorldTick,
-    bool bHasEffectiveTerritoryControl,
-    bool bInReclamationGrace,
     bool bMoreThanOneInGameMonthElapsed,
     FOGRulerGachaAccessRecord& OutAccess,
     FString& OutError)
@@ -49,13 +47,88 @@ bool FOGRulerGachaAccessService::RefreshGachaQualification(
     OutError.Reset();
 
     if (!RulerId.IsValid() ||
-        WorldTick < 0 ||
-        (bHasEffectiveTerritoryControl &&
-         bInReclamationGrace))
+        WorldTick < 0)
     {
         OutError =
-            TEXT("Gacha qualification refresh received invalid Ruler/time/control state.");
+            TEXT("Gacha qualification refresh requires a valid Ruler and non-negative world tick.");
         return false;
+    }
+
+    TArray<FOGTerritoryClaimRecord> Claims;
+    if (!Store.ListTerritoryClaimsByRuler(
+            RulerId,
+            Claims,
+            OutError))
+    {
+        return false;
+    }
+
+    bool bHasEffectiveTerritoryControl = false;
+    bool bInReclamationGrace = false;
+    bool bHaveContinuityStart = false;
+    int64 EarliestContinuityStart = 0;
+    bool bHaveDisplacementTick = false;
+    int64 EarliestDisplacementTick = 0;
+
+    for (const FOGTerritoryClaimRecord& Claim :
+         Claims)
+    {
+        const bool bEffective =
+            Claim.ControlState ==
+                FName(TEXT("controlled")) ||
+            Claim.ControlState ==
+                FName(TEXT("effective"));
+        const bool bGrace =
+            Claim.ControlState ==
+                FName(TEXT("displaced")) &&
+            Claim.bHasReclaimDeadline &&
+            WorldTick <=
+                Claim.ReclaimDeadlineWorldTick;
+
+        if (!bEffective &&
+            !bGrace)
+        {
+            continue;
+        }
+
+        bHasEffectiveTerritoryControl |=
+            bEffective;
+        bInReclamationGrace |=
+            bGrace;
+
+        const int64 ContinuityStart =
+            Claim.bHasEffectiveControlStart
+                ? Claim.EffectiveControlStartWorldTick
+                : Claim.ClaimStartWorldTick;
+
+        if (!bHaveContinuityStart ||
+            ContinuityStart <
+                EarliestContinuityStart)
+        {
+            bHaveContinuityStart = true;
+            EarliestContinuityStart =
+                ContinuityStart;
+        }
+
+        if (bGrace &&
+            Claim.bHasDisplacedWorldTick)
+        {
+            if (!bHaveDisplacementTick ||
+                Claim.DisplacedWorldTick <
+                    EarliestDisplacementTick)
+            {
+                bHaveDisplacementTick = true;
+                EarliestDisplacementTick =
+                    Claim.DisplacedWorldTick;
+            }
+        }
+    }
+
+    // Any still-effective Territory keeps qualification actively running even
+    // if another holding is inside reclamation grace.
+    if (bHasEffectiveTerritoryControl)
+    {
+        bInReclamationGrace = false;
     }
 
     bool bFound = false;
@@ -102,7 +175,9 @@ bool FOGRulerGachaAccessService::RefreshGachaQualification(
         {
             Access.bHasQualificationStart = true;
             Access.QualificationStartWorldTick =
-                WorldTick;
+                bHaveContinuityStart
+                    ? EarliestContinuityStart
+                    : WorldTick;
         }
 
         // Reclamation inside the fixed five-day grace preserves continuity.
@@ -111,16 +186,6 @@ bool FOGRulerGachaAccessService::RefreshGachaQualification(
 
         if (bMoreThanOneInGameMonthElapsed)
         {
-            // The first observation of control starts qualification; it cannot
-            // simultaneously prove that more than a month elapsed from that
-            // newly stored start.
-            if (!bHadQualificationStart)
-            {
-                OutError =
-                    TEXT("More-than-one-month qualification cannot be asserted on the first stored control observation.");
-                return false;
-            }
-
             Access.bPermanentlyUnlocked = true;
             Access.bHasUnlockedWorldTick = true;
             Access.UnlockedWorldTick =
@@ -129,12 +194,25 @@ bool FOGRulerGachaAccessService::RefreshGachaQualification(
     }
     else if (bInReclamationGrace)
     {
+        // If no qualification row was projected before displacement, recover
+        // its continuity origin from the persisted claim rather than losing
+        // legitimate elapsed time.
+        if (!Access.bHasQualificationStart &&
+            bHaveContinuityStart)
+        {
+            Access.bHasQualificationStart = true;
+            Access.QualificationStartWorldTick =
+                EarliestContinuityStart;
+        }
+
         if (Access.bHasQualificationStart &&
             !Access.bHasQualificationSuspendedTick)
         {
             Access.bHasQualificationSuspendedTick = true;
             Access.QualificationSuspendedWorldTick =
-                WorldTick;
+                bHaveDisplacementTick
+                    ? EarliestDisplacementTick
+                    : WorldTick;
         }
     }
     else
@@ -191,8 +269,7 @@ bool FOGRulerGachaAccessService::RefreshGachaQualification(
         }
     }
     else if (bHadQualificationStart &&
-             !bHasEffectiveTerritoryControl &&
-             !bInReclamationGrace)
+             !Access.bHasQualificationStart)
     {
         FOGWorldEvent Event;
         Event.EventId = FOGEntityId::NewId();
