@@ -111,6 +111,21 @@ bool FOGGachaService::ValidateBanner(
         return false;
     }
 
+    TSet<FOGContentId> SeenTickets;
+    for (const FOGContentId& TicketId :
+         Banner.CompatibleTicketIds)
+    {
+        if (!TicketId.IsValid() ||
+            TicketId == Banner.CurrencyId ||
+            SeenTickets.Contains(TicketId))
+        {
+            OutError =
+                TEXT("Gacha compatible ticket IDs must be valid, unique, and distinct from pull currency.");
+            return false;
+        }
+        SeenTickets.Add(TicketId);
+    }
+
     bool bHasTop = false;
     bool bHasFeaturedTop = false;
     int64 BaseWeightTotal = 0;
@@ -233,23 +248,63 @@ bool FOGGachaService::Pull(
             TEXT("Gacha is not permanently unlocked for this Ruler."));
     }
 
-    bool bCurrencyKnown = false;
-    int64 CurrencyBalance = 0;
-    if (Banner.PullCost > 0)
+    FOGContentId PaymentResourceId =
+        Banner.CurrencyId;
+    bool bUsedTicket = false;
+    bool bPaymentKnown = false;
+    int64 PaymentBalance = 0;
+
+    // Ordinary compatible tickets are additional access instruments, not a
+    // second required grind. Consume one automatically before pull currency.
+    for (const FOGContentId& TicketId :
+         Banner.CompatibleTicketIds)
     {
+        bool bTicketKnown = false;
+        int64 TicketBalance = 0;
         if (!Store.TryReadResourceBalance(
                 RulerId,
-                Banner.CurrencyId,
-                bCurrencyKnown,
-                CurrencyBalance,
+                TicketId,
+                bTicketKnown,
+                TicketBalance,
                 Error))
         {
             return Fail(Error);
         }
 
-        if (!bCurrencyKnown || CurrencyBalance < Banner.PullCost)
+        if (bTicketKnown &&
+            TicketBalance > 0)
         {
-            return Fail(TEXT("Insufficient gacha currency."));
+            PaymentResourceId =
+                TicketId;
+            PaymentBalance =
+                TicketBalance;
+            bPaymentKnown =
+                true;
+            bUsedTicket =
+                true;
+            break;
+        }
+    }
+
+    if (!bUsedTicket &&
+        Banner.PullCost > 0)
+    {
+        if (!Store.TryReadResourceBalance(
+                RulerId,
+                Banner.CurrencyId,
+                bPaymentKnown,
+                PaymentBalance,
+                Error))
+        {
+            return Fail(Error);
+        }
+
+        if (!bPaymentKnown ||
+            PaymentBalance <
+                Banner.PullCost)
+        {
+            return Fail(
+                TEXT("Insufficient compatible ticket or gacha currency."));
         }
     }
 
@@ -389,12 +444,24 @@ bool FOGGachaService::Pull(
     // first physical World Mode anchoring step. That explicit action is owned by
     // FOGTerritoryControlService once the Ruler is in effective Territory.
 
-    if (Banner.PullCost > 0 &&
-        !Store.SetResourceBalance(
-            RulerId,
-            Banner.CurrencyId,
-            CurrencyBalance - Banner.PullCost,
-            Error))
+    if (bUsedTicket)
+    {
+        if (!Store.SetResourceBalance(
+                RulerId,
+                PaymentResourceId,
+                PaymentBalance - 1,
+                Error))
+        {
+            return Fail(Error);
+        }
+    }
+    else if (Banner.PullCost > 0 &&
+             !Store.SetResourceBalance(
+                 RulerId,
+                 Banner.CurrencyId,
+                 PaymentBalance -
+                     Banner.PullCost,
+                 Error))
     {
         return Fail(Error);
     }
@@ -423,6 +490,7 @@ bool FOGGachaService::Pull(
     Event.PayloadJson = FString::Printf(
         TEXT("{\"banner\":\"%s\",\"identity\":\"%s\",\"version\":\"%s\",")
         TEXT("\"rarity\":\"%s\",\"featured\":%s,\"duplicate\":%s,")
+        TEXT("\"payment_resource\":\"%s\",\"used_ticket\":%s,")
         TEXT("\"seed\":%lld,\"rng_draws\":%llu}"),
         *Banner.BannerId.ToString(),
         *Selected->IdentityId.ToString(),
@@ -430,6 +498,8 @@ bool FOGGachaService::Pull(
         *Selected->Rarity.ToString(),
         Selected->bFeatured ? TEXT("true") : TEXT("false"),
         bDuplicate ? TEXT("true") : TEXT("false"),
+        *PaymentResourceId.ToString(),
+        bUsedTicket ? TEXT("true") : TEXT("false"),
         Seed,
         static_cast<unsigned long long>(Rng.GetDrawCount()));
 
@@ -453,6 +523,10 @@ bool FOGGachaService::Pull(
     OutResult.bTopRarity = bTopRarity;
     OutResult.bFeatured = Selected->bFeatured;
     OutResult.bDuplicateIdentity = bDuplicate;
+    OutResult.PaymentResourceId =
+        PaymentResourceId;
+    OutResult.bUsedTicket =
+        bUsedTicket;
     OutResult.Seed = Seed;
     OutResult.RngDrawCount =
         static_cast<int64>(Rng.GetDrawCount());
