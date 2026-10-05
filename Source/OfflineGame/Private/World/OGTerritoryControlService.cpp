@@ -481,7 +481,9 @@ bool FOGTerritoryControlService::FindPreferredEffectiveTerritoryForRuler(
                   BestStart ||
               (Claim.ClaimStartWorldTick ==
                    BestStart &&
-               CandidateId < BestId)));
+               CandidateId.Compare(
+                   BestId,
+                   ESearchCase::CaseSensitive) < 0)));
 
         if (bBetter)
         {
