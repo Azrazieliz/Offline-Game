@@ -342,6 +342,37 @@ bool FOGPackageDependencyLifecycleTest::RunTest(
         Packages.ValidateDependencyGraph(
             Error));
 
+    FString ValidationReport;
+    TestTrue(
+        TEXT("Application validator accepts dependency-ready package graph"),
+        Store.RunApplicationValidation(
+            ValidationReport,
+            Error));
+
+    TestTrue(
+        TEXT("Inject active-package dependency corruption for validator proof"),
+        Store.ExecuteSql(
+            FString::Printf(
+                TEXT("UPDATE content_packages SET activated = 0 WHERE package_id = '%s';"),
+                *Core.PackageId.ToString()),
+            Error));
+    TestFalse(
+        TEXT("Application validator rejects active package with inactive dependency"),
+        Store.RunApplicationValidation(
+            ValidationReport,
+            Error));
+
+    TestTrue(
+        TEXT("Restore dependency activation through package manager"),
+        Packages.ActivatePackage(
+            Core.PackageId,
+            Error));
+    TestTrue(
+        TEXT("Application validator returns green after package graph repair"),
+        Store.RunApplicationValidation(
+            ValidationReport,
+            Error));
+
     Store.Close();
     IFileManager::Get().DeleteDirectory(*Directory, false, true);
     return true;
