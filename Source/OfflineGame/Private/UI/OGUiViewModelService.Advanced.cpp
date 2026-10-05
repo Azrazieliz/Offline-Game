@@ -1594,6 +1594,7 @@ bool FOGUiViewModelService::BuildTurnBattlePresentation(
     const FOGTurnBattleState& BattleState,
     float SelectedSpeed,
     bool bUltimateCinematicsEnabled,
+    const TArray<FOGTurnTimelineEntryViewModel>& RuntimeTimelineEvents,
     const TArray<FOGTurnBattleRecapEntryViewModel>& AuthoritativeRecap,
     FOGTurnBattlePresentationViewModel& OutViewModel,
     FString& OutError)
@@ -1653,6 +1654,21 @@ bool FOGUiViewModelService::BuildTurnBattlePresentation(
             Unit.NextActionValue;
         OutViewModel.Timeline.Add(
             MoveTemp(Entry));
+    }
+
+    for (const FOGTurnTimelineEntryViewModel& RuntimeEvent :
+         RuntimeTimelineEvents)
+    {
+        if (RuntimeEvent.Marker.IsNone())
+        {
+            OutError =
+                TEXT("Turn timeline runtime event requires a marker.");
+            OutViewModel =
+                FOGTurnBattlePresentationViewModel();
+            return false;
+        }
+        OutViewModel.Timeline.Add(
+            RuntimeEvent);
     }
 
     OutViewModel.Timeline.Sort(
