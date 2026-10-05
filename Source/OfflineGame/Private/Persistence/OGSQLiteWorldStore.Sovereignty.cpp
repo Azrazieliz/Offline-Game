@@ -1377,11 +1377,13 @@ bool FOGSQLiteWorldStore::MigrateTerritorySovereignty0008(
 
     TMap<FOGEntityId, int64> EarliestEffectiveControl;
     TMap<FOGEntityId, int64> LatestEffectiveControl;
+    TSet<FOGEntityId> TerritoryRulers;
     TSet<FOGEntityId> LegacyRulers;
 
     for (const FLegacyTerritory& Legacy :
          Territories)
     {
+        TerritoryRulers.Add(Legacy.RulerId);
         LegacyRulers.Add(Legacy.RulerId);
 
         FOGTerritoryClaimRecord Claim;
@@ -1511,38 +1513,40 @@ bool FOGSQLiteWorldStore::MigrateTerritorySovereignty0008(
             LatestEffectiveControl.Find(
                 RulerId);
 
-        FOGRulerSovereigntyStateRecord Sovereignty;
-        Sovereignty.RulerId = RulerId;
-        Sovereignty.CurrentTitle =
-            Earliest
-                ? FName(TEXT("ruler"))
-                : FName(TEXT("none"));
-        Sovereignty.HistoricalPeakTitle =
-            Earliest
-                ? FName(TEXT("ruler"))
-                : FName(TEXT("none"));
-
-        if (Earliest)
+        if (TerritoryRulers.Contains(
+                RulerId))
         {
-            Sovereignty.bHasContinuousControlStart = true;
-            Sovereignty.ContinuousControlStartWorldTick =
-                *Earliest;
-        }
+            FOGRulerSovereigntyStateRecord Sovereignty;
+            Sovereignty.RulerId = RulerId;
+            Sovereignty.CurrentTitle =
+                Earliest
+                    ? FName(TEXT("ruler"))
+                    : FName(TEXT("none"));
+            Sovereignty.HistoricalPeakTitle =
+                FName(TEXT("ruler"));
 
-        if (Latest)
-        {
-            Sovereignty.bHasLastEffectiveControlTick = true;
-            Sovereignty.LastEffectiveControlWorldTick =
-                *Latest;
-            Sovereignty.UpdatedWorldTick =
-                *Latest;
-        }
+            if (Earliest)
+            {
+                Sovereignty.bHasContinuousControlStart = true;
+                Sovereignty.ContinuousControlStartWorldTick =
+                    *Earliest;
+            }
 
-        if (!UpsertRulerSovereigntyState(
-                Sovereignty,
-                OutError))
-        {
-            return false;
+            if (Latest)
+            {
+                Sovereignty.bHasLastEffectiveControlTick = true;
+                Sovereignty.LastEffectiveControlWorldTick =
+                    *Latest;
+                Sovereignty.UpdatedWorldTick =
+                    *Latest;
+            }
+
+            if (!UpsertRulerSovereigntyState(
+                    Sovereignty,
+                    OutError))
+            {
+                return false;
+            }
         }
 
         bool bPriorGachaUse = false;
