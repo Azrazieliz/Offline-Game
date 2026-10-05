@@ -1,6 +1,9 @@
 #include "World/OGRealityGraphService.h"
 
+#include "Dom/JsonObject.h"
 #include "Events/OGWorldEvent.h"
+#include "Serialization/JsonSerializer.h"
+#include "Serialization/JsonWriter.h"
 
 bool FOGRealityGraphService::SaveRealityNode(
     const FOGRealityNodeRecord& Reality,
@@ -162,6 +165,20 @@ bool FOGRealityGraphService::SetWorldRank(
     {
         OutError =
             TEXT("World Rank change requires valid Reality, content Rank and provenance.");
+        return false;
+    }
+
+    TSharedPtr<FJsonObject> Provenance;
+    const TSharedRef<TJsonReader<>> Reader =
+        TJsonReaderFactory<>::Create(
+            ProvenanceJson);
+    if (!FJsonSerializer::Deserialize(
+            Reader,
+            Provenance) ||
+        !Provenance.IsValid())
+    {
+        OutError =
+            TEXT("World Rank provenance must be a valid JSON object.");
         return false;
     }
 
