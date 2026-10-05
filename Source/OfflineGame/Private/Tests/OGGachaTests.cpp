@@ -1,4 +1,5 @@
 #include "Gacha/OGGachaService.h"
+#include "Gacha/OGRulerGachaAccessService.h"
 #include "Persistence/OGSQLiteWorldStore.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
@@ -60,11 +61,36 @@ bool FOGGachaPersistenceAndDuplicateTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         FString Error;
         TestTrue(TEXT("Open database"), Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Schema version is 7"), Store.GetSchemaVersion(Error), 7);
+        TestEqual(TEXT("Schema version is 8"), Store.GetSchemaVersion(Error), 8);
         TestTrue(TEXT("Persist Ruler"), Store.UpsertEntity(
             RulerId, TEXT("ruler"), 0, TEXT("{}"), Error));
         TestTrue(TEXT("Seed pull currency"), Store.SetResourceBalance(
             RulerId, Banner.CurrencyId, 1000, Error));
+
+        FOGRulerGachaAccessService AccessService(Store);
+        FOGRulerGachaAccessRecord Access;
+        TestTrue(TEXT("Start continuous Territory qualification"),
+            AccessService.RefreshGachaQualification(
+                RulerId,
+                0,
+                true,
+                false,
+                false,
+                Access,
+                Error));
+        TestFalse(TEXT("Qualification alone does not unlock gacha"),
+            Access.bPermanentlyUnlocked);
+        TestTrue(TEXT("Unlock after authoritative calendar confirms more than one month"),
+            AccessService.RefreshGachaQualification(
+                RulerId,
+                1,
+                true,
+                false,
+                true,
+                Access,
+                Error));
+        TestTrue(TEXT("Gacha unlock is permanent"),
+            Access.bPermanentlyUnlocked);
 
         FOGGachaService Service(Store);
         FOGGachaPullResult First;
