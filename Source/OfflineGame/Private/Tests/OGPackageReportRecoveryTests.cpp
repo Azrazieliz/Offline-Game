@@ -420,6 +420,17 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
         Defaults.OrientationLock,
         FName(TEXT("automatic")));
     TestEqual(
+        TEXT("Roster defaults to frozen dense three-column profile"),
+        Defaults.RosterDensity,
+        FName(TEXT("dense")));
+    TestTrue(
+        TEXT("Large package downloads default to automatic"),
+        Defaults.bAutoDownload);
+    TestTrue(
+        TEXT("Default download policy is unmetered/Wi-Fi only"),
+        Defaults.NetworkPreferencesJson.Contains(
+            TEXT("unmetered_only")));
+    TestEqual(
         TEXT("Automatic orientation follows device"),
         FOGPlayerProfileSettingsService::ResolveOrientation(
             Defaults,
@@ -465,6 +476,11 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
     TestTrue(TEXT("Load external recovery catalog"), FOGRecoveryCatalogService::LoadEntries(CatalogPath, Entries, Error));
     TestEqual(TEXT("Catalog contains snapshot metadata"), Entries.Num(), 1);
     TestTrue(TEXT("Catalog records backup hash"), Entries.Num() == 1 && !Entries[0].ContentHash.IsEmpty());
+    TestTrue(
+        TEXT("Snapshot is cataloged as validated only after reopen/application/integrity validation"),
+        Entries.Num() == 1 &&
+        Entries[0].ValidationState ==
+            FName(TEXT("validated")));
 
     TestTrue(
         TEXT("Clear World preserves backups by default"),
@@ -483,6 +499,11 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
     TestTrue(TEXT("Reload player profile sidecar"), FOGPlayerProfileSettingsService::Load(SettingsPath, Reloaded, Error));
     TestTrue(TEXT("Privacy/SFW setting remains outside canonical DB lifecycle"), Reloaded.bSfwPresentation);
     TestEqual(TEXT("Roster density survives sidecar reload"), Reloaded.RosterDensity, FName(TEXT("dense")));
+    TestTrue(TEXT("Auto-download preference survives sidecar reload"), Reloaded.bAutoDownload);
+    TestTrue(
+        TEXT("Unmetered-only download policy survives sidecar reload"),
+        Reloaded.NetworkPreferencesJson.Contains(
+            TEXT("unmetered_only")));
 
     TestTrue(
         TEXT("Explicit backup deletion may remove catalog/backups"),
