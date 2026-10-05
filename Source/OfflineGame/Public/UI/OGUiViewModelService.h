@@ -219,6 +219,7 @@ public:
         const FOGTurnBattleState& BattleState,
         float SelectedSpeed,
         bool bUltimateCinematicsEnabled,
+        const TArray<FOGTurnTimelineEntryViewModel>& RuntimeTimelineEvents,
         const TArray<FOGTurnBattleRecapEntryViewModel>& AuthoritativeRecap,
         FOGTurnBattlePresentationViewModel& OutViewModel,
         FString& OutError);
