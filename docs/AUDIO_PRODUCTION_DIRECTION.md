@@ -177,6 +177,32 @@ Main-line instrumentation rule:
 
 The central emotional target is dangerous intimacy: desire, grief, obsession, surrender, tenderness, dread and irreversible emotional consequence may coexist. The music should feel close to the body and psychologically exposed before it becomes large.
 
+### 6A.4 Fractured Echoes reference reset
+
+Creative Director correction: the original **Fractured Echoes** prototype was structurally much closer to the intended mainline vocal identity than the later acoustic-overcorrection attempts. It is therefore restored as the primary prototype reference for **overall song architecture and energy balance**, while still requiring substantial style polish.
+
+Keep from Fractured Echoes:
+- dark minor/modal emotional core;
+- intimate-to-explosive dynamic contrast;
+- memorable leitmotif behavior;
+- silence / dropout / re-entry structure;
+- hybrid orchestral-rock-electronic potential used with restraint;
+- strong narrative-song feeling rather than background underscore;
+- female-led vocal focus.
+
+Polish required beyond Fractured Echoes:
+- stronger sensuality and emotional gravity;
+- more distinctive, less generic vocal timbre and acting;
+- more breath as phrasing and emotional punctuation;
+- more rhythmically natural Japanese lyric construction;
+- more intelligent, game-specific poetic writing;
+- tighter control against festive/funk/dance drift;
+- avoid beat-led arrangement as the song engine;
+- preserve piano/cello/strings as important emotional anchors without forcing the whole song into sparse acoustic minimalism;
+- male vocals remain disallowed for solo mainline tracks unless explicitly authored as a duet/ensemble.
+
+The later highly sparse piano/cello-only direction is **not** the new default. It remains a valid situational sub-style for selected calm/intimate songs, but must not replace the broader Fractured Echoes-style mainline architecture.
+
 ### 6A.3 Mainline vocal eligibility and anti-drift guardrails
 
 For the default/mainline vocal-song family:
