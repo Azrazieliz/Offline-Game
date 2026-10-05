@@ -677,6 +677,43 @@ bool FOGUiCharacterCompletenessTest::RunTest(
         Adult.ArchiveEvents.Num(),
         1);
 
+    FOGCharacterHistoryViewModel CharacterHistory;
+    TestTrue(
+        TEXT("Build meaningful Character History"),
+        Ui.BuildCharacterHistory(
+            RulerId,
+            AlphaIdentity,
+            50,
+            CharacterHistory,
+            Error));
+    TestTrue(
+        TEXT("Character History stays meaningful-only"),
+        CharacterHistory.bMeaningfulEventsOnly);
+    TestTrue(
+        TEXT("Character History includes acquisition"),
+        CharacterHistory.Entries.ContainsByPredicate(
+            [](const FOGCharacterHistoryEntryViewModel& Entry)
+            {
+                return Entry.Category ==
+                    FName(TEXT("acquisition"));
+            }));
+    TestTrue(
+        TEXT("Character History includes route breakthrough"),
+        CharacterHistory.Entries.ContainsByPredicate(
+            [](const FOGCharacterHistoryEntryViewModel& Entry)
+            {
+                return Entry.Category ==
+                    FName(TEXT("route_breakthrough"));
+            }));
+    TestTrue(
+        TEXT("Character History includes meaningful canonical event"),
+        CharacterHistory.Entries.ContainsByPredicate(
+            [&AdultHistory](const FOGCharacterHistoryEntryViewModel& Entry)
+            {
+                return Entry.EventOrEntityId ==
+                    AdultHistory.EventId;
+            }));
+
     FOGAdultUtilityViewModel NonAdult;
     BetaDefinition.CanonicalMaturity =
         EOGCanonicalMaturity::NonAdult;
@@ -895,17 +932,37 @@ bool FOGUiRecordsGachaTerritoryCombatCompletenessTest::RunTest(
 
     TArray<FOGGachaHistoryEntryViewModel> History;
     TestTrue(
-        TEXT("Filter pull history by banner Identity rarity and date/tick range"),
+        TEXT("Filter pull history by banner Identity rarity and authored date range"),
         Ui.BuildGachaHistoryFiltered(
             RulerId,
             HistoryFilter,
             50,
+            [](
+                int64 WorldTick,
+                FString& OutDisplay,
+                FString& OutResolverError)
+            {
+                OutResolverError.Reset();
+                OutDisplay =
+                    FString::Printf(
+                        TEXT("slice-date-%lld"),
+                        static_cast<long long>(
+                            WorldTick));
+                return true;
+            },
             History,
             Error));
     TestEqual(
         TEXT("Matching pull history is returned"),
         History.Num(),
         1);
+    if (History.Num() == 1)
+    {
+        TestEqual(
+            TEXT("Gacha history exposes authored calendar/date display"),
+            History[0].DateDisplay,
+            FString(TEXT("slice-date-30")));
+    }
 
     FOGWorldEvent ChronicleEvent;
     ChronicleEvent.EventId =
@@ -1056,6 +1113,33 @@ bool FOGUiRecordsGachaTerritoryCombatCompletenessTest::RunTest(
         FName(TEXT("threat")),
         FName(TEXT("resources"))
     };
+    Territory.HierarchyLevels =
+    {
+        FName(TEXT("reality_dimension")),
+        FName(TEXT("world")),
+        FName(TEXT("region_territory"))
+    };
+    const FOGEntityId RealityNodeId =
+        FOGEntityId::NewId();
+    const FOGEntityId WorldNodeId =
+        FOGEntityId::NewId();
+    TestTrue(
+        TEXT("Territory hierarchy accepts fragmented Reality-to-World path"),
+        FOGUiViewModelService::SetTerritoryNavigationPath(
+            Territory,
+            {
+                RealityNodeId,
+                WorldNodeId
+            },
+            Error));
+    TestEqual(
+        TEXT("Territory navigation path remains hierarchical and compact"),
+        Territory.NavigationNodeIds.Num(),
+        2);
+    TestTrue(
+        TEXT("Fragmented cosmology navigation remains supported"),
+        Territory.bFragmentedCosmologyNavigationSupported);
+
     TestTrue(
         TEXT("Activate one Territory overlay"),
         FOGUiViewModelService::SetActiveTerritoryOverlay(
@@ -1331,6 +1415,14 @@ bool FOGUiRecoveryPackageStrategyCompletenessTest::RunTest(
             Storage.Packages[0].bSizeKnown &&
             Storage.Packages[0].SizeBytes ==
                 734003200);
+        TestEqual(
+            TEXT("Package storage location is exposed"),
+            Storage.Packages[0].InstallUri,
+            Package.InstallUri);
+        TestEqual(
+            TEXT("Package update/download state is exposed"),
+            Storage.Packages[0].UpdateState,
+            Package.DownloadState);
         TestTrue(
             TEXT("Move is exposed only when storage resolver allows it"),
             Storage.Packages[0].Actions.Contains(
@@ -1386,6 +1478,10 @@ bool FOGUiRecoveryPackageStrategyCompletenessTest::RunTest(
         TEXT("Automatic snapshot kind is recognized"),
         Backups.Backups[0].SnapshotKind,
         FName(TEXT("automatic")));
+    TestEqual(
+        TEXT("Backup manager exposes world identity metadata"),
+        Backups.Backups[0].WorldIdentity,
+        Automatic.WorldIdentity);
     TestEqual(
         TEXT("Manual snapshot kind is recognized"),
         Backups.Backups[1].SnapshotKind,
