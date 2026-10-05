@@ -29,6 +29,17 @@ public:
         FOGEntityId& OutConvergenceId,
         FString& OutError);
 
+    bool PerformConvergence(
+        FOGCharacterManifestationRecord ResultManifestation,
+        const TArray<FOGEntityId>& SourceManifestationIds,
+        const TArray<FOGContentId>& SourceLineageIds,
+        const FOGContentId& RuleId,
+        int64 WorldTick,
+        const FString& StateJson,
+        bool bExplicitlyConfirmProtectedSources,
+        FOGEntityId& OutConvergenceId,
+        FString& OutError);
+
 private:
     IOGWorldStore& Store;
 };
