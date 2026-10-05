@@ -1,5 +1,9 @@
 #include "UI/OGUiViewModelService.h"
 
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
+
 #include "Gacha/OGGachaService.h"
 #include "World/OGSharedWorldStateService.h"
 #include "World/OGTerritoryControlService.h"
@@ -756,6 +760,139 @@ bool FOGUiViewModelService::BuildGacha(
     return true;
 }
 
+bool FOGUiViewModelService::BuildGachaHistory(
+    const FOGEntityId& RulerId,
+    int32 Limit,
+    TArray<FOGGachaHistoryEntryViewModel>& OutHistory,
+    FString& OutError) const
+{
+    OutHistory.Reset();
+    OutError.Reset();
+
+    if (!RulerId.IsValid())
+    {
+        OutError =
+            TEXT("Gacha history projection requires a valid Ruler.");
+        return false;
+    }
+
+    TArray<FOGWorldEvent> Events;
+    if (!Store.ListWorldEvents(
+            RulerId,
+            FName(TEXT("gacha_pull")),
+            false,
+            Limit,
+            Events,
+            OutError))
+    {
+        return false;
+    }
+
+    for (const FOGWorldEvent& Event :
+         Events)
+    {
+        TSharedPtr<FJsonObject> Json;
+        const TSharedRef<TJsonReader<>> Reader =
+            TJsonReaderFactory<>::Create(
+                Event.PayloadJson);
+        if (!FJsonSerializer::Deserialize(
+                Reader,
+                Json) ||
+            !Json.IsValid())
+        {
+            OutError =
+                TEXT("Persisted gacha-pull event payload is invalid JSON.");
+            OutHistory.Reset();
+            return false;
+        }
+
+        FString Banner;
+        FString Identity;
+        FString Version;
+        FString Rarity;
+        FString PaymentResource;
+        bool bFeatured = false;
+        bool bDuplicate = false;
+        bool bUsedTicket = false;
+
+        if (!Json->TryGetStringField(
+                TEXT("banner"),
+                Banner) ||
+            !Json->TryGetStringField(
+                TEXT("identity"),
+                Identity) ||
+            !Json->TryGetStringField(
+                TEXT("version"),
+                Version) ||
+            !Json->TryGetStringField(
+                TEXT("rarity"),
+                Rarity))
+        {
+            OutError =
+                TEXT("Persisted gacha-pull event is missing required presentation fields.");
+            OutHistory.Reset();
+            return false;
+        }
+
+        Json->TryGetBoolField(
+            TEXT("featured"),
+            bFeatured);
+        Json->TryGetBoolField(
+            TEXT("duplicate"),
+            bDuplicate);
+        Json->TryGetBoolField(
+            TEXT("used_ticket"),
+            bUsedTicket);
+        Json->TryGetStringField(
+            TEXT("payment_resource"),
+            PaymentResource);
+
+        FOGGachaHistoryEntryViewModel View;
+        View.EventId =
+            Event.EventId;
+        View.WorldTick =
+            Event.WorldTick;
+        View.BannerId =
+            FOGContentId(
+                Banner);
+        View.IdentityId =
+            FOGContentId(
+                Identity);
+        View.VersionId =
+            FOGContentId(
+                Version);
+        View.Rarity =
+            FName(
+                *Rarity);
+        View.bFeatured =
+            bFeatured;
+        View.bDuplicateIdentity =
+            bDuplicate;
+        View.PaymentResourceId =
+            FOGContentId(
+                PaymentResource);
+        View.bUsedTicket =
+            bUsedTicket;
+
+        if (!View.BannerId.IsValid() ||
+            !View.IdentityId.IsValid() ||
+            !View.VersionId.IsValid() ||
+            View.Rarity.IsNone())
+        {
+            OutError =
+                TEXT("Persisted gacha-pull event contains invalid presentation IDs.");
+            OutHistory.Reset();
+            return false;
+        }
+
+        OutHistory.Add(
+            MoveTemp(
+                View));
+    }
+
+    return true;
+}
+
 bool FOGUiViewModelService::BuildTerritory(
     const FOGEntityId& RulerId,
     const FOGEntityId& SelectedTerritoryId,
@@ -951,6 +1088,107 @@ bool FOGUiViewModelService::BuildRecordsHub(
         {
             ++OutViewModel.UnacknowledgedReportCount;
         }
+    }
+
+    return true;
+}
+
+bool FOGUiViewModelService::BuildChronicle(
+    const FOGEntityId& RulerId,
+    int32 Limit,
+    TArray<FOGChronicleEntryViewModel>& OutEntries,
+    FString& OutError) const
+{
+    OutEntries.Reset();
+    OutError.Reset();
+
+    if (!RulerId.IsValid())
+    {
+        OutError =
+            TEXT("Chronicle projection requires a valid Ruler.");
+        return false;
+    }
+
+    TArray<FOGWorldEvent> Events;
+    if (!Store.ListWorldEvents(
+            RulerId,
+            NAME_None,
+            true,
+            Limit,
+            Events,
+            OutError))
+    {
+        return false;
+    }
+
+    for (const FOGWorldEvent& Event :
+         Events)
+    {
+        FOGChronicleEntryViewModel View;
+        View.EventId =
+            Event.EventId;
+        View.EventType =
+            Event.EventType;
+        View.WorldTick =
+            Event.WorldTick;
+        View.PrimaryEntityId =
+            Event.PrimaryEntity;
+        View.RelatedEntityIds =
+            Event.RelatedEntities;
+        View.PayloadJson =
+            Event.PayloadJson;
+        OutEntries.Add(
+            MoveTemp(
+                View));
+    }
+
+    return true;
+}
+
+bool FOGUiViewModelService::BuildIntelligence(
+    const FOGEntityId& RulerId,
+    TArray<FOGIntelligenceEntryViewModel>& OutEntries,
+    FString& OutError) const
+{
+    OutEntries.Reset();
+    OutError.Reset();
+
+    if (!RulerId.IsValid())
+    {
+        OutError =
+            TEXT("Intelligence projection requires a valid Ruler.");
+        return false;
+    }
+
+    TArray<FOGKnowledgeFactRecord> Facts;
+    if (!Store.ListKnowledgeFactsByOwner(
+            RulerId,
+            Facts,
+            OutError))
+    {
+        return false;
+    }
+
+    for (const FOGKnowledgeFactRecord& Fact :
+         Facts)
+    {
+        FOGIntelligenceEntryViewModel View;
+        View.FactKey =
+            Fact.FactKey;
+        View.SubjectEntityId =
+            Fact.SubjectEntityId;
+        View.Knowledge =
+            ProjectKnowledgeFact(
+                &Fact,
+                Fact.BeliefState ==
+                    FName(TEXT("outdated")));
+        View.UpdatedWorldTick =
+            Fact.UpdatedWorldTick;
+        View.LanguageContextId =
+            Fact.LanguageContextId;
+        OutEntries.Add(
+            MoveTemp(
+                View));
     }
 
     return true;
