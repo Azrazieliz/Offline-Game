@@ -64,13 +64,12 @@ A successful first acquisition creates the owned Manifestation and makes her vis
 All pullable Character Identities are intended to be female. This does not constrain the sex of non-gacha world NPCs, enemies, faction members, or Rulers.
 
 
-## Implementation migration note
+## Implementation reconciliation status
 
-The current Phase G1 runtime implementation predates the multiple-Manifestation
-design and still uses DuplicateAcquisitionCount. Before character-progression
-implementation is considered current, that storage/acquisition path must be
-migrated transactionally to per-pull Manifestation instances while preserving
-existing acquisition history and deterministic replay compatibility.
+Migration 0007 and the current gacha runtime use one full persistent
+Manifestation per qualifying character acquisition. Legacy duplicate counters
+are migration provenance only and do not drive gameplay. The migration preserves
+recoverable acquisition history deterministically.
 
 ## Economy and repeat-acquisition freeze
 
