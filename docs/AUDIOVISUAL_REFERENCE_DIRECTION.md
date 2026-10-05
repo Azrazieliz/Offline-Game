@@ -75,24 +75,75 @@ Sexualized, austere, elegant, monstrous, heavily armored, ceremonial, minimal, s
 Mature presentation does not require universal sexualization.
 
 
-## 2.4 Selected core rendering synthesis
 
-The first controlled comparison produced a clear Creative Director preference:
-- retain a **mix of Candidate A (Somber Editorial Anime)** and **Candidate C (Gothic Metaphysical Fantasy)**;
-- reject Candidate D / the third comparison direction as the final rendering target;
-- future iterations should move **slightly more anime-stylized and less realistic** than the first comparison batch.
+## 2.4 Final core rendering synthesis
 
-The resulting provisional house direction is **anime-first gothic editorial fantasy**:
-- clear stylized anime faces, eyes, hair masses and shadow design;
-- less photoreal skin and microtexture;
-- strong editorial composition and controlled palettes;
-- austere, melancholic, mature atmosphere;
-- selective graphic accent colors rather than uniform saturation;
-- gothic/metaphysical environmental weight and uncanny spatial language when appropriate;
-- PGR/Arknights/Reverse:1999/Path to Nowhere seriousness combined with the stranger, grander environmental tone associated with NieR/Elden Ring/Duet Night Abyss;
-- retain enough HI3/WuWa readability that characters remain immediately legible as playable action/turn-combat units.
+The Creative Director has selected the real-time 3D visual target.
 
-This is **not yet the final visual-art freeze**. The Creative Director intends to provide additional visual references before the rendering language is finalized.
+### Authoritative Unreal 3D reference family
+Use:
+- **Wuthering Waves**;
+- **Honkai Impact 3rd**;
+- **Duet Night Abyss**;
+
+as the primary real-time 3D reference family.
+
+Do **not** use Tales of Arise as a target reference; it trends too far toward the realistic side for the intended character rendering.
+
+### Final balance
+The target is approximately:
+- **70% anime/stylized**;
+- **30% grounded/realistic**.
+
+This ratio describes the resulting art direction, not a literal shader mix.
+
+Anime/stylized treatment dominates:
+- faces;
+- eyes;
+- hair;
+- body/proportion language;
+- silhouettes;
+- graphic shadow design;
+- costume/weapon design;
+- VFX.
+
+Grounded/physical treatment supports:
+- material differentiation;
+- lighting;
+- atmosphere;
+- weather;
+- spatial depth;
+- cloth/metal/environment interaction;
+- wounds/destruction;
+- environmental integration.
+
+### Revision layered over the primary references
+The game should be:
+- slightly less glossy/clean than the primary reference family;
+- more washed, faded and desaturated;
+- more painterly/brush-softened;
+- more editorial in authored 2D/presentation composition;
+- more melancholic and mature;
+- selective with saturation and accent colors;
+- physically convincing without drifting into realistic-human facial rendering.
+
+### Additional supplied visual-reference qualities
+The latest Creative Director references reinforce:
+- washed/faded common palettes;
+- brushy/painterly edge treatment;
+- selective loss of detail;
+- strong negative space;
+- dramatic but elegant silhouettes;
+- controlled gothic/ceremonial ornament;
+- character designs that can range from severe/armored to soft/overtly sensual without breaking the house style.
+
+Reverse: 1999 remains particularly useful for faded palette, painterly/editorial treatment and composition. Duet Night Abyss remains particularly useful for fantasy silhouette, cloth, ornament, color restraint and anime-first presentation.
+
+### Production name
+The internal rendering direction is **Painterly Anime PBR**.
+
+Concise definition:
+> High-end anime-first real-time 3D using stylized character geometry, faces, hair, proportions, palette and VFX as the dominant language, with Unreal's physically coherent lighting/materials/atmosphere providing enough grounding to make the world convincing without becoming photorealistic.
 
 ## 3. Environment direction
 
@@ -360,10 +411,7 @@ It governs long-run authored combat-content emphasis.
 
 ## 12. Still pending
 
-Before final visual-art production freeze:
-- generate multiple controlled visual direction candidates;
-- Creative Director selects/refines the desired synthesis;
-- convert selection into repeatable character/environment/UI/material/palette rules.
+Visual rendering direction is now selected and documented. Remaining visual work is downstream production definition rather than an unresolved renderer target, including individual character designs, World palettes/assets, final UI skin, branding, per-character animation catalogs and empirically profiled device budgets.
 
 Before final music-content freeze:
 - additional song references may be added;
