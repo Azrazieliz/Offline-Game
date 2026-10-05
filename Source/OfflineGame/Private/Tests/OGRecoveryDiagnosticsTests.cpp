@@ -243,7 +243,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
         TestEqual(TEXT("Promoted schema is 9"),
-            Store.GetSchemaVersion(Error), 9);
+            Store.GetSchemaVersion(Error), 10);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -626,9 +626,9 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 9"),
+            TEXT("Fixture begins at schema 10"),
             Store.GetSchemaVersion(Error),
-            9);
+            10);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -878,10 +878,10 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 9"),
+            TEXT("Fixture begins at schema 10"),
             Store.GetSchemaVersion(
                 Error),
-            9);
+            10);
 
         TestTrue(
             TEXT("Persist Ruler"),
