@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Combat/OGCombatTypes.h"
+#include "Combat/OGTurnBattle.h"
 #include "Persistence/OGRecoveryCatalogService.h"
 #include "Gacha/OGGachaDefinitions.h"
 #include "Persistence/OGWorldStore.h"
