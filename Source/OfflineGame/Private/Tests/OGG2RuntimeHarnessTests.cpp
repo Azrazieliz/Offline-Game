@@ -53,9 +53,9 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
                 Error));
 
         TestEqual(
-            TEXT("Schema version is 12"),
+            TEXT("Schema version is 13"),
             Store.GetSchemaVersion(Error),
-            12);
+            13);
 
         TestTrue(
             TEXT("Run persistent vertical-slice scenario"),
