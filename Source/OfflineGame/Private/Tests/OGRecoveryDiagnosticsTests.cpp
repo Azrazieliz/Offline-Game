@@ -225,22 +225,6 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
             "DROP TABLE IF EXISTS factor_instances;"
             "DROP TABLE IF EXISTS entity_rank_state;"
             "DELETE FROM schema_migrations WHERE version = 10;"
-            "DROP TABLE IF EXISTS character_convergence_sources;"
-            "DROP TABLE IF EXISTS character_convergences;"
-            "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
-            "DROP TABLE IF EXISTS manifestation_world_fantasm_state;"
-            "DROP TABLE IF EXISTS entity_transcendence_state;"
-            "DROP TABLE IF EXISTS manifestation_reinforcement;"
-            "DROP TABLE IF EXISTS manifestation_forms;"
-            "DROP TABLE IF EXISTS manifestation_route_nodes;"
-            "DROP TABLE IF EXISTS skill_provenance;"
-            "DROP TABLE IF EXISTS entity_skills;"
-            "DROP TABLE IF EXISTS grand_class_seats;"
-            "DROP TABLE IF EXISTS entity_classes;"
-            "DROP TABLE IF EXISTS factor_lineage;"
-            "DROP TABLE IF EXISTS factor_instances;"
-            "DROP TABLE IF EXISTS entity_rank_state;"
-            "DELETE FROM schema_migrations WHERE version = 10;"
             "DROP TABLE IF EXISTS domain_core_lineage;"
             "DROP TABLE IF EXISTS domain_core_fusions;"
             "DROP TABLE IF EXISTS domain_core_concepts;"
@@ -1086,6 +1070,22 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS character_convergence_sources;"
+            "DROP TABLE IF EXISTS character_convergences;"
+            "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
+            "DROP TABLE IF EXISTS manifestation_world_fantasm_state;"
+            "DROP TABLE IF EXISTS entity_transcendence_state;"
+            "DROP TABLE IF EXISTS manifestation_reinforcement;"
+            "DROP TABLE IF EXISTS manifestation_forms;"
+            "DROP TABLE IF EXISTS manifestation_route_nodes;"
+            "DROP TABLE IF EXISTS skill_provenance;"
+            "DROP TABLE IF EXISTS entity_skills;"
+            "DROP TABLE IF EXISTS grand_class_seats;"
+            "DROP TABLE IF EXISTS entity_classes;"
+            "DROP TABLE IF EXISTS factor_lineage;"
+            "DROP TABLE IF EXISTS factor_instances;"
+            "DROP TABLE IF EXISTS entity_rank_state;"
+            "DELETE FROM schema_migrations WHERE version = 10;"
             "DROP TABLE IF EXISTS domain_core_lineage;"
             "DROP TABLE IF EXISTS domain_core_fusions;"
             "DROP TABLE IF EXISTS domain_core_concepts;"
@@ -1107,7 +1107,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        9);
+        10);
 
     {
         FOGSQLiteWorldStore Store;
