@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Content/OGContentId.h"
 #include "Core/OGEntityId.h"
 #include "OGWorldStateRecords.generated.h"
 
@@ -89,4 +90,26 @@ struct OFFLINEGAME_API FOGKnowledgeFactRecord
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int64 UpdatedWorldTick = 0;
+
+    /** believed / rumored / contradicted / disproven / confirmed / etc. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName BeliefState = FName(TEXT("believed"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 ConfidenceBps = 10000;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId SourceEntityId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId SourceEventId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasEvidenceWorldTick = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 EvidenceWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGContentId LanguageContextId;
 };
