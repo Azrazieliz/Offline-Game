@@ -307,6 +307,33 @@ The earlier beat-driven, synthetic and rhythm-forward direction remains availabl
 
 This side branch must not leak back into the mainline vocal baseline.
 
+### 6A.12 Hype boss-vocal branch
+
+For selected **epic / high-order boss fights**, the vocal soundtrack may use a separate high-energy branch from the calmer mainline material.
+
+Authoritative high-level reference synthesis for this branch:
+- **Ado-like qualities**: extreme vocal acting, sharp consonant attack, abrupt register/timbre changes, whisper-to-belt contrast, rasp/strain and theatrical ferocity;
+- **MYTH & ROID-like qualities**: dark hook architecture, unstable minor/chromatic harmony, abrupt sectional contrast, rock/electronic/orchestral fusion and sustained explosive refrains;
+- **Vaundy-like qualities**: raw alternative-rock elasticity, organic live-band momentum, unexpected chord/texture pivots;
+- **King Gnu-like qualities**: art-rock sophistication, harmonic ambiguity, displaced/irregular rhythmic accents, dense live-band interplay and useful low-register male contrast.
+
+These are high-level production qualities only. New compositions and performances remain original and do not imitate or clone real artists or existing melodies.
+
+A specifically approved structural model is the Creative Director's supplied **GREATEST GLORIA 1:53–~2:28 passage**:
+- approximately 10 seconds of restrained high-tension setup;
+- sudden density/energy rise;
+- approximately 20 seconds of sustained high-pressure climax rather than a brief drop;
+- continuously widening arrangement and interlocking vocal energy;
+- lower male/baritone countervoice may be used intentionally against a dominant female lead.
+
+Boss-branch guardrails:
+- female lead remains dominant unless a true duet is explicitly authored;
+- male/baritone counterlines, duet responses or background layers are allowed;
+- live drums, distorted guitar, piano attacks, strings/cello, muscular bass and selective electronic distortion are valid;
+- intensity should feel dangerous, stylish and intelligent rather than celebratory;
+- no funk/disco baseline, no bright festival energy, no generic four-on-floor EDM drop;
+- irregular accents, half-time fractures, sudden silence and unresolved cuts are encouraged.
+
 ## 7. NPC voice scalability
 
 Ordinary NPC voice families are organized by relevant physical/cultural attributes rather than by one global male/female bucket.
