@@ -209,6 +209,18 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -303,7 +315,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 13"),
+        TestEqual(TEXT("Promoted schema is 14"),
             Store.GetSchemaVersion(Error), 14);
 
         bool bFound = false;
@@ -368,15 +380,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0013 table while removing only its ledger row.
+    // Break a migration-0014 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
     // working-copy validation must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE entity_languages DROP COLUMN written_proficiency_bps;"
-            "DELETE FROM schema_migrations WHERE version = 13;",
+            "ALTER TABLE reports DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -524,6 +536,18 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -829,6 +853,18 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -1205,6 +1241,18 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -1469,6 +1517,18 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 9"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -1670,6 +1730,18 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 10"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -1978,6 +2050,18 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 11"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -2203,6 +2287,18 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 12"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -2228,7 +2324,7 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 12 to 13"),
+        TEXT("Safe bootstrap migrates schema 12 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -2238,7 +2334,7 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
         Migration.SourceSchemaVersion,
         12);
     TestEqual(
-        TEXT("0013 migration target schema"),
+        TEXT("Current migration target schema"),
         Migration.TargetSchemaVersion,
         14);
 
