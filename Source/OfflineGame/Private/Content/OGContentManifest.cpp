@@ -132,13 +132,33 @@ bool FOGContentManifestValidator::Validate(
             continue;
         }
 
-        if (Version.bSexualContentEligible &&
+        bool bHasAdultContentReferences =
+            Version.AdultContentProfileId.IsValid() ||
+            !Version.AdultPresentationTags.IsEmpty();
+
+        for (const FOGContentId& SceneLibraryId :
+             Version.AdultSceneLibraryIds)
+        {
+            if (!SceneLibraryId.IsValid())
+            {
+                AddError(
+                    OutErrors,
+                    FString::Printf(
+                        TEXT("Version %s contains an invalid adult scene-library content ID."),
+                        *Version.VersionId.ToString()));
+                continue;
+            }
+
+            bHasAdultContentReferences = true;
+        }
+
+        if (bHasAdultContentReferences &&
             *Maturity != EOGCanonicalMaturity::Adult)
         {
             AddError(
                 OutErrors,
                 FString::Printf(
-                    TEXT("Version %s requests sexual-content eligibility for a Character Identity that is not canonically Adult."),
+                    TEXT("Version %s contains sexual/adult-content references but its Character Identity is not canonically Adult."),
                     *Version.VersionId.ToString()));
         }
     }
