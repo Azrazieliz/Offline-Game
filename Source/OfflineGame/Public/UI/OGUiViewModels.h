@@ -74,6 +74,9 @@ struct OFFLINEGAME_API FOGRosterManifestationViewModel
     FOGContentId WorldFantasmGradeId;
 
     UPROPERTY(BlueprintReadOnly)
+    TArray<FOGContentId> ClassIds;
+
+    UPROPERTY(BlueprintReadOnly)
     bool bWorldModeAnchored = false;
 
     UPROPERTY(BlueprintReadOnly)
