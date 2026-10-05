@@ -12,6 +12,29 @@ bool FOGGrandConvergenceService::PerformConvergence(
     FOGEntityId& OutConvergenceId,
     FString& OutError)
 {
+    return PerformConvergence(
+        MoveTemp(ResultManifestation),
+        SourceManifestationIds,
+        SourceLineageIds,
+        RuleId,
+        WorldTick,
+        StateJson,
+        false,
+        OutConvergenceId,
+        OutError);
+}
+
+bool FOGGrandConvergenceService::PerformConvergence(
+    FOGCharacterManifestationRecord ResultManifestation,
+    const TArray<FOGEntityId>& SourceManifestationIds,
+    const TArray<FOGContentId>& SourceLineageIds,
+    const FOGContentId& RuleId,
+    int64 WorldTick,
+    const FString& StateJson,
+    bool bExplicitlyConfirmProtectedSources,
+    FOGEntityId& OutConvergenceId,
+    FString& OutError)
+{
     OutConvergenceId =
         FOGEntityId();
     OutError.Reset();
@@ -85,6 +108,27 @@ bool FOGGrandConvergenceService::PerformConvergence(
         {
             OutError =
                 TEXT("A previously converged source cannot be consumed again as a separate Manifestation.");
+            return false;
+        }
+
+        bool bManagementFound = false;
+        FOGManifestationManagementMetadataRecord Management;
+        if (!Store.TryReadManifestationManagementMetadata(
+                SourceId,
+                bManagementFound,
+                Management,
+                OutError))
+        {
+            return false;
+        }
+
+        if (bManagementFound &&
+            (Management.bProtected ||
+             Management.bLocked) &&
+            !bExplicitlyConfirmProtectedSources)
+        {
+            OutError =
+                TEXT("Grand Convergence source is Protected/Locked and requires explicit confirmation.");
             return false;
         }
 
