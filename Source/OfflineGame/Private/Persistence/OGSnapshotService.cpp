@@ -1,5 +1,6 @@
 #include "Persistence/OGSnapshotService.h"
 #include "Persistence/OGRecoveryCatalogService.h"
+#include "Persistence/OGSQLiteWorldStore.h"
 
 #include "HAL/FileManager.h"
 #include "Misc/Paths.h"
@@ -73,6 +74,49 @@ bool FOGSnapshotService::CreateRotatingSnapshot(
     {
         OutSnapshotPath.Reset();
         return false;
+    }
+
+    // A recovery artifact is not called validated merely because SQLite backup
+    // completed. Reopen the produced file, confirm schema/application
+    // invariants and run integrity_check before it enters rotation/catalog.
+    {
+        FOGSQLiteWorldStore ValidationStore;
+        FString ValidationError;
+        FString ApplicationReport;
+        FString IntegrityReport;
+
+        const bool bOpened =
+            ValidationStore.Open(
+                OutSnapshotPath,
+                ValidationError);
+        const bool bApplicationValid =
+            bOpened &&
+            ValidationStore.RunApplicationValidation(
+                ApplicationReport,
+                ValidationError);
+        const bool bIntegrityValid =
+            bApplicationValid &&
+            ValidationStore.RunIntegrityCheck(
+                IntegrityReport,
+                ValidationError);
+
+        ValidationStore.Close();
+
+        if (!bOpened ||
+            !bApplicationValid ||
+            !bIntegrityValid)
+        {
+            IFileManager::Get().Delete(
+                *OutSnapshotPath,
+                false,
+                true,
+                true);
+            OutSnapshotPath.Reset();
+            OutError = FString::Printf(
+                TEXT("Snapshot validation failed: %s"),
+                *ValidationError);
+            return false;
+        }
     }
 
     TArray<FString> SnapshotFiles;
