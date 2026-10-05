@@ -77,6 +77,26 @@ public:
 
     virtual bool UpsertDomainCore(const FOGDomainCoreRecord&, int64, FString&) override;
     virtual bool TryReadDomainCore(const FOGEntityId&, bool&, FOGDomainCoreRecord&, FString&) const override;
+    virtual bool UpsertTerritoryDomainState(
+        const FOGTerritoryDomainStateRecord&, FString&) override;
+    virtual bool TryReadTerritoryDomainState(
+        const FOGEntityId&, bool&, FOGTerritoryDomainStateRecord&, FString&) const override;
+    virtual bool UpsertDomainCoreConcept(
+        const FOGDomainCoreConceptRecord&, FString&) override;
+    virtual bool ListDomainCoreConcepts(
+        const FOGEntityId&, TArray<FOGDomainCoreConceptRecord>&, FString&) const override;
+    virtual bool UpsertDomainCoreFusion(
+        const FOGDomainCoreFusionRecord&, int64, FString&) override;
+    virtual bool ListDomainCoreFusionsForResult(
+        const FOGEntityId&, TArray<FOGDomainCoreFusionRecord>&, FString&) const override;
+    virtual bool UpsertDomainCoreLineage(
+        const FOGDomainCoreLineageRecord&, FString&) override;
+    virtual bool ListDomainCoreLineage(
+        const FOGEntityId&, TArray<FOGDomainCoreLineageRecord>&, FString&) const override;
+
+    bool MigrateDomainHeartAndConcepts0009(FString& OutError);
+    bool ValidateDomainHeartMigration0009(FString& OutError) const;
+
     virtual bool SetResourceBalance(const FOGEntityId&, const FOGContentId&, int64, FString&) override;
     virtual bool TryReadResourceBalance(const FOGEntityId&, const FOGContentId&, bool&, int64&, FString&) const override;
     virtual bool UpsertProject(const FOGProjectRecord&, int64, FString&) override;
