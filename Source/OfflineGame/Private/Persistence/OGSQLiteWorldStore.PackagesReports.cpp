@@ -1051,6 +1051,74 @@ bool FOGSQLiteWorldStore::ValidatePackagesReportsManagementMigration0014(
         return false;
     }
 
+    int32 DependencyCycles = 0;
+    if (!ReadP14Count(
+            Database,
+            "WITH RECURSIVE reach(start_package_id, dependency_package_id) AS ("
+            "SELECT package_id, dependency_package_id FROM package_dependencies "
+            "UNION "
+            "SELECT reach.start_package_id, d.dependency_package_id "
+            "FROM reach JOIN package_dependencies d "
+            "ON d.package_id = reach.dependency_package_id"
+            ") "
+            "SELECT COUNT(*) FROM reach "
+            "WHERE start_package_id = dependency_package_id;",
+            DependencyCycles,
+            OutError))
+    {
+        return false;
+    }
+    if (DependencyCycles != 0)
+    {
+        OutError = FString::Printf(
+            TEXT("Migration 0014 contains %d package dependency cycle path(s)."),
+            DependencyCycles);
+        return false;
+    }
+
+    int32 InvalidActivatedPackages = 0;
+    if (!ReadP14Count(
+            Database,
+            "SELECT COUNT(*) FROM content_packages "
+            "WHERE activated = 1 AND "
+            "(installed <> 1 OR validated <> 1 OR download_state <> 'installed');",
+            InvalidActivatedPackages,
+            OutError))
+    {
+        return false;
+    }
+    if (InvalidActivatedPackages != 0)
+    {
+        OutError = FString::Printf(
+            TEXT("Migration 0014 contains %d activated packages that are not installation/validation ready."),
+            InvalidActivatedPackages);
+        return false;
+    }
+
+    int32 InvalidActiveDependencyEdges = 0;
+    if (!ReadP14Count(
+            Database,
+            "SELECT COUNT(*) "
+            "FROM package_dependencies d "
+            "JOIN content_packages p ON p.package_id = d.package_id "
+            "JOIN content_packages required ON required.package_id = d.dependency_package_id "
+            "WHERE p.activated = 1 AND "
+            "(required.version < d.minimum_version OR "
+            " required.installed <> 1 OR required.validated <> 1 OR "
+            " required.activated <> 1 OR required.download_state <> 'installed');",
+            InvalidActiveDependencyEdges,
+            OutError))
+    {
+        return false;
+    }
+    if (InvalidActiveDependencyEdges != 0)
+    {
+        OutError = FString::Printf(
+            TEXT("Migration 0014 contains %d active package dependency edges that are not activation-ready."),
+            InvalidActiveDependencyEdges);
+        return false;
+    }
+
     int32 InvalidReports = 0;
     if (!ReadP14Count(
             Database,
@@ -1080,6 +1148,45 @@ bool FOGSQLiteWorldStore::ValidatePackagesReportsManagementMigration0014(
     if (InvalidManagement != 0)
     {
         OutError = FString::Printf(TEXT("Migration 0014 produced %d invalid Manifestation management rows."), InvalidManagement);
+        return false;
+    }
+
+    int32 InvalidContextSelections = 0;
+    if (!ReadP14Count(
+            Database,
+            "SELECT COUNT(*) "
+            "FROM manifestation_context_selection s "
+            "JOIN character_manifestations m "
+            "ON m.manifestation_entity_id = s.manifestation_entity_id "
+            "WHERE s.owner_entity_id <> m.owning_ruler_entity_id;",
+            InvalidContextSelections,
+            OutError))
+    {
+        return false;
+    }
+    if (InvalidContextSelections != 0)
+    {
+        OutError = FString::Printf(
+            TEXT("Migration 0014 contains %d cross-owner Manifestation context selections."),
+            InvalidContextSelections);
+        return false;
+    }
+
+    int32 InvalidDeliveries = 0;
+    if (!ReadP14Count(
+            Database,
+            "SELECT COUNT(*) FROM report_delivery "
+            "WHERE channel = '' OR state = '' OR privacy_state = '';",
+            InvalidDeliveries,
+            OutError))
+    {
+        return false;
+    }
+    if (InvalidDeliveries != 0)
+    {
+        OutError = FString::Printf(
+            TEXT("Migration 0014 contains %d invalid Report delivery rows."),
+            InvalidDeliveries);
         return false;
     }
 
