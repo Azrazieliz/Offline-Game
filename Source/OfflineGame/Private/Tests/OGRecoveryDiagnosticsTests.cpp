@@ -206,14 +206,14 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     }
 
     TestTrue(
-        TEXT("Downgrade fixture to schema 7"),
+        TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DROP TABLE IF EXISTS ruler_gacha_access;"
-            "DROP TABLE IF EXISTS ruler_sovereignty_state;"
-            "DROP TABLE IF EXISTS territory_claims;"
-            "DROP TABLE IF EXISTS location_territories;"
-            "DELETE FROM schema_migrations WHERE version = 8;",
+            "DROP TABLE IF EXISTS domain_core_lineage;"
+            "DROP TABLE IF EXISTS domain_core_fusions;"
+            "DROP TABLE IF EXISTS domain_core_concepts;"
+            "DROP TABLE IF EXISTS territory_domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;",
             Error));
 
     FOGWorldBootstrapResult Result;
@@ -228,9 +228,9 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestTrue(TEXT("Migration was promoted"),
         Result.bMigrationPerformed);
     TestEqual(TEXT("Source schema recorded"),
-        Result.SourceSchemaVersion, 7);
+        Result.SourceSchemaVersion, 8);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 8);
+        Result.TargetSchemaVersion, 9);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -242,8 +242,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 8"),
-            Store.GetSchemaVersion(Error), 8);
+        TestEqual(TEXT("Promoted schema is 9"),
+            Store.GetSchemaVersion(Error), 9);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -307,15 +307,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0008 table while removing only its ledger row.
+    // Break a migration-0009 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
-    // working-copy validation must fail while the authoritative DB is untouched.
+    // working-copy transform must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE ruler_gacha_access DROP COLUMN permanently_unlocked;"
-            "DELETE FROM schema_migrations WHERE version = 8;",
+            "ALTER TABLE territory_domain_state DROP COLUMN domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -463,6 +463,11 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS domain_core_lineage;"
+            "DROP TABLE IF EXISTS domain_core_fusions;"
+            "DROP TABLE IF EXISTS domain_core_concepts;"
+            "DROP TABLE IF EXISTS territory_domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;"
             "DROP TABLE IF EXISTS ruler_gacha_access;"
             "DROP TABLE IF EXISTS ruler_sovereignty_state;"
             "DROP TABLE IF EXISTS territory_claims;"
@@ -621,9 +626,9 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 8"),
+            TEXT("Fixture begins at schema 9"),
             Store.GetSchemaVersion(Error),
-            8);
+            9);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -702,6 +707,11 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS domain_core_lineage;"
+            "DROP TABLE IF EXISTS domain_core_fusions;"
+            "DROP TABLE IF EXISTS domain_core_concepts;"
+            "DROP TABLE IF EXISTS territory_domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;"
             "DROP TABLE IF EXISTS ruler_gacha_access;"
             "DROP TABLE IF EXISTS ruler_sovereignty_state;"
             "DROP TABLE IF EXISTS territory_claims;"
@@ -711,7 +721,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 7 to 8"),
+        TEXT("Safe bootstrap migrates schema 7 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -723,12 +733,12 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        8);
+        9);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-8 database"),
+            TEXT("Open migrated current-schema database"),
             Store.Open(
                 DatabasePath,
                 Error));
@@ -814,6 +824,313 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
             TEXT("Earliest historical pull becomes unlock provenance"),
             Access.UnlockedWorldTick,
             static_cast<int64>(20));
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGDomainHeart0009LegacyProjectionMigrationTest,
+    "OfflineGame.Persistence.Migration0009.LegacyCoreAspectsAndHeartStateArePreserved",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_domain_heart.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId RulerId =
+        FOGEntityId::NewId();
+    const FOGEntityId FunctionalLocationId =
+        FOGEntityId::NewId();
+    const FOGEntityId BrokenLocationId =
+        FOGEntityId::NewId();
+    const FOGEntityId FunctionalTerritoryId =
+        FOGEntityId::NewId();
+    const FOGEntityId BrokenTerritoryId =
+        FOGEntityId::NewId();
+    const FOGEntityId FunctionalCoreId =
+        FOGEntityId::NewId();
+    const FOGEntityId BrokenCoreId =
+        FOGEntityId::NewId();
+
+    FString Error;
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema Core migration fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 9"),
+            Store.GetSchemaVersion(
+                Error),
+            9);
+
+        TestTrue(
+            TEXT("Persist Ruler"),
+            Store.UpsertEntity(
+                RulerId,
+                TEXT("ruler"),
+                0,
+                TEXT("{}"),
+                Error));
+
+        auto PersistTerritory =
+            [&Store, &RulerId, &Error](
+                const FOGEntityId& LocationId,
+                const FOGEntityId& TerritoryId)
+            {
+                FOGLocationRecord Location;
+                Location.LocationId =
+                    LocationId;
+                Location.Kind =
+                    FName(TEXT("region"));
+                if (!Store.UpsertLocation(
+                        Location,
+                        0,
+                        Error))
+                {
+                    return false;
+                }
+
+                FOGTerritoryRecord Territory;
+                Territory.TerritoryId =
+                    TerritoryId;
+                Territory.RulerId =
+                    RulerId;
+                Territory.RootLocationId =
+                    LocationId;
+                Territory.Population =
+                    10;
+                Territory.ControlState =
+                    FName(TEXT("controlled"));
+                return Store.UpsertTerritory(
+                    Territory,
+                    0,
+                    Error);
+            };
+
+        TestTrue(
+            TEXT("Persist functional Territory"),
+            PersistTerritory(
+                FunctionalLocationId,
+                FunctionalTerritoryId));
+        TestTrue(
+            TEXT("Persist broken-heart Territory"),
+            PersistTerritory(
+                BrokenLocationId,
+                BrokenTerritoryId));
+
+        FOGDomainCoreRecord FunctionalCore;
+        FunctionalCore.CoreId =
+            FunctionalCoreId;
+        FunctionalCore.TerritoryId =
+            FunctionalTerritoryId;
+        FunctionalCore.ControllerRulerId =
+            RulerId;
+        FunctionalCore.Lifecycle =
+            EOGDomainCoreLifecycle::Awakened;
+        FunctionalCore.CurrentDurability =
+            FOGLargeNumber::FromInt64(
+                80);
+        FunctionalCore.MaxDurability =
+            FOGLargeNumber::FromInt64(
+                100);
+        FOGDomainCoreAspect TimeAspect;
+        TimeAspect.AspectId =
+            FOGContentId(
+                TEXT("test:concept.time"));
+        TimeAspect.Grade = 2;
+        FunctionalCore.Aspects.Add(
+            TimeAspect);
+
+        TestTrue(
+            TEXT("Persist legacy intact Core"),
+            Store.UpsertDomainCore(
+                FunctionalCore,
+                10,
+                Error));
+
+        FOGDomainCoreRecord BrokenCore;
+        BrokenCore.CoreId =
+            BrokenCoreId;
+        BrokenCore.TerritoryId =
+            BrokenTerritoryId;
+        BrokenCore.ControllerRulerId =
+            FOGEntityId();
+        BrokenCore.Lifecycle =
+            EOGDomainCoreLifecycle::Broken;
+        BrokenCore.CurrentDurability =
+            FOGLargeNumber();
+        BrokenCore.MaxDurability =
+            FOGLargeNumber::FromInt64(
+                100);
+        FOGDomainCoreAspect DeathAspect;
+        DeathAspect.AspectId =
+            FOGContentId(
+                TEXT("test:concept.death"));
+        DeathAspect.Grade = 3;
+        BrokenCore.Aspects.Add(
+            DeathAspect);
+
+        TestTrue(
+            TEXT("Persist legacy Broken Core"),
+            Store.UpsertDomainCore(
+                BrokenCore,
+                10,
+                Error));
+
+        FOGWorldEvent BrokenEvent;
+        BrokenEvent.EventId =
+            FOGEntityId::NewId();
+        BrokenEvent.EventType =
+            FName(TEXT("domain_core.broken"));
+        BrokenEvent.WorldTick = 40;
+        BrokenEvent.PrimaryEntity =
+            BrokenCoreId;
+        BrokenEvent.RelatedEntities.Add(
+            BrokenTerritoryId);
+        BrokenEvent.bChronicleEligible =
+            true;
+        TestTrue(
+            TEXT("Persist historical Core-break event"),
+            Store.AppendWorldEvent(
+                BrokenEvent,
+                Error));
+
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 8"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS domain_core_lineage;"
+            "DROP TABLE IF EXISTS domain_core_fusions;"
+            "DROP TABLE IF EXISTS domain_core_concepts;"
+            "DROP TABLE IF EXISTS territory_domain_state;"
+            "DELETE FROM schema_migrations WHERE version = 9;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 8 to 9"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("Migration source schema"),
+        Migration.SourceSchemaVersion,
+        8);
+    TestEqual(
+        TEXT("Migration target schema"),
+        Migration.TargetSchemaVersion,
+        9);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-9 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        TArray<FOGDomainCoreConceptRecord> FunctionalConcepts;
+        TestTrue(
+            TEXT("Read migrated functional Core Concepts"),
+            Store.ListDomainCoreConcepts(
+                FunctionalCoreId,
+                FunctionalConcepts,
+                Error));
+        TestEqual(
+            TEXT("Legacy Aspect becomes one normalized Concept"),
+            FunctionalConcepts.Num(),
+            1);
+        if (FunctionalConcepts.Num() == 1)
+        {
+            TestTrue(
+                TEXT("Concept identity is preserved"),
+                FunctionalConcepts[0].ConceptId ==
+                    FOGContentId(
+                        TEXT("test:concept.time")));
+            TestEqual(
+                TEXT("Concept grade is preserved"),
+                FunctionalConcepts[0].Grade,
+                2);
+            TestTrue(
+                TEXT("Legacy Concept provenance points to source Core"),
+                FunctionalConcepts[0].OriginSourceCoreId ==
+                    FunctionalCoreId);
+        }
+
+        bool bStateFound = false;
+        FOGTerritoryDomainStateRecord FunctionalState;
+        TestTrue(
+            TEXT("Read migrated intact Domain heart"),
+            Store.TryReadTerritoryDomainState(
+                FunctionalTerritoryId,
+                bStateFound,
+                FunctionalState,
+                Error));
+        TestTrue(
+            TEXT("Intact awakened Core remains active heart"),
+            bStateFound &&
+            FunctionalState.ActiveCoreId ==
+                FunctionalCoreId);
+        TestEqual(
+            TEXT("Partially damaged intact Core migrates as damaged Domain"),
+            FunctionalState.DomainState,
+            FName(TEXT("damaged")));
+
+        FOGTerritoryDomainStateRecord BrokenState;
+        bStateFound = false;
+        TestTrue(
+            TEXT("Read migrated lost Domain heart"),
+            Store.TryReadTerritoryDomainState(
+                BrokenTerritoryId,
+                bStateFound,
+                BrokenState,
+                Error));
+        TestTrue(
+            TEXT("Broken Core leaves no active heart"),
+            bStateFound &&
+            !BrokenState.ActiveCoreId.IsValid());
+        TestEqual(
+            TEXT("Broken Core starts Domain-heart ruin"),
+            BrokenState.DomainState,
+            FName(TEXT("heart_lost_ruining")));
+        TestTrue(
+            TEXT("Historical break tick is recovered"),
+            BrokenState.bHasHeartLostWorldTick);
+        TestEqual(
+            TEXT("Recovered heart-loss tick matches historical event"),
+            BrokenState.HeartLostWorldTick,
+            static_cast<int64>(40));
+        TestTrue(
+            TEXT("Ruin-start tick is recovered"),
+            BrokenState.bHasRuinStartedWorldTick);
+        TestEqual(
+            TEXT("Recovered ruin-start tick matches break event"),
+            BrokenState.RuinStartedWorldTick,
+            static_cast<int64>(40));
 
         Store.Close();
     }

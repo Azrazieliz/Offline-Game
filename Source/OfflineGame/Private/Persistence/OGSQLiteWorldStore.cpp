@@ -306,6 +306,64 @@ static const TCHAR* Migration0008Sql =
     TEXT("updated_world_tick INTEGER NOT NULL,")
     TEXT("FOREIGN KEY(ruler_entity_id) REFERENCES entities(id));");
 
+static const TCHAR* Migration0009Sql =
+    TEXT("CREATE TABLE IF NOT EXISTS territory_domain_state (")
+    TEXT("territory_entity_id TEXT PRIMARY KEY,")
+    TEXT("active_core_entity_id TEXT,")
+    TEXT("domain_state TEXT NOT NULL DEFAULT 'none',")
+    TEXT("heart_lost_world_tick INTEGER,")
+    TEXT("ruin_started_world_tick INTEGER,")
+    TEXT("reconstitution_project_entity_id TEXT,")
+    TEXT("state_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("FOREIGN KEY(territory_entity_id) REFERENCES territories(territory_entity_id),")
+    TEXT("FOREIGN KEY(active_core_entity_id) REFERENCES domain_cores(core_entity_id),")
+    TEXT("FOREIGN KEY(reconstitution_project_entity_id) REFERENCES projects(project_entity_id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_territory_domain_active_core ")
+    TEXT("ON territory_domain_state(active_core_entity_id);")
+    TEXT("CREATE TABLE IF NOT EXISTS domain_core_concepts (")
+    TEXT("core_entity_id TEXT NOT NULL,")
+    TEXT("concept_content_id TEXT NOT NULL,")
+    TEXT("grade INTEGER NOT NULL DEFAULT 0,")
+    TEXT("origin_source_core_entity_id TEXT,")
+    TEXT("synthesis_rule_content_id TEXT,")
+    TEXT("state_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("PRIMARY KEY(core_entity_id, concept_content_id),")
+    TEXT("FOREIGN KEY(core_entity_id) REFERENCES domain_cores(core_entity_id) ON DELETE CASCADE,")
+    TEXT("FOREIGN KEY(origin_source_core_entity_id) REFERENCES domain_cores(core_entity_id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_domain_core_concepts_origin ")
+    TEXT("ON domain_core_concepts(origin_source_core_entity_id);")
+    TEXT("CREATE TABLE IF NOT EXISTS domain_core_fusions (")
+    TEXT("fusion_entity_id TEXT PRIMARY KEY,")
+    TEXT("result_core_entity_id TEXT NOT NULL,")
+    TEXT("absorber_core_entity_id TEXT NOT NULL,")
+    TEXT("absorbed_core_entity_id TEXT NOT NULL,")
+    TEXT("fusion_world_tick INTEGER NOT NULL,")
+    TEXT("sequence_ordinal INTEGER NOT NULL CHECK (sequence_ordinal >= 0),")
+    TEXT("synthesis_rule_content_id TEXT,")
+    TEXT("outcome_kind TEXT NOT NULL,")
+    TEXT("resolution_seed INTEGER NOT NULL DEFAULT 0,")
+    TEXT("instability_state_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("FOREIGN KEY(fusion_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(result_core_entity_id) REFERENCES domain_cores(core_entity_id),")
+    TEXT("FOREIGN KEY(absorber_core_entity_id) REFERENCES domain_cores(core_entity_id),")
+    TEXT("FOREIGN KEY(absorbed_core_entity_id) REFERENCES domain_cores(core_entity_id),")
+    TEXT("UNIQUE(result_core_entity_id, sequence_ordinal));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_domain_core_fusions_absorber ")
+    TEXT("ON domain_core_fusions(absorber_core_entity_id, fusion_world_tick);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_domain_core_fusions_absorbed ")
+    TEXT("ON domain_core_fusions(absorbed_core_entity_id, fusion_world_tick);")
+    TEXT("CREATE TABLE IF NOT EXISTS domain_core_lineage (")
+    TEXT("result_core_entity_id TEXT NOT NULL,")
+    TEXT("source_core_entity_id TEXT NOT NULL,")
+    TEXT("fusion_entity_id TEXT NOT NULL,")
+    TEXT("lineage_role TEXT NOT NULL,")
+    TEXT("PRIMARY KEY(result_core_entity_id, source_core_entity_id, fusion_entity_id),")
+    TEXT("FOREIGN KEY(result_core_entity_id) REFERENCES domain_cores(core_entity_id),")
+    TEXT("FOREIGN KEY(source_core_entity_id) REFERENCES domain_cores(core_entity_id),")
+    TEXT("FOREIGN KEY(fusion_entity_id) REFERENCES domain_core_fusions(fusion_entity_id) ON DELETE CASCADE);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_domain_core_lineage_source ")
+    TEXT("ON domain_core_lineage(source_core_entity_id);");
+
 static const FOGMigrationDefinition Migrations[] =
 {
     {1, TEXT("bootstrap"), Migration0001Sql, {}, {}},
@@ -338,6 +396,19 @@ static const FOGMigrationDefinition Migrations[] =
         [](FOGSQLiteWorldStore& Store, FString& Error)
         {
             return Store.ValidateTerritorySovereigntyMigration0008(Error);
+        }
+    },
+    {
+        9,
+        TEXT("domain_heart_core_fusion"),
+        Migration0009Sql,
+        [](FOGSQLiteWorldStore& Store, FString& Error)
+        {
+            return Store.MigrateDomainHeartAndConcepts0009(Error);
+        },
+        [](FOGSQLiteWorldStore& Store, FString& Error)
+        {
+            return Store.ValidateDomainHeartMigration0009(Error);
         }
     },
 };

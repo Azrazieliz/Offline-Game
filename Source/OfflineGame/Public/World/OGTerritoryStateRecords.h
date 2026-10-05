@@ -239,6 +239,178 @@ struct OFFLINEGAME_API FOGDomainCoreRecord
 };
 
 USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGTerritoryDomainStateRecord
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId TerritoryId;
+
+    /** Current metaphysical heart. Invalid when the Domain has no active heart. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId ActiveCoreId;
+
+    /**
+     * none / functional / damaged / heart_lost_ruining / ruined /
+     * reconstituting. Physical Territory damage is intentionally separate.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName DomainState = FName(TEXT("none"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasHeartLostWorldTick = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 HeartLostWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasRuinStartedWorldTick = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 RuinStartedWorldTick = 0;
+
+    /** Exceptional high-order recovery Project, never ordinary repair. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId ReconstitutionProjectId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString StateJson = TEXT("{}");
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGDomainCoreConceptRecord
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId CoreId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGContentId ConceptId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 Grade = 0;
+
+    /** Original Core that contributed this Concept, when provenance is known. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId OriginSourceCoreId;
+
+    /** Content-authored synthesis rule that produced/transformed this Concept. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGContentId SynthesisRuleId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString StateJson = TEXT("{}");
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGDomainCoreSynthesisConcept
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGContentId ConceptId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 Grade = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString StateJson = TEXT("{}");
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGDomainCoreFusionRecord
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId FusionId;
+
+    /** Baseline fusion keeps the absorber as the surviving/result Core. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId ResultCoreId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId AbsorberCoreId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId AbsorbedCoreId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 FusionWorldTick = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 SequenceOrdinal = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGContentId SynthesisRuleId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName OutcomeKind = FName(TEXT("preserved"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 ResolutionSeed = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString InstabilityStateJson = TEXT("{}");
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGDomainCoreLineageRecord
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId ResultCoreId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId SourceCoreId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId FusionId;
+
+    /** absorber / absorbed. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName LineageRole = NAME_None;
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGDomainCoreFusionRequest
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId AbsorberCoreId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGEntityId AbsorbedCoreId;
+
+    /**
+     * Required content-authored synthesis rule. The runtime never invents
+     * arbitrary executable abilities from concept names.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGContentId SynthesisRuleId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 ResolutionSeed = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName OutcomeKind = FName(TEXT("preserved"));
+
+    /**
+     * Optional bounded, content-resolved synthetic Concepts. Source Concepts
+     * are preserved automatically; this array only adds authored/systemic
+     * synthesis outputs.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TArray<FOGDomainCoreSynthesisConcept> SynthesizedConcepts;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString InstabilityStateJson = TEXT("{}");
+};
+
+USTRUCT(BlueprintType)
 struct OFFLINEGAME_API FOGResourceBalance
 {
     GENERATED_BODY()

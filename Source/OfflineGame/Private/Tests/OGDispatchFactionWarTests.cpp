@@ -75,9 +75,9 @@ bool FOGDispatchPersistenceTest::RunTest(
                 Error));
 
         TestEqual(
-            TEXT("Schema version is 8"),
+            TEXT("Schema version is 9"),
             Store.GetSchemaVersion(Error),
-            8);
+            9);
 
         TestTrue(
             TEXT("Persist owner"),

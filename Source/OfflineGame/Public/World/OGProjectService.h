@@ -5,29 +5,18 @@
 #include "World/OGTerritoryStateRecords.h"
 
 /**
- * Event/lazy-resolution territory service.
+ * Generic lazy/event-driven Project service.
  *
- * It deliberately has no worker scheduling or city-simulation loop.
+ * Project timing/resource spending is independent from Domain Core semantics.
+ * Optional complex phases are introduced by migration 0012 only where needed.
  */
-class OFFLINEGAME_API FOGTerritoryProjectService
+class OFFLINEGAME_API FOGProjectService
 {
 public:
-    explicit FOGTerritoryProjectService(IOGWorldStore& InStore)
+    explicit FOGProjectService(IOGWorldStore& InStore)
         : Store(InStore)
     {
     }
-
-    bool ApplyCoreDurabilityDamage(
-        const FOGEntityId& CoreId,
-        const FOGLargeNumber& Damage,
-        int64 WorldTick,
-        FString& OutError);
-
-    bool CaptureIntactCore(
-        const FOGEntityId& CoreId,
-        const FOGEntityId& NewControllerRulerId,
-        int64 WorldTick,
-        FString& OutError);
 
     bool StartProject(
         const FOGEntityId& OwnerEntityId,
@@ -40,10 +29,6 @@ public:
         FOGEntityId& OutProjectId,
         FString& OutError);
 
-    /**
-     * Lazy progress calculation. Nothing needs to tick while the project is
-     * irrelevant/offscreen.
-     */
     bool RefreshProject(
         const FOGEntityId& ProjectId,
         int64 CurrentWorldTick,
