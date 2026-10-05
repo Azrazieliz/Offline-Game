@@ -7,8 +7,9 @@
 #include "Gacha/OGRulerGachaAccessService.h"
 #include "Serialization/JsonSerializer.h"
 #include "Serialization/JsonWriter.h"
+#include "World/OGDomainCoreService.h"
+#include "World/OGProjectService.h"
 #include "World/OGSharedWorldStateService.h"
-#include "World/OGTerritoryProjectService.h"
 
 namespace
 {
@@ -467,10 +468,13 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
         return false;
     }
 
-    FOGTerritoryProjectService TerritoryService(
+    FOGDomainCoreService CoreService(
         Store);
-
-    if (!TerritoryService.ApplyCoreDurabilityDamage(
+    if (!CoreService.ActivateAwakenedCoreAsHeart(
+            CoreId,
+            30,
+            OutError) ||
+        !CoreService.ApplyCoreDurabilityDamage(
             CoreId,
             FOGLargeNumber::FromInt64(100),
             40,
@@ -483,7 +487,9 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
     Cost.ResourceId = ProjectResourceId();
     Cost.Amount = 25;
 
-    if (!TerritoryService.StartProject(
+    FOGProjectService ProjectService(
+        Store);
+    if (!ProjectService.StartProject(
             RulerId,
             LocationId,
             FOGContentId(
@@ -499,7 +505,7 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
     }
 
     FOGProjectRecord CompletedProject;
-    if (!TerritoryService.RefreshProject(
+    if (!ProjectService.RefreshProject(
             OutResult.ProjectId,
             80,
             CompletedProject,
@@ -748,6 +754,26 @@ bool FOGVerticalSliceScenarioHarness::VerifyAfterRestart(
         {
             OutError =
                 TEXT("Persistent World Mode consequence did not survive restart.");
+        }
+        return false;
+    }
+
+    FOGTerritoryDomainStateRecord DomainState;
+    if (!Store.TryReadTerritoryDomainState(
+            ScenarioTerritoryId(),
+            bFound,
+            DomainState,
+            OutError) ||
+        !bFound ||
+        DomainState.ActiveCoreId !=
+            ScenarioCoreId() ||
+        DomainState.DomainState !=
+            FName(TEXT("damaged")))
+    {
+        if (OutError.IsEmpty())
+        {
+            OutError =
+                TEXT("Persistent Domain-heart state did not survive restart.");
         }
         return false;
     }
