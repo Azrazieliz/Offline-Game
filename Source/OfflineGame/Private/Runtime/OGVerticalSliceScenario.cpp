@@ -10,6 +10,7 @@
 #include "World/OGDomainCoreService.h"
 #include "World/OGProjectService.h"
 #include "World/OGSharedWorldStateService.h"
+#include "World/OGWorldTimeService.h"
 
 namespace
 {
@@ -327,21 +328,70 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
         return false;
     }
 
+    const FOGEntityId TimeDomainId =
+        FixedId(9);
+    FOGTimeDomainRecord TimeDomain;
+    TimeDomain.TimeDomainId =
+        TimeDomainId;
+    TimeDomain.RateNumerator = 1;
+    TimeDomain.RateDenominator = 1;
+    TimeDomain.CalendarId =
+        FOGContentId(
+            TEXT("slice:calendar.starting_world"));
+
+    FOGWorldTimeService WorldTime(
+        Store);
+    if (!WorldTime.SaveTimeDomain(
+            TimeDomain,
+            0,
+            OutError))
+    {
+        return false;
+    }
+
+    // Harness-authored calendar semantics only. Production month lengths remain
+    // content data and never become a runtime constant.
+    const FOGCalendarElapsedResolver CalendarResolver =
+        [](const FOGCalendarElapsedQuery& Query,
+           bool& bOutElapsed,
+           FString& Error)
+        {
+            Error.Reset();
+            if (Query.DurationKind !=
+                    FName(TEXT("month")) ||
+                Query.DurationCount != 1)
+            {
+                Error =
+                    TEXT("Vertical-slice calendar received an unexpected duration query.");
+                return false;
+            }
+
+            const int64 MonthTicks = 8;
+            const int64 Elapsed =
+                Query.EndLocalTick -
+                Query.StartLocalTick;
+            bOutElapsed =
+                Query.bStrictlyMoreThan
+                    ? Elapsed > MonthTicks
+                    : Elapsed >= MonthTicks;
+            return true;
+        };
+
     FOGRulerGachaAccessService GachaAccess(
         Store);
     FOGRulerGachaAccessRecord GachaAccessState;
     if (!GachaAccess.RefreshGachaQualification(
             RulerId,
             0,
-            false,
+            TimeDomainId,
+            CalendarResolver,
             GachaAccessState,
             OutError) ||
-        // Until schema 0011 owns calendar conversion, the harness injects the
-        // already-resolved strictly-more-than-one-month predicate.
         !GachaAccess.RefreshGachaQualification(
             RulerId,
             9,
-            true,
+            TimeDomainId,
+            CalendarResolver,
             GachaAccessState,
             OutError))
     {
