@@ -53,6 +53,8 @@ public:
     virtual bool TryReadWorldPresence(const FOGEntityId&, bool&, FOGWorldPresenceRecord&, FString&) const override;
     virtual bool UpsertKnowledgeFact(const FOGKnowledgeFactRecord&, FString&) override;
     virtual bool TryReadKnowledgeFact(const FOGEntityId&, FName, const FOGEntityId&, bool&, FOGKnowledgeFactRecord&, FString&) const override;
+    virtual bool ListKnowledgeFactsByOwner(
+        const FOGEntityId&, TArray<FOGKnowledgeFactRecord>&, FString&) const override;
 
     virtual bool UpsertTerritory(const FOGTerritoryRecord&, int64, FString&) override;
     virtual bool TryReadTerritory(const FOGEntityId&, bool&, FOGTerritoryRecord&, FString&) const override;
