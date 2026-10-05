@@ -111,10 +111,13 @@ bool FOGRulerGachaAccessService::RefreshGachaQualification(
 
         if (bMoreThanOneInGameMonthElapsed)
         {
-            if (!Access.bHasQualificationStart)
+            // The first observation of control starts qualification; it cannot
+            // simultaneously prove that more than a month elapsed from that
+            // newly stored start.
+            if (!bHadQualificationStart)
             {
                 OutError =
-                    TEXT("Cannot unlock gacha without a qualification start.");
+                    TEXT("More-than-one-month qualification cannot be asserted on the first stored control observation.");
                 return false;
             }
 
