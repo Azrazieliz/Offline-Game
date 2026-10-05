@@ -266,7 +266,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
         TestEqual(TEXT("Promoted schema is 11"),
-            Store.GetSchemaVersion(Error), 11);
+            Store.GetSchemaVersion(Error), 12);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -672,9 +672,9 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 11"),
+            TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(Error),
-            11);
+            12);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -947,10 +947,10 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 11"),
+            TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            11);
+            12);
 
         TestTrue(
             TEXT("Persist Ruler"),
@@ -1269,10 +1269,10 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 11"),
+            TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            11);
+            12);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -1461,10 +1461,10 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 11"),
+            TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            11);
+            12);
         TestTrue(
             TEXT("Persist pre-0011 world-like marker"),
             Store.UpsertEntity(
