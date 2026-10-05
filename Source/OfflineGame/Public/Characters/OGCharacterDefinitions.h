@@ -6,8 +6,8 @@
 #include "OGCharacterDefinitions.generated.h"
 
 /**
- * Sexual-content eligibility must be explicit and based on canonical lore.
- * Visual appearance never determines this value.
+ * Canonical maturity is immutable Character Identity lore.
+ * Visual appearance never determines or overrides this value.
  */
 UENUM(BlueprintType)
 enum class EOGCanonicalMaturity : uint8
@@ -57,11 +57,20 @@ struct OFFLINEGAME_API FOGCharacterVersionDefinition
     FName VersionKind = NAME_None;
 
     /**
-     * Explicit permission for sexual-content references attached to this Version.
-     * Validation rejects this unless the Character Identity is canonically Adult.
+     * Descriptive adult-content profile authored for this Version/form.
+     * Presence never creates permission: canonical Identity maturity is the
+     * sole sexual-content lore classifier.
      */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    bool bSexualContentEligible = false;
+    FOGContentId AdultContentProfileId;
+
+    /** Descriptive adult presentation/scene compatibility tags. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TArray<FName> AdultPresentationTags;
+
+    /** Version/form-specific adult scene-library references. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TArray<FOGContentId> AdultSceneLibraryIds;
 
     /** General mature visual support such as blood/injury/clothing-damage hooks. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
