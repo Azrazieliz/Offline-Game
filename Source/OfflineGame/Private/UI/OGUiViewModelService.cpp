@@ -661,6 +661,45 @@ bool FOGUiViewModelService::BuildGacha(
             ? CurrencyBalance
             : 0;
 
+    bool bTicketSelected = false;
+    for (const FOGContentId& TicketId :
+         Banner.CompatibleTicketIds)
+    {
+        bool bTicketKnown = false;
+        int64 TicketBalance = 0;
+        if (!Store.TryReadResourceBalance(
+                RulerId,
+                TicketId,
+                bTicketKnown,
+                TicketBalance,
+                OutError))
+        {
+            return false;
+        }
+
+        FOGGachaTicketViewModel TicketView;
+        TicketView.TicketId =
+            TicketId;
+        TicketView.Balance =
+            bTicketKnown
+                ? TicketBalance
+                : 0;
+        TicketView.bWillConsumeBeforeCurrency =
+            !bTicketSelected &&
+            TicketView.Balance > 0;
+
+        if (TicketView.bWillConsumeBeforeCurrency)
+        {
+            bTicketSelected = true;
+        }
+
+        OutViewModel.CompatibleTickets.Add(
+            MoveTemp(
+                TicketView));
+    }
+    OutViewModel.bWillUseTicketFirst =
+        bTicketSelected;
+
     bool bGachaStateFound = false;
     FOGGachaStateRecord State;
     if (!Store.TryReadGachaState(
