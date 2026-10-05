@@ -1,4 +1,5 @@
 #include "Combat/OGActionCombatAdapter.h"
+#include "Combat/OGCombatMath.h"
 #include "Combat/OGTurnBattle.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
