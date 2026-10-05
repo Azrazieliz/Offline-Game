@@ -1,5 +1,7 @@
 #include "World/OGWorldTimeService.h"
 
+#include "Algo/Reverse.h"
+
 namespace
 {
 bool CheckedSubtractInt64(
