@@ -750,6 +750,16 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
             GachaState,
             Error));
 
+    const FOGContentId TicketIdForBalance(
+        TEXT("test:ticket.limited"));
+    TestTrue(
+        TEXT("Persist compatible ticket balance"),
+        Store.SetResourceBalance(
+            RulerId,
+            TicketIdForBalance,
+            2,
+            Error));
+
     FOGGachaBannerDefinition Banner;
     Banner.BannerId =
         FOGContentId(TEXT("test:banner.limited"));
@@ -758,6 +768,10 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
     Banner.CurrencyId =
         CurrencyId;
     Banner.PullCost = 100;
+    const FOGContentId TicketId(
+        TEXT("test:ticket.limited"));
+    Banner.CompatibleTicketIds.Add(
+        TicketId);
     Banner.TopRarity =
         FName(TEXT("ur"));
     Banner.SoftPityStart = 50;
@@ -811,6 +825,15 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
         TEXT("Currency remains visible"),
         Gacha.CurrencyBalance,
         static_cast<int64>(975));
+    TestEqual(
+        TEXT("Compatible ticket balance is visible"),
+        Gacha.CompatibleTickets.Num(),
+        1);
+    TestTrue(
+        TEXT("UI indicates ticket-first consumption when ticket is available"),
+        Gacha.bWillUseTicketFirst &&
+        Gacha.CompatibleTickets[0].bWillConsumeBeforeCurrency &&
+        Gacha.CompatibleTickets[0].Balance == 2);
     TestEqual(
         TEXT("Details exposes exact declared base pool rows"),
         Gacha.BasePool.Num(),
