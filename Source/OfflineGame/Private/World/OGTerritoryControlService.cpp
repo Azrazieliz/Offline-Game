@@ -501,3 +501,88 @@ bool FOGTerritoryControlService::FindPreferredEffectiveTerritoryForRuler(
 
     return true;
 }
+
+bool FOGTerritoryControlService::AnchorManifestationForWorldMode(
+    const FOGEntityId& RulerId,
+    const FOGEntityId& ManifestationId,
+    int64 WorldTick,
+    FOGEntityId& OutTerritoryId,
+    FString& OutError)
+{
+    OutTerritoryId = FOGEntityId();
+    OutError.Reset();
+
+    if (!RulerId.IsValid() ||
+        !ManifestationId.IsValid() ||
+        WorldTick < 0)
+    {
+        OutError =
+            TEXT("World Mode anchoring requires valid Ruler/Manifestation IDs and a non-negative world tick.");
+        return false;
+    }
+
+    bool bFound = false;
+    FOGCharacterManifestationRecord Manifestation;
+    if (!Store.TryReadCharacterManifestation(
+            ManifestationId,
+            bFound,
+            Manifestation,
+            OutError))
+    {
+        return false;
+    }
+
+    if (!bFound)
+    {
+        OutError =
+            TEXT("Cannot anchor an unknown Manifestation.");
+        return false;
+    }
+
+    if (Manifestation.OwningRulerId !=
+            RulerId)
+    {
+        OutError =
+            TEXT("Manifestation can only be anchored by its owning Ruler.");
+        return false;
+    }
+
+    if (Manifestation.LifecycleState ==
+            FName(TEXT("converged")) ||
+        Manifestation.LifecycleState ==
+            FName(TEXT("archived")))
+    {
+        OutError =
+            TEXT("Inactive Manifestation lifecycle cannot establish a first World Mode anchor.");
+        return false;
+    }
+
+    if (Manifestation.WorldModeAnchorTerritoryId.IsValid())
+    {
+        OutTerritoryId =
+            Manifestation.WorldModeAnchorTerritoryId;
+        return true;
+    }
+
+    if (!FindPreferredEffectiveTerritoryForRuler(
+            RulerId,
+            WorldTick,
+            OutTerritoryId,
+            OutError))
+    {
+        return false;
+    }
+
+    if (!OutTerritoryId.IsValid())
+    {
+        OutError =
+            TEXT("World Mode anchoring requires the Ruler to have effective controlled Territory.");
+        return false;
+    }
+
+    return Store.SetManifestationAnchor(
+        ManifestationId,
+        OutTerritoryId,
+        WorldTick,
+        OutError);
+}
