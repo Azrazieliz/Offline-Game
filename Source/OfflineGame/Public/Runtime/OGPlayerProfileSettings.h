@@ -12,7 +12,7 @@ struct OFFLINEGAME_API FOGPlayerProfileSettings
 
     bool bSfwPresentation = false;
     FName OrientationLock = FName(TEXT("automatic"));
-    FName RosterDensity = FName(TEXT("comfortable"));
+    FName RosterDensity = FName(TEXT("dense"));
 
     float MasterVolume = 1.0f;
     float MusicVolume = 1.0f;
@@ -27,8 +27,8 @@ struct OFFLINEGAME_API FOGPlayerProfileSettings
     FName DamageNumberPresentation = FName(TEXT("standard"));
     FString CinematicPreferencesJson = TEXT("{}");
 
-    bool bAutoDownload = false;
-    FString NetworkPreferencesJson = TEXT("{}");
+    bool bAutoDownload = true;
+    FString NetworkPreferencesJson = TEXT("{\"large_downloads\":\"unmetered_only\"}");
     FString AccessibilityJson = TEXT("{}");
 
     /** Non-authoritative rule/team preference. Committed actions store resolved commands. */
