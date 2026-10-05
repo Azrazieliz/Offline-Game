@@ -1430,4 +1430,136 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
     return true;
 }
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGRealityTime0011NonFabricatingMigrationTest,
+    "OfflineGame.Persistence.Migration0011.DoesNotFabricateRealityCalendarOrDirectorState",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_reality_time.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId LegacyWorldMarkerId =
+        FOGEntityId::NewId();
+    FString Error;
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 11"),
+            Store.GetSchemaVersion(
+                Error),
+            11);
+        TestTrue(
+            TEXT("Persist pre-0011 world-like marker"),
+            Store.UpsertEntity(
+                LegacyWorldMarkerId,
+                FName(TEXT("legacy_world_marker")),
+                10,
+                TEXT("{\"legacy\":true}"),
+                Error));
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 10"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 10 to 11"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("Migration source schema"),
+        Migration.SourceSchemaVersion,
+        10);
+    TestEqual(
+        TEXT("Migration target schema"),
+        Migration.TargetSchemaVersion,
+        11);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-11 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        bool bFound = false;
+        FOGRealityNodeRecord Reality;
+        TestTrue(
+            TEXT("Reality lookup remains valid"),
+            Store.TryReadRealityNode(
+                LegacyWorldMarkerId,
+                bFound,
+                Reality,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate a Reality node from a generic legacy entity"),
+            bFound);
+
+        FOGTimeDomainRecord Domain;
+        bFound = false;
+        TestTrue(
+            TEXT("Time-domain lookup remains valid"),
+            Store.TryReadTimeDomain(
+                LegacyWorldMarkerId,
+                bFound,
+                Domain,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate a calendar/time domain"),
+            bFound);
+
+        FOGOfflineSimulationStateRecord OfflineState;
+        bFound = false;
+        TestTrue(
+            TEXT("Offline-state lookup remains valid"),
+            Store.TryReadOfflineSimulationState(
+                LegacyWorldMarkerId,
+                bFound,
+                OfflineState,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate World Director offline state"),
+            bFound);
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
 #endif
