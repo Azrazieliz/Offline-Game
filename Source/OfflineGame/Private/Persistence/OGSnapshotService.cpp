@@ -126,17 +126,64 @@ bool FOGSnapshotService::CreateRotatingSnapshot(
         true,
         false);
 
+    const FString CurrentSnapshotFile =
+        FPaths::GetCleanFilename(
+            OutSnapshotPath);
+
     SnapshotFiles.Sort(
-        [](const FString& A, const FString& B)
+        [&CurrentSnapshotFile](
+            const FString& A,
+            const FString& B)
         {
+            // Preserve the snapshot produced by this call even when multiple
+            // snapshots share the same second and random suffix ordering differs.
+            if (A == CurrentSnapshotFile)
+            {
+                return true;
+            }
+            if (B == CurrentSnapshotFile)
+            {
+                return false;
+            }
             return A > B;
         });
 
-    for (int32 Index = KeepCount; Index < SnapshotFiles.Num(); ++Index)
+    TSet<FString> RemovedBackupIds;
+    for (int32 Index = KeepCount;
+         Index < SnapshotFiles.Num();
+         ++Index)
     {
         const FString ObsoletePath =
-            FPaths::Combine(SnapshotDirectory, SnapshotFiles[Index]);
-        Files.Delete(*ObsoletePath, false, true, true);
+            FPaths::Combine(
+                SnapshotDirectory,
+                SnapshotFiles[Index]);
+
+        if (!Files.Delete(
+                *ObsoletePath,
+                false,
+                true,
+                true))
+        {
+            OutError =
+                FString::Printf(
+                    TEXT("Failed to rotate obsolete snapshot: %s"),
+                    *ObsoletePath);
+            return false;
+        }
+
+        RemovedBackupIds.Add(
+            FPaths::GetBaseFilename(
+                SnapshotFiles[Index]));
+    }
+
+    if (!RecoveryCatalogPath.IsEmpty() &&
+        !RemovedBackupIds.IsEmpty() &&
+        !FOGRecoveryCatalogService::RemoveEntriesByBackupIds(
+            RecoveryCatalogPath,
+            RemovedBackupIds,
+            OutError))
+    {
+        return false;
     }
 
     if (!RecoveryCatalogPath.IsEmpty())
