@@ -672,14 +672,44 @@ bool FOGGachaAccessGateAndManifestationAnchorTest::RunTest(
     TestTrue(
         TEXT("Acquired Manifestation exists"),
         bManifestationFound);
+    TestFalse(
+        TEXT("Acquisition alone does not perform first World Mode anchoring"),
+        Manifestation.WorldModeAnchorTerritoryId.IsValid());
+
+    FOGTerritoryControlService Control(
+        Store);
+    FOGEntityId AnchoredTerritoryId;
     TestTrue(
-        TEXT("New Manifestation is anchored to effective main Territory"),
+        TEXT("Explicit roster anchoring succeeds in controlled Territory"),
+        Control.AnchorManifestationForWorldMode(
+            RulerId,
+            Pull.ManifestationId,
+            4,
+            AnchoredTerritoryId,
+            Error));
+    TestTrue(
+        TEXT("Explicit roster anchoring selects effective main Territory"),
+        AnchoredTerritoryId ==
+            TerritoryId);
+
+    bManifestationFound = false;
+    Manifestation = FOGCharacterManifestationRecord();
+    TestTrue(
+        TEXT("Read explicitly anchored Manifestation"),
+        Store.TryReadCharacterManifestation(
+            Pull.ManifestationId,
+            bManifestationFound,
+            Manifestation,
+            Error));
+    TestTrue(
+        TEXT("Explicit first anchor is persisted"),
+        bManifestationFound &&
         Manifestation.WorldModeAnchorTerritoryId ==
             TerritoryId);
     TestEqual(
-        TEXT("Anchor tick matches acquisition tick"),
+        TEXT("Anchor tick matches explicit roster anchoring tick"),
         Manifestation.WorldModeAnchorTick,
-        static_cast<int64>(3));
+        static_cast<int64>(4));
 
     Store.Close();
     IFileManager::Get().DeleteDirectory(
