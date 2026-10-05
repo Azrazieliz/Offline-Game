@@ -1,6 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Combat/OGCombatTypes.h"
+#include "Persistence/OGRecoveryCatalogService.h"
 #include "Gacha/OGGachaDefinitions.h"
 #include "Persistence/OGWorldStore.h"
 #include "UI/OGUiViewModels.h"
@@ -13,6 +15,26 @@
  * stays Unknown, formulas stay internal, and presentation preferences remain
  * outside world causality.
  */
+using FOGResolvedStatsProjectionResolver =
+    TFunction<bool(
+        const FOGEntityId& ManifestationId,
+        FString& OutResolvedStatsJson,
+        FString& OutError)>;
+
+using FOGPresentationCompatibilityResolver =
+    TFunction<bool(
+        const FOGEntityId& ManifestationId,
+        const FOGContentId& PresentationId,
+        bool& bOutCompatible,
+        FString& OutError)>;
+
+using FOGPackageSizeResolver =
+    TFunction<bool(
+        const FOGContentPackageRecord& Package,
+        bool& bOutKnown,
+        int64& OutSizeBytes,
+        FString& OutError)>;
+
 class OFFLINEGAME_API FOGUiViewModelService
 {
 public:
@@ -93,6 +115,146 @@ public:
 
     static FOGContentId CharacterLastUsedContextId(
         const FOGContentId& IdentityId);
+
+    bool BuildRosterWithQuery(
+        const FOGEntityId& RulerId,
+        const TArray<FOGCharacterIdentityDefinition>& IdentityDefinitions,
+        const FOGRosterQuery& Query,
+        TArray<FOGRosterIdentityViewModel>& OutRoster,
+        FString& OutError) const;
+
+    bool BuildManifestationDetail(
+        const FOGEntityId& RulerId,
+        const FOGEntityId& ManifestationId,
+        const FString& SkillSearchText,
+        int32 MaxVisibleSkills,
+        const FOGResolvedStatsProjectionResolver& StatsResolver,
+        FOGManifestationDetailViewModel& OutViewModel,
+        FString& OutError) const;
+
+    bool BuildManifestationComparison(
+        const FOGEntityId& RulerId,
+        const FOGEntityId& LeftManifestationId,
+        const FOGEntityId& RightManifestationId,
+        const FOGResolvedStatsProjectionResolver& StatsResolver,
+        FOGManifestationComparisonViewModel& OutViewModel,
+        FString& OutError) const;
+
+    bool BuildWardrobe(
+        const FOGEntityId& RulerId,
+        const FOGEntityId& ManifestationId,
+        const FOGPresentationCompatibilityResolver& CompatibilityResolver,
+        FOGWardrobeViewModel& OutViewModel,
+        FString& OutError) const;
+
+    bool BuildAdultUtility(
+        const FOGCharacterIdentityDefinition& Identity,
+        const FOGEntityId& CharacterEntityId,
+        bool bSfwPresentationEnabled,
+        const TArray<FOGContentId>& AvailableSystemicInteractionIds,
+        FOGAdultUtilityViewModel& OutViewModel,
+        FString& OutError) const;
+
+    static FOGCraftingViewModel BuildCraftingShell();
+
+    static bool BuildEquipmentComparison(
+        const FOGEntityId& CurrentItemId,
+        const FOGEntityId& CandidateItemId,
+        const FString& ResolvedStatDeltaJson,
+        const TArray<FOGContentId>& GainedSkillIds,
+        const TArray<FOGContentId>& LostSkillIds,
+        const TArray<FString>& CompatibilityWarnings,
+        const FString& AffinityImplicationTextKey,
+        const FString& ProficiencyImplicationTextKey,
+        FOGEquipmentComparisonViewModel& OutViewModel,
+        FString& OutError);
+
+    bool BuildGachaDetails(
+        const FOGGachaBannerDefinition& Banner,
+        const TArray<FOGContentId>& AuthoredDesignationOptions,
+        const FString& SpecialRulesJson,
+        FOGGachaDetailsViewModel& OutViewModel,
+        FString& OutError) const;
+
+    bool BuildGachaHistoryFiltered(
+        const FOGEntityId& RulerId,
+        const FOGGachaHistoryFilter& Filter,
+        int32 Limit,
+        TArray<FOGGachaHistoryEntryViewModel>& OutHistory,
+        FString& OutError) const;
+
+    static bool SetActiveTerritoryOverlay(
+        FOGTerritoryViewModel& InOutViewModel,
+        FName Overlay,
+        FString& OutError);
+
+    bool BuildChronicleFiltered(
+        const FOGEntityId& RulerId,
+        const FOGChronicleFilter& Filter,
+        TArray<FOGChronicleEntryViewModel>& OutEntries,
+        FString& OutError) const;
+
+    bool BuildIntelligenceFiltered(
+        const FOGEntityId& RulerId,
+        const FOGIntelligenceFilter& Filter,
+        TArray<FOGIntelligenceEntryViewModel>& OutEntries,
+        FString& OutError) const;
+
+    static FOGCodexViewModel BuildCodex(
+        const TArray<FOGCodexEntryViewModel>& KnownEntries,
+        const FString& SearchText,
+        FName CategoryFilter);
+
+    static bool BuildWorldTarget(
+        const FOGEntityId& TargetEntityId,
+        const FOGLargeNumber& CurrentHp,
+        const FOGKnowledgeFactRecord* HpKnowledge,
+        const FOGKnowledgeFactRecord* PhaseKnowledge,
+        const FOGKnowledgeFactRecord* ResourceKnowledge,
+        const TArray<FOGHudStatusEffectInput>& StatusEffects,
+        FOGWorldTargetViewModel& OutViewModel,
+        FString& OutError);
+
+    static bool BuildTurnBattlePresentation(
+        const FOGTurnBattleState& BattleState,
+        float SelectedSpeed,
+        bool bUltimateCinematicsEnabled,
+        const TArray<FOGTurnBattleRecapEntryViewModel>& AuthoritativeRecap,
+        FOGTurnBattlePresentationViewModel& OutViewModel,
+        FString& OutError);
+
+    static FOGBackupManagerViewModel BuildBackupManager(
+        const TArray<FOGBackupCatalogEntry>& Entries);
+
+    bool BuildPackageStorage(
+        const FOGPackageSizeResolver& SizeResolver,
+        FOGPackageStorageViewModel& OutViewModel,
+        FString& OutError) const;
+
+    static FOGQualitativeRiskViewModel ProjectRisk(
+        int32 RiskBps,
+        EOGUiKnowledgeState KnowledgeState,
+        bool bExactProbabilityAuthorized);
+
+    bool BuildProject(
+        const FOGEntityId& ProjectId,
+        FOGProjectViewModel& OutViewModel,
+        FString& OutError) const;
+
+    bool BuildDispatch(
+        const FOGEntityId& DispatchId,
+        EOGUiKnowledgeState RiskKnowledgeState,
+        bool bExactRiskAuthorized,
+        FOGDispatchViewModel& OutViewModel,
+        FString& OutError) const;
+
+    bool BuildWar(
+        const FOGEntityId& WarId,
+        EOGUiKnowledgeState OutcomeKnowledgeState,
+        int32 OutcomeRiskBps,
+        bool bExactOutcomeAuthorized,
+        FOGWarViewModel& OutViewModel,
+        FString& OutError) const;
 
 private:
     IOGWorldStore& Store;
