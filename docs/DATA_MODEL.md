@@ -52,22 +52,31 @@ There is no generic unlimited autobiographical memory engine.
 
 ## Schema status
 
-Implemented authoritative schema families through migration 0006:
+The authoritative persistent schema is **version 14**.
 
-- base entity registry, meaningful world events, knowledge facts, and content-package state;
-- owned Character Manifestations (Identity/Version definitions remain package data);
-- physical locations and authoritative world presence;
-- territories, Domain Cores, aggregate resources, and lazy Projects;
-- result-oriented dispatches;
-- factions, explicit faction links, aggregate armies, and wars;
-- persistent gacha pity/featured-guarantee state plus a **legacy pre-reconciliation duplicate-acquisition column** that is no longer design-authoritative.
+Implemented normalized families include:
+- base entity registry, world-event ledger, knowledge facts and package state;
+- independent Character Manifestation instances and acquisition provenance;
+- physical locations/presence, Territory membership/claims, reclamation,
+  sovereignty and permanent gacha access;
+- Domain-heart/Core state, Concepts, fusion and lineage;
+- Rank, Factors, Classes/Crown/Grand seats, skills/provenance, routes/forms,
+  reinforcement, Transcendence, World Fantasm, personal World Manifestation and
+  Grand Convergence;
+- reality hierarchy, local Time Domains/calendars, Junctions, World Director
+  scheduling/unlocks and offline simulation state;
+- objective/constraint Dispatch, continuous War/front/order history, Army
+  capability vectors, Project phases/assignments, civilization dimensions and
+  logistics routes;
+- item/inventory/equipment state, affinity/proficiency, wardrobe/presentation,
+  belief provenance, language/memory, NPC promotion, mutable adult context and
+  Heroic Records;
+- package dependencies/lifecycle, Reports/delivery, persistent Manifestation
+  management metadata and last-used context selection.
 
-Gacha pull outcomes are stored as meaningful `world_events`; there is no
-separate pull-history subsystem.
-
-The frozen architecture now requires additional normalized schema families before the real validation gate. The exact numbered migration plan is specified in `RECONCILIATION_MIGRATION_MATRIX.md`.
-
-The current migration-0006 database is therefore a **pre-reconciliation runtime schema**, not the final player-facing schema.
+Legacy columns retained for migration provenance do not drive gameplay. The
+numbered reconciliation contract is recorded in
+`RECONCILIATION_MIGRATION_MATRIX.md`.
 
 ## Canonical maturity / lore authority
 
