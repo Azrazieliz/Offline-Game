@@ -3,6 +3,7 @@
 #include "Persistence/OGSQLiteWorldStore.h"
 #include "World/OGSovereigntyService.h"
 #include "World/OGTerritoryControlService.h"
+#include "World/OGWorldTimeService.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -105,6 +106,60 @@ FOGTerritoryClaimRecord MakeEffectiveClaim(
     return Claim;
 }
 
+FOGCalendarElapsedResolver MakeTestCalendarResolver(
+    int64 MonthTicks)
+{
+    return [MonthTicks](
+        const FOGCalendarElapsedQuery& Query,
+        bool& bOutElapsed,
+        FString& OutError)
+    {
+        OutError.Reset();
+        bOutElapsed = false;
+
+        if (Query.DurationKind !=
+                FName(TEXT("month")) ||
+            Query.DurationCount != 1 ||
+            MonthTicks <= 0)
+        {
+            OutError =
+                TEXT("Unexpected test calendar query.");
+            return false;
+        }
+
+        const int64 Elapsed =
+            Query.EndLocalTick -
+            Query.StartLocalTick;
+        bOutElapsed =
+            Query.bStrictlyMoreThan
+                ? Elapsed > MonthTicks
+                : Elapsed >= MonthTicks;
+        return true;
+    };
+}
+
+bool PersistTestTimeDomain(
+    FOGSQLiteWorldStore& Store,
+    const FOGEntityId& TimeDomainId,
+    FString& Error)
+{
+    FOGTimeDomainRecord Domain;
+    Domain.TimeDomainId =
+        TimeDomainId;
+    Domain.RateNumerator = 1;
+    Domain.RateDenominator = 1;
+    Domain.CalendarId =
+        FOGContentId(
+            TEXT("test:calendar.sovereignty"));
+
+    FOGWorldTimeService Time(
+        Store);
+    return Time.SaveTimeDomain(
+        Domain,
+        0,
+        Error);
+}
+
 FOGGachaBannerDefinition MakeAccessGateBanner()
 {
     FOGGachaBannerDefinition Banner;
@@ -156,14 +211,14 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
     FOGSQLiteWorldStore Store;
     FString Error;
     TestTrue(
-        TEXT("Open schema-8 database"),
+        TEXT("Open current-schema database"),
         Store.Open(
             DatabasePath,
             Error));
     TestEqual(
-        TEXT("Schema version is 10"),
+        TEXT("Schema version is 11"),
         Store.GetSchemaVersion(Error),
-        10);
+        11);
 
     const FOGEntityId RulerA =
         FOGEntityId::NewId();
@@ -177,6 +232,19 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         FOGEntityId::NewId();
     const FOGEntityId ClaimBId =
         FOGEntityId::NewId();
+    const FOGEntityId TimeDomainId =
+        FOGEntityId::NewId();
+
+    TestTrue(
+        TEXT("Persist authored test Time Domain"),
+        PersistTestTimeDomain(
+            Store,
+            TimeDomainId,
+            Error));
+
+    const FOGCalendarElapsedResolver CalendarResolver =
+        MakeTestCalendarResolver(
+            70);
 
     TestTrue(
         TEXT("Persist Ruler A"),
@@ -266,7 +334,8 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             10,
-            false,
+            TimeDomainId,
+            CalendarResolver,
             AccessState,
             Error));
     TestTrue(
@@ -298,8 +367,8 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         SovereigntyState.HistoricalPeakTitle,
         FName(TEXT("overlord")));
 
-    // The deadline value is supplied by the future authoritative calendar/time
-    // layer. The service deliberately does not invent a day-to-tick ratio.
+    // The deadline value is supplied by the authoritative calendar/time layer.
+    // Territory control deliberately does not invent a day-to-tick ratio.
     TestTrue(
         TEXT("Begin five-day reclamation state using supplied deadline"),
         Control.BeginDisplacement(
@@ -313,7 +382,8 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             30,
-            false,
+            TimeDomainId,
+            CalendarResolver,
             AccessState,
             Error));
     TestTrue(
@@ -339,7 +409,8 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             80,
-            false,
+            TimeDomainId,
+            CalendarResolver,
             AccessState,
             Error));
     TestEqual(
@@ -355,7 +426,8 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             81,
-            true,
+            TimeDomainId,
+            CalendarResolver,
             AccessState,
             Error));
     TestTrue(
@@ -390,7 +462,8 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             141,
-            false,
+            TimeDomainId,
+            CalendarResolver,
             AccessState,
             Error));
     TestTrue(
@@ -458,8 +531,21 @@ bool FOGGachaAccessGateAndManifestationAnchorTest::RunTest(
         FOGEntityId::NewId();
     const FOGEntityId ClaimId =
         FOGEntityId::NewId();
+    const FOGEntityId TimeDomainId =
+        FOGEntityId::NewId();
     const FOGGachaBannerDefinition Banner =
         MakeAccessGateBanner();
+
+    TestTrue(
+        TEXT("Persist authored test Time Domain"),
+        PersistTestTimeDomain(
+            Store,
+            TimeDomainId,
+            Error));
+
+    const FOGCalendarElapsedResolver CalendarResolver =
+        MakeTestCalendarResolver(
+            1);
 
     TestTrue(
         TEXT("Persist Ruler"),
@@ -549,7 +635,8 @@ bool FOGGachaAccessGateAndManifestationAnchorTest::RunTest(
         Access.RefreshGachaQualification(
             RulerId,
             0,
-            false,
+            TimeDomainId,
+            CalendarResolver,
             AccessState,
             Error));
     TestTrue(
@@ -557,7 +644,8 @@ bool FOGGachaAccessGateAndManifestationAnchorTest::RunTest(
         Access.RefreshGachaQualification(
             RulerId,
             2,
-            true,
+            TimeDomainId,
+            CalendarResolver,
             AccessState,
             Error));
 
