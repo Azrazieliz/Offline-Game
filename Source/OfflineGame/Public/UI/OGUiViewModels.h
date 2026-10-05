@@ -905,7 +905,7 @@ struct OFFLINEGAME_API FOGGachaHistoryFilter
     int64 MinWorldTick = 0;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int64 MaxWorldTick = MAX_int64;
+    int64 MaxWorldTick = 9223372036854775807LL;
 };
 
 USTRUCT(BlueprintType)
