@@ -312,6 +312,8 @@ public:
         const FOGEquipmentProficiencyRecord&, FString&) override;
     virtual bool TryReadEquipmentProficiency(
         const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentProficiencyRecord&, FString&) const override;
+    virtual bool ListEquipmentProficienciesByOwner(
+        const FOGEntityId&, TArray<FOGEquipmentProficiencyRecord>&, FString&) const override;
     virtual bool UpsertManifestationPresentationState(
         const FOGManifestationPresentationStateRecord&, FString&) override;
     virtual bool TryReadManifestationPresentationState(
