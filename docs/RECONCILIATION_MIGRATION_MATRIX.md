@@ -1,12 +1,12 @@
 # Reconciliation Migration / API Matrix
 
-STATUS: AUTHORITATIVE IMPLEMENTATION PLAN - AUDIT PASS 2.
+STATUS: AUTHORITATIVE IMPLEMENTATION RECORD - RECONCILIATION IMPLEMENTED THROUGH SCHEMA 0014.
 
-Current persistent schema: **version 6**.
+Current persistent schema: **version 14**.
 
 This plan reconciles the frozen architecture with the pre-detailing runtime **before** the first real UE compile/automation gate. It is intentionally specific enough to drive implementation without reopening creative design.
 
-No Unreal compile/test has been run as part of this audit.
+No real Unreal compile/test is claimed by this record; static verification precedes that separate gate.
 
 ## 0. Migration safety rule
 
