@@ -1,6 +1,12 @@
 # Contradiction / Supersession Audit
 
-STATUS: ACTIVE - PASS 2 COMPLETE (design/runtime contract + dedicated-doc normalization + exact migration/API plan). No Unreal compile/test has been run.
+STATUS: HISTORICAL AUDIT SNAPSHOT - PASS 2 FINDINGS HAVE BEEN RECONCILED THROUGH SCHEMA 0014, SHARED COMBAT, UI PROJECTIONS AND THE REWRITTEN VERTICAL SLICE 0. No real Unreal certification is claimed.
+
+> The A/B sections below intentionally preserve the implementation gaps as they
+> were observed before reconciliation. Their phrases such as "current runtime"
+> are historical evidence, not present-tense status. Current implementation
+> status is governed by `RECONCILIATION_MIGRATION_MATRIX.md`,
+> `IMPLEMENTATION_ORDER.md` and the pre-Unreal audit record.
 
 ## Audit authority / precedence
 

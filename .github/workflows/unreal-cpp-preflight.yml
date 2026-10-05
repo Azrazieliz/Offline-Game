@@ -12,5 +12,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Verify pre-Unreal completeness
+        run: python3 Scripts/verify_pre_unreal_completeness.py
       - name: Verify Unreal C++ source
         run: python3 Scripts/verify_unreal_cpp.py

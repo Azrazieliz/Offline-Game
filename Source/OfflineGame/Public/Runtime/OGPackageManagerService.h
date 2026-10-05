@@ -41,5 +41,10 @@ private:
         const FOGContentId* ActivationTarget,
         FString& OutError) const;
 
+    bool DeactivatePackageAndDependents(
+        const FOGContentId& PackageId,
+        TSet<FOGContentId>& Visited,
+        FString& OutError);
+
     IOGWorldStore& Store;
 };

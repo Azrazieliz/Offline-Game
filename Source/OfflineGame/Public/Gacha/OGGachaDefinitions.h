@@ -45,6 +45,13 @@ struct OFFLINEGAME_API FOGGachaBannerDefinition
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int64 PullCost = 0;
 
+    /**
+     * Ordinary one-pull ticket resources accepted by this banner, in authored
+     * consumption priority. One compatible ticket is consumed before currency.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TArray<FOGContentId> CompatibleTicketIds;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     FName TopRarity = NAME_None;
 
@@ -117,6 +124,13 @@ struct OFFLINEGAME_API FOGGachaPullResult
 
     UPROPERTY(BlueprintReadOnly)
     bool bDuplicateIdentity = false;
+
+    /** Actual resource consumed for this pull: ticket when available, else currency. */
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId PaymentResourceId;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bUsedTicket = false;
 
     UPROPERTY(BlueprintReadOnly)
     int64 Seed = 0;

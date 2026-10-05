@@ -27,6 +27,11 @@ public:
         TArray<FOGBackupCatalogEntry>& OutEntries,
         FString& OutError);
 
+    static bool RemoveEntriesByBackupIds(
+        const FString& CatalogPath,
+        const TSet<FString>& BackupIds,
+        FString& OutError);
+
     /**
      * Clears authoritative world files. Backups/catalog are preserved unless
      * bDeleteBackups is explicitly true.

@@ -160,4 +160,169 @@ bool FOGGachaPersistenceAndDuplicateTest::RunTest(const FString& Parameters)
     return true;
 }
 
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGGachaTicketFirstPaymentTest,
+    "OfflineGame.Gacha.CompatibleTicketIsConsumedBeforeCurrency",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGGachaTicketFirstPaymentTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeGachaTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("gacha_ticket_first.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    FOGSQLiteWorldStore Store;
+    FString Error;
+    TestTrue(
+        TEXT("Open database"),
+        Store.Open(
+            DatabasePath,
+            Error));
+
+    const FOGEntityId RulerId =
+        FOGEntityId::NewId();
+    FOGGachaBannerDefinition Banner =
+        MakeSingleFeaturedTopBanner();
+    const FOGContentId TicketId(
+        TEXT("test:ticket.standard"));
+    Banner.CompatibleTicketIds.Add(
+        TicketId);
+
+    TestTrue(
+        TEXT("Persist Ruler"),
+        Store.UpsertEntity(
+            RulerId,
+            FName(TEXT("ruler")),
+            0,
+            TEXT("{}"),
+            Error));
+
+    FOGRulerGachaAccessRecord Access;
+    Access.RulerId =
+        RulerId;
+    Access.bPermanentlyUnlocked =
+        true;
+    Access.bHasUnlockedWorldTick =
+        true;
+    TestTrue(
+        TEXT("Persist earned permanent gacha access"),
+        Store.UpsertRulerGachaAccess(
+            Access,
+            Error));
+
+    TestTrue(
+        TEXT("Seed one compatible ordinary ticket"),
+        Store.SetResourceBalance(
+            RulerId,
+            TicketId,
+            1,
+            Error));
+    TestTrue(
+        TEXT("Seed pull currency"),
+        Store.SetResourceBalance(
+            RulerId,
+            Banner.CurrencyId,
+            1000,
+            Error));
+
+    FOGGachaService Service(
+        Store);
+    FOGGachaPullResult TicketPull;
+    TestTrue(
+        TEXT("Pull succeeds with compatible ticket"),
+        Service.Pull(
+            Banner,
+            RulerId,
+            10,
+            111,
+            TicketPull,
+            Error));
+    TestTrue(
+        TEXT("Result records ticket payment"),
+        TicketPull.bUsedTicket);
+    TestTrue(
+        TEXT("Result records exact ticket resource"),
+        TicketPull.PaymentResourceId ==
+            TicketId);
+
+    bool bKnown = false;
+    int64 Balance = -1;
+    TestTrue(
+        TEXT("Read ticket after pull"),
+        Store.TryReadResourceBalance(
+            RulerId,
+            TicketId,
+            bKnown,
+            Balance,
+            Error));
+    TestTrue(
+        TEXT("Compatible ticket was consumed first"),
+        bKnown &&
+        Balance == 0);
+
+    bKnown = false;
+    Balance = -1;
+    TestTrue(
+        TEXT("Read currency after ticket-funded pull"),
+        Store.TryReadResourceBalance(
+            RulerId,
+            Banner.CurrencyId,
+            bKnown,
+            Balance,
+            Error));
+    TestTrue(
+        TEXT("Currency is untouched while a ticket was available"),
+        bKnown &&
+        Balance == 1000);
+
+    FOGGachaPullResult CurrencyPull;
+    TestTrue(
+        TEXT("Second pull falls back to currency after ticket depletion"),
+        Service.Pull(
+            Banner,
+            RulerId,
+            20,
+            222,
+            CurrencyPull,
+            Error));
+    TestFalse(
+        TEXT("Fallback result is not marked ticket-funded"),
+        CurrencyPull.bUsedTicket);
+    TestTrue(
+        TEXT("Fallback records pull currency resource"),
+        CurrencyPull.PaymentResourceId ==
+            Banner.CurrencyId);
+
+    bKnown = false;
+    Balance = -1;
+    TestTrue(
+        TEXT("Read currency after fallback pull"),
+        Store.TryReadResourceBalance(
+            RulerId,
+            Banner.CurrencyId,
+            bKnown,
+            Balance,
+            Error));
+    TestTrue(
+        TEXT("Fallback consumes configured currency cost"),
+        bKnown &&
+        Balance == 900);
+
+    Store.Close();
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
 #endif

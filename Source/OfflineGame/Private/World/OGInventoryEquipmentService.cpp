@@ -109,14 +109,26 @@ bool FOGInventoryEquipmentService::TransferItem(
         return false;
     }
 
-    Item.OwnerEntityId = NewOwnerEntityId;
+    const bool bOwnerChanged =
+        Item.OwnerEntityId !=
+            NewOwnerEntityId;
+
+    Item.OwnerEntityId =
+        NewOwnerEntityId;
 
     if (!Store.BeginTransaction(OutError))
     {
         return false;
     }
 
-    if (!Store.UpsertItemInstance(
+    if ((bOwnerChanged &&
+         (!Store.DeleteEquipmentBindingsForItem(
+              ItemId,
+              OutError) ||
+          !Store.DeleteContainerContentsForItem(
+              ItemId,
+              OutError))) ||
+        !Store.UpsertItemInstance(
             Item,
             WorldTick,
             OutError) ||

@@ -52,6 +52,8 @@ public:
     virtual bool TryReadWorldPresence(const FOGEntityId&, bool&, FOGWorldPresenceRecord&, FString&) const = 0;
     virtual bool UpsertKnowledgeFact(const FOGKnowledgeFactRecord&, FString&) = 0;
     virtual bool TryReadKnowledgeFact(const FOGEntityId&, FName, const FOGEntityId&, bool&, FOGKnowledgeFactRecord&, FString&) const = 0;
+    virtual bool ListKnowledgeFactsByOwner(
+        const FOGEntityId&, TArray<FOGKnowledgeFactRecord>&, FString&) const = 0;
 
     virtual bool UpsertTerritory(const FOGTerritoryRecord&, int64, FString&) = 0;
     virtual bool TryReadTerritory(const FOGEntityId&, bool&, FOGTerritoryRecord&, FString&) const = 0;
@@ -273,6 +275,8 @@ public:
         const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentBindingRecord&, FString&) const = 0;
     virtual bool ListEquipmentBindings(
         const FOGEntityId&, TArray<FOGEquipmentBindingRecord>&, FString&) const = 0;
+    virtual bool DeleteEquipmentBindingsForItem(
+        const FOGEntityId&, FString&) = 0;
     virtual bool UpsertInventoryContainer(
         const FOGInventoryContainerRecord&, int64, FString&) = 0;
     virtual bool TryReadInventoryContainer(
@@ -282,6 +286,8 @@ public:
     virtual bool UpsertContainerContent(const FOGContainerContentRecord&, FString&) = 0;
     virtual bool ListContainerContents(
         const FOGEntityId&, TArray<FOGContainerContentRecord>&, FString&) const = 0;
+    virtual bool DeleteContainerContentsForItem(
+        const FOGEntityId&, FString&) = 0;
     virtual bool UpsertItemOwnerAffinity(
         const FOGItemOwnerAffinityRecord&, FString&) = 0;
     virtual bool TryReadItemOwnerAffinity(
@@ -290,6 +296,8 @@ public:
         const FOGEquipmentProficiencyRecord&, FString&) = 0;
     virtual bool TryReadEquipmentProficiency(
         const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentProficiencyRecord&, FString&) const = 0;
+    virtual bool ListEquipmentProficienciesByOwner(
+        const FOGEntityId&, TArray<FOGEquipmentProficiencyRecord>&, FString&) const = 0;
     virtual bool UpsertManifestationPresentationState(
         const FOGManifestationPresentationStateRecord&, FString&) = 0;
     virtual bool TryReadManifestationPresentationState(
@@ -360,6 +368,11 @@ public:
     virtual bool IsContentPackageActivated(const FOGContentId&, bool&, bool&, FString&) const = 0;
 
     virtual bool AppendWorldEvent(const FOGWorldEvent&, FString&) = 0;
+    virtual bool TryReadWorldEvent(
+        const FOGEntityId&, bool&, FOGWorldEvent&, FString&) const = 0;
+    virtual bool ListWorldEvents(
+        const FOGEntityId&, FName, bool, int32,
+        TArray<FOGWorldEvent>&, FString&) const = 0;
 
     virtual bool BackupTo(const FString&, FString&) = 0;
     virtual bool RestoreFrom(const FString&, FString&) = 0;

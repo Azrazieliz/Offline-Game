@@ -15,3 +15,5 @@ jobs:
           python-version: "3.12"
       - name: Validate repository contracts
         run: python Scripts/validate_repo.py
+      - name: Verify pre-Unreal completeness
+        run: python Scripts/verify_pre_unreal_completeness.py

@@ -750,6 +750,16 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
             GachaState,
             Error));
 
+    const FOGContentId TicketIdForBalance(
+        TEXT("test:ticket.limited"));
+    TestTrue(
+        TEXT("Persist compatible ticket balance"),
+        Store.SetResourceBalance(
+            RulerId,
+            TicketIdForBalance,
+            2,
+            Error));
+
     FOGGachaBannerDefinition Banner;
     Banner.BannerId =
         FOGContentId(TEXT("test:banner.limited"));
@@ -758,6 +768,10 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
     Banner.CurrencyId =
         CurrencyId;
     Banner.PullCost = 100;
+    const FOGContentId TicketId(
+        TEXT("test:ticket.limited"));
+    Banner.CompatibleTicketIds.Add(
+        TicketId);
     Banner.TopRarity =
         FName(TEXT("ur"));
     Banner.SoftPityStart = 50;
@@ -811,6 +825,15 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
         TEXT("Currency remains visible"),
         Gacha.CurrencyBalance,
         static_cast<int64>(975));
+    TestEqual(
+        TEXT("Compatible ticket balance is visible"),
+        Gacha.CompatibleTickets.Num(),
+        1);
+    TestTrue(
+        TEXT("UI indicates ticket-first consumption when ticket is available"),
+        Gacha.bWillUseTicketFirst &&
+        Gacha.CompatibleTickets[0].bWillConsumeBeforeCurrency &&
+        Gacha.CompatibleTickets[0].Balance == 2);
     TestEqual(
         TEXT("Details exposes exact declared base pool rows"),
         Gacha.BasePool.Num(),
@@ -926,6 +949,207 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
             false,
             true),
         FString(TEXT("Unknown")));
+
+    Store.Close();
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGRecordsAndGachaHistoryProjectionTest,
+    "OfflineGame.UI.Records.GachaHistoryChronicleAndIntelligenceAreQueryable",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGRecordsAndGachaHistoryProjectionTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeUiProjectionTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("records_history_ui.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    FOGSQLiteWorldStore Store;
+    FString Error;
+    TestTrue(
+        TEXT("Open database"),
+        Store.Open(
+            DatabasePath,
+            Error));
+
+    const FOGEntityId RulerId =
+        FOGEntityId::NewId();
+    const FOGEntityId TerritoryId =
+        FOGEntityId::NewId();
+
+    TestTrue(
+        TEXT("Persist Ruler"),
+        PersistUiEntity(
+            Store,
+            RulerId,
+            FName(TEXT("ruler")),
+            Error));
+    TestTrue(
+        TEXT("Persist related Territory entity"),
+        PersistUiEntity(
+            Store,
+            TerritoryId,
+            FName(TEXT("territory_marker")),
+            Error));
+
+    FOGWorldEvent PullEvent;
+    PullEvent.EventId =
+        FOGEntityId::NewId();
+    PullEvent.EventType =
+        FName(TEXT("gacha_pull"));
+    PullEvent.WorldTick =
+        50;
+    PullEvent.PrimaryEntity =
+        RulerId;
+    PullEvent.PayloadJson =
+        TEXT("{\"banner\":\"test:banner.history\",\"identity\":\"test:identity.history\",\"version\":\"test:version.history\",\"rarity\":\"ur\",\"featured\":true,\"duplicate\":false,\"payment_resource\":\"test:ticket.history\",\"used_ticket\":true}");
+    TestTrue(
+        TEXT("Persist gacha history event"),
+        Store.AppendWorldEvent(
+            PullEvent,
+            Error));
+
+    FOGWorldEvent ChronicleEvent;
+    ChronicleEvent.EventId =
+        FOGEntityId::NewId();
+    ChronicleEvent.EventType =
+        FName(TEXT("territory.reclaimed"));
+    ChronicleEvent.WorldTick =
+        60;
+    ChronicleEvent.PrimaryEntity =
+        TerritoryId;
+    ChronicleEvent.RelatedEntities.Add(
+        RulerId);
+    ChronicleEvent.PayloadJson =
+        TEXT("{\"importance\":\"major\"}");
+    ChronicleEvent.bChronicleEligible =
+        true;
+    TestTrue(
+        TEXT("Persist Chronicle-eligible event related to Ruler"),
+        Store.AppendWorldEvent(
+            ChronicleEvent,
+            Error));
+
+    FOGKnowledgeFactRecord Fact;
+    Fact.OwnerEntityId =
+        RulerId;
+    Fact.FactKey =
+        FName(TEXT("enemy_intent"));
+    Fact.SubjectEntityId =
+        TerritoryId;
+    Fact.ValueJson =
+        TEXT("{\"intent\":\"raid\"}");
+    Fact.LearnedWorldTick =
+        61;
+    Fact.UpdatedWorldTick =
+        62;
+    Fact.BeliefState =
+        FName(TEXT("rumor"));
+    Fact.ConfidenceBps =
+        3500;
+    Fact.SourceEventId =
+        ChronicleEvent.EventId;
+    Fact.LanguageContextId =
+        FOGContentId(
+            TEXT("test:language.common"));
+    TestTrue(
+        TEXT("Persist knowledge-limited Intelligence fact"),
+        Store.UpsertKnowledgeFact(
+            Fact,
+            Error));
+
+    bool bEventFound = false;
+    FOGWorldEvent ReadBack;
+    TestTrue(
+        TEXT("Read world event through typed persistence API"),
+        Store.TryReadWorldEvent(
+            ChronicleEvent.EventId,
+            bEventFound,
+            ReadBack,
+            Error));
+    TestTrue(
+        TEXT("Typed world-event read preserves related entities"),
+        bEventFound &&
+        ReadBack.RelatedEntities.Contains(
+            RulerId));
+
+    FOGUiViewModelService Ui(
+        Store);
+
+    TArray<FOGGachaHistoryEntryViewModel> GachaHistory;
+    TestTrue(
+        TEXT("Build filterable gacha history projection"),
+        Ui.BuildGachaHistory(
+            RulerId,
+            20,
+            GachaHistory,
+            Error));
+    TestEqual(
+        TEXT("Gacha history contains the pull"),
+        GachaHistory.Num(),
+        1);
+    TestTrue(
+        TEXT("Gacha history preserves banner/Identity/payment provenance"),
+        GachaHistory.Num() == 1 &&
+        GachaHistory[0].BannerId ==
+            FOGContentId(TEXT("test:banner.history")) &&
+        GachaHistory[0].IdentityId ==
+            FOGContentId(TEXT("test:identity.history")) &&
+        GachaHistory[0].bUsedTicket &&
+        GachaHistory[0].PaymentResourceId ==
+            FOGContentId(TEXT("test:ticket.history")));
+
+    TArray<FOGChronicleEntryViewModel> Chronicle;
+    TestTrue(
+        TEXT("Build Chronicle projection"),
+        Ui.BuildChronicle(
+            RulerId,
+            20,
+            Chronicle,
+            Error));
+    TestEqual(
+        TEXT("Chronicle contains only eligible meaningful event"),
+        Chronicle.Num(),
+        1);
+    TestTrue(
+        TEXT("Chronicle entity filter sees related-entity membership"),
+        Chronicle.Num() == 1 &&
+        Chronicle[0].EventId ==
+            ChronicleEvent.EventId);
+
+    TArray<FOGIntelligenceEntryViewModel> Intelligence;
+    TestTrue(
+        TEXT("Build Intelligence projection"),
+        Ui.BuildIntelligence(
+            RulerId,
+            Intelligence,
+            Error));
+    TestEqual(
+        TEXT("Intelligence contains owner knowledge fact"),
+        Intelligence.Num(),
+        1);
+    TestTrue(
+        TEXT("Rumor remains visibly non-confirmed and provenance-aware"),
+        Intelligence.Num() == 1 &&
+        Intelligence[0].Knowledge.KnowledgeState ==
+            EOGUiKnowledgeState::Rumor &&
+        !Intelligence[0].Knowledge.bExactValueVisible &&
+        Intelligence[0].Knowledge.SourceEventId ==
+            ChronicleEvent.EventId);
 
     Store.Close();
     IFileManager::Get().DeleteDirectory(

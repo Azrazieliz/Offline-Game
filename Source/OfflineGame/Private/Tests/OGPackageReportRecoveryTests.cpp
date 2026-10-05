@@ -230,6 +230,104 @@ bool FOGPackageDependencyLifecycleTest::RunTest(
     TestTrue(TEXT("Accept satisfiable dependency"), Packages.SetDependency(ValidDependency, Error));
     TestTrue(TEXT("Activate expansion after ready dependency"), Packages.ActivatePackage(Expansion.PackageId, Error));
 
+    TestTrue(
+        TEXT("Deactivating dependency root succeeds"),
+        Packages.DeactivatePackage(
+            Core.PackageId,
+            Error));
+
+    bool bPackageFound = false;
+    FOGContentPackageRecord PersistedPackage;
+    TestTrue(
+        TEXT("Read dependent after root deactivation"),
+        Store.TryReadContentPackageRecord(
+            Expansion.PackageId,
+            bPackageFound,
+            PersistedPackage,
+            Error));
+    TestTrue(
+        TEXT("Dependent package remains registered"),
+        bPackageFound);
+    TestFalse(
+        TEXT("Dependent package is transitively deactivated"),
+        PersistedPackage.bActivated);
+
+    TestTrue(
+        TEXT("Reactivate dependency root"),
+        Packages.ActivatePackage(
+            Core.PackageId,
+            Error));
+    TestTrue(
+        TEXT("Reactivate dependent"),
+        Packages.ActivatePackage(
+            Expansion.PackageId,
+            Error));
+
+    Core.Version = 3;
+    Core.ContentHash = TEXT("hash-core-v3");
+    TestTrue(
+        TEXT("Updating an active dependency invalidates activation"),
+        Packages.RegisterPackage(
+            Core,
+            Error));
+
+    bPackageFound = false;
+    PersistedPackage = FOGContentPackageRecord();
+    TestTrue(
+        TEXT("Read dependent after dependency update"),
+        Store.TryReadContentPackageRecord(
+            Expansion.PackageId,
+            bPackageFound,
+            PersistedPackage,
+            Error));
+    TestTrue(
+        TEXT("Dependent remains registered after dependency update"),
+        bPackageFound);
+    TestFalse(
+        TEXT("Dependent is deactivated after dependency update"),
+        PersistedPackage.bActivated);
+
+    TestTrue(
+        TEXT("Re-activate updated dependency root"),
+        Packages.ActivatePackage(
+            Core.PackageId,
+            Error));
+    TestTrue(
+        TEXT("Re-activate dependent after updated root"),
+        Packages.ActivatePackage(
+            Expansion.PackageId,
+            Error));
+
+    FOGPackageDependencyRecord Tightened = ValidDependency;
+    Tightened.MinimumVersion = 3;
+    TestTrue(
+        TEXT("Changing an active package dependency invalidates its activation proof"),
+        Packages.SetDependency(
+            Tightened,
+            Error));
+
+    bPackageFound = false;
+    PersistedPackage = FOGContentPackageRecord();
+    TestTrue(
+        TEXT("Read package after dependency change"),
+        Store.TryReadContentPackageRecord(
+            Expansion.PackageId,
+            bPackageFound,
+            PersistedPackage,
+            Error));
+    TestTrue(
+        TEXT("Package remains registered after dependency change"),
+        bPackageFound);
+    TestFalse(
+        TEXT("Package is deactivated after dependency change"),
+        PersistedPackage.bActivated);
+
+    TestTrue(
+        TEXT("Re-activate package after dependency change is satisfied"),
+        Packages.ActivatePackage(
+            Expansion.PackageId,
+            Error));
+
     FOGPackageDependencyRecord Cycle;
     Cycle.PackageId = Core.PackageId;
     Cycle.DependencyPackageId = Expansion.PackageId;
@@ -242,6 +340,37 @@ bool FOGPackageDependencyLifecycleTest::RunTest(
     TestTrue(
         TEXT("Cycle rejection leaves graph valid"),
         Packages.ValidateDependencyGraph(
+            Error));
+
+    FString ValidationReport;
+    TestTrue(
+        TEXT("Application validator accepts dependency-ready package graph"),
+        Store.RunApplicationValidation(
+            ValidationReport,
+            Error));
+
+    TestTrue(
+        TEXT("Inject active-package dependency corruption for validator proof"),
+        Store.ExecuteSql(
+            FString::Printf(
+                TEXT("UPDATE content_packages SET activated = 0 WHERE package_id = '%s';"),
+                *Core.PackageId.ToString()),
+            Error));
+    TestFalse(
+        TEXT("Application validator rejects active package with inactive dependency"),
+        Store.RunApplicationValidation(
+            ValidationReport,
+            Error));
+
+    TestTrue(
+        TEXT("Restore dependency activation through package manager"),
+        Packages.ActivatePackage(
+            Core.PackageId,
+            Error));
+    TestTrue(
+        TEXT("Application validator returns green after package graph repair"),
+        Store.RunApplicationValidation(
+            ValidationReport,
             Error));
 
     Store.Close();
@@ -352,6 +481,17 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
         Defaults.OrientationLock,
         FName(TEXT("automatic")));
     TestEqual(
+        TEXT("Roster defaults to frozen dense three-column profile"),
+        Defaults.RosterDensity,
+        FName(TEXT("dense")));
+    TestTrue(
+        TEXT("Large package downloads default to automatic"),
+        Defaults.bAutoDownload);
+    TestTrue(
+        TEXT("Default download policy is unmetered/Wi-Fi only"),
+        Defaults.NetworkPreferencesJson.Contains(
+            TEXT("unmetered_only")));
+    TestEqual(
         TEXT("Automatic orientation follows device"),
         FOGPlayerProfileSettingsService::ResolveOrientation(
             Defaults,
@@ -385,18 +525,51 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
         FOGSnapshotService::CreateRotatingSnapshot(
             Store,
             BackupDirectory,
-            3,
+            1,
             CatalogPath,
             TEXT("test:world.alpha"),
             TEXT("test-build"),
             SnapshotPath,
             Error));
+
+    const FString FirstSnapshotPath =
+        SnapshotPath;
+
+    TestTrue(
+        TEXT("Create second rotating backup in the same validation cycle"),
+        FOGSnapshotService::CreateRotatingSnapshot(
+            Store,
+            BackupDirectory,
+            1,
+            CatalogPath,
+            TEXT("test:world.alpha"),
+            TEXT("test-build"),
+            SnapshotPath,
+            Error));
+    TestTrue(
+        TEXT("Newest snapshot produced by the current call survives rotation"),
+        IFileManager::Get().FileExists(
+            *SnapshotPath));
+    TestFalse(
+        TEXT("Obsolete snapshot is removed at KeepCount one"),
+        IFileManager::Get().FileExists(
+            *FirstSnapshotPath));
     Store.Close();
 
     TArray<FOGBackupCatalogEntry> Entries;
     TestTrue(TEXT("Load external recovery catalog"), FOGRecoveryCatalogService::LoadEntries(CatalogPath, Entries, Error));
     TestEqual(TEXT("Catalog contains snapshot metadata"), Entries.Num(), 1);
     TestTrue(TEXT("Catalog records backup hash"), Entries.Num() == 1 && !Entries[0].ContentHash.IsEmpty());
+    TestTrue(
+        TEXT("Snapshot is cataloged as validated only after reopen/application/integrity validation"),
+        Entries.Num() == 1 &&
+        Entries[0].ValidationState ==
+            FName(TEXT("validated")));
+    TestTrue(
+        TEXT("Recovery catalog is pruned with snapshot rotation"),
+        Entries.Num() == 1 &&
+        Entries[0].BackupPathOrUri ==
+            SnapshotPath);
 
     TestTrue(
         TEXT("Clear World preserves backups by default"),
@@ -415,6 +588,11 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
     TestTrue(TEXT("Reload player profile sidecar"), FOGPlayerProfileSettingsService::Load(SettingsPath, Reloaded, Error));
     TestTrue(TEXT("Privacy/SFW setting remains outside canonical DB lifecycle"), Reloaded.bSfwPresentation);
     TestEqual(TEXT("Roster density survives sidecar reload"), Reloaded.RosterDensity, FName(TEXT("dense")));
+    TestTrue(TEXT("Auto-download preference survives sidecar reload"), Reloaded.bAutoDownload);
+    TestTrue(
+        TEXT("Unmetered-only download policy survives sidecar reload"),
+        Reloaded.NetworkPreferencesJson.Contains(
+            TEXT("unmetered_only")));
 
     TestTrue(
         TEXT("Explicit backup deletion may remove catalog/backups"),

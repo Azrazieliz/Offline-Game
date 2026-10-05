@@ -91,6 +91,45 @@ bool FOGItemAffinityProficiencyPresentationTest::RunTest(
     TestTrue(TEXT("Persist independent equipment proficiency"), Items.SetProficiency(ProficiencyA, Error));
 
     TestTrue(
+        TEXT("Equip item before ownership transfer"),
+        Items.EquipItem(
+            OwnerA,
+            FOGContentId(TEXT("test:slot.main_hand")),
+            ItemId,
+            [](
+                const FOGEntityId&,
+                const FOGContentId&,
+                const FOGItemInstanceRecord&,
+                FString& OutError)
+            {
+                OutError.Reset();
+                return true;
+            },
+            Error));
+
+    FOGInventoryContainerRecord Container;
+    Container.ContainerId = FOGEntityId::NewId();
+    Container.OwnerEntityId = OwnerA;
+    Container.ContainerTypeId =
+        FOGContentId(TEXT("test:container.personal"));
+    TestTrue(
+        TEXT("Persist former-owner inventory container"),
+        Store.UpsertInventoryContainer(
+            Container,
+            12,
+            Error));
+
+    FOGContainerContentRecord Contained;
+    Contained.ContainerId = Container.ContainerId;
+    Contained.ItemId = ItemId;
+    Contained.Amount = 1;
+    TestTrue(
+        TEXT("Place item in former-owner inventory container"),
+        Store.UpsertContainerContent(
+            Contained,
+            Error));
+
+    TestTrue(
         TEXT("Transfer applies item-authored affinity behavior"),
         Items.TransferItem(
             ItemId,
@@ -133,6 +172,28 @@ bool FOGItemAffinityProficiencyPresentationTest::RunTest(
     TestTrue(TEXT("Read new-owner affinity"), Store.TryReadItemOwnerAffinity(ItemId, OwnerB, bFound, NewAffinity, Error));
     TestTrue(TEXT("New-owner affinity exists"), bFound);
     TestEqual(TEXT("Authored transfer rule controls new affinity"), NewAffinity.AffinityValue, static_cast<int64>(75));
+
+    TArray<FOGEquipmentBindingRecord> FormerBindings;
+    TestTrue(
+        TEXT("Read former wearer equipment after transfer"),
+        Store.ListEquipmentBindings(
+            OwnerA,
+            FormerBindings,
+            Error));
+    TestTrue(
+        TEXT("Ownership transfer clears stale equipment bindings"),
+        FormerBindings.IsEmpty());
+
+    TArray<FOGContainerContentRecord> FormerContainerContents;
+    TestTrue(
+        TEXT("Read former-owner container contents after transfer"),
+        Store.ListContainerContents(
+            Container.ContainerId,
+            FormerContainerContents,
+            Error));
+    TestTrue(
+        TEXT("Ownership transfer clears stale container membership"),
+        FormerContainerContents.IsEmpty());
 
     FOGEquipmentProficiencyRecord PersistedProficiency;
     bFound = false;

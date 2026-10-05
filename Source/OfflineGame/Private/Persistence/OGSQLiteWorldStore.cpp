@@ -1,8 +1,11 @@
 #include "Persistence/OGSQLiteWorldStore.h"
 
+#include "Dom/JsonValue.h"
 #include "HAL/FileManager.h"
 #include "Misc/Paths.h"
 #include "OfflineGame.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
 #include "sqlite/sqlite3.h"
 
 namespace
@@ -502,6 +505,59 @@ FString RelatedEntitiesToJson(const TArray<FOGEntityId>& EntityIds)
     return FString::Printf(TEXT("[%s]"), *FString::Join(Values, TEXT(",")));
 }
 
+bool ParseRelatedEntitiesJson(
+    const FString& Json,
+    TArray<FOGEntityId>& OutEntityIds,
+    FString& OutError)
+{
+    OutEntityIds.Reset();
+
+    TArray<TSharedPtr<FJsonValue>> Values;
+    const TSharedRef<TJsonReader<>> Reader =
+        TJsonReaderFactory<>::Create(
+            Json.IsEmpty()
+                ? TEXT("[]")
+                : Json);
+
+    if (!FJsonSerializer::Deserialize(
+            Reader,
+            Values))
+    {
+        OutError =
+            TEXT("World event related-entity JSON is invalid.");
+        return false;
+    }
+
+    for (const TSharedPtr<FJsonValue>& Value :
+         Values)
+    {
+        FString Text;
+        if (!Value.IsValid() ||
+            !Value->TryGetString(Text))
+        {
+            OutError =
+                TEXT("World event related-entity JSON contains a non-string value.");
+            return false;
+        }
+
+        FGuid Guid;
+        if (!FGuid::Parse(
+                Text,
+                Guid))
+        {
+            OutError =
+                TEXT("World event related-entity JSON contains an invalid entity ID.");
+            return false;
+        }
+
+        OutEntityIds.Add(
+            FOGEntityId(
+                Guid));
+    }
+
+    return true;
+}
+
 bool BindText(sqlite3_stmt* Statement, int32 Index, const FString& Value)
 {
     FTCHARToUTF8 Utf8(*Value);
@@ -802,6 +858,30 @@ bool FOGSQLiteWorldStore::RunApplicationValidation(
 
     sqlite3_finalize(ForeignKeyStatement);
 
+    // Migration validators encode durable semantic invariants as well as
+    // one-time transform checks. Re-run every reconciled validator on reopened
+    // current-schema worlds so backups/recovery never label logically corrupt
+    // state as application-valid merely because SQLite itself is healthy.
+    if (!ValidateManifestationMigration0007(
+            OutError) ||
+        !ValidateTerritorySovereigntyMigration0008(
+            OutError) ||
+        !ValidateDomainHeartMigration0009(
+            OutError) ||
+        !ValidateProgressionMigration0010(
+            OutError) ||
+        !ValidateRealityTimeDirectorMigration0011(
+            OutError) ||
+        !ValidateStrategyMigration0012(
+            OutError) ||
+        !ValidateItemsKnowledgeCharactersMigration0013(
+            OutError) ||
+        !ValidatePackagesReportsManagementMigration0014(
+            OutError))
+    {
+        return false;
+    }
+
     FString IntegrityReport;
     if (!RunIntegrityCheck(
             IntegrityReport,
@@ -811,7 +891,7 @@ bool FOGSQLiteWorldStore::RunApplicationValidation(
     }
 
     OutReport = FString::Printf(
-        TEXT("schema=%d; migrations=%d; foreign_keys=ok; integrity=%s"),
+        TEXT("schema=%d; migrations=%d; foreign_keys=ok; semantic_validators=0007-0014:ok; integrity=%s"),
         SchemaVersion,
         MigrationCount,
         *IntegrityReport);
@@ -1102,6 +1182,309 @@ bool FOGSQLiteWorldStore::AppendWorldEvent(const FOGWorldEvent& Event, FString& 
 
     sqlite3_finalize(Statement);
     return bSucceeded;
+}
+
+bool FOGSQLiteWorldStore::TryReadWorldEvent(
+    const FOGEntityId& EventId,
+    bool& bOutFound,
+    FOGWorldEvent& OutEvent,
+    FString& OutError) const
+{
+    bOutFound = false;
+    OutEvent = FOGWorldEvent();
+    OutError.Reset();
+
+    if (!EventId.IsValid())
+    {
+        OutError =
+            TEXT("World-event lookup requires a valid event ID.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "SELECT event_type, world_tick, primary_entity_id, "
+        "related_entities_json, payload_json, chronicle_eligible "
+        "FROM world_events WHERE event_id = ?;";
+
+    if (sqlite3_prepare_v2(
+            Database,
+            Sql,
+            -1,
+            &Statement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError =
+            LastError(
+                TEXT("Prepare world-event read"));
+        return false;
+    }
+
+    if (!BindText(
+            Statement,
+            1,
+            EventId.ToString()))
+    {
+        OutError =
+            LastError(
+                TEXT("Bind world-event read"));
+        sqlite3_finalize(
+            Statement);
+        return false;
+    }
+
+    const int32 Step =
+        sqlite3_step(
+            Statement);
+    if (Step == SQLITE_ROW)
+    {
+        OutEvent.EventId =
+            EventId;
+        OutEvent.EventType =
+            FName(
+                *ColumnText(
+                    Statement,
+                    0));
+        OutEvent.WorldTick =
+            sqlite3_column_int64(
+                Statement,
+                1);
+
+        const FString PrimaryText =
+            ColumnText(
+                Statement,
+                2);
+        if (!PrimaryText.IsEmpty())
+        {
+            FGuid Guid;
+            if (!FGuid::Parse(
+                    PrimaryText,
+                    Guid))
+            {
+                OutError =
+                    TEXT("Stored world event has an invalid primary entity ID.");
+                sqlite3_finalize(
+                    Statement);
+                return false;
+            }
+            OutEvent.PrimaryEntity =
+                FOGEntityId(
+                    Guid);
+        }
+
+        if (!ParseRelatedEntitiesJson(
+                ColumnText(
+                    Statement,
+                    3),
+                OutEvent.RelatedEntities,
+                OutError))
+        {
+            sqlite3_finalize(
+                Statement);
+            return false;
+        }
+
+        OutEvent.PayloadJson =
+            ColumnText(
+                Statement,
+                4);
+        OutEvent.bChronicleEligible =
+            sqlite3_column_int(
+                Statement,
+                5) != 0;
+        bOutFound =
+            true;
+    }
+    else if (Step != SQLITE_DONE)
+    {
+        OutError =
+            LastError(
+                TEXT("Read world event"));
+        sqlite3_finalize(
+            Statement);
+        return false;
+    }
+
+    sqlite3_finalize(
+        Statement);
+    return true;
+}
+
+bool FOGSQLiteWorldStore::ListWorldEvents(
+    const FOGEntityId& EntityFilter,
+    FName EventTypeFilter,
+    bool bChronicleOnly,
+    int32 Limit,
+    TArray<FOGWorldEvent>& OutEvents,
+    FString& OutError) const
+{
+    OutEvents.Reset();
+    OutError.Reset();
+
+    if (Limit <= 0 ||
+        Limit > 1000)
+    {
+        OutError =
+            TEXT("World-event list limit must be between 1 and 1000.");
+        return false;
+    }
+
+    FString Sql =
+        TEXT("SELECT event_id FROM world_events WHERE 1=1 ");
+    if (EntityFilter.IsValid())
+    {
+        Sql +=
+            TEXT("AND (primary_entity_id = ? OR related_entities_json LIKE ?) ");
+    }
+    if (!EventTypeFilter.IsNone())
+    {
+        Sql +=
+            TEXT("AND event_type = ? ");
+    }
+    if (bChronicleOnly)
+    {
+        Sql +=
+            TEXT("AND chronicle_eligible = 1 ");
+    }
+    Sql +=
+        TEXT("ORDER BY world_tick DESC, event_id DESC LIMIT ?;");
+
+    sqlite3_stmt* Statement = nullptr;
+    FTCHARToUTF8 SqlUtf8(
+        *Sql);
+    if (sqlite3_prepare_v2(
+            Database,
+            SqlUtf8.Get(),
+            -1,
+            &Statement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError =
+            LastError(
+                TEXT("Prepare world-event list"));
+        return false;
+    }
+
+    int32 BindIndex = 1;
+    if (EntityFilter.IsValid())
+    {
+        if (!BindText(
+                Statement,
+                BindIndex++,
+                EntityFilter.ToString()) ||
+            !BindText(
+                Statement,
+                BindIndex++,
+                FString::Printf(
+                    TEXT("%%\"%s\"%%"),
+                    *EntityFilter.ToString())))
+        {
+            OutError =
+                LastError(
+                    TEXT("Bind world-event entity filter"));
+            sqlite3_finalize(
+                Statement);
+            return false;
+        }
+    }
+
+    if (!EventTypeFilter.IsNone())
+    {
+        if (!BindText(
+                Statement,
+                BindIndex++,
+                EventTypeFilter.ToString()))
+        {
+            OutError =
+                LastError(
+                    TEXT("Bind world-event type filter"));
+            sqlite3_finalize(
+                Statement);
+            return false;
+        }
+    }
+
+    if (sqlite3_bind_int(
+            Statement,
+            BindIndex,
+            Limit) != SQLITE_OK)
+    {
+        OutError =
+            LastError(
+                TEXT("Bind world-event list limit"));
+        sqlite3_finalize(
+            Statement);
+        return false;
+    }
+
+    TArray<FOGEntityId> EventIds;
+    while (true)
+    {
+        const int32 Step =
+            sqlite3_step(
+                Statement);
+        if (Step == SQLITE_DONE)
+        {
+            break;
+        }
+        if (Step != SQLITE_ROW)
+        {
+            OutError =
+                LastError(
+                    TEXT("Read world-event list"));
+            sqlite3_finalize(
+                Statement);
+            return false;
+        }
+
+        const FString EventText =
+            ColumnText(
+                Statement,
+                0);
+        FGuid Guid;
+        if (!FGuid::Parse(
+                EventText,
+                Guid))
+        {
+            OutError =
+                TEXT("World-event list contains an invalid event ID.");
+            sqlite3_finalize(
+                Statement);
+            return false;
+        }
+        EventIds.Add(
+            FOGEntityId(
+                Guid));
+    }
+    sqlite3_finalize(
+        Statement);
+
+    for (const FOGEntityId& EventId :
+         EventIds)
+    {
+        bool bFound = false;
+        FOGWorldEvent Event;
+        if (!TryReadWorldEvent(
+                EventId,
+                bFound,
+                Event,
+                OutError) ||
+            !bFound)
+        {
+            if (OutError.IsEmpty())
+            {
+                OutError =
+                    TEXT("World event disappeared during list read.");
+            }
+            OutEvents.Reset();
+            return false;
+        }
+        OutEvents.Add(
+            MoveTemp(
+                Event));
+    }
+
+    return true;
 }
 
 bool FOGSQLiteWorldStore::BackupTo(const FString& AbsoluteBackupPath, FString& OutError)

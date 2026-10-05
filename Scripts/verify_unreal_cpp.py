@@ -86,7 +86,7 @@ for h in headers:
 # 2) Module-local quoted includes must exist.
 local_prefixes = (
     "Characters/", "Combat/", "Content/", "Core/", "Effects/", "Events/",
-    "Math/", "Persistence/", "Progression/", "Random/", "Rules/", "Runtime/", "Skills/", "World/"
+    "Math/", "Persistence/", "Progression/", "Random/", "Rules/", "Runtime/", "Skills/", "UI/", "World/"
 )
 for path in all_cpp:
     text = read(path)
@@ -118,7 +118,7 @@ if store_header.exists():
     ignore = {"IsOpen", "GetDatabasePath"}
     for name in sorted(declared - set(definitions) - ignore):
         # private helpers may still be inline/covered by simplistic regex; only flag store API-like methods.
-        if name.startswith(("Upsert", "TryRead", "Set", "IsContent", "Append", "Backup", "Restore",
+        if name.startswith(("Upsert", "TryRead", "List", "Set", "IsContent", "Append", "Backup", "Restore",
                             "RunIntegrity", "Checkpoint", "Open", "Close", "Begin", "Commit",
                             "Rollback", "GetSchema", "Apply", "Record", "Ensure", "Execute", "Last")):
             err("FOGSQLiteWorldStore", f"declared method has no out-of-line definition: {name}")

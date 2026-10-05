@@ -568,6 +568,56 @@ bool FOGSQLiteWorldStore::ListEquipmentBindings(
     return true;
 }
 
+bool FOGSQLiteWorldStore::DeleteEquipmentBindingsForItem(
+    const FOGEntityId& ItemId,
+    FString& OutError)
+{
+    OutError.Reset();
+
+    if (!ItemId.IsValid())
+    {
+        OutError =
+            TEXT("Equipment-binding cleanup requires a valid item ID.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "DELETE FROM equipment_bindings WHERE item_entity_id = ?;";
+
+    if (sqlite3_prepare_v2(
+            Database,
+            Sql,
+            -1,
+            &Statement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError =
+            LastError(
+                TEXT("Prepare equipment-binding cleanup"));
+        return false;
+    }
+
+    const bool bSucceeded =
+        BindItemText(
+            Statement,
+            1,
+            ItemId.ToString()) &&
+        sqlite3_step(
+            Statement) == SQLITE_DONE;
+
+    if (!bSucceeded)
+    {
+        OutError =
+            LastError(
+                TEXT("Delete equipment bindings for item"));
+    }
+
+    sqlite3_finalize(
+        Statement);
+    return bSucceeded;
+}
+
 bool FOGSQLiteWorldStore::UpsertInventoryContainer(
     const FOGInventoryContainerRecord& Container,
     int64 CreatedWorldTick,
@@ -892,6 +942,56 @@ bool FOGSQLiteWorldStore::ListContainerContents(
     return true;
 }
 
+bool FOGSQLiteWorldStore::DeleteContainerContentsForItem(
+    const FOGEntityId& ItemId,
+    FString& OutError)
+{
+    OutError.Reset();
+
+    if (!ItemId.IsValid())
+    {
+        OutError =
+            TEXT("Container-content cleanup requires a valid item ID.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "DELETE FROM container_contents WHERE item_entity_id = ?;";
+
+    if (sqlite3_prepare_v2(
+            Database,
+            Sql,
+            -1,
+            &Statement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError =
+            LastError(
+                TEXT("Prepare container-content cleanup"));
+        return false;
+    }
+
+    const bool bSucceeded =
+        BindItemText(
+            Statement,
+            1,
+            ItemId.ToString()) &&
+        sqlite3_step(
+            Statement) == SQLITE_DONE;
+
+    if (!bSucceeded)
+    {
+        OutError =
+            LastError(
+                TEXT("Delete container contents for item"));
+    }
+
+    sqlite3_finalize(
+        Statement);
+    return bSucceeded;
+}
+
 bool FOGSQLiteWorldStore::UpsertItemOwnerAffinity(
     const FOGItemOwnerAffinityRecord& Affinity,
     FString& OutError)
@@ -1096,6 +1196,84 @@ bool FOGSQLiteWorldStore::TryReadEquipmentProficiency(
         OutError = LastError(TEXT("Read equipment proficiency"));
         sqlite3_finalize(Statement);
         return false;
+    }
+
+    sqlite3_finalize(Statement);
+    return true;
+}
+
+bool FOGSQLiteWorldStore::ListEquipmentProficienciesByOwner(
+    const FOGEntityId& OwnerId,
+    TArray<FOGEquipmentProficiencyRecord>& OutProficiencies,
+    FString& OutError) const
+{
+    OutProficiencies.Reset();
+    OutError.Reset();
+
+    if (!OwnerId.IsValid())
+    {
+        OutError = TEXT("Equipment proficiency list requires a valid owner.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "SELECT proficiency_content_id, proficiency_value, grade_content_id, updated_world_tick, state_json "
+        "FROM entity_equipment_proficiency WHERE owner_entity_id = ? "
+        "ORDER BY proficiency_content_id;";
+
+    if (sqlite3_prepare_v2(Database, Sql, -1, &Statement, nullptr) != SQLITE_OK)
+    {
+        OutError = LastError(TEXT("Prepare equipment proficiency list"));
+        return false;
+    }
+
+    if (!BindItemText(Statement, 1, OwnerId.ToString()))
+    {
+        OutError = LastError(TEXT("Bind equipment proficiency list"));
+        sqlite3_finalize(Statement);
+        return false;
+    }
+
+    for (;;)
+    {
+        const int32 Step = sqlite3_step(Statement);
+        if (Step == SQLITE_DONE)
+        {
+            break;
+        }
+        if (Step != SQLITE_ROW)
+        {
+            OutError = LastError(TEXT("Read equipment proficiency list"));
+            sqlite3_finalize(Statement);
+            OutProficiencies.Reset();
+            return false;
+        }
+
+        FOGEquipmentProficiencyRecord Row;
+        Row.OwnerEntityId = OwnerId;
+        Row.ProficiencyId =
+            FOGContentId(ItemColumnText(Statement, 0));
+        Row.ProficiencyValue =
+            sqlite3_column_int64(Statement, 1);
+        Row.GradeId =
+            FOGContentId(ItemColumnText(Statement, 2));
+        Row.UpdatedWorldTick =
+            sqlite3_column_int64(Statement, 3);
+        Row.StateJson =
+            ItemColumnText(Statement, 4);
+
+        if (!Row.ProficiencyId.IsValid() ||
+            (!Row.GradeId.IsEmpty() &&
+             !Row.GradeId.IsValid()))
+        {
+            OutError = TEXT("Stored equipment proficiency list contains invalid content IDs.");
+            sqlite3_finalize(Statement);
+            OutProficiencies.Reset();
+            return false;
+        }
+
+        OutProficiencies.Add(MoveTemp(Row));
     }
 
     sqlite3_finalize(Statement);

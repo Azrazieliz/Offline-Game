@@ -53,6 +53,8 @@ public:
     virtual bool TryReadWorldPresence(const FOGEntityId&, bool&, FOGWorldPresenceRecord&, FString&) const override;
     virtual bool UpsertKnowledgeFact(const FOGKnowledgeFactRecord&, FString&) override;
     virtual bool TryReadKnowledgeFact(const FOGEntityId&, FName, const FOGEntityId&, bool&, FOGKnowledgeFactRecord&, FString&) const override;
+    virtual bool ListKnowledgeFactsByOwner(
+        const FOGEntityId&, TArray<FOGKnowledgeFactRecord>&, FString&) const override;
 
     virtual bool UpsertTerritory(const FOGTerritoryRecord&, int64, FString&) override;
     virtual bool TryReadTerritory(const FOGEntityId&, bool&, FOGTerritoryRecord&, FString&) const override;
@@ -289,6 +291,8 @@ public:
         const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentBindingRecord&, FString&) const override;
     virtual bool ListEquipmentBindings(
         const FOGEntityId&, TArray<FOGEquipmentBindingRecord>&, FString&) const override;
+    virtual bool DeleteEquipmentBindingsForItem(
+        const FOGEntityId&, FString&) override;
     virtual bool UpsertInventoryContainer(
         const FOGInventoryContainerRecord&, int64, FString&) override;
     virtual bool TryReadInventoryContainer(
@@ -298,6 +302,8 @@ public:
     virtual bool UpsertContainerContent(const FOGContainerContentRecord&, FString&) override;
     virtual bool ListContainerContents(
         const FOGEntityId&, TArray<FOGContainerContentRecord>&, FString&) const override;
+    virtual bool DeleteContainerContentsForItem(
+        const FOGEntityId&, FString&) override;
     virtual bool UpsertItemOwnerAffinity(
         const FOGItemOwnerAffinityRecord&, FString&) override;
     virtual bool TryReadItemOwnerAffinity(
@@ -306,6 +312,8 @@ public:
         const FOGEquipmentProficiencyRecord&, FString&) override;
     virtual bool TryReadEquipmentProficiency(
         const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentProficiencyRecord&, FString&) const override;
+    virtual bool ListEquipmentProficienciesByOwner(
+        const FOGEntityId&, TArray<FOGEquipmentProficiencyRecord>&, FString&) const override;
     virtual bool UpsertManifestationPresentationState(
         const FOGManifestationPresentationStateRecord&, FString&) override;
     virtual bool TryReadManifestationPresentationState(
@@ -382,6 +390,11 @@ public:
     virtual bool IsContentPackageActivated(const FOGContentId&, bool&, bool&, FString&) const override;
 
     virtual bool AppendWorldEvent(const FOGWorldEvent&, FString&) override;
+    virtual bool TryReadWorldEvent(
+        const FOGEntityId&, bool&, FOGWorldEvent&, FString&) const override;
+    virtual bool ListWorldEvents(
+        const FOGEntityId&, FName, bool, int32,
+        TArray<FOGWorldEvent>&, FString&) const override;
 
     virtual bool BackupTo(const FString&, FString&) override;
     virtual bool RestoreFrom(const FString&, FString&) override;

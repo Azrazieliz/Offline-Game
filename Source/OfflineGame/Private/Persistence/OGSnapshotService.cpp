@@ -1,5 +1,6 @@
 #include "Persistence/OGSnapshotService.h"
 #include "Persistence/OGRecoveryCatalogService.h"
+#include "Persistence/OGSQLiteWorldStore.h"
 
 #include "HAL/FileManager.h"
 #include "Misc/Paths.h"
@@ -75,6 +76,49 @@ bool FOGSnapshotService::CreateRotatingSnapshot(
         return false;
     }
 
+    // A recovery artifact is not called validated merely because SQLite backup
+    // completed. Reopen the produced file, confirm schema/application
+    // invariants and run integrity_check before it enters rotation/catalog.
+    {
+        FOGSQLiteWorldStore ValidationStore;
+        FString ValidationError;
+        FString ApplicationReport;
+        FString IntegrityReport;
+
+        const bool bOpened =
+            ValidationStore.Open(
+                OutSnapshotPath,
+                ValidationError);
+        const bool bApplicationValid =
+            bOpened &&
+            ValidationStore.RunApplicationValidation(
+                ApplicationReport,
+                ValidationError);
+        const bool bIntegrityValid =
+            bApplicationValid &&
+            ValidationStore.RunIntegrityCheck(
+                IntegrityReport,
+                ValidationError);
+
+        ValidationStore.Close();
+
+        if (!bOpened ||
+            !bApplicationValid ||
+            !bIntegrityValid)
+        {
+            IFileManager::Get().Delete(
+                *OutSnapshotPath,
+                false,
+                true,
+                true);
+            OutSnapshotPath.Reset();
+            OutError = FString::Printf(
+                TEXT("Snapshot validation failed: %s"),
+                *ValidationError);
+            return false;
+        }
+    }
+
     TArray<FString> SnapshotFiles;
     Files.FindFiles(
         SnapshotFiles,
@@ -82,17 +126,64 @@ bool FOGSnapshotService::CreateRotatingSnapshot(
         true,
         false);
 
+    const FString CurrentSnapshotFile =
+        FPaths::GetCleanFilename(
+            OutSnapshotPath);
+
     SnapshotFiles.Sort(
-        [](const FString& A, const FString& B)
+        [&CurrentSnapshotFile](
+            const FString& A,
+            const FString& B)
         {
+            // Preserve the snapshot produced by this call even when multiple
+            // snapshots share the same second and random suffix ordering differs.
+            if (A == CurrentSnapshotFile)
+            {
+                return true;
+            }
+            if (B == CurrentSnapshotFile)
+            {
+                return false;
+            }
             return A > B;
         });
 
-    for (int32 Index = KeepCount; Index < SnapshotFiles.Num(); ++Index)
+    TSet<FString> RemovedBackupIds;
+    for (int32 Index = KeepCount;
+         Index < SnapshotFiles.Num();
+         ++Index)
     {
         const FString ObsoletePath =
-            FPaths::Combine(SnapshotDirectory, SnapshotFiles[Index]);
-        Files.Delete(*ObsoletePath, false, true, true);
+            FPaths::Combine(
+                SnapshotDirectory,
+                SnapshotFiles[Index]);
+
+        if (!Files.Delete(
+                *ObsoletePath,
+                false,
+                true,
+                true))
+        {
+            OutError =
+                FString::Printf(
+                    TEXT("Failed to rotate obsolete snapshot: %s"),
+                    *ObsoletePath);
+            return false;
+        }
+
+        RemovedBackupIds.Add(
+            FPaths::GetBaseFilename(
+                SnapshotFiles[Index]));
+    }
+
+    if (!RecoveryCatalogPath.IsEmpty() &&
+        !RemovedBackupIds.IsEmpty() &&
+        !FOGRecoveryCatalogService::RemoveEntriesByBackupIds(
+            RecoveryCatalogPath,
+            RemovedBackupIds,
+            OutError))
+    {
+        return false;
     }
 
     if (!RecoveryCatalogPath.IsEmpty())

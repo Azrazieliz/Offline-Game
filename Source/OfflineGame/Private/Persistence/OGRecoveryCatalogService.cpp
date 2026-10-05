@@ -9,6 +9,92 @@
 #include "Serialization/JsonSerializer.h"
 #include "Serialization/JsonWriter.h"
 
+namespace
+{
+bool WriteRecoveryCatalogEntries(
+    const FString& CatalogPath,
+    const TArray<FOGBackupCatalogEntry>& Entries,
+    FString& OutError)
+{
+    const FString Directory =
+        FPaths::GetPath(CatalogPath);
+    if (!Directory.IsEmpty() &&
+        !IFileManager::Get().MakeDirectory(
+            *Directory,
+            true) &&
+        !IFileManager::Get().DirectoryExists(
+            *Directory))
+    {
+        OutError =
+            TEXT("Failed to create recovery catalog directory.");
+        return false;
+    }
+
+    TSharedRef<FJsonObject> Root =
+        MakeShared<FJsonObject>();
+    Root->SetNumberField(
+        TEXT("version"),
+        1);
+
+    TArray<TSharedPtr<FJsonValue>> JsonEntries;
+    for (const FOGBackupCatalogEntry& Item :
+         Entries)
+    {
+        TSharedRef<FJsonObject> Object =
+            MakeShared<FJsonObject>();
+        Object->SetStringField(
+            TEXT("backup_id"),
+            Item.BackupId);
+        Object->SetStringField(
+            TEXT("path_or_uri"),
+            Item.BackupPathOrUri);
+        Object->SetNumberField(
+            TEXT("schema_version"),
+            Item.SchemaVersion);
+        Object->SetStringField(
+            TEXT("world_identity"),
+            Item.WorldIdentity);
+        Object->SetStringField(
+            TEXT("created_utc"),
+            Item.CreatedUtc);
+        Object->SetStringField(
+            TEXT("hash"),
+            Item.ContentHash);
+        Object->SetStringField(
+            TEXT("source_build_version"),
+            Item.SourceBuildVersion);
+        Object->SetStringField(
+            TEXT("validation_state"),
+            Item.ValidationState.ToString());
+        JsonEntries.Add(
+            MakeShared<FJsonValueObject>(
+                Object));
+    }
+    Root->SetArrayField(
+        TEXT("entries"),
+        JsonEntries);
+
+    FString Json;
+    const TSharedRef<TJsonWriter<>> Writer =
+        TJsonWriterFactory<>::Create(
+            &Json);
+    if (!FJsonSerializer::Serialize(
+            Root,
+            Writer) ||
+        !FFileHelper::SaveStringToFile(
+            Json,
+            *CatalogPath,
+            FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM))
+    {
+        OutError =
+            TEXT("Failed to write recovery catalog.");
+        return false;
+    }
+
+    return true;
+}
+}
+
 bool FOGRecoveryCatalogService::LoadEntries(
     const FString& CatalogPath,
     TArray<FOGBackupCatalogEntry>& OutEntries,
@@ -170,81 +256,52 @@ bool FOGRecoveryCatalogService::AddOrUpdateEntry(
             Entry);
     }
 
-    const FString Directory =
-        FPaths::GetPath(CatalogPath);
-    if (!Directory.IsEmpty() &&
-        !IFileManager::Get().MakeDirectory(
-            *Directory,
-            true) &&
-        !IFileManager::Get().DirectoryExists(
-            *Directory))
+    return WriteRecoveryCatalogEntries(
+        CatalogPath,
+        Entries,
+        OutError);
+}
+
+bool FOGRecoveryCatalogService::RemoveEntriesByBackupIds(
+    const FString& CatalogPath,
+    const TSet<FString>& BackupIds,
+    FString& OutError)
+{
+    OutError.Reset();
+
+    if (CatalogPath.IsEmpty())
     {
         OutError =
-            TEXT("Failed to create recovery catalog directory.");
+            TEXT("Recovery catalog path is empty.");
         return false;
     }
 
-    TSharedRef<FJsonObject> Root =
-        MakeShared<FJsonObject>();
-    Root->SetNumberField(
-        TEXT("version"),
-        1);
-
-    TArray<TSharedPtr<FJsonValue>> JsonEntries;
-    for (const FOGBackupCatalogEntry& Item :
-         Entries)
+    if (BackupIds.IsEmpty())
     {
-        TSharedRef<FJsonObject> Object =
-            MakeShared<FJsonObject>();
-        Object->SetStringField(
-            TEXT("backup_id"),
-            Item.BackupId);
-        Object->SetStringField(
-            TEXT("path_or_uri"),
-            Item.BackupPathOrUri);
-        Object->SetNumberField(
-            TEXT("schema_version"),
-            Item.SchemaVersion);
-        Object->SetStringField(
-            TEXT("world_identity"),
-            Item.WorldIdentity);
-        Object->SetStringField(
-            TEXT("created_utc"),
-            Item.CreatedUtc);
-        Object->SetStringField(
-            TEXT("hash"),
-            Item.ContentHash);
-        Object->SetStringField(
-            TEXT("source_build_version"),
-            Item.SourceBuildVersion);
-        Object->SetStringField(
-            TEXT("validation_state"),
-            Item.ValidationState.ToString());
-        JsonEntries.Add(
-            MakeShared<FJsonValueObject>(
-                Object));
+        return true;
     }
-    Root->SetArrayField(
-        TEXT("entries"),
-        JsonEntries);
 
-    FString Json;
-    const TSharedRef<TJsonWriter<>> Writer =
-        TJsonWriterFactory<>::Create(&Json);
-    if (!FJsonSerializer::Serialize(
-            Root,
-            Writer) ||
-        !FFileHelper::SaveStringToFile(
-            Json,
-            *CatalogPath,
-            FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM))
+    TArray<FOGBackupCatalogEntry> Entries;
+    if (!LoadEntries(
+            CatalogPath,
+            Entries,
+            OutError))
     {
-        OutError =
-            TEXT("Failed to write recovery catalog.");
         return false;
     }
 
-    return true;
+    Entries.RemoveAll(
+        [&BackupIds](
+            const FOGBackupCatalogEntry& Entry)
+        {
+            return BackupIds.Contains(
+                Entry.BackupId);
+        });
+
+    return WriteRecoveryCatalogEntries(
+        CatalogPath,
+        Entries,
+        OutError);
 }
 
 FString FOGRecoveryCatalogService::HashFile(

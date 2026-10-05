@@ -30,7 +30,7 @@
 - [x] Character Identity
 - [x] Version
 - [x] owned manifestation/instance
-- [x] explicit canonical-adult eligibility metadata
+- [x] canonical Identity maturity lore plus descriptive adult-content references; no secondary eligibility gate
 - [x] package manifest validation
 - [x] package activation registry
 - [ ] compile and run Phase C Unreal automation tests on the real build runner
@@ -75,12 +75,12 @@
 ### Checkpoint G1 - Persistent acquisition / recovery
 - [x] deterministic persistent gacha service
 - [x] pity / featured-guarantee persistence
-- [x] duplicate acquisition accounting on the owned Manifestation
+- [x] repeat acquisition creates distinct persistent Manifestations under one Character Identity
 - [x] automatic rotating snapshots
 - [x] diagnostics bundle
 
 ### Checkpoint G2 - End-to-end runtime harness
-- [x] persistent vertical-slice scenario harness authored against the pre-detailing architecture
+- [x] persistent Vertical Slice 0 scenario harness rewritten against the reconciled architecture
 - [x] Android runtime/build configuration
 - [x] lightweight performance telemetry
 - [x] **environment-readiness verification only**: UE 5.8.3 (CL 58210709), Build.bat, UnrealEditor-Cmd, UBT, VS 2026/MSVC 14.51, Windows SDK 10.0.26100, Java 21, Android API 35 / Build Tools 35.0.1 / NDK r27c / adb verified usable without compiling OfflineGame. Epic Launcher registration is empty but explicit EngineRoot is usable and non-blocking.
@@ -91,10 +91,10 @@
 - [x] freeze visual art / VFX / animation / cinematic production direction
 - [x] define versioned tuning-parameter ownership/registry contract
 - [x] normalize cumulative master into `Offline_Adult_Gacha_RPG_Master_Architecture_Baseline_v0.40_FINAL_PRECODING_FREEZE.docx`
-- [ ] run deterministic simulator fitting for the already-selected tuning candidates
+- [ ] run deterministic simulator fitting for selected tuning candidates when balance evidence is needed (non-blocking for the first Unreal compile gate)
 - [x] execute design-to-code reconciliation using docs/RECONCILIATION_MIGRATION_MATRIX.md
 - [x] migrate/rebuild stale runtime contracts to the frozen architecture
-- [ ] restart mandatory validation from static Unreal C++ preflight
+- [x] complete the dedicated pre-Unreal completeness/functionality audit and static gates before any real Unreal invocation
 - [ ] real UE 5.8 UHT/UBT/MSVC/link compile
 - [ ] OfflineGame automation run
 
