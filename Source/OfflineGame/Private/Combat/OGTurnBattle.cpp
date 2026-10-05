@@ -28,6 +28,8 @@ bool FOGTurnBattle::Initialize(
         InitialState,
         TArray<FOGCombatTriggerBinding>(),
         FOGCombatConditionEvaluator(),
+        FOGIdentityExclusivityContext(),
+        FOGRankSuppressionResolver(),
         OutError);
 }
 
@@ -37,12 +39,33 @@ bool FOGTurnBattle::Initialize(
     FOGCombatConditionEvaluator ConditionEvaluator,
     FString& OutError)
 {
+    return Initialize(
+        InitialState,
+        MoveTemp(TriggerBindings),
+        MoveTemp(ConditionEvaluator),
+        FOGIdentityExclusivityContext(),
+        FOGRankSuppressionResolver(),
+        OutError);
+}
+
+bool FOGTurnBattle::Initialize(
+    const FOGTurnBattleState& InitialState,
+    TArray<FOGCombatTriggerBinding> TriggerBindings,
+    FOGCombatConditionEvaluator ConditionEvaluator,
+    FOGIdentityExclusivityContext InIdentityContext,
+    FOGRankSuppressionResolver InRankResolver,
+    FString& OutError)
+{
     State = InitialState;
     Log.Reset();
     TriggerRuntime.Reset();
     PendingTriggeredActions.Reset();
     OutstandingTriggeredActionSequences.Reset();
     PendingDefeatedUnitIds.Reset();
+    IdentityContext =
+        MoveTemp(InIdentityContext);
+    RankSuppressionResolver =
+        MoveTemp(InRankResolver);
     OutError.Reset();
 
     if (!ValidateInitialState(OutError))
@@ -228,7 +251,10 @@ bool FOGTurnBattle::ValidateInitialState(FString& OutError) const
         return false;
     }
 
-    return true;
+    return ValidateLocalIdentityExclusivity(
+        State.Units,
+        IdentityContext,
+        OutError);
 }
 
 bool FOGTurnBattle::NormalizeOpeningLanes(FString& OutError)
@@ -768,6 +794,36 @@ FOGTurnBattle::DrainTriggeredActions()
         MoveTemp(PendingTriggeredActions);
     PendingTriggeredActions.Reset();
     return Result;
+}
+
+bool FOGTurnBattle::ResolveRankSuppressionMultiplier(
+    const FOGEntityId& SourceUnitId,
+    const FOGEntityId& TargetUnitId,
+    FName ChannelId,
+    int32& OutMultiplierBps,
+    FString& OutError) const
+{
+    const FOGCombatUnitState* Source =
+        FindUnit(SourceUnitId);
+    const FOGCombatUnitState* Target =
+        FindUnit(TargetUnitId);
+
+    if (!Source ||
+        !Target)
+    {
+        OutMultiplierBps = 10000;
+        OutError =
+            TEXT("Rank-suppression query references a missing turn-combat unit.");
+        return false;
+    }
+
+    return FOGCombatRankHooks::ResolveChannelMultiplier(
+        *Source,
+        *Target,
+        ChannelId,
+        RankSuppressionResolver,
+        OutMultiplierBps,
+        OutError);
 }
 
 bool FOGTurnBattle::CompleteTriggeredAction(
