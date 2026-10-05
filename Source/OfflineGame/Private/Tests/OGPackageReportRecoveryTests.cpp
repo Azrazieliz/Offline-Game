@@ -494,12 +494,35 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
         FOGSnapshotService::CreateRotatingSnapshot(
             Store,
             BackupDirectory,
-            3,
+            1,
             CatalogPath,
             TEXT("test:world.alpha"),
             TEXT("test-build"),
             SnapshotPath,
             Error));
+
+    const FString FirstSnapshotPath =
+        SnapshotPath;
+
+    TestTrue(
+        TEXT("Create second rotating backup in the same validation cycle"),
+        FOGSnapshotService::CreateRotatingSnapshot(
+            Store,
+            BackupDirectory,
+            1,
+            CatalogPath,
+            TEXT("test:world.alpha"),
+            TEXT("test-build"),
+            SnapshotPath,
+            Error));
+    TestTrue(
+        TEXT("Newest snapshot produced by the current call survives rotation"),
+        IFileManager::Get().FileExists(
+            *SnapshotPath));
+    TestFalse(
+        TEXT("Obsolete snapshot is removed at KeepCount one"),
+        IFileManager::Get().FileExists(
+            *FirstSnapshotPath));
     Store.Close();
 
     TArray<FOGBackupCatalogEntry> Entries;
@@ -511,6 +534,11 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
         Entries.Num() == 1 &&
         Entries[0].ValidationState ==
             FName(TEXT("validated")));
+    TestTrue(
+        TEXT("Recovery catalog is pruned with snapshot rotation"),
+        Entries.Num() == 1 &&
+        Entries[0].BackupPathOrUri ==
+            SnapshotPath);
 
     TestTrue(
         TEXT("Clear World preserves backups by default"),
