@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Persistence/OGWorldStore.h"
+#include "World/OGStrategyExpansionRecords.h"
 #include "World/OGTerritoryStateRecords.h"
 
 /**
@@ -33,6 +34,24 @@ public:
         const FOGEntityId& ProjectId,
         int64 CurrentWorldTick,
         FOGProjectRecord& OutProject,
+        FString& OutError);
+
+    bool SetProjectPhase(
+        const FOGProjectPhaseRecord& Phase,
+        FString& OutError);
+
+    bool AssignProjectRole(
+        const FOGProjectAssignmentRecord& Assignment,
+        FString& OutError);
+
+    /**
+     * Refreshes authored phases lazily. Simple Projects may have no phase rows
+     * and continue using RefreshProject directly.
+     */
+    bool RefreshProjectPhases(
+        const FOGEntityId& ProjectId,
+        int64 CurrentWorldTick,
+        TArray<FOGProjectPhaseRecord>& OutPhases,
         FString& OutError);
 
 private:
