@@ -5,6 +5,7 @@
 #include "Content/OGContentId.h"
 #include "Core/OGEntityId.h"
 #include "Math/OGLargeNumber.h"
+#include "World/OGWorldStateRecords.h"
 #include "OGUiViewModels.generated.h"
 
 UENUM(BlueprintType)
