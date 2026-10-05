@@ -928,6 +928,12 @@ bool FOGUiViewModelService::BuildTerritory(
         FName(TEXT("projects")),
         FName(TEXT("dispatch"))
     };
+    OutViewModel.HierarchyLevels =
+    {
+        FName(TEXT("reality_dimension")),
+        FName(TEXT("world")),
+        FName(TEXT("region_territory"))
+    };
 
     TArray<FOGTerritoryClaimRecord> Claims;
     if (!Store.ListTerritoryClaimsByRuler(
@@ -1004,6 +1010,10 @@ bool FOGUiViewModelService::BuildTerritory(
         {
             Summary.DomainState =
                 Domain.DomainState;
+            OutViewModel.bDedicatedDomainListAvailable =
+                true;
+            OutViewModel.DomainTerritoryIds.Add(
+                Territory.TerritoryId);
         }
 
         OutViewModel.Territories.Add(
@@ -1137,6 +1147,25 @@ bool FOGUiViewModelService::BuildChronicle(
             Event.RelatedEntities;
         View.PayloadJson =
             Event.PayloadJson;
+
+        TSharedPtr<FJsonObject> ChronicleJson;
+        const TSharedRef<TJsonReader<>> ChronicleReader =
+            TJsonReaderFactory<>::Create(
+                Event.PayloadJson);
+        FString Importance;
+        if (FJsonSerializer::Deserialize(
+                ChronicleReader,
+                ChronicleJson) &&
+            ChronicleJson.IsValid() &&
+            ChronicleJson->TryGetStringField(
+                TEXT("importance"),
+                Importance) &&
+            !Importance.IsEmpty())
+        {
+            View.Importance =
+                FName(*Importance);
+        }
+
         OutEntries.Add(
             MoveTemp(
                 View));
@@ -1367,6 +1396,14 @@ bool FOGUiViewModelService::BuildWorldHud(
             bTargetConditionOutdated);
     OutViewModel.bShowExactEnemyState =
         OutViewModel.TargetCondition.bExactValueVisible;
+    if (TargetConditionFact &&
+        TargetConditionFact->SubjectEntityId.IsValid())
+    {
+        OutViewModel.bHasPrimaryTarget =
+            true;
+        OutViewModel.PrimaryTargetEntityId =
+            TargetConditionFact->SubjectEntityId;
+    }
 
     return true;
 }
