@@ -206,20 +206,14 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     }
 
     TestTrue(
-        TEXT("Downgrade fixture to schema 6"),
+        TEXT("Downgrade fixture to schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DROP INDEX IF EXISTS idx_manifestations_owner_identity;"
-            "DROP INDEX IF EXISTS idx_manifestations_owner_identity_ordinal;"
-            "DROP INDEX IF EXISTS idx_manifestations_anchor;"
-            "ALTER TABLE character_manifestations DROP COLUMN build_label;"
-            "ALTER TABLE character_manifestations DROP COLUMN lifecycle_state;"
-            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_tick;"
-            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_territory_id;"
-            "ALTER TABLE character_manifestations DROP COLUMN origin_pull_event_id;"
-            "ALTER TABLE character_manifestations DROP COLUMN acquisition_ordinal;"
-            "ALTER TABLE character_manifestations DROP COLUMN acquisition_world_tick;"
-            "DELETE FROM schema_migrations WHERE version = 7;",
+            "DROP TABLE IF EXISTS ruler_gacha_access;"
+            "DROP TABLE IF EXISTS ruler_sovereignty_state;"
+            "DROP TABLE IF EXISTS territory_claims;"
+            "DROP TABLE IF EXISTS location_territories;"
+            "DELETE FROM schema_migrations WHERE version = 8;",
             Error));
 
     FOGWorldBootstrapResult Result;
@@ -234,9 +228,9 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestTrue(TEXT("Migration was promoted"),
         Result.bMigrationPerformed);
     TestEqual(TEXT("Source schema recorded"),
-        Result.SourceSchemaVersion, 6);
+        Result.SourceSchemaVersion, 7);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 7);
+        Result.TargetSchemaVersion, 8);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -248,8 +242,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 7"),
-            Store.GetSchemaVersion(Error), 7);
+        TestEqual(TEXT("Promoted schema is 8"),
+            Store.GetSchemaVersion(Error), 8);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -313,14 +307,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Leave migration-0007 schema effects in place while removing only its
-    // ledger row. Reapplying 0007 must fail on the working copy because the
-    // acquisition_world_tick column already exists.
+    // Break a migration-0008 table while removing only its ledger row.
+    // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
+    // working-copy validation must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DELETE FROM schema_migrations WHERE version = 7;",
+            "ALTER TABLE ruler_gacha_access DROP COLUMN permanently_unlocked;"
+            "DELETE FROM schema_migrations WHERE version = 8;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -405,7 +400,7 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
     FString Error;
     {
         FOGSQLiteWorldStore Store;
-        TestTrue(TEXT("Create schema-7 fixture"),
+        TestTrue(TEXT("Create current-schema fixture"),
             Store.Open(DatabasePath, Error));
         TestTrue(TEXT("Persist migration-test Ruler"),
             Store.UpsertEntity(
@@ -468,6 +463,11 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS ruler_gacha_access;"
+            "DROP TABLE IF EXISTS ruler_sovereignty_state;"
+            "DROP TABLE IF EXISTS territory_claims;"
+            "DROP TABLE IF EXISTS location_territories;"
+            "DELETE FROM schema_migrations WHERE version = 8;"
             "DROP INDEX IF EXISTS idx_manifestations_owner_identity;"
             "DROP INDEX IF EXISTS idx_manifestations_owner_identity_ordinal;"
             "DROP INDEX IF EXISTS idx_manifestations_anchor;"
