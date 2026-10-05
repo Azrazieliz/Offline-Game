@@ -209,6 +209,22 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS character_convergence_sources;"
+            "DROP TABLE IF EXISTS character_convergences;"
+            "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
+            "DROP TABLE IF EXISTS manifestation_world_fantasm_state;"
+            "DROP TABLE IF EXISTS entity_transcendence_state;"
+            "DROP TABLE IF EXISTS manifestation_reinforcement;"
+            "DROP TABLE IF EXISTS manifestation_forms;"
+            "DROP TABLE IF EXISTS manifestation_route_nodes;"
+            "DROP TABLE IF EXISTS skill_provenance;"
+            "DROP TABLE IF EXISTS entity_skills;"
+            "DROP TABLE IF EXISTS grand_class_seats;"
+            "DROP TABLE IF EXISTS entity_classes;"
+            "DROP TABLE IF EXISTS factor_lineage;"
+            "DROP TABLE IF EXISTS factor_instances;"
+            "DROP TABLE IF EXISTS entity_rank_state;"
+            "DELETE FROM schema_migrations WHERE version = 10;"
             "DROP TABLE IF EXISTS domain_core_lineage;"
             "DROP TABLE IF EXISTS domain_core_fusions;"
             "DROP TABLE IF EXISTS domain_core_concepts;"
@@ -230,7 +246,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestEqual(TEXT("Source schema recorded"),
         Result.SourceSchemaVersion, 8);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 9);
+        Result.TargetSchemaVersion, 10);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -242,8 +258,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 9"),
-            Store.GetSchemaVersion(Error), 9);
+        TestEqual(TEXT("Promoted schema is 10"),
+            Store.GetSchemaVersion(Error), 10);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -307,15 +323,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0009 table while removing only its ledger row.
+    // Break a migration-0010 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
     // working-copy transform must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE territory_domain_state DROP COLUMN domain_state;"
-            "DELETE FROM schema_migrations WHERE version = 9;",
+            "ALTER TABLE manifestation_reinforcement DROP COLUMN max_reinforced;"
+            "DELETE FROM schema_migrations WHERE version = 10;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -463,6 +479,22 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS character_convergence_sources;"
+            "DROP TABLE IF EXISTS character_convergences;"
+            "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
+            "DROP TABLE IF EXISTS manifestation_world_fantasm_state;"
+            "DROP TABLE IF EXISTS entity_transcendence_state;"
+            "DROP TABLE IF EXISTS manifestation_reinforcement;"
+            "DROP TABLE IF EXISTS manifestation_forms;"
+            "DROP TABLE IF EXISTS manifestation_route_nodes;"
+            "DROP TABLE IF EXISTS skill_provenance;"
+            "DROP TABLE IF EXISTS entity_skills;"
+            "DROP TABLE IF EXISTS grand_class_seats;"
+            "DROP TABLE IF EXISTS entity_classes;"
+            "DROP TABLE IF EXISTS factor_lineage;"
+            "DROP TABLE IF EXISTS factor_instances;"
+            "DROP TABLE IF EXISTS entity_rank_state;"
+            "DELETE FROM schema_migrations WHERE version = 10;"
             "DROP TABLE IF EXISTS domain_core_lineage;"
             "DROP TABLE IF EXISTS domain_core_fusions;"
             "DROP TABLE IF EXISTS domain_core_concepts;"
@@ -626,9 +658,9 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 9"),
+            TEXT("Fixture begins at schema 10"),
             Store.GetSchemaVersion(Error),
-            9);
+            10);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -707,6 +739,22 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS character_convergence_sources;"
+            "DROP TABLE IF EXISTS character_convergences;"
+            "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
+            "DROP TABLE IF EXISTS manifestation_world_fantasm_state;"
+            "DROP TABLE IF EXISTS entity_transcendence_state;"
+            "DROP TABLE IF EXISTS manifestation_reinforcement;"
+            "DROP TABLE IF EXISTS manifestation_forms;"
+            "DROP TABLE IF EXISTS manifestation_route_nodes;"
+            "DROP TABLE IF EXISTS skill_provenance;"
+            "DROP TABLE IF EXISTS entity_skills;"
+            "DROP TABLE IF EXISTS grand_class_seats;"
+            "DROP TABLE IF EXISTS entity_classes;"
+            "DROP TABLE IF EXISTS factor_lineage;"
+            "DROP TABLE IF EXISTS factor_instances;"
+            "DROP TABLE IF EXISTS entity_rank_state;"
+            "DELETE FROM schema_migrations WHERE version = 10;"
             "DROP TABLE IF EXISTS domain_core_lineage;"
             "DROP TABLE IF EXISTS domain_core_fusions;"
             "DROP TABLE IF EXISTS domain_core_concepts;"
@@ -733,7 +781,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        9);
+        10);
 
     {
         FOGSQLiteWorldStore Store;
@@ -878,10 +926,10 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 9"),
+            TEXT("Fixture begins at schema 10"),
             Store.GetSchemaVersion(
                 Error),
-            9);
+            10);
 
         TestTrue(
             TEXT("Persist Ruler"),
@@ -1022,6 +1070,22 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS character_convergence_sources;"
+            "DROP TABLE IF EXISTS character_convergences;"
+            "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
+            "DROP TABLE IF EXISTS manifestation_world_fantasm_state;"
+            "DROP TABLE IF EXISTS entity_transcendence_state;"
+            "DROP TABLE IF EXISTS manifestation_reinforcement;"
+            "DROP TABLE IF EXISTS manifestation_forms;"
+            "DROP TABLE IF EXISTS manifestation_route_nodes;"
+            "DROP TABLE IF EXISTS skill_provenance;"
+            "DROP TABLE IF EXISTS entity_skills;"
+            "DROP TABLE IF EXISTS grand_class_seats;"
+            "DROP TABLE IF EXISTS entity_classes;"
+            "DROP TABLE IF EXISTS factor_lineage;"
+            "DROP TABLE IF EXISTS factor_instances;"
+            "DROP TABLE IF EXISTS entity_rank_state;"
+            "DELETE FROM schema_migrations WHERE version = 10;"
             "DROP TABLE IF EXISTS domain_core_lineage;"
             "DROP TABLE IF EXISTS domain_core_fusions;"
             "DROP TABLE IF EXISTS domain_core_concepts;"
@@ -1031,7 +1095,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 8 to 9"),
+        TEXT("Safe bootstrap migrates schema 8 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -1043,12 +1107,12 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        9);
+        10);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-9 database"),
+            TEXT("Open migrated current-schema database"),
             Store.Open(
                 DatabasePath,
                 Error));
@@ -1131,6 +1195,195 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
             TEXT("Recovered ruin-start tick matches break event"),
             BrokenState.RuinStartedWorldTick,
             static_cast<int64>(40));
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGProgression0010LegacyProjectionMigrationTest,
+    "OfflineGame.Persistence.Migration0010.LegacyProgressionIsPreservedWithoutFabricatedOntology",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_progression.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId RulerId =
+        FOGEntityId::NewId();
+    const FOGEntityId ManifestationId =
+        FOGEntityId::NewId();
+    const FString LegacyProgression =
+        TEXT("{\"legacy_route\":\"opaque\",\"legacy_score\":77}");
+
+    FString Error;
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema progression fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 10"),
+            Store.GetSchemaVersion(
+                Error),
+            10);
+
+        TestTrue(
+            TEXT("Persist legacy Ruler"),
+            Store.UpsertEntity(
+                RulerId,
+                FName(TEXT("ruler")),
+                0,
+                TEXT("{}"),
+                Error));
+
+        FOGCharacterManifestationRecord Manifestation;
+        Manifestation.ManifestationId =
+            ManifestationId;
+        Manifestation.OwningRulerId =
+            RulerId;
+        Manifestation.IdentityId =
+            FOGContentId(
+                TEXT("test:character.legacy_progression"));
+        Manifestation.ActiveVersionId =
+            FOGContentId(
+                TEXT("test:character.legacy_progression.base"));
+        Manifestation.Level = 77;
+        Manifestation.CurrentRarity =
+            FName(TEXT("SSR"));
+        Manifestation.AcquisitionWorldTick = 15;
+        Manifestation.AcquisitionOrdinal = 0;
+        Manifestation.LifecycleState =
+            FName(TEXT("active"));
+        Manifestation.ProgressionStateJson =
+            LegacyProgression;
+
+        TestTrue(
+            TEXT("Persist opaque legacy Manifestation progression"),
+            Store.UpsertCharacterManifestation(
+                Manifestation,
+                15,
+                Error));
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 9"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS character_convergence_sources;"
+            "DROP TABLE IF EXISTS character_convergences;"
+            "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
+            "DROP TABLE IF EXISTS manifestation_world_fantasm_state;"
+            "DROP TABLE IF EXISTS entity_transcendence_state;"
+            "DROP TABLE IF EXISTS manifestation_reinforcement;"
+            "DROP TABLE IF EXISTS manifestation_forms;"
+            "DROP TABLE IF EXISTS manifestation_route_nodes;"
+            "DROP TABLE IF EXISTS skill_provenance;"
+            "DROP TABLE IF EXISTS entity_skills;"
+            "DROP TABLE IF EXISTS grand_class_seats;"
+            "DROP TABLE IF EXISTS entity_classes;"
+            "DROP TABLE IF EXISTS factor_lineage;"
+            "DROP TABLE IF EXISTS factor_instances;"
+            "DROP TABLE IF EXISTS entity_rank_state;"
+            "DELETE FROM schema_migrations WHERE version = 10;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 9 to 10"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("Migration source schema"),
+        Migration.SourceSchemaVersion,
+        9);
+    TestEqual(
+        TEXT("Migration target schema"),
+        Migration.TargetSchemaVersion,
+        10);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-10 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        bool bFound = false;
+        FOGCharacterManifestationRecord Manifestation;
+        TestTrue(
+            TEXT("Read migrated Manifestation"),
+            Store.TryReadCharacterManifestation(
+                ManifestationId,
+                bFound,
+                Manifestation,
+                Error));
+        TestTrue(
+            TEXT("Legacy Manifestation survives"),
+            bFound);
+        TestEqual(
+            TEXT("Opaque legacy progression JSON is retained verbatim"),
+            Manifestation.ProgressionStateJson,
+            LegacyProgression);
+        TestEqual(
+            TEXT("Legacy Level is preserved as migration provenance"),
+            Manifestation.Level,
+            77);
+
+        FOGManifestationReinforcementRecord Reinforcement;
+        bFound = false;
+        TestTrue(
+            TEXT("Read migration-created reinforcement state"),
+            Store.TryReadManifestationReinforcement(
+                ManifestationId,
+                bFound,
+                Reinforcement,
+                Error));
+        TestTrue(
+            TEXT("Legacy Manifestation receives explicit reinforcement row"),
+            bFound);
+        TestEqual(
+            TEXT("Legacy reinforcement remains unassessed"),
+            Reinforcement.ReinforcementState,
+            FName(TEXT("legacy_unassessed")));
+        TestFalse(
+            TEXT("Migration never fabricates max reinforcement"),
+            Reinforcement.bMaxReinforced);
+
+        FOGEntityRankStateRecord Rank;
+        bFound = false;
+        TestTrue(
+            TEXT("Rank lookup is valid after migration"),
+            Store.TryReadEntityRankState(
+                ManifestationId,
+                bFound,
+                Rank,
+                Error));
+        TestFalse(
+            TEXT("Opaque legacy JSON/Level never fabricates a Rank identity"),
+            bFound);
 
         Store.Close();
     }

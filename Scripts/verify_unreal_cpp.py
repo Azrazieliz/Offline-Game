@@ -86,7 +86,7 @@ for h in headers:
 # 2) Module-local quoted includes must exist.
 local_prefixes = (
     "Characters/", "Combat/", "Content/", "Core/", "Effects/", "Events/",
-    "Math/", "Persistence/", "Random/", "Rules/", "Runtime/", "Skills/", "World/"
+    "Math/", "Persistence/", "Progression/", "Random/", "Rules/", "Runtime/", "Skills/", "World/"
 )
 for path in all_cpp:
     text = read(path)

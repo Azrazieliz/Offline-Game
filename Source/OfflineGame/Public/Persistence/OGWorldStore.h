@@ -6,6 +6,7 @@
 #include "Core/OGEntityId.h"
 #include "Events/OGWorldEvent.h"
 #include "Gacha/OGGachaDefinitions.h"
+#include "Progression/OGProgressionRecords.h"
 #include "World/OGDispatchFactionWarRecords.h"
 #include "World/OGTerritoryStateRecords.h"
 #include "World/OGWorldStateRecords.h"
@@ -88,6 +89,73 @@ public:
     virtual bool TryReadResourceBalance(const FOGEntityId&, const FOGContentId&, bool&, int64&, FString&) const = 0;
     virtual bool UpsertProject(const FOGProjectRecord&, int64, FString&) = 0;
     virtual bool TryReadProject(const FOGEntityId&, bool&, FOGProjectRecord&, FString&) const = 0;
+
+    virtual bool UpsertEntityRankState(const FOGEntityRankStateRecord&, FString&) = 0;
+    virtual bool TryReadEntityRankState(
+        const FOGEntityId&, bool&, FOGEntityRankStateRecord&, FString&) const = 0;
+
+    virtual bool UpsertFactorInstance(const FOGFactorInstanceRecord&, int64, FString&) = 0;
+    virtual bool TryReadFactorInstance(
+        const FOGEntityId&, bool&, FOGFactorInstanceRecord&, FString&) const = 0;
+    virtual bool ListFactorInstancesByOwner(
+        const FOGEntityId&, TArray<FOGFactorInstanceRecord>&, FString&) const = 0;
+    virtual bool UpsertFactorLineage(const FOGFactorLineageRecord&, FString&) = 0;
+    virtual bool ListFactorLineageForChild(
+        const FOGEntityId&, TArray<FOGFactorLineageRecord>&, FString&) const = 0;
+
+    virtual bool UpsertEntityClass(const FOGEntityClassRecord&, FString&) = 0;
+    virtual bool TryReadEntityClass(
+        const FOGEntityId&, const FOGContentId&, bool&, FOGEntityClassRecord&, FString&) const = 0;
+    virtual bool ListEntityClasses(
+        const FOGEntityId&, TArray<FOGEntityClassRecord>&, FString&) const = 0;
+    virtual bool UpsertGrandClassSeat(const FOGGrandClassSeatRecord&, FString&) = 0;
+    virtual bool TryReadGrandClassSeat(
+        const FOGContentId&, bool&, FOGGrandClassSeatRecord&, FString&) const = 0;
+    virtual bool DeleteGrandClassSeat(const FOGContentId&, FString&) = 0;
+
+    virtual bool UpsertEntitySkill(const FOGEntitySkillRecord&, FString&) = 0;
+    virtual bool ListEntitySkills(
+        const FOGEntityId&, TArray<FOGEntitySkillRecord>&, FString&) const = 0;
+    virtual bool UpsertSkillProvenance(const FOGSkillProvenanceRecord&, FString&) = 0;
+    virtual bool ListSkillProvenance(
+        const FOGEntityId&, const FOGContentId&, TArray<FOGSkillProvenanceRecord>&, FString&) const = 0;
+
+    virtual bool UpsertManifestationRouteNode(
+        const FOGManifestationRouteNodeRecord&, FString&) = 0;
+    virtual bool ListManifestationRouteNodes(
+        const FOGEntityId&, TArray<FOGManifestationRouteNodeRecord>&, FString&) const = 0;
+    virtual bool UpsertManifestationForm(
+        const FOGManifestationFormRecord&, FString&) = 0;
+    virtual bool ListManifestationForms(
+        const FOGEntityId&, TArray<FOGManifestationFormRecord>&, FString&) const = 0;
+    virtual bool UpsertManifestationReinforcement(
+        const FOGManifestationReinforcementRecord&, FString&) = 0;
+    virtual bool TryReadManifestationReinforcement(
+        const FOGEntityId&, bool&, FOGManifestationReinforcementRecord&, FString&) const = 0;
+
+    virtual bool UpsertEntityTranscendenceState(
+        const FOGEntityTranscendenceStateRecord&, FString&) = 0;
+    virtual bool TryReadEntityTranscendenceState(
+        const FOGEntityId&, bool&, FOGEntityTranscendenceStateRecord&, FString&) const = 0;
+    virtual bool UpsertManifestationWorldFantasmState(
+        const FOGManifestationWorldFantasmStateRecord&, FString&) = 0;
+    virtual bool TryReadManifestationWorldFantasmState(
+        const FOGEntityId&, bool&, FOGManifestationWorldFantasmStateRecord&, FString&) const = 0;
+    virtual bool UpsertProtagonistWorldManifestationState(
+        const FOGProtagonistWorldManifestationStateRecord&, FString&) = 0;
+    virtual bool TryReadProtagonistWorldManifestationState(
+        const FOGEntityId&, bool&, FOGProtagonistWorldManifestationStateRecord&, FString&) const = 0;
+
+    virtual bool UpsertCharacterConvergence(
+        const FOGCharacterConvergenceRecord&, int64, FString&) = 0;
+    virtual bool TryReadCharacterConvergence(
+        const FOGEntityId&, bool&, FOGCharacterConvergenceRecord&, FString&) const = 0;
+    virtual bool ListCharacterConvergencesByIdentity(
+        const FOGContentId&, TArray<FOGCharacterConvergenceRecord>&, FString&) const = 0;
+    virtual bool UpsertCharacterConvergenceSource(
+        const FOGCharacterConvergenceSourceRecord&, FString&) = 0;
+    virtual bool ListCharacterConvergenceSources(
+        const FOGEntityId&, TArray<FOGCharacterConvergenceSourceRecord>&, FString&) const = 0;
 
     virtual bool UpsertDispatch(const FOGDispatchRecord&, int64, FString&) = 0;
     virtual bool TryReadDispatch(const FOGEntityId&, bool&, FOGDispatchRecord&, FString&) const = 0;
