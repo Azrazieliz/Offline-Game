@@ -43,6 +43,12 @@ public:
         FOGGachaViewModel& OutViewModel,
         FString& OutError) const;
 
+    bool BuildGachaHistory(
+        const FOGEntityId& RulerId,
+        int32 Limit,
+        TArray<FOGGachaHistoryEntryViewModel>& OutHistory,
+        FString& OutError) const;
+
     bool BuildTerritory(
         const FOGEntityId& RulerId,
         const FOGEntityId& SelectedTerritoryId,
@@ -52,6 +58,17 @@ public:
     bool BuildRecordsHub(
         const FOGEntityId& RulerId,
         FOGRecordsHubViewModel& OutViewModel,
+        FString& OutError) const;
+
+    bool BuildChronicle(
+        const FOGEntityId& RulerId,
+        int32 Limit,
+        TArray<FOGChronicleEntryViewModel>& OutEntries,
+        FString& OutError) const;
+
+    bool BuildIntelligence(
+        const FOGEntityId& RulerId,
+        TArray<FOGIntelligenceEntryViewModel>& OutEntries,
         FString& OutError) const;
 
     bool BuildWorldHud(
