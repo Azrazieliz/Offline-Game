@@ -3,7 +3,6 @@
 #include "Events/OGWorldEvent.h"
 #include "Gacha/OGRulerGachaAccessService.h"
 #include "Random/OGDeterministicRng.h"
-#include "World/OGTerritoryControlService.h"
 
 namespace
 {
@@ -386,29 +385,9 @@ bool FOGGachaService::Pull(
         return Fail(Error);
     }
 
-    // Gacha access is permanent after first qualification, so a later landless
-    // Ruler may still pull. If an effective Territory exists, the new
-    // Manifestation receives its first immutable World Mode anchor immediately.
-    FOGTerritoryControlService TerritoryControl(Store);
-    FOGEntityId AnchorTerritoryId;
-    if (!TerritoryControl.FindPreferredEffectiveTerritoryForRuler(
-            RulerId,
-            WorldTick,
-            AnchorTerritoryId,
-            Error))
-    {
-        return Fail(Error);
-    }
-
-    if (AnchorTerritoryId.IsValid() &&
-        !Store.SetManifestationAnchor(
-            Manifestation.ManifestationId,
-            AnchorTerritoryId,
-            WorldTick,
-            Error))
-    {
-        return Fail(Error);
-    }
+    // Acquisition is presentation-visible immediately but never performs the
+    // first physical World Mode anchoring step. That explicit action is owned by
+    // FOGTerritoryControlService once the Ruler is in effective Territory.
 
     if (Banner.PullCost > 0 &&
         !Store.SetResourceBalance(
