@@ -495,7 +495,7 @@ bool FOGUiViewModelService::BuildManifestationDetail(
 
     if (!RulerId.IsValid() ||
         !ManifestationId.IsValid() ||
-        MaxVisibleSkills < 0)
+        MaxVisibleSkills <= 0)
     {
         OutError =
             TEXT("Manifestation-detail projection request is invalid.");
@@ -598,9 +598,7 @@ bool FOGUiViewModelService::BuildManifestationDetail(
         Skills.Num();
 
     const int32 VisibleLimit =
-        MaxVisibleSkills == 0
-            ? 64
-            : MaxVisibleSkills;
+        MaxVisibleSkills;
 
     for (const FOGEntitySkillRecord& Skill :
          Skills)
@@ -776,6 +774,7 @@ bool FOGUiViewModelService::BuildManifestationComparison(
     const FOGEntityId& RulerId,
     const FOGEntityId& LeftManifestationId,
     const FOGEntityId& RightManifestationId,
+    int32 MaxVisibleSkillsPerSide,
     const FOGResolvedStatsProjectionResolver& StatsResolver,
     FOGManifestationComparisonViewModel& OutViewModel,
     FString& OutError) const
@@ -787,7 +786,8 @@ bool FOGUiViewModelService::BuildManifestationComparison(
     if (!LeftManifestationId.IsValid() ||
         !RightManifestationId.IsValid() ||
         LeftManifestationId ==
-            RightManifestationId)
+            RightManifestationId ||
+        MaxVisibleSkillsPerSide <= 0)
     {
         OutError =
             TEXT("Manifestation comparison requires two distinct Manifestations.");
@@ -798,7 +798,7 @@ bool FOGUiViewModelService::BuildManifestationComparison(
             RulerId,
             LeftManifestationId,
             FString(),
-            64,
+            MaxVisibleSkillsPerSide,
             StatsResolver,
             OutViewModel.Left,
             OutError) ||
@@ -806,7 +806,7 @@ bool FOGUiViewModelService::BuildManifestationComparison(
             RulerId,
             RightManifestationId,
             FString(),
-            64,
+            MaxVisibleSkillsPerSide,
             StatsResolver,
             OutViewModel.Right,
             OutError))
