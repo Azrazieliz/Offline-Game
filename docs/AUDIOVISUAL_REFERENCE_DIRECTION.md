@@ -358,6 +358,29 @@ The soundtrack may combine:
 
 Combination is content-driven rather than a global requirement.
 
+
+### 8.5 Vocal-song baseline — frozen
+
+The first accepted vocal-song prototype establishes the baseline for major vocal tracks:
+- Japanese remains the default lyric language;
+- predominantly minor/modal harmonic language;
+- strong memorable melody and recurring leitmotif identity;
+- intimate/dark openings that can escalate into large emotional climaxes;
+- orchestral, rock, electronic and choral elements may hybridize;
+- major vocal songs are reserved for narratively significant moments rather than routine gameplay;
+- the emotional target is tragic, intimate, dangerous, cathartic and character-specific rather than generically heroic.
+
+The next refinement, now active, is:
+- stronger alternation between **silence / negative space** and **explosive leitmotif returns**;
+- more aggressive use of sudden dropouts, cutoffs and near-silent passages as compositional events;
+- vocal phrasing must prioritize rhythm and emotion over mechanically completing every word in one continuous line;
+- words may be decomposed into syllables, delayed, clipped, repeated, stretched, interrupted by breath/rest, or placed asymmetrically against the meter when musically effective;
+- lyric line length should be designed around the rhythm instead of forcing dense prose into a fixed melodic phrase;
+- lead vocals should use wider emotional and timbral variation: intimate breathiness, darker lower-register color, sudden attack, raw belt, controlled strain/crack, whisper, and dynamic contrast where appropriate;
+- use these qualities as inspiration for an **original voice/performance**, not an imitation of any specific singer.
+
+Ado, Aimer and MYTH & ROID are therefore reference points for **dynamic contrast, emotional intensity, rhythmic asymmetry, silence-to-explosion structure and vocal expressivity**, not targets for voice cloning.
+
 ## 9. Combat / cinematic sound direction
 
 Broad sound-design target:
