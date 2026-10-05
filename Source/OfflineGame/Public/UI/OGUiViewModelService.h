@@ -240,10 +240,13 @@ public:
         FOGPackageStorageViewModel& OutViewModel,
         FString& OutError) const;
 
-    static FOGQualitativeRiskViewModel ProjectRisk(
+    static bool ProjectRisk(
         int32 RiskBps,
         EOGUiKnowledgeState KnowledgeState,
-        bool bExactProbabilityAuthorized);
+        bool bExactProbabilityAuthorized,
+        const TArray<int32>& AuthoredBandThresholdBps,
+        FOGQualitativeRiskViewModel& OutViewModel,
+        FString& OutError);
 
     bool BuildProject(
         const FOGEntityId& ProjectId,
@@ -254,6 +257,7 @@ public:
         const FOGEntityId& DispatchId,
         EOGUiKnowledgeState RiskKnowledgeState,
         bool bExactRiskAuthorized,
+        const TArray<int32>& AuthoredRiskBandThresholdBps,
         FOGDispatchViewModel& OutViewModel,
         FString& OutError) const;
 
@@ -262,6 +266,7 @@ public:
         EOGUiKnowledgeState OutcomeKnowledgeState,
         int32 OutcomeRiskBps,
         bool bExactOutcomeAuthorized,
+        const TArray<int32>& AuthoredRiskBandThresholdBps,
         FOGWarViewModel& OutViewModel,
         FString& OutError) const;
 
