@@ -75,7 +75,7 @@
 ### Checkpoint G1 - Persistent acquisition / recovery
 - [x] deterministic persistent gacha service
 - [x] pity / featured-guarantee persistence
-- [x] duplicate acquisition accounting on the owned Manifestation
+- [x] repeat acquisition creates distinct persistent Manifestations under one Character Identity
 - [x] automatic rotating snapshots
 - [x] diagnostics bundle
 
@@ -91,10 +91,10 @@
 - [x] freeze visual art / VFX / animation / cinematic production direction
 - [x] define versioned tuning-parameter ownership/registry contract
 - [x] normalize cumulative master into `Offline_Adult_Gacha_RPG_Master_Architecture_Baseline_v0.40_FINAL_PRECODING_FREEZE.docx`
-- [ ] run deterministic simulator fitting for the already-selected tuning candidates
+- [ ] run deterministic simulator fitting for selected tuning candidates when balance evidence is needed (non-blocking for the first Unreal compile gate)
 - [x] execute design-to-code reconciliation using docs/RECONCILIATION_MIGRATION_MATRIX.md
 - [x] migrate/rebuild stale runtime contracts to the frozen architecture
-- [ ] restart mandatory validation from static Unreal C++ preflight
+- [ ] complete the dedicated pre-Unreal completeness/functionality audit and static gates before any real Unreal invocation
 - [ ] real UE 5.8 UHT/UBT/MSVC/link compile
 - [ ] OfflineGame automation run
 
