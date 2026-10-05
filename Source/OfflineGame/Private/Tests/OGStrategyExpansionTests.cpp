@@ -121,15 +121,15 @@ bool FOGDispatchObjectiveFidelityTest::RunTest(
     FOGSQLiteWorldStore Store;
     FString Error;
     TestTrue(
-        TEXT("Open schema-13 database"),
+        TEXT("Open schema-14 database"),
         Store.Open(
             DatabasePath,
             Error));
     TestEqual(
-        TEXT("Schema version is 13"),
+        TEXT("Schema version is 14"),
         Store.GetSchemaVersion(
             Error),
-        13);
+        14);
 
     const FOGEntityId OwnerId =
         FOGEntityId::NewId();

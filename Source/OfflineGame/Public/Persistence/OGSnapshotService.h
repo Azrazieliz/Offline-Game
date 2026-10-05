@@ -18,4 +18,14 @@ public:
         int32 KeepCount,
         FString& OutSnapshotPath,
         FString& OutError);
+
+    static bool CreateRotatingSnapshot(
+        IOGWorldStore& Store,
+        const FString& SnapshotDirectory,
+        int32 KeepCount,
+        const FString& RecoveryCatalogPath,
+        const FString& WorldIdentity,
+        const FString& SourceBuildVersion,
+        FString& OutSnapshotPath,
+        FString& OutError);
 };

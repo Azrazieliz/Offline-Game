@@ -341,6 +341,42 @@ public:
     bool MigrateItemsKnowledgeCharacters0013(FString& OutError);
     bool ValidateItemsKnowledgeCharactersMigration0013(FString& OutError) const;
 
+    virtual bool UpsertContentPackageRecord(
+        const FOGContentPackageRecord&, FString&) override;
+    virtual bool TryReadContentPackageRecord(
+        const FOGContentId&, bool&, FOGContentPackageRecord&, FString&) const override;
+    virtual bool ListContentPackageRecords(
+        TArray<FOGContentPackageRecord>&, FString&) const override;
+    virtual bool UpsertPackageDependency(
+        const FOGPackageDependencyRecord&, FString&) override;
+    virtual bool ListPackageDependencies(
+        const FOGContentId&, TArray<FOGPackageDependencyRecord>&, FString&) const override;
+
+    virtual bool UpsertReport(
+        const FOGReportRecord&, int64, FString&) override;
+    virtual bool TryReadReport(
+        const FOGEntityId&, bool&, FOGReportRecord&, FString&) const override;
+    virtual bool ListReportsByOwner(
+        const FOGEntityId&, TArray<FOGReportRecord>&, FString&) const override;
+    virtual bool UpsertReportDelivery(
+        const FOGReportDeliveryRecord&, FString&) override;
+    virtual bool TryReadReportDelivery(
+        const FOGEntityId&, FName, bool&, FOGReportDeliveryRecord&, FString&) const override;
+    virtual bool ListReportDeliveries(
+        const FOGEntityId&, TArray<FOGReportDeliveryRecord>&, FString&) const override;
+
+    virtual bool UpsertManifestationManagementMetadata(
+        const FOGManifestationManagementMetadataRecord&, FString&) override;
+    virtual bool TryReadManifestationManagementMetadata(
+        const FOGEntityId&, bool&, FOGManifestationManagementMetadataRecord&, FString&) const override;
+    virtual bool UpsertManifestationContextSelection(
+        const FOGManifestationContextSelectionRecord&, FString&) override;
+    virtual bool TryReadManifestationContextSelection(
+        const FOGEntityId&, const FOGContentId&, bool&, FOGManifestationContextSelectionRecord&, FString&) const override;
+
+    bool MigratePackagesReportsManagement0014(FString& OutError);
+    bool ValidatePackagesReportsManagementMigration0014(FString& OutError) const;
+
     virtual bool UpsertContentPackage(const FOGContentId&, int32, const FString&, bool, bool, const FString&, FString&) override;
     virtual bool SetContentPackageActivated(const FOGContentId&, bool, FString&) override;
     virtual bool IsContentPackageActivated(const FOGContentId&, bool&, bool&, FString&) const override;

@@ -209,6 +209,18 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -291,7 +303,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestEqual(TEXT("Source schema recorded"),
         Result.SourceSchemaVersion, 8);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 13);
+        Result.TargetSchemaVersion, 14);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -303,8 +315,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 13"),
-            Store.GetSchemaVersion(Error), 13);
+        TestEqual(TEXT("Promoted schema is 14"),
+            Store.GetSchemaVersion(Error), 14);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -368,15 +380,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0013 table while removing only its ledger row.
+    // Break a migration-0014 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
     // working-copy validation must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE entity_languages DROP COLUMN written_proficiency_bps;"
-            "DELETE FROM schema_migrations WHERE version = 13;",
+            "ALTER TABLE reports DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -524,6 +536,18 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -750,7 +774,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TestEqual(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -829,6 +853,18 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -916,7 +952,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1064,7 +1100,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist Ruler"),
@@ -1205,6 +1241,18 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -1287,7 +1335,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1424,7 +1472,7 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -1469,6 +1517,18 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 9"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -1546,7 +1606,7 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1654,7 +1714,7 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
         TestTrue(
             TEXT("Persist pre-0011 world-like marker"),
             Store.UpsertEntity(
@@ -1670,6 +1730,18 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 10"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -1731,7 +1803,7 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1839,7 +1911,7 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist legacy Dispatch owner"),
@@ -1978,6 +2050,18 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 11"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -2032,12 +2116,12 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Current migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-13 database"),
+            TEXT("Open migrated schema-14 database"),
             Store.Open(
                 DatabasePath,
                 Error));
@@ -2160,7 +2244,7 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
             TEXT("Fixture begins at schema 13"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist knowledge owner"),
@@ -2203,6 +2287,18 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 12"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;"
             "DROP TABLE IF EXISTS heroic_records;"
             "DROP TABLE IF EXISTS character_adult_runtime_state;"
             "DROP TABLE IF EXISTS npc_promotion_state;"
@@ -2228,7 +2324,7 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 12 to 13"),
+        TEXT("Safe bootstrap migrates schema 12 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -2238,14 +2334,14 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
         Migration.SourceSchemaVersion,
         12);
     TestEqual(
-        TEXT("0013 migration target schema"),
+        TEXT("Current migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-13 database"),
+            TEXT("Open migrated schema-14 database"),
             Store.Open(
                 DatabasePath,
                 Error));
@@ -2309,6 +2405,192 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
         TestTrue(
             TEXT("Migration does not fabricate item instances"),
             Items.IsEmpty());
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGPackagesReports0014NonFabricatingMigrationTest,
+    "OfflineGame.Persistence.Migration0014.PackageDefaultsWithoutFabricatedReportsOrManagement",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGPackagesReports0014NonFabricatingMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_packages_reports.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId RulerId =
+        FOGEntityId::NewId();
+    const FOGEntityId ManifestationId =
+        FOGEntityId::NewId();
+    FString Error;
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema package fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 14"),
+            Store.GetSchemaVersion(
+                Error),
+            14);
+
+        TestTrue(
+            TEXT("Persist legacy package row"),
+            Store.UpsertContentPackage(
+                FOGContentId(
+                    TEXT("test:legacy.package")),
+                7,
+                TEXT("legacy-hash"),
+                true,
+                true,
+                TEXT("{\"legacy\":true}"),
+                Error));
+
+        TestTrue(
+            TEXT("Persist Ruler"),
+            Store.UpsertEntity(
+                RulerId,
+                FName(TEXT("ruler")),
+                0,
+                TEXT("{}"),
+                Error));
+
+        FOGCharacterManifestationRecord Manifestation;
+        Manifestation.ManifestationId =
+            ManifestationId;
+        Manifestation.OwningRulerId =
+            RulerId;
+        Manifestation.IdentityId =
+            FOGContentId(
+                TEXT("test:identity.legacy_management"));
+        Manifestation.ActiveVersionId =
+            FOGContentId(
+                TEXT("test:version.legacy_management"));
+        Manifestation.Level = 1;
+        Manifestation.AcquisitionWorldTick = 10;
+        Manifestation.LifecycleState =
+            FName(TEXT("active"));
+
+        TestTrue(
+            TEXT("Persist legacy Manifestation"),
+            Store.UpsertCharacterManifestation(
+                Manifestation,
+                10,
+                Error));
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 13"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 13 to 14"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("0014 migration source schema"),
+        Migration.SourceSchemaVersion,
+        13);
+    TestEqual(
+        TEXT("0014 migration target schema"),
+        Migration.TargetSchemaVersion,
+        14);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-14 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        bool bPackageFound = false;
+        FOGContentPackageRecord Package;
+        TestTrue(
+            TEXT("Read migrated package"),
+            Store.TryReadContentPackageRecord(
+                FOGContentId(
+                    TEXT("test:legacy.package")),
+                bPackageFound,
+                Package,
+                Error));
+        TestTrue(
+            TEXT("Legacy package survives migration"),
+            bPackageFound);
+        TestEqual(
+            TEXT("Package category receives compatibility default"),
+            Package.Category,
+            FName(TEXT("generic")));
+        TestEqual(
+            TEXT("Package storage receives compatibility default"),
+            Package.StorageClass,
+            FName(TEXT("local_hot")));
+        TestEqual(
+            TEXT("Package download state receives compatibility default"),
+            Package.DownloadState,
+            FName(TEXT("installed")));
+
+        TArray<FOGReportRecord> Reports;
+        TestTrue(
+            TEXT("Report list remains valid"),
+            Store.ListReportsByOwner(
+                RulerId,
+                Reports,
+                Error));
+        TestTrue(
+            TEXT("Migration does not fabricate Reports"),
+            Reports.IsEmpty());
+
+        bool bMetadataFound = false;
+        FOGManifestationManagementMetadataRecord Metadata;
+        TestTrue(
+            TEXT("Management metadata lookup remains valid"),
+            Store.TryReadManifestationManagementMetadata(
+                ManifestationId,
+                bMetadataFound,
+                Metadata,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate Favorite/Protected/Locked flags"),
+            bMetadataFound);
 
         Store.Close();
     }

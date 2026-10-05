@@ -7,6 +7,7 @@
 #include "Events/OGWorldEvent.h"
 #include "Gacha/OGGachaDefinitions.h"
 #include "Progression/OGProgressionRecords.h"
+#include "Runtime/OGPackageReportManagementRecords.h"
 #include "World/OGDispatchFactionWarRecords.h"
 #include "World/OGItemKnowledgeCharacterRecords.h"
 #include "World/OGRealityTimeRecords.h"
@@ -320,6 +321,39 @@ public:
         const FOGEntityId&, bool&, FOGHeroicRecord&, FString&) const = 0;
     virtual bool ListHeroicRecordsByIdentity(
         const FOGContentId&, TArray<FOGHeroicRecord>&, FString&) const = 0;
+
+    virtual bool UpsertContentPackageRecord(
+        const FOGContentPackageRecord&, FString&) = 0;
+    virtual bool TryReadContentPackageRecord(
+        const FOGContentId&, bool&, FOGContentPackageRecord&, FString&) const = 0;
+    virtual bool ListContentPackageRecords(
+        TArray<FOGContentPackageRecord>&, FString&) const = 0;
+    virtual bool UpsertPackageDependency(
+        const FOGPackageDependencyRecord&, FString&) = 0;
+    virtual bool ListPackageDependencies(
+        const FOGContentId&, TArray<FOGPackageDependencyRecord>&, FString&) const = 0;
+
+    virtual bool UpsertReport(
+        const FOGReportRecord&, int64, FString&) = 0;
+    virtual bool TryReadReport(
+        const FOGEntityId&, bool&, FOGReportRecord&, FString&) const = 0;
+    virtual bool ListReportsByOwner(
+        const FOGEntityId&, TArray<FOGReportRecord>&, FString&) const = 0;
+    virtual bool UpsertReportDelivery(
+        const FOGReportDeliveryRecord&, FString&) = 0;
+    virtual bool TryReadReportDelivery(
+        const FOGEntityId&, FName, bool&, FOGReportDeliveryRecord&, FString&) const = 0;
+    virtual bool ListReportDeliveries(
+        const FOGEntityId&, TArray<FOGReportDeliveryRecord>&, FString&) const = 0;
+
+    virtual bool UpsertManifestationManagementMetadata(
+        const FOGManifestationManagementMetadataRecord&, FString&) = 0;
+    virtual bool TryReadManifestationManagementMetadata(
+        const FOGEntityId&, bool&, FOGManifestationManagementMetadataRecord&, FString&) const = 0;
+    virtual bool UpsertManifestationContextSelection(
+        const FOGManifestationContextSelectionRecord&, FString&) = 0;
+    virtual bool TryReadManifestationContextSelection(
+        const FOGEntityId&, const FOGContentId&, bool&, FOGManifestationContextSelectionRecord&, FString&) const = 0;
 
     virtual bool UpsertContentPackage(const FOGContentId&, int32, const FString&, bool, bool, const FString&, FString&) = 0;
     virtual bool SetContentPackageActivated(const FOGContentId&, bool, FString&) = 0;
