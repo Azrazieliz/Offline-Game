@@ -209,6 +209,13 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -246,7 +253,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestEqual(TEXT("Source schema recorded"),
         Result.SourceSchemaVersion, 8);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 10);
+        Result.TargetSchemaVersion, 11);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -258,7 +265,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 10"),
+        TestEqual(TEXT("Promoted schema is 11"),
             Store.GetSchemaVersion(Error), 11);
 
         bool bFound = false;
@@ -323,15 +330,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0010 table while removing only its ledger row.
+    // Break a migration-0011 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
-    // working-copy transform must fail while the authoritative DB is untouched.
+    // working-copy validation must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE manifestation_reinforcement DROP COLUMN max_reinforced;"
-            "DELETE FROM schema_migrations WHERE version = 10;",
+            "ALTER TABLE time_domains DROP COLUMN rate_denominator;"
+            "DELETE FROM schema_migrations WHERE version = 11;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -479,6 +486,13 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -739,6 +753,13 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -781,7 +802,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        10);
+        11);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1070,6 +1091,13 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -1107,7 +1135,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        10);
+        11);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1289,6 +1317,13 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 9"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -1309,7 +1344,7 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 9 to 10"),
+        TEXT("Safe bootstrap migrates schema 9 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -1321,12 +1356,12 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        10);
+        11);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-10 database"),
+            TEXT("Open migrated current-schema database"),
             Store.Open(
                 DatabasePath,
                 Error));
