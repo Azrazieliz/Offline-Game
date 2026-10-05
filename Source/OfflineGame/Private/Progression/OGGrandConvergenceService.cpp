@@ -22,7 +22,7 @@ bool FOGGrandConvergenceService::PerformConvergence(
         !ResultManifestation.ActiveVersionId.IsValid() ||
         !RuleId.IsValid() ||
         WorldTick < 0 ||
-        SourceManifestationIds.Num() < 2 ||
+        SourceManifestationIds.IsEmpty() ||
         (!SourceLineageIds.IsEmpty() &&
          SourceLineageIds.Num() !=
              SourceManifestationIds.Num()))
