@@ -291,7 +291,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestEqual(TEXT("Source schema recorded"),
         Result.SourceSchemaVersion, 8);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 13);
+        Result.TargetSchemaVersion, 14);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -304,7 +304,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
         TestEqual(TEXT("Promoted schema is 13"),
-            Store.GetSchemaVersion(Error), 13);
+            Store.GetSchemaVersion(Error), 14);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -750,7 +750,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TestEqual(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -916,7 +916,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1064,7 +1064,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist Ruler"),
@@ -1287,7 +1287,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1424,7 +1424,7 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -1546,7 +1546,7 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1654,7 +1654,7 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
         TestTrue(
             TEXT("Persist pre-0011 world-like marker"),
             Store.UpsertEntity(
@@ -1731,7 +1731,7 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1839,7 +1839,7 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
             TEXT("Fixture begins at schema 12"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist legacy Dispatch owner"),
@@ -2032,12 +2032,12 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Current migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-13 database"),
+            TEXT("Open migrated schema-14 database"),
             Store.Open(
                 DatabasePath,
                 Error));
@@ -2160,7 +2160,7 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
             TEXT("Fixture begins at schema 13"),
             Store.GetSchemaVersion(
                 Error),
-            13);
+            14);
 
         TestTrue(
             TEXT("Persist knowledge owner"),
@@ -2240,12 +2240,12 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
     TestEqual(
         TEXT("0013 migration target schema"),
         Migration.TargetSchemaVersion,
-        13);
+        14);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-13 database"),
+            TEXT("Open migrated schema-14 database"),
             Store.Open(
                 DatabasePath,
                 Error));
