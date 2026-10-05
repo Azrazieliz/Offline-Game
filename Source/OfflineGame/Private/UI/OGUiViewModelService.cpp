@@ -489,6 +489,21 @@ bool FOGUiViewModelService::BuildRoster(
                     Fantasm.GradeId;
             }
 
+            TArray<FOGEntityClassRecord> Classes;
+            if (!Store.ListEntityClasses(
+                    Manifestation.ManifestationId,
+                    Classes,
+                    OutError))
+            {
+                return false;
+            }
+            for (const FOGEntityClassRecord& Class :
+                 Classes)
+            {
+                ManifestationView.ClassIds.Add(
+                    Class.ClassId);
+            }
+
             bool bManagementFound = false;
             FOGManifestationManagementMetadataRecord Management;
             if (!Store.TryReadManifestationManagementMetadata(
