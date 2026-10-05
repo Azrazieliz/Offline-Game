@@ -41,12 +41,33 @@ bool FOGReportService::CreateReport(
             ? TEXT("{}")
             : PayloadJson;
 
+    if (!Store.BeginTransaction(
+            OutError))
+    {
+        return false;
+    }
+
+    auto Rollback =
+        [this, &OutError]()
+        {
+            FString RollbackError;
+            Store.RollbackTransaction(
+                RollbackError);
+            if (!RollbackError.IsEmpty())
+            {
+                OutError += FString::Printf(
+                    TEXT(" | Rollback error: %s"),
+                    *RollbackError);
+            }
+            return false;
+        };
+
     if (!Store.UpsertReport(
             Report,
             WorldTick,
             OutError))
     {
-        return false;
+        return Rollback();
     }
 
     FOGReportDeliveryRecord InGame;
@@ -61,7 +82,13 @@ bool FOGReportService::CreateReport(
             InGame,
             OutError))
     {
-        return false;
+        return Rollback();
+    }
+
+    if (!Store.CommitTransaction(
+            OutError))
+    {
+        return Rollback();
     }
 
     OutReportId =
