@@ -174,6 +174,21 @@ struct OFFLINEGAME_API FOGGachaProbabilityViewModel
 };
 
 USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGGachaTicketViewModel
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId TicketId;
+
+    UPROPERTY(BlueprintReadOnly)
+    int64 Balance = 0;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bWillConsumeBeforeCurrency = false;
+};
+
+USTRUCT(BlueprintType)
 struct OFFLINEGAME_API FOGGachaViewModel
 {
     GENERATED_BODY()
@@ -189,6 +204,12 @@ struct OFFLINEGAME_API FOGGachaViewModel
 
     UPROPERTY(BlueprintReadOnly)
     int64 PullCost = 0;
+
+    UPROPERTY(BlueprintReadOnly)
+    TArray<FOGGachaTicketViewModel> CompatibleTickets;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bWillUseTicketFirst = false;
 
     UPROPERTY(BlueprintReadOnly)
     int32 PityCount = 0;
