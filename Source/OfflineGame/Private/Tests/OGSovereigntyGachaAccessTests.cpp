@@ -161,9 +161,9 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
             DatabasePath,
             Error));
     TestEqual(
-        TEXT("Schema version is 8"),
+        TEXT("Schema version is 9"),
         Store.GetSchemaVersion(Error),
-        8);
+        9);
 
     const FOGEntityId RulerA =
         FOGEntityId::NewId();
