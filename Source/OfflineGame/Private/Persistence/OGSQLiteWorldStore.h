@@ -172,6 +172,36 @@ public:
     bool MigrateProgression0010(FString& OutError);
     bool ValidateProgressionMigration0010(FString& OutError) const;
 
+    virtual bool UpsertTimeDomain(const FOGTimeDomainRecord&, int64, FString&) override;
+    virtual bool TryReadTimeDomain(
+        const FOGEntityId&, bool&, FOGTimeDomainRecord&, FString&) const override;
+    virtual bool UpsertRealityNode(const FOGRealityNodeRecord&, int64, FString&) override;
+    virtual bool TryReadRealityNode(
+        const FOGEntityId&, bool&, FOGRealityNodeRecord&, FString&) const override;
+    virtual bool ListChildRealityNodes(
+        const FOGEntityId&, TArray<FOGRealityNodeRecord>&, FString&) const override;
+    virtual bool UpsertJunction(const FOGJunctionRecord&, int64, FString&) override;
+    virtual bool TryReadJunction(
+        const FOGEntityId&, bool&, FOGJunctionRecord&, FString&) const override;
+    virtual bool ListJunctionsFromReality(
+        const FOGEntityId&, TArray<FOGJunctionRecord>&, FString&) const override;
+    virtual bool UpsertWorldDirectorSchedule(
+        const FOGWorldDirectorScheduleRecord&, int64, FString&) override;
+    virtual bool TryReadWorldDirectorSchedule(
+        const FOGEntityId&, bool&, FOGWorldDirectorScheduleRecord&, FString&) const override;
+    virtual bool ListWorldDirectorSchedulesByContent(
+        const FOGContentId&, TArray<FOGWorldDirectorScheduleRecord>&, FString&) const override;
+    virtual bool UpsertContentUnlockState(
+        const FOGContentUnlockStateRecord&, FString&) override;
+    virtual bool TryReadContentUnlockState(
+        const FOGContentId&, bool&, FOGContentUnlockStateRecord&, FString&) const override;
+    virtual bool UpsertOfflineSimulationState(
+        const FOGOfflineSimulationStateRecord&, FString&) override;
+    virtual bool TryReadOfflineSimulationState(
+        const FOGEntityId&, bool&, FOGOfflineSimulationStateRecord&, FString&) const override;
+
+    bool ValidateRealityTimeDirectorMigration0011(FString& OutError) const;
+
     virtual bool UpsertDispatch(const FOGDispatchRecord&, int64, FString&) override;
     virtual bool TryReadDispatch(const FOGEntityId&, bool&, FOGDispatchRecord&, FString&) const override;
 
