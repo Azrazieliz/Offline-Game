@@ -56,6 +56,25 @@ public:
 
     virtual bool UpsertTerritory(const FOGTerritoryRecord&, int64, FString&) override;
     virtual bool TryReadTerritory(const FOGEntityId&, bool&, FOGTerritoryRecord&, FString&) const override;
+    virtual bool UpsertLocationTerritory(const FOGLocationTerritoryRecord&, FString&) override;
+    virtual bool UpsertTerritoryClaim(const FOGTerritoryClaimRecord&, int64, FString&) override;
+    virtual bool TryReadTerritoryClaim(const FOGEntityId&, bool&, FOGTerritoryClaimRecord&, FString&) const override;
+    virtual bool ListTerritoryClaimsByTerritory(
+        const FOGEntityId&, TArray<FOGTerritoryClaimRecord>&, FString&) const override;
+    virtual bool ListTerritoryClaimsByRuler(
+        const FOGEntityId&, TArray<FOGTerritoryClaimRecord>&, FString&) const override;
+    virtual bool ListActiveClaimsForLocation(
+        const FOGEntityId&, TArray<FOGTerritoryClaimRecord>&, FString&) const override;
+    virtual bool UpsertRulerSovereigntyState(const FOGRulerSovereigntyStateRecord&, FString&) override;
+    virtual bool TryReadRulerSovereigntyState(
+        const FOGEntityId&, bool&, FOGRulerSovereigntyStateRecord&, FString&) const override;
+    virtual bool UpsertRulerGachaAccess(const FOGRulerGachaAccessRecord&, FString&) override;
+    virtual bool TryReadRulerGachaAccess(
+        const FOGEntityId&, bool&, FOGRulerGachaAccessRecord&, FString&) const override;
+
+    bool MigrateTerritorySovereignty0008(FString& OutError);
+    bool ValidateTerritorySovereigntyMigration0008(FString& OutError) const;
+
     virtual bool UpsertDomainCore(const FOGDomainCoreRecord&, int64, FString&) override;
     virtual bool TryReadDomainCore(const FOGEntityId&, bool&, FOGDomainCoreRecord&, FString&) const override;
     virtual bool SetResourceBalance(const FOGEntityId&, const FOGContentId&, int64, FString&) override;

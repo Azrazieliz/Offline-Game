@@ -50,6 +50,22 @@ public:
 
     virtual bool UpsertTerritory(const FOGTerritoryRecord&, int64, FString&) = 0;
     virtual bool TryReadTerritory(const FOGEntityId&, bool&, FOGTerritoryRecord&, FString&) const = 0;
+    virtual bool UpsertLocationTerritory(const FOGLocationTerritoryRecord&, FString&) = 0;
+    virtual bool UpsertTerritoryClaim(const FOGTerritoryClaimRecord&, int64, FString&) = 0;
+    virtual bool TryReadTerritoryClaim(const FOGEntityId&, bool&, FOGTerritoryClaimRecord&, FString&) const = 0;
+    virtual bool ListTerritoryClaimsByTerritory(
+        const FOGEntityId&, TArray<FOGTerritoryClaimRecord>&, FString&) const = 0;
+    virtual bool ListTerritoryClaimsByRuler(
+        const FOGEntityId&, TArray<FOGTerritoryClaimRecord>&, FString&) const = 0;
+    virtual bool ListActiveClaimsForLocation(
+        const FOGEntityId&, TArray<FOGTerritoryClaimRecord>&, FString&) const = 0;
+    virtual bool UpsertRulerSovereigntyState(const FOGRulerSovereigntyStateRecord&, FString&) = 0;
+    virtual bool TryReadRulerSovereigntyState(
+        const FOGEntityId&, bool&, FOGRulerSovereigntyStateRecord&, FString&) const = 0;
+    virtual bool UpsertRulerGachaAccess(const FOGRulerGachaAccessRecord&, FString&) = 0;
+    virtual bool TryReadRulerGachaAccess(
+        const FOGEntityId&, bool&, FOGRulerGachaAccessRecord&, FString&) const = 0;
+
     virtual bool UpsertDomainCore(const FOGDomainCoreRecord&, int64, FString&) = 0;
     virtual bool TryReadDomainCore(const FOGEntityId&, bool&, FOGDomainCoreRecord&, FString&) const = 0;
     virtual bool SetResourceBalance(const FOGEntityId&, const FOGContentId&, int64, FString&) = 0;

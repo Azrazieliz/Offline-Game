@@ -60,11 +60,22 @@ bool FOGGachaPersistenceAndDuplicateTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         FString Error;
         TestTrue(TEXT("Open database"), Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Schema version is 7"), Store.GetSchemaVersion(Error), 7);
+        TestEqual(TEXT("Schema version is 8"), Store.GetSchemaVersion(Error), 8);
         TestTrue(TEXT("Persist Ruler"), Store.UpsertEntity(
             RulerId, TEXT("ruler"), 0, TEXT("{}"), Error));
         TestTrue(TEXT("Seed pull currency"), Store.SetResourceBalance(
             RulerId, Banner.CurrencyId, 1000, Error));
+
+        FOGRulerGachaAccessRecord Access;
+        Access.RulerId = RulerId;
+        Access.bPermanentlyUnlocked = true;
+        Access.bHasUnlockedWorldTick = true;
+        Access.UnlockedWorldTick = 0;
+        Access.UpdatedWorldTick = 0;
+        TestTrue(TEXT("Seed already-earned permanent gacha access"),
+            Store.UpsertRulerGachaAccess(
+                Access,
+                Error));
 
         FOGGachaService Service(Store);
         FOGGachaPullResult First;

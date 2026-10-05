@@ -1,7 +1,9 @@
 #include "Gacha/OGGachaService.h"
 
 #include "Events/OGWorldEvent.h"
+#include "Gacha/OGRulerGachaAccessService.h"
 #include "Random/OGDeterministicRng.h"
+#include "World/OGTerritoryControlService.h"
 
 namespace
 {
@@ -215,6 +217,23 @@ bool FOGGachaService::Pull(
         return Fail(TEXT("Gacha pull owner does not exist in authoritative state."));
     }
 
+    FOGRulerGachaAccessService AccessService(Store);
+    bool bCanUseGacha = false;
+    if (!AccessService.CanUseGacha(
+            RulerId,
+            WorldTick,
+            bCanUseGacha,
+            Error))
+    {
+        return Fail(Error);
+    }
+
+    if (!bCanUseGacha)
+    {
+        return Fail(
+            TEXT("Gacha is not permanently unlocked for this Ruler."));
+    }
+
     bool bCurrencyKnown = false;
     int64 CurrencyBalance = 0;
     if (Banner.PullCost > 0)
@@ -342,6 +361,30 @@ bool FOGGachaService::Pull(
 
     if (!Store.UpsertCharacterManifestation(
             Manifestation,
+            WorldTick,
+            Error))
+    {
+        return Fail(Error);
+    }
+
+    // Gacha access is permanent after first qualification, so a later landless
+    // Ruler may still pull. If an effective Territory exists, the new
+    // Manifestation receives its first immutable World Mode anchor immediately.
+    FOGTerritoryControlService TerritoryControl(Store);
+    FOGEntityId AnchorTerritoryId;
+    if (!TerritoryControl.FindPreferredEffectiveTerritoryForRuler(
+            RulerId,
+            WorldTick,
+            AnchorTerritoryId,
+            Error))
+    {
+        return Fail(Error);
+    }
+
+    if (AnchorTerritoryId.IsValid() &&
+        !Store.SetManifestationAnchor(
+            Manifestation.ManifestationId,
+            AnchorTerritoryId,
             WorldTick,
             Error))
     {

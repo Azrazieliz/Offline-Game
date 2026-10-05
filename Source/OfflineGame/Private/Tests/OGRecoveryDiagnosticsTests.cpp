@@ -206,20 +206,14 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     }
 
     TestTrue(
-        TEXT("Downgrade fixture to schema 6"),
+        TEXT("Downgrade fixture to schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DROP INDEX IF EXISTS idx_manifestations_owner_identity;"
-            "DROP INDEX IF EXISTS idx_manifestations_owner_identity_ordinal;"
-            "DROP INDEX IF EXISTS idx_manifestations_anchor;"
-            "ALTER TABLE character_manifestations DROP COLUMN build_label;"
-            "ALTER TABLE character_manifestations DROP COLUMN lifecycle_state;"
-            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_tick;"
-            "ALTER TABLE character_manifestations DROP COLUMN world_mode_anchor_territory_id;"
-            "ALTER TABLE character_manifestations DROP COLUMN origin_pull_event_id;"
-            "ALTER TABLE character_manifestations DROP COLUMN acquisition_ordinal;"
-            "ALTER TABLE character_manifestations DROP COLUMN acquisition_world_tick;"
-            "DELETE FROM schema_migrations WHERE version = 7;",
+            "DROP TABLE IF EXISTS ruler_gacha_access;"
+            "DROP TABLE IF EXISTS ruler_sovereignty_state;"
+            "DROP TABLE IF EXISTS territory_claims;"
+            "DROP TABLE IF EXISTS location_territories;"
+            "DELETE FROM schema_migrations WHERE version = 8;",
             Error));
 
     FOGWorldBootstrapResult Result;
@@ -234,9 +228,9 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestTrue(TEXT("Migration was promoted"),
         Result.bMigrationPerformed);
     TestEqual(TEXT("Source schema recorded"),
-        Result.SourceSchemaVersion, 6);
+        Result.SourceSchemaVersion, 7);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 7);
+        Result.TargetSchemaVersion, 8);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -248,8 +242,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 7"),
-            Store.GetSchemaVersion(Error), 7);
+        TestEqual(TEXT("Promoted schema is 8"),
+            Store.GetSchemaVersion(Error), 8);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -313,14 +307,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Leave migration-0007 schema effects in place while removing only its
-    // ledger row. Reapplying 0007 must fail on the working copy because the
-    // acquisition_world_tick column already exists.
+    // Break a migration-0008 table while removing only its ledger row.
+    // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
+    // working-copy validation must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "DELETE FROM schema_migrations WHERE version = 7;",
+            "ALTER TABLE ruler_gacha_access DROP COLUMN permanently_unlocked;"
+            "DELETE FROM schema_migrations WHERE version = 8;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -405,7 +400,7 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
     FString Error;
     {
         FOGSQLiteWorldStore Store;
-        TestTrue(TEXT("Create schema-7 fixture"),
+        TestTrue(TEXT("Create current-schema fixture"),
             Store.Open(DatabasePath, Error));
         TestTrue(TEXT("Persist migration-test Ruler"),
             Store.UpsertEntity(
@@ -468,6 +463,11 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS ruler_gacha_access;"
+            "DROP TABLE IF EXISTS ruler_sovereignty_state;"
+            "DROP TABLE IF EXISTS territory_claims;"
+            "DROP TABLE IF EXISTS location_territories;"
+            "DELETE FROM schema_migrations WHERE version = 8;"
             "DROP INDEX IF EXISTS idx_manifestations_owner_identity;"
             "DROP INDEX IF EXISTS idx_manifestations_owner_identity_ordinal;"
             "DROP INDEX IF EXISTS idx_manifestations_anchor;"
@@ -573,6 +573,247 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
                 Manifestations[1].ManifestationId ==
                     MigratedRepeatId);
         }
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGTerritory0008LegacyProjectionMigrationTest,
+    "OfflineGame.Persistence.Migration0008.LegacyTerritoryAndGachaStateArePreserved",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_sovereignty.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId RulerId =
+        FOGEntityId::NewId();
+    const FOGEntityId LocationId =
+        FOGEntityId::NewId();
+    const FOGEntityId TerritoryId =
+        FOGEntityId::NewId();
+    const FOGEntityId PullEventId =
+        FOGEntityId::NewId();
+
+    FString Error;
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema migration fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 8"),
+            Store.GetSchemaVersion(Error),
+            8);
+
+        TestTrue(
+            TEXT("Persist legacy Ruler"),
+            Store.UpsertEntity(
+                RulerId,
+                TEXT("ruler"),
+                0,
+                TEXT("{}"),
+                Error));
+
+        FOGLocationRecord Location;
+        Location.LocationId =
+            LocationId;
+        Location.Kind =
+            FName(TEXT("region"));
+        TestTrue(
+            TEXT("Persist legacy root Location"),
+            Store.UpsertLocation(
+                Location,
+                0,
+                Error));
+
+        FOGTerritoryRecord Territory;
+        Territory.TerritoryId =
+            TerritoryId;
+        Territory.RulerId =
+            RulerId;
+        Territory.RootLocationId =
+            LocationId;
+        Territory.bMainTerritory =
+            true;
+        Territory.Population = 10;
+        Territory.ControlState =
+            FName(TEXT("controlled"));
+        TestTrue(
+            TEXT("Persist legacy Territory projection"),
+            Store.UpsertTerritory(
+                Territory,
+                10,
+                Error));
+
+        FOGGachaStateRecord GachaState;
+        GachaState.RulerId =
+            RulerId;
+        GachaState.PityCategory =
+            FName(TEXT("legacy"));
+        GachaState.TotalPulls = 1;
+        GachaState.UpdatedWorldTick = 20;
+        TestTrue(
+            TEXT("Persist pre-qualification gacha state"),
+            Store.UpsertGachaState(
+                GachaState,
+                Error));
+
+        FOGWorldEvent PullEvent;
+        PullEvent.EventId =
+            PullEventId;
+        PullEvent.EventType =
+            FName(TEXT("gacha_pull"));
+        PullEvent.WorldTick = 20;
+        PullEvent.PrimaryEntity =
+            RulerId;
+        PullEvent.PayloadJson =
+            TEXT("{\"identity\":\"test:legacy\",\"version\":\"test:legacy.base\",\"rarity\":\"R\"}");
+        PullEvent.bChronicleEligible = false;
+        TestTrue(
+            TEXT("Persist historical pre-qualification pull"),
+            Store.AppendWorldEvent(
+                PullEvent,
+                Error));
+
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 7"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS ruler_gacha_access;"
+            "DROP TABLE IF EXISTS ruler_sovereignty_state;"
+            "DROP TABLE IF EXISTS territory_claims;"
+            "DROP TABLE IF EXISTS location_territories;"
+            "DELETE FROM schema_migrations WHERE version = 8;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 7 to 8"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("Migration source schema"),
+        Migration.SourceSchemaVersion,
+        7);
+    TestEqual(
+        TEXT("Migration target schema"),
+        Migration.TargetSchemaVersion,
+        8);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-8 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        TArray<FOGTerritoryClaimRecord> Claims;
+        TestTrue(
+            TEXT("Legacy Territory owner becomes normalized claim"),
+            Store.ListTerritoryClaimsByTerritory(
+                TerritoryId,
+                Claims,
+                Error));
+        TestEqual(
+            TEXT("Exactly one legacy ownership claim is reconstructed"),
+            Claims.Num(),
+            1);
+        if (Claims.Num() == 1)
+        {
+            TestTrue(
+                TEXT("Migrated claim preserves Ruler"),
+                Claims[0].RulerId ==
+                    RulerId);
+            TestEqual(
+                TEXT("Migrated claim is effectively controlled"),
+                Claims[0].ControlState,
+                FName(TEXT("controlled")));
+            TestTrue(
+                TEXT("Migrated claim has effective-control origin"),
+                Claims[0].bHasEffectiveControlStart);
+            TestEqual(
+                TEXT("Control origin follows legacy Territory creation"),
+                Claims[0].EffectiveControlStartWorldTick,
+                static_cast<int64>(10));
+        }
+
+        TArray<FOGTerritoryClaimRecord> LocationClaims;
+        TestTrue(
+            TEXT("Root Location is normalized into many-to-many membership"),
+            Store.ListActiveClaimsForLocation(
+                LocationId,
+                LocationClaims,
+                Error));
+        TestEqual(
+            TEXT("Normalized root Location resolves the migrated claim"),
+            LocationClaims.Num(),
+            1);
+
+        bool bFound = false;
+        FOGRulerSovereigntyStateRecord Sovereignty;
+        TestTrue(
+            TEXT("Read migrated sovereignty"),
+            Store.TryReadRulerSovereigntyState(
+                RulerId,
+                bFound,
+                Sovereignty,
+                Error));
+        TestTrue(
+            TEXT("Legacy Territory owner has sovereignty state"),
+            bFound);
+        TestEqual(
+            TEXT("Legacy controlled Territory maps to Ruler title"),
+            Sovereignty.CurrentTitle,
+            FName(TEXT("ruler")));
+
+        FOGRulerGachaAccessRecord Access;
+        bFound = false;
+        TestTrue(
+            TEXT("Read migrated gacha access"),
+            Store.TryReadRulerGachaAccess(
+                RulerId,
+                bFound,
+                Access,
+                Error));
+        TestTrue(
+            TEXT("Legacy gacha user has access record"),
+            bFound);
+        TestTrue(
+            TEXT("Migration never retroactively revokes already-used gacha"),
+            Access.bPermanentlyUnlocked);
+        TestTrue(
+            TEXT("Legacy permanent unlock retains an audit tick"),
+            Access.bHasUnlockedWorldTick);
+        TestEqual(
+            TEXT("Earliest historical pull becomes unlock provenance"),
+            Access.UnlockedWorldTick,
+            static_cast<int64>(20));
 
         Store.Close();
     }

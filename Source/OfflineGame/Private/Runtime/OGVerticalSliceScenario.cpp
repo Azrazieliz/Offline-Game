@@ -4,6 +4,7 @@
 #include "Combat/OGBattleReplay.h"
 #include "Dom/JsonObject.h"
 #include "Gacha/OGGachaService.h"
+#include "Gacha/OGRulerGachaAccessService.h"
 #include "Serialization/JsonSerializer.h"
 #include "Serialization/JsonWriter.h"
 #include "World/OGSharedWorldStateService.h"
@@ -286,6 +287,66 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
         return false;
     }
 
+    FOGTerritoryRecord Territory;
+    Territory.TerritoryId = TerritoryId;
+    Territory.RulerId = RulerId;
+    Territory.RootLocationId = LocationId;
+    Territory.bMainTerritory = true;
+    Territory.Population = 1;
+    Territory.ControlState =
+        FName(TEXT("controlled"));
+
+    if (!Store.UpsertTerritory(
+            Territory,
+            0,
+            OutError))
+    {
+        return false;
+    }
+
+    FOGTerritoryClaimRecord Claim;
+    Claim.ClaimId = FixedId(8);
+    Claim.TerritoryId = TerritoryId;
+    Claim.RulerId = RulerId;
+    Claim.ClaimKind =
+        FName(TEXT("control"));
+    Claim.ControlState =
+        FName(TEXT("controlled"));
+    Claim.ControlStrengthBps = 10000;
+    Claim.ClaimStartWorldTick = 0;
+    Claim.bHasEffectiveControlStart = true;
+    Claim.EffectiveControlStartWorldTick = 0;
+    Claim.UpdatedWorldTick = 0;
+
+    if (!Store.UpsertTerritoryClaim(
+            Claim,
+            0,
+            OutError))
+    {
+        return false;
+    }
+
+    FOGRulerGachaAccessService GachaAccess(
+        Store);
+    FOGRulerGachaAccessRecord GachaAccessState;
+    if (!GachaAccess.RefreshGachaQualification(
+            RulerId,
+            0,
+            false,
+            GachaAccessState,
+            OutError) ||
+        // Until schema 0011 owns calendar conversion, the harness injects the
+        // already-resolved strictly-more-than-one-month predicate.
+        !GachaAccess.RefreshGachaQualification(
+            RulerId,
+            9,
+            true,
+            GachaAccessState,
+            OutError))
+    {
+        return false;
+    }
+
     if (!Store.SetResourceBalance(
             RulerId,
             PullCurrencyId(),
@@ -382,23 +443,6 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
             LocationId,
             EOGLocationKnowledgeLevel::Explored,
             25,
-            OutError))
-    {
-        return false;
-    }
-
-    FOGTerritoryRecord Territory;
-    Territory.TerritoryId = TerritoryId;
-    Territory.RulerId = RulerId;
-    Territory.RootLocationId = LocationId;
-    Territory.bMainTerritory = true;
-    Territory.Population = 1;
-    Territory.ControlState =
-        FName(TEXT("controlled"));
-
-    if (!Store.UpsertTerritory(
-            Territory,
-            30,
             OutError))
     {
         return false;
@@ -619,6 +663,14 @@ bool FOGVerticalSliceScenarioHarness::VerifyAfterRestart(
     {
         OutError =
             TEXT("Acquired Manifestation did not survive restart.");
+        return false;
+    }
+
+    if (Manifestation->WorldModeAnchorTerritoryId !=
+            ScenarioTerritoryId())
+    {
+        OutError =
+            TEXT("Acquired Manifestation did not preserve its first World Mode Territory anchor.");
         return false;
     }
 

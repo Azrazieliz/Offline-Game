@@ -256,6 +256,56 @@ static const TCHAR* Migration0007Sql =
     TEXT("CREATE INDEX IF NOT EXISTS idx_manifestations_anchor ")
     TEXT("ON character_manifestations(world_mode_anchor_territory_id);");
 
+static const TCHAR* Migration0008Sql =
+    TEXT("CREATE TABLE IF NOT EXISTS location_territories (")
+    TEXT("location_entity_id TEXT NOT NULL,")
+    TEXT("territory_entity_id TEXT NOT NULL,")
+    TEXT("relation_kind TEXT NOT NULL DEFAULT 'contained',")
+    TEXT("coverage_bps INTEGER NOT NULL DEFAULT 10000 CHECK (coverage_bps BETWEEN 0 AND 10000),")
+    TEXT("PRIMARY KEY(location_entity_id, territory_entity_id),")
+    TEXT("FOREIGN KEY(location_entity_id) REFERENCES locations(location_entity_id),")
+    TEXT("FOREIGN KEY(territory_entity_id) REFERENCES territories(territory_entity_id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_location_territories_territory ")
+    TEXT("ON location_territories(territory_entity_id, location_entity_id);")
+    TEXT("CREATE TABLE IF NOT EXISTS territory_claims (")
+    TEXT("claim_entity_id TEXT PRIMARY KEY,")
+    TEXT("territory_entity_id TEXT NOT NULL,")
+    TEXT("ruler_entity_id TEXT NOT NULL,")
+    TEXT("claim_kind TEXT NOT NULL,")
+    TEXT("control_state TEXT NOT NULL,")
+    TEXT("control_strength_bps INTEGER NOT NULL DEFAULT 0 CHECK (control_strength_bps BETWEEN 0 AND 10000),")
+    TEXT("claim_start_world_tick INTEGER NOT NULL,")
+    TEXT("effective_control_start_world_tick INTEGER,")
+    TEXT("displaced_world_tick INTEGER,")
+    TEXT("reclaim_deadline_world_tick INTEGER,")
+    TEXT("updated_world_tick INTEGER NOT NULL,")
+    TEXT("state_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("UNIQUE(territory_entity_id, ruler_entity_id),")
+    TEXT("FOREIGN KEY(claim_entity_id) REFERENCES entities(id),")
+    TEXT("FOREIGN KEY(territory_entity_id) REFERENCES territories(territory_entity_id),")
+    TEXT("FOREIGN KEY(ruler_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_territory_claims_territory ")
+    TEXT("ON territory_claims(territory_entity_id, control_state, updated_world_tick);")
+    TEXT("CREATE INDEX IF NOT EXISTS idx_territory_claims_ruler ")
+    TEXT("ON territory_claims(ruler_entity_id, control_state, updated_world_tick);")
+    TEXT("CREATE TABLE IF NOT EXISTS ruler_sovereignty_state (")
+    TEXT("ruler_entity_id TEXT PRIMARY KEY,")
+    TEXT("current_title TEXT NOT NULL DEFAULT 'ruler',")
+    TEXT("historical_peak_title TEXT NOT NULL DEFAULT 'ruler',")
+    TEXT("continuous_control_start_world_tick INTEGER,")
+    TEXT("last_effective_control_world_tick INTEGER,")
+    TEXT("scope_state_json TEXT NOT NULL DEFAULT '{}',")
+    TEXT("updated_world_tick INTEGER NOT NULL,")
+    TEXT("FOREIGN KEY(ruler_entity_id) REFERENCES entities(id));")
+    TEXT("CREATE TABLE IF NOT EXISTS ruler_gacha_access (")
+    TEXT("ruler_entity_id TEXT PRIMARY KEY,")
+    TEXT("qualification_start_world_tick INTEGER,")
+    TEXT("qualification_suspended_world_tick INTEGER,")
+    TEXT("unlocked_world_tick INTEGER,")
+    TEXT("permanently_unlocked INTEGER NOT NULL DEFAULT 0 CHECK (permanently_unlocked IN (0,1)),")
+    TEXT("updated_world_tick INTEGER NOT NULL,")
+    TEXT("FOREIGN KEY(ruler_entity_id) REFERENCES entities(id));");
+
 static const FOGMigrationDefinition Migrations[] =
 {
     {1, TEXT("bootstrap"), Migration0001Sql, {}, {}},
@@ -275,6 +325,19 @@ static const FOGMigrationDefinition Migrations[] =
         [](FOGSQLiteWorldStore& Store, FString& Error)
         {
             return Store.ValidateManifestationMigration0007(Error);
+        }
+    },
+    {
+        8,
+        TEXT("territory_sovereignty_gacha_access"),
+        Migration0008Sql,
+        [](FOGSQLiteWorldStore& Store, FString& Error)
+        {
+            return Store.MigrateTerritorySovereignty0008(Error);
+        },
+        [](FOGSQLiteWorldStore& Store, FString& Error)
+        {
+            return Store.ValidateTerritorySovereigntyMigration0008(Error);
         }
     },
 };
