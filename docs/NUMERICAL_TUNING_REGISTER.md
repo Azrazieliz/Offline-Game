@@ -17,7 +17,12 @@ No Unreal compile or automation test has been run.
 - Direct offensive percent-MaxHP damage is not ordinary attack math.
 - Generic perfect-dodge slow target remains 2-3 seconds.
 - Android performance profiles remain 30 / 60 / 120 FPS.
-- Normal installed-content target remains roughly 60-80 GB, with approximately 100 GB as a practical upper operating bound before stronger archive/eviction pressure.
+- Full installed-content storage policy is governed by `docs/STORAGE_QUALITY_BUDGET.md`.
+- Preferred standard-quality full install: **25-35 GB**.
+- **35-50 GB** is acceptable only when measured production content justifies it without avoidable duplication.
+- **50 GB** is the soft warning threshold: new content must trigger an explicit storage review.
+- **60 GB** is the hard installed-content ceiling unless the Creative Director explicitly approves an exception backed by physical Galaxy S26 Ultra profiling and a documented quality/content justification.
+- The former 60-80 GB normal target / ~100 GB upper bound is superseded and must not be used for planning.
 
 ## Gacha - first deterministic baseline
 
