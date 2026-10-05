@@ -29,7 +29,7 @@ bool FOGContentIdValidationTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGAdultEligibilityValidationTest,
-    "OfflineGame.Content.Character.SexualEligibilityRequiresCanonicalAdult",
+    "OfflineGame.Content.Character.AdultReferencesRequireCanonicalAdult",
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGAdultEligibilityValidationTest::RunTest(const FString& Parameters)
@@ -41,14 +41,14 @@ bool FOGAdultEligibilityValidationTest::RunTest(const FString& Parameters)
     FOGCharacterIdentityDefinition Identity;
     Identity.IdentityId = FOGContentId(TEXT("test:identity"));
     Identity.CanonicalMaturity = EOGCanonicalMaturity::NonAdult;
-    Identity.VersionIds.Add(FOGContentId(TEXT("test:version.base")));
     Manifest.CharacterIdentities.Add(Identity);
 
     FOGCharacterVersionDefinition Version;
     Version.VersionId = FOGContentId(TEXT("test:version.base"));
     Version.IdentityId = Identity.IdentityId;
     Version.VersionKind = TEXT("base");
-    Version.bSexualContentEligible = true;
+    Version.AdultContentProfileId = FOGContentId(TEXT("test:adult_profile.default"));
+    Version.AdultSceneLibraryIds.Add(FOGContentId(TEXT("test:adult_scene_library.default")));
     Manifest.CharacterVersions.Add(Version);
 
     TArray<FString> Errors;
@@ -65,7 +65,7 @@ bool FOGAdultEligibilityValidationTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGAdultCharacterManifestValidationTest,
-    "OfflineGame.Content.Character.AdultVersionCanBeSexualContentEligible",
+    "OfflineGame.Content.Character.AdultIdentityCanReferenceAdultContent",
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGAdultCharacterManifestValidationTest::RunTest(const FString& Parameters)
@@ -77,19 +77,19 @@ bool FOGAdultCharacterManifestValidationTest::RunTest(const FString& Parameters)
     FOGCharacterIdentityDefinition Identity;
     Identity.IdentityId = FOGContentId(TEXT("test:identity"));
     Identity.CanonicalMaturity = EOGCanonicalMaturity::Adult;
-    Identity.VersionIds.Add(FOGContentId(TEXT("test:version.base")));
     Manifest.CharacterIdentities.Add(Identity);
 
     FOGCharacterVersionDefinition Version;
     Version.VersionId = FOGContentId(TEXT("test:version.base"));
     Version.IdentityId = Identity.IdentityId;
     Version.VersionKind = TEXT("base");
-    Version.bSexualContentEligible = true;
+    Version.AdultContentProfileId = FOGContentId(TEXT("test:adult_profile.default"));
+    Version.AdultSceneLibraryIds.Add(FOGContentId(TEXT("test:adult_scene_library.default")));
     Manifest.CharacterVersions.Add(Version);
 
     TArray<FString> Errors;
     TestTrue(
-        TEXT("Canonically adult identity may validate eligible sexual content"),
+        TEXT("Canonically adult identity may validate descriptive adult content"),
         FOGContentManifestValidator::Validate(
             Manifest,
             TMap<FOGContentId, EOGCanonicalMaturity>(),
@@ -101,7 +101,7 @@ bool FOGAdultCharacterManifestValidationTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGExternalAdultIdentityVersionPackageTest,
-    "OfflineGame.Content.Character.ExternalAdultIdentityCanReceiveNewEligibleVersion",
+    "OfflineGame.Content.Character.ExternalAdultIdentityCanReceiveAdultReferences",
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGExternalAdultIdentityVersionPackageTest::RunTest(const FString& Parameters)
@@ -114,7 +114,8 @@ bool FOGExternalAdultIdentityVersionPackageTest::RunTest(const FString& Paramete
     Version.VersionId = FOGContentId(TEXT("test:identity.special"));
     Version.IdentityId = FOGContentId(TEXT("test:identity"));
     Version.VersionKind = TEXT("special");
-    Version.bSexualContentEligible = true;
+    Version.AdultContentProfileId = FOGContentId(TEXT("test:adult_profile.default"));
+    Version.AdultSceneLibraryIds.Add(FOGContentId(TEXT("test:adult_scene_library.default")));
     Manifest.CharacterVersions.Add(Version);
 
     TMap<FOGContentId, EOGCanonicalMaturity> KnownIdentities;
