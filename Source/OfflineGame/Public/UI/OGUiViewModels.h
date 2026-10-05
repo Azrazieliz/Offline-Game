@@ -652,6 +652,12 @@ struct OFFLINEGAME_API FOGEquipmentSlotViewModel
     FString EvolutionStateJson;
 
     UPROPERTY(BlueprintReadOnly)
+    FString ItemHistoryStateJson;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bChronicleHistoryAvailable = true;
+
+    UPROPERTY(BlueprintReadOnly)
     FOGContentId AffinityMilestoneId;
 
     UPROPERTY(BlueprintReadOnly)
@@ -721,10 +727,16 @@ struct OFFLINEGAME_API FOGManifestationDetailViewModel
     bool bSkillSearchAvailable = true;
 
     UPROPERTY(BlueprintReadOnly)
+    bool bSkillGroupingAvailable = true;
+
+    UPROPERTY(BlueprintReadOnly)
     TArray<FOGRouteNodeViewModel> RouteNodes;
 
     UPROPERTY(BlueprintReadOnly)
     bool bRouteGraphZoomable = true;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bUnknownRouteNodesOmitted = true;
 
     UPROPERTY(BlueprintReadOnly)
     TArray<FOGFormViewModel> Forms;
