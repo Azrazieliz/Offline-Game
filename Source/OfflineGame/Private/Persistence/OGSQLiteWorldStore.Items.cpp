@@ -568,6 +568,56 @@ bool FOGSQLiteWorldStore::ListEquipmentBindings(
     return true;
 }
 
+bool FOGSQLiteWorldStore::DeleteEquipmentBindingsForItem(
+    const FOGEntityId& ItemId,
+    FString& OutError)
+{
+    OutError.Reset();
+
+    if (!ItemId.IsValid())
+    {
+        OutError =
+            TEXT("Equipment-binding cleanup requires a valid item ID.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "DELETE FROM equipment_bindings WHERE item_entity_id = ?;";
+
+    if (sqlite3_prepare_v2(
+            Database,
+            Sql,
+            -1,
+            &Statement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError =
+            LastError(
+                TEXT("Prepare equipment-binding cleanup"));
+        return false;
+    }
+
+    const bool bSucceeded =
+        BindItemText(
+            Statement,
+            1,
+            ItemId.ToString()) &&
+        sqlite3_step(
+            Statement) == SQLITE_DONE;
+
+    if (!bSucceeded)
+    {
+        OutError =
+            LastError(
+                TEXT("Delete equipment bindings for item"));
+    }
+
+    sqlite3_finalize(
+        Statement);
+    return bSucceeded;
+}
+
 bool FOGSQLiteWorldStore::UpsertInventoryContainer(
     const FOGInventoryContainerRecord& Container,
     int64 CreatedWorldTick,
@@ -890,6 +940,56 @@ bool FOGSQLiteWorldStore::ListContainerContents(
 
     sqlite3_finalize(Statement);
     return true;
+}
+
+bool FOGSQLiteWorldStore::DeleteContainerContentsForItem(
+    const FOGEntityId& ItemId,
+    FString& OutError)
+{
+    OutError.Reset();
+
+    if (!ItemId.IsValid())
+    {
+        OutError =
+            TEXT("Container-content cleanup requires a valid item ID.");
+        return false;
+    }
+
+    sqlite3_stmt* Statement = nullptr;
+    const char* Sql =
+        "DELETE FROM container_contents WHERE item_entity_id = ?;";
+
+    if (sqlite3_prepare_v2(
+            Database,
+            Sql,
+            -1,
+            &Statement,
+            nullptr) != SQLITE_OK)
+    {
+        OutError =
+            LastError(
+                TEXT("Prepare container-content cleanup"));
+        return false;
+    }
+
+    const bool bSucceeded =
+        BindItemText(
+            Statement,
+            1,
+            ItemId.ToString()) &&
+        sqlite3_step(
+            Statement) == SQLITE_DONE;
+
+    if (!bSucceeded)
+    {
+        OutError =
+            LastError(
+                TEXT("Delete container contents for item"));
+    }
+
+    sqlite3_finalize(
+        Statement);
+    return bSucceeded;
 }
 
 bool FOGSQLiteWorldStore::UpsertItemOwnerAffinity(
