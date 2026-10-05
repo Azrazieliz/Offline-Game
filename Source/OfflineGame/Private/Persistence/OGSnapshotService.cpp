@@ -1,4 +1,5 @@
 #include "Persistence/OGSnapshotService.h"
+#include "Persistence/OGRecoveryCatalogService.h"
 
 #include "HAL/FileManager.h"
 #include "Misc/Paths.h"
@@ -7,6 +8,27 @@ bool FOGSnapshotService::CreateRotatingSnapshot(
     IOGWorldStore& Store,
     const FString& SnapshotDirectory,
     int32 KeepCount,
+    FString& OutSnapshotPath,
+    FString& OutError)
+{
+    return CreateRotatingSnapshot(
+        Store,
+        SnapshotDirectory,
+        KeepCount,
+        FString(),
+        FString(),
+        FString(),
+        OutSnapshotPath,
+        OutError);
+}
+
+bool FOGSnapshotService::CreateRotatingSnapshot(
+    IOGWorldStore& Store,
+    const FString& SnapshotDirectory,
+    int32 KeepCount,
+    const FString& RecoveryCatalogPath,
+    const FString& WorldIdentity,
+    const FString& SourceBuildVersion,
     FString& OutSnapshotPath,
     FString& OutError)
 {
@@ -71,6 +93,53 @@ bool FOGSnapshotService::CreateRotatingSnapshot(
         const FString ObsoletePath =
             FPaths::Combine(SnapshotDirectory, SnapshotFiles[Index]);
         Files.Delete(*ObsoletePath, false, true, true);
+    }
+
+    if (!RecoveryCatalogPath.IsEmpty())
+    {
+        FString SchemaError;
+        const int32 SchemaVersion =
+            Store.GetSchemaVersion(SchemaError);
+        if (SchemaVersion < 0)
+        {
+            OutError = FString::Printf(
+                TEXT("Snapshot created but schema version could not be cataloged: %s"),
+                *SchemaError);
+            return false;
+        }
+
+        FOGBackupCatalogEntry Entry;
+        Entry.BackupId =
+            FPaths::GetBaseFilename(
+                OutSnapshotPath);
+        Entry.BackupPathOrUri =
+            OutSnapshotPath;
+        Entry.SchemaVersion =
+            SchemaVersion;
+        Entry.WorldIdentity =
+            WorldIdentity.IsEmpty()
+                ? TEXT("offlinegame:canonical_world")
+                : WorldIdentity;
+        Entry.CreatedUtc =
+            FDateTime::UtcNow().ToIso8601();
+        Entry.ContentHash =
+            FOGRecoveryCatalogService::HashFile(
+                OutSnapshotPath);
+        Entry.SourceBuildVersion =
+            SourceBuildVersion.IsEmpty()
+                ? TEXT("unknown")
+                : SourceBuildVersion;
+        Entry.ValidationState =
+            FName(TEXT("validated"));
+
+        if (Entry.ContentHash.IsEmpty() ||
+            !FOGRecoveryCatalogService::AddOrUpdateEntry(
+                RecoveryCatalogPath,
+                Entry,
+                OutError))
+        {
+            return false;
+        }
     }
 
     return true;
