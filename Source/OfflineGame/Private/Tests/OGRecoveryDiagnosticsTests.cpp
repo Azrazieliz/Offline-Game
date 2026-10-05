@@ -1206,4 +1206,193 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
     return true;
 }
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGProgression0010LegacyProjectionMigrationTest,
+    "OfflineGame.Persistence.Migration0010.LegacyProgressionIsPreservedWithoutFabricatedOntology",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_progression.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId RulerId =
+        FOGEntityId::NewId();
+    const FOGEntityId ManifestationId =
+        FOGEntityId::NewId();
+    const FString LegacyProgression =
+        TEXT("{\"legacy_route\":\"opaque\",\"legacy_score\":77}");
+
+    FString Error;
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema progression fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 10"),
+            Store.GetSchemaVersion(
+                Error),
+            10);
+
+        TestTrue(
+            TEXT("Persist legacy Ruler"),
+            Store.UpsertEntity(
+                RulerId,
+                FName(TEXT("ruler")),
+                0,
+                TEXT("{}"),
+                Error));
+
+        FOGCharacterManifestationRecord Manifestation;
+        Manifestation.ManifestationId =
+            ManifestationId;
+        Manifestation.OwningRulerId =
+            RulerId;
+        Manifestation.IdentityId =
+            FOGContentId(
+                TEXT("test:character.legacy_progression"));
+        Manifestation.ActiveVersionId =
+            FOGContentId(
+                TEXT("test:character.legacy_progression.base"));
+        Manifestation.Level = 77;
+        Manifestation.CurrentRarity =
+            FName(TEXT("SSR"));
+        Manifestation.AcquisitionWorldTick = 15;
+        Manifestation.AcquisitionOrdinal = 0;
+        Manifestation.LifecycleState =
+            FName(TEXT("active"));
+        Manifestation.ProgressionStateJson =
+            LegacyProgression;
+
+        TestTrue(
+            TEXT("Persist opaque legacy Manifestation progression"),
+            Store.UpsertCharacterManifestation(
+                Manifestation,
+                15,
+                Error));
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 9"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS character_convergence_sources;"
+            "DROP TABLE IF EXISTS character_convergences;"
+            "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
+            "DROP TABLE IF EXISTS manifestation_world_fantasm_state;"
+            "DROP TABLE IF EXISTS entity_transcendence_state;"
+            "DROP TABLE IF EXISTS manifestation_reinforcement;"
+            "DROP TABLE IF EXISTS manifestation_forms;"
+            "DROP TABLE IF EXISTS manifestation_route_nodes;"
+            "DROP TABLE IF EXISTS skill_provenance;"
+            "DROP TABLE IF EXISTS entity_skills;"
+            "DROP TABLE IF EXISTS grand_class_seats;"
+            "DROP TABLE IF EXISTS entity_classes;"
+            "DROP TABLE IF EXISTS factor_lineage;"
+            "DROP TABLE IF EXISTS factor_instances;"
+            "DROP TABLE IF EXISTS entity_rank_state;"
+            "DELETE FROM schema_migrations WHERE version = 10;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 9 to 10"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("Migration source schema"),
+        Migration.SourceSchemaVersion,
+        9);
+    TestEqual(
+        TEXT("Migration target schema"),
+        Migration.TargetSchemaVersion,
+        10);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-10 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        bool bFound = false;
+        FOGCharacterManifestationRecord Manifestation;
+        TestTrue(
+            TEXT("Read migrated Manifestation"),
+            Store.TryReadCharacterManifestation(
+                ManifestationId,
+                bFound,
+                Manifestation,
+                Error));
+        TestTrue(
+            TEXT("Legacy Manifestation survives"),
+            bFound);
+        TestEqual(
+            TEXT("Opaque legacy progression JSON is retained verbatim"),
+            Manifestation.ProgressionStateJson,
+            LegacyProgression);
+        TestEqual(
+            TEXT("Legacy Level is preserved as migration provenance"),
+            Manifestation.Level,
+            77);
+
+        FOGManifestationReinforcementRecord Reinforcement;
+        bFound = false;
+        TestTrue(
+            TEXT("Read migration-created reinforcement state"),
+            Store.TryReadManifestationReinforcement(
+                ManifestationId,
+                bFound,
+                Reinforcement,
+                Error));
+        TestTrue(
+            TEXT("Legacy Manifestation receives explicit reinforcement row"),
+            bFound);
+        TestEqual(
+            TEXT("Legacy reinforcement remains unassessed"),
+            Reinforcement.ReinforcementState,
+            FName(TEXT("legacy_unassessed")));
+        TestFalse(
+            TEXT("Migration never fabricates max reinforcement"),
+            Reinforcement.bMaxReinforced);
+
+        FOGEntityRankStateRecord Rank;
+        bFound = false;
+        TestTrue(
+            TEXT("Rank lookup is valid after migration"),
+            Store.TryReadEntityRankState(
+                ManifestationId,
+                bFound,
+                Rank,
+                Error));
+        TestFalse(
+            TEXT("Opaque legacy JSON/Level never fabricates a Rank identity"),
+            bFound);
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
 #endif
