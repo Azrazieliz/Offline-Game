@@ -4,6 +4,7 @@
 #include "Content/OGContentId.h"
 #include "Core/OGEntityId.h"
 #include "Math/OGLargeNumber.h"
+#include "Progression/OGProgressionRecords.h"
 #include "Skills/OGResolvedSkillSet.h"
 #include "OGCombatTypes.generated.h"
 
@@ -96,6 +97,13 @@ struct OFFLINEGAME_API FOGCombatUnitState
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     FOGResolvedSkillSet SkillSet;
+
+    /**
+     * Resolved progression projection supplied by the authoritative progression
+     * layer. Combat never owns or mutates attained/effective Rank truth.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FOGResolvedRankProjection RankProjection;
 
     /** Continuous action-value/timeline position. Lower acts sooner. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
