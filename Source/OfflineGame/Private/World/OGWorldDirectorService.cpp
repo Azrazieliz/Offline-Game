@@ -653,16 +653,24 @@ bool FOGWorldDirectorService::RecordActiveSessionBoundary(
     {
         State.ScopeEntityId =
             ScopeEntityId;
+        State.LastActiveWorldTick =
+            WorldTick;
         State.LastCatchupWorldTick =
             WorldTick;
     }
-
-    State.LastActiveWorldTick =
-        WorldTick;
-    if (State.LastCatchupWorldTick >
-        WorldTick)
+    else
     {
-        State.LastCatchupWorldTick =
+        if (WorldTick <
+                State.LastActiveWorldTick ||
+            WorldTick <
+                State.LastCatchupWorldTick)
+        {
+            OutError =
+                TEXT("Active-session boundary cannot move canonical history backward.");
+            return false;
+        }
+
+        State.LastActiveWorldTick =
             WorldTick;
     }
 
