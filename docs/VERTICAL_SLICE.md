@@ -1,6 +1,6 @@
 # Vertical Slice 0 - Reconciled Architectural Proof
 
-STATUS: TARGET CONTRACT. The existing G2 harness predates the frozen architecture and must be rewritten before the real Unreal validation gate.
+STATUS: IMPLEMENTED RECONCILED CONTRACT. Vertical Slice 0 has been rewritten against the frozen architecture; real UE 5.8 compile/automation and Android/device validation remain separate later gates.
 
 The slice remains intentionally compact in content quantity. Its job is to prove that the finalized systems share one trustworthy persistent state.
 
