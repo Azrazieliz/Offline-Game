@@ -266,8 +266,6 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             10,
-            true,
-            false,
             false,
             AccessState,
             Error));
@@ -316,8 +314,6 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
             RulerA,
             30,
             false,
-            true,
-            false,
             AccessState,
             Error));
     TestTrue(
@@ -343,8 +339,6 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             80,
-            true,
-            false,
             false,
             AccessState,
             Error));
@@ -361,8 +355,6 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             81,
-            true,
-            false,
             true,
             AccessState,
             Error));
@@ -398,8 +390,6 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
         Access.RefreshGachaQualification(
             RulerA,
             141,
-            false,
-            false,
             false,
             AccessState,
             Error));
@@ -559,8 +549,6 @@ bool FOGGachaAccessGateAndManifestationAnchorTest::RunTest(
         Access.RefreshGachaQualification(
             RulerId,
             0,
-            true,
-            false,
             false,
             AccessState,
             Error));
@@ -569,8 +557,6 @@ bool FOGGachaAccessGateAndManifestationAnchorTest::RunTest(
         Access.RefreshGachaQualification(
             RulerId,
             2,
-            true,
-            false,
             true,
             AccessState,
             Error));
