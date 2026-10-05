@@ -4,8 +4,11 @@ bool FOGPackageManagerService::RegisterPackage(
     const FOGContentPackageRecord& Package,
     FString& OutError)
 {
+    FOGContentPackageRecord Registered = Package;
+    // Registration cannot bypass dependency-aware activation.
+    Registered.bActivated = false;
     return Store.UpsertContentPackageRecord(
-        Package,
+        Registered,
         OutError);
 }
 
@@ -13,16 +16,30 @@ bool FOGPackageManagerService::SetDependency(
     const FOGPackageDependencyRecord& Dependency,
     FString& OutError)
 {
-    if (!Store.UpsertPackageDependency(
-            Dependency,
+    if (!Store.BeginTransaction(
             OutError))
     {
         return false;
     }
 
-    if (!ValidateDependencyGraph(
+    if (!Store.UpsertPackageDependency(
+            Dependency,
+            OutError) ||
+        !ValidateDependencyGraph(
             OutError))
     {
+        FString RollbackError;
+        Store.RollbackTransaction(
+            RollbackError);
+        return false;
+    }
+
+    if (!Store.CommitTransaction(
+            OutError))
+    {
+        FString RollbackError;
+        Store.RollbackTransaction(
+            RollbackError);
         return false;
     }
 
@@ -61,29 +78,24 @@ bool FOGPackageManagerService::ValidateDependencyGraphInternal(
     }
 
     TMap<FOGContentId, int32> VisitState;
-    TFunction<bool(const FOGContentId&)> Visit =
+    TFunction<bool(const FOGContentId&)> VisitForCycle =
         [&](const FOGContentId& PackageId)
         {
             const int32* ExistingState =
                 VisitState.Find(PackageId);
-            if (ExistingState &&
-                *ExistingState == 1)
+            if (ExistingState && *ExistingState == 1)
             {
                 OutError = FString::Printf(
                     TEXT("Package dependency cycle detected at %s."),
                     *PackageId.ToString());
                 return false;
             }
-
-            if (ExistingState &&
-                *ExistingState == 2)
+            if (ExistingState && *ExistingState == 2)
             {
                 return true;
             }
 
-            const FOGContentPackageRecord* Package =
-                ById.Find(PackageId);
-            if (!Package)
+            if (!ById.Contains(PackageId))
             {
                 OutError = FString::Printf(
                     TEXT("Package dependency graph references unknown package %s."),
@@ -91,9 +103,7 @@ bool FOGPackageManagerService::ValidateDependencyGraphInternal(
                 return false;
             }
 
-            VisitState.Add(
-                PackageId,
-                1);
+            VisitState.Add(PackageId, 1);
 
             TArray<FOGPackageDependencyRecord> Dependencies;
             if (!Store.ListPackageDependencies(
@@ -108,8 +118,7 @@ bool FOGPackageManagerService::ValidateDependencyGraphInternal(
                  Dependencies)
             {
                 const FOGContentPackageRecord* Required =
-                    ById.Find(
-                        Dependency.DependencyPackageId);
+                    ById.Find(Dependency.DependencyPackageId);
                 if (!Required)
                 {
                     OutError = FString::Printf(
@@ -119,8 +128,7 @@ bool FOGPackageManagerService::ValidateDependencyGraphInternal(
                     return false;
                 }
 
-                if (Required->Version <
-                    Dependency.MinimumVersion)
+                if (Required->Version < Dependency.MinimumVersion)
                 {
                     OutError = FString::Printf(
                         TEXT("Package %s requires %s version %d or newer; installed version is %d."),
@@ -131,64 +139,99 @@ bool FOGPackageManagerService::ValidateDependencyGraphInternal(
                     return false;
                 }
 
-                if (ActivationTarget &&
-                    (!Required->bInstalled ||
-                     !Required->bValidated ||
-                     !Required->bActivated))
-                {
-                    OutError = FString::Printf(
-                        TEXT("Package %s dependency %s must be installed, validated and activated first."),
-                        *PackageId.ToString(),
-                        *Dependency.DependencyPackageId.ToString());
-                    return false;
-                }
-
-                if (!Visit(
+                if (!VisitForCycle(
                         Dependency.DependencyPackageId))
                 {
                     return false;
                 }
             }
 
-            VisitState.Add(
-                PackageId,
-                2);
+            VisitState.Add(PackageId, 2);
             return true;
         };
 
     for (const FOGContentPackageRecord& Package :
          Packages)
     {
-        if (!Visit(
+        if (!VisitForCycle(
                 Package.PackageId))
         {
             return false;
         }
     }
 
-    if (ActivationTarget)
+    if (!ActivationTarget)
     {
-        const FOGContentPackageRecord* Target =
-            ById.Find(*ActivationTarget);
-        if (!Target)
-        {
-            OutError =
-                TEXT("Package activation target is unknown.");
-            return false;
-        }
-
-        if (!Target->bInstalled ||
-            !Target->bValidated ||
-            Target->DownloadState !=
-                FName(TEXT("installed")))
-        {
-            OutError =
-                TEXT("Package must be installed, downloaded and validated before activation.");
-            return false;
-        }
+        return true;
     }
 
-    return true;
+    const FOGContentPackageRecord* Target =
+        ById.Find(*ActivationTarget);
+    if (!Target)
+    {
+        OutError =
+            TEXT("Package activation target is unknown.");
+        return false;
+    }
+
+    if (!Target->bInstalled ||
+        !Target->bValidated ||
+        Target->DownloadState != FName(TEXT("installed")))
+    {
+        OutError =
+            TEXT("Package must be installed, downloaded and validated before activation.");
+        return false;
+    }
+
+    TSet<FOGContentId> ReadyVisited;
+    TFunction<bool(const FOGContentId&)> ValidateReady =
+        [&](const FOGContentId& PackageId)
+        {
+            if (ReadyVisited.Contains(PackageId))
+            {
+                return true;
+            }
+            ReadyVisited.Add(PackageId);
+
+            TArray<FOGPackageDependencyRecord> Dependencies;
+            if (!Store.ListPackageDependencies(
+                    PackageId,
+                    Dependencies,
+                    OutError))
+            {
+                return false;
+            }
+
+            for (const FOGPackageDependencyRecord& Dependency :
+                 Dependencies)
+            {
+                const FOGContentPackageRecord* Required =
+                    ById.Find(Dependency.DependencyPackageId);
+                if (!Required ||
+                    Required->Version < Dependency.MinimumVersion ||
+                    !Required->bInstalled ||
+                    !Required->bValidated ||
+                    !Required->bActivated)
+                {
+                    OutError = FString::Printf(
+                        TEXT("Package %s dependency %s is not activation-ready at required version %d."),
+                        *PackageId.ToString(),
+                        *Dependency.DependencyPackageId.ToString(),
+                        Dependency.MinimumVersion);
+                    return false;
+                }
+
+                if (!ValidateReady(
+                        Dependency.DependencyPackageId))
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+    return ValidateReady(
+        *ActivationTarget);
 }
 
 bool FOGPackageManagerService::ActivatePackage(
