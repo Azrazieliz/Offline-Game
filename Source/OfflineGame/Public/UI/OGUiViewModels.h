@@ -234,6 +234,42 @@ struct OFFLINEGAME_API FOGGachaViewModel
 };
 
 USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGGachaHistoryEntryViewModel
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGEntityId EventId;
+
+    UPROPERTY(BlueprintReadOnly)
+    int64 WorldTick = 0;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId BannerId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId IdentityId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId VersionId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FName Rarity = NAME_None;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bFeatured = false;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bDuplicateIdentity = false;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId PaymentResourceId;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bUsedTicket = false;
+};
+
+USTRUCT(BlueprintType)
 struct OFFLINEGAME_API FOGTerritorySummaryViewModel
 {
     GENERATED_BODY()
@@ -300,6 +336,30 @@ struct OFFLINEGAME_API FOGRecordsHubViewModel
 };
 
 USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGChronicleEntryViewModel
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGEntityId EventId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FName EventType = NAME_None;
+
+    UPROPERTY(BlueprintReadOnly)
+    int64 WorldTick = 0;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGEntityId PrimaryEntityId;
+
+    UPROPERTY(BlueprintReadOnly)
+    TArray<FOGEntityId> RelatedEntityIds;
+
+    UPROPERTY(BlueprintReadOnly)
+    FString PayloadJson;
+};
+
+USTRUCT(BlueprintType)
 struct OFFLINEGAME_API FOGKnowledgeFactViewModel
 {
     GENERATED_BODY()
@@ -321,6 +381,27 @@ struct OFFLINEGAME_API FOGKnowledgeFactViewModel
 
     UPROPERTY(BlueprintReadOnly)
     FOGEntityId SourceEventId;
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGIntelligenceEntryViewModel
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly)
+    FName FactKey = NAME_None;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGEntityId SubjectEntityId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGKnowledgeFactViewModel Knowledge;
+
+    UPROPERTY(BlueprintReadOnly)
+    int64 UpdatedWorldTick = 0;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId LanguageContextId;
 };
 
 USTRUCT(BlueprintType)
