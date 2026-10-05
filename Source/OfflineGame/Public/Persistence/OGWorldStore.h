@@ -8,6 +8,7 @@
 #include "Gacha/OGGachaDefinitions.h"
 #include "Progression/OGProgressionRecords.h"
 #include "World/OGDispatchFactionWarRecords.h"
+#include "World/OGItemKnowledgeCharacterRecords.h"
 #include "World/OGRealityTimeRecords.h"
 #include "World/OGStrategyExpansionRecords.h"
 #include "World/OGTerritoryStateRecords.h"
@@ -257,6 +258,68 @@ public:
         const FOGEntityId&, bool&, FOGLogisticsRouteRecord&, FString&) const = 0;
     virtual bool ListLogisticsRoutesByOwner(
         const FOGEntityId&, TArray<FOGLogisticsRouteRecord>&, FString&) const = 0;
+
+    virtual bool UpsertItemInstance(const FOGItemInstanceRecord&, int64, FString&) = 0;
+    virtual bool TryReadItemInstance(
+        const FOGEntityId&, bool&, FOGItemInstanceRecord&, FString&) const = 0;
+    virtual bool ListItemInstancesByOwner(
+        const FOGEntityId&, TArray<FOGItemInstanceRecord>&, FString&) const = 0;
+    virtual bool UpsertItemModifier(const FOGItemModifierRecord&, FString&) = 0;
+    virtual bool ListItemModifiers(
+        const FOGEntityId&, TArray<FOGItemModifierRecord>&, FString&) const = 0;
+    virtual bool UpsertEquipmentBinding(const FOGEquipmentBindingRecord&, FString&) = 0;
+    virtual bool TryReadEquipmentBinding(
+        const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentBindingRecord&, FString&) const = 0;
+    virtual bool ListEquipmentBindings(
+        const FOGEntityId&, TArray<FOGEquipmentBindingRecord>&, FString&) const = 0;
+    virtual bool UpsertInventoryContainer(
+        const FOGInventoryContainerRecord&, int64, FString&) = 0;
+    virtual bool TryReadInventoryContainer(
+        const FOGEntityId&, bool&, FOGInventoryContainerRecord&, FString&) const = 0;
+    virtual bool ListInventoryContainersByOwner(
+        const FOGEntityId&, TArray<FOGInventoryContainerRecord>&, FString&) const = 0;
+    virtual bool UpsertContainerContent(const FOGContainerContentRecord&, FString&) = 0;
+    virtual bool ListContainerContents(
+        const FOGEntityId&, TArray<FOGContainerContentRecord>&, FString&) const = 0;
+    virtual bool UpsertItemOwnerAffinity(
+        const FOGItemOwnerAffinityRecord&, FString&) = 0;
+    virtual bool TryReadItemOwnerAffinity(
+        const FOGEntityId&, const FOGEntityId&, bool&, FOGItemOwnerAffinityRecord&, FString&) const = 0;
+    virtual bool UpsertEquipmentProficiency(
+        const FOGEquipmentProficiencyRecord&, FString&) = 0;
+    virtual bool TryReadEquipmentProficiency(
+        const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentProficiencyRecord&, FString&) const = 0;
+    virtual bool UpsertManifestationPresentationState(
+        const FOGManifestationPresentationStateRecord&, FString&) = 0;
+    virtual bool TryReadManifestationPresentationState(
+        const FOGEntityId&, bool&, FOGManifestationPresentationStateRecord&, FString&) const = 0;
+    virtual bool UpsertOwnedPresentationUnlock(
+        const FOGOwnedPresentationUnlockRecord&, FString&) = 0;
+    virtual bool ListOwnedPresentationUnlocks(
+        const FOGEntityId&, TArray<FOGOwnedPresentationUnlockRecord>&, FString&) const = 0;
+    virtual bool UpsertEntityLanguage(const FOGEntityLanguageRecord&, FString&) = 0;
+    virtual bool ListEntityLanguages(
+        const FOGEntityId&, TArray<FOGEntityLanguageRecord>&, FString&) const = 0;
+    virtual bool UpsertSemanticMemory(
+        const FOGSemanticMemoryRecord&, int64, FString&) = 0;
+    virtual bool TryReadSemanticMemory(
+        const FOGEntityId&, bool&, FOGSemanticMemoryRecord&, FString&) const = 0;
+    virtual bool ListSemanticMemoriesByOwner(
+        const FOGEntityId&, TArray<FOGSemanticMemoryRecord>&, FString&) const = 0;
+    virtual bool UpsertNpcPromotionState(
+        const FOGNpcPromotionStateRecord&, FString&) = 0;
+    virtual bool TryReadNpcPromotionState(
+        const FOGEntityId&, bool&, FOGNpcPromotionStateRecord&, FString&) const = 0;
+    virtual bool UpsertCharacterAdultRuntimeState(
+        const FOGCharacterAdultRuntimeStateRecord&, FString&) = 0;
+    virtual bool TryReadCharacterAdultRuntimeState(
+        const FOGEntityId&, bool&, FOGCharacterAdultRuntimeStateRecord&, FString&) const = 0;
+    virtual bool UpsertHeroicRecord(
+        const FOGHeroicRecord&, int64, FString&) = 0;
+    virtual bool TryReadHeroicRecord(
+        const FOGEntityId&, bool&, FOGHeroicRecord&, FString&) const = 0;
+    virtual bool ListHeroicRecordsByIdentity(
+        const FOGContentId&, TArray<FOGHeroicRecord>&, FString&) const = 0;
 
     virtual bool UpsertContentPackage(const FOGContentId&, int32, const FString&, bool, bool, const FString&, FString&) = 0;
     virtual bool SetContentPackageActivated(const FOGContentId&, bool, FString&) = 0;

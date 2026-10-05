@@ -497,10 +497,15 @@ bool FOGSQLiteWorldStore::UpsertKnowledgeFact(
     OutError.Reset();
 
     if (!Fact.OwnerEntityId.IsValid() ||
-        Fact.FactKey.IsNone())
+        Fact.FactKey.IsNone() ||
+        Fact.BeliefState.IsNone() ||
+        Fact.ConfidenceBps < 0 ||
+        Fact.ConfidenceBps > 10000 ||
+        (!Fact.LanguageContextId.IsEmpty() &&
+         !Fact.LanguageContextId.IsValid()))
     {
         OutError =
-            TEXT("Knowledge fact requires a valid owner and fact key.");
+            TEXT("Knowledge fact requires valid owner/key/belief/confidence/provenance data.");
         return false;
     }
 
@@ -508,13 +513,20 @@ bool FOGSQLiteWorldStore::UpsertKnowledgeFact(
     const char* Sql =
         "INSERT INTO knowledge_facts("
         "owner_entity_id, fact_key, subject_entity_id, value_json, "
-        "learned_world_tick, updated_world_tick"
-        ") VALUES(?, ?, ?, ?, ?, ?) "
+        "learned_world_tick, updated_world_tick, belief_state, confidence_bps, "
+        "source_entity_id, source_event_id, evidence_world_tick, language_context_content_id"
+        ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
         "ON CONFLICT(owner_entity_id, fact_key, subject_entity_id) "
         "DO UPDATE SET "
         "value_json = excluded.value_json, "
         "learned_world_tick = MIN(knowledge_facts.learned_world_tick, excluded.learned_world_tick), "
-        "updated_world_tick = excluded.updated_world_tick;";
+        "updated_world_tick = excluded.updated_world_tick, "
+        "belief_state = excluded.belief_state, "
+        "confidence_bps = excluded.confidence_bps, "
+        "source_entity_id = excluded.source_entity_id, "
+        "source_event_id = excluded.source_event_id, "
+        "evidence_world_tick = excluded.evidence_world_tick, "
+        "language_context_content_id = excluded.language_context_content_id;";
 
     if (sqlite3_prepare_v2(
             Database,
@@ -562,7 +574,40 @@ bool FOGSQLiteWorldStore::UpsertKnowledgeFact(
             Statement,
             6,
             Fact.UpdatedWorldTick) ==
-            SQLITE_OK;
+            SQLITE_OK &&
+        BindWorldText(
+            Statement,
+            7,
+            Fact.BeliefState.ToString()) &&
+        sqlite3_bind_int(
+            Statement,
+            8,
+            Fact.ConfidenceBps) ==
+            SQLITE_OK &&
+        BindOptionalEntityId(
+            Statement,
+            9,
+            Fact.SourceEntityId) &&
+        BindOptionalEntityId(
+            Statement,
+            10,
+            Fact.SourceEventId) &&
+        (Fact.bHasEvidenceWorldTick
+            ? sqlite3_bind_int64(
+                Statement,
+                11,
+                Fact.EvidenceWorldTick) == SQLITE_OK
+            : sqlite3_bind_null(
+                Statement,
+                11) == SQLITE_OK) &&
+        (Fact.LanguageContextId.IsEmpty()
+            ? sqlite3_bind_null(
+                Statement,
+                12) == SQLITE_OK
+            : BindWorldText(
+                Statement,
+                12,
+                Fact.LanguageContextId.ToString()));
 
     const bool bSucceeded =
         bBound &&
@@ -603,7 +648,9 @@ bool FOGSQLiteWorldStore::TryReadKnowledgeFact(
 
     sqlite3_stmt* Statement = nullptr;
     const char* Sql =
-        "SELECT value_json, learned_world_tick, updated_world_tick "
+        "SELECT value_json, learned_world_tick, updated_world_tick, "
+        "belief_state, confidence_bps, source_entity_id, source_event_id, "
+        "evidence_world_tick, language_context_content_id "
         "FROM knowledge_facts "
         "WHERE owner_entity_id = ? AND fact_key = ? AND subject_entity_id = ?;";
 
@@ -672,6 +719,40 @@ bool FOGSQLiteWorldStore::TryReadKnowledgeFact(
             sqlite3_column_int64(
                 Statement,
                 2);
+        OutFact.BeliefState =
+            FName(*WorldColumnText(
+                Statement,
+                3));
+        OutFact.ConfidenceBps =
+            sqlite3_column_int(
+                Statement,
+                4);
+        OutFact.SourceEntityId =
+            ParseWorldEntityId(
+                WorldColumnText(
+                    Statement,
+                    5));
+        OutFact.SourceEventId =
+            ParseWorldEntityId(
+                WorldColumnText(
+                    Statement,
+                    6));
+        if (sqlite3_column_type(
+                Statement,
+                7) != SQLITE_NULL)
+        {
+            OutFact.bHasEvidenceWorldTick =
+                true;
+            OutFact.EvidenceWorldTick =
+                sqlite3_column_int64(
+                    Statement,
+                    7);
+        }
+        OutFact.LanguageContextId =
+            FOGContentId(
+                WorldColumnText(
+                    Statement,
+                    8));
     }
     else if (StepResult != SQLITE_DONE)
     {

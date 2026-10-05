@@ -76,9 +76,9 @@ bool FOGDomainCoreCaptureBreakTest::RunTest(
             Error));
 
     TestEqual(
-        TEXT("Schema version is 12"),
+        TEXT("Schema version is 13"),
         Store.GetSchemaVersion(Error),
-        12);
+        13);
 
     const FOGEntityId OriginalRuler =
         FOGEntityId::NewId();
