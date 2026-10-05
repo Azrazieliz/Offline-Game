@@ -132,6 +132,8 @@ bool BuildEquipmentRows(
             Item.QualityId;
         Row.EvolutionStateJson =
             Item.EvolutionStateJson;
+        Row.ItemHistoryStateJson =
+            Item.HistoryStateJson;
 
         bool bAffinityFound = false;
         FOGItemOwnerAffinityRecord Affinity;
