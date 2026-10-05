@@ -67,15 +67,15 @@ bool FOGWorldTimeNestedProjectionTest::RunTest(
     FOGSQLiteWorldStore Store;
     FString Error;
     TestTrue(
-        TEXT("Open schema-11 database"),
+        TEXT("Open schema-12 database"),
         Store.Open(
             DatabasePath,
             Error));
     TestEqual(
-        TEXT("Schema version is 11"),
+        TEXT("Schema version is 12"),
         Store.GetSchemaVersion(
             Error),
-        11);
+        12);
 
     const FOGEntityId RootId =
         FOGEntityId::NewId();
