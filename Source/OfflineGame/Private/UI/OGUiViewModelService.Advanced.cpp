@@ -312,34 +312,19 @@ bool FOGUiViewModelService::BuildRosterWithQuery(
                 continue;
             }
 
-            if (!Query.ClassIds.IsEmpty())
+            if (!Query.ClassIds.IsEmpty() &&
+                !Manifestation.ClassIds.ContainsByPredicate(
+                    [&Query](const FOGContentId& ClassId)
+                    {
+                        return Query.ClassIds.ContainsByPredicate(
+                            [&ClassId](const FOGContentId& Required)
+                            {
+                                return Required ==
+                                    ClassId;
+                            });
+                    }))
             {
-                TArray<FOGEntityClassRecord> Classes;
-                if (!Store.ListEntityClasses(
-                        Manifestation.ManifestationId,
-                        Classes,
-                        OutError))
-                {
-                    OutRoster.Reset();
-                    return false;
-                }
-
-                const bool bClassMatch =
-                    Classes.ContainsByPredicate(
-                        [&Query](const FOGEntityClassRecord& Class)
-                        {
-                            return Query.ClassIds.ContainsByPredicate(
-                                [&Class](const FOGContentId& Required)
-                                {
-                                    return Required ==
-                                        Class.ClassId;
-                                });
-                        });
-
-                if (!bClassMatch)
-                {
-                    continue;
-                }
+                continue;
             }
 
             bAnyManifestationMatches =
@@ -450,11 +435,18 @@ bool FOGUiViewModelService::BuildRosterWithQuery(
                 }
                 case EOGRosterSortDimension::Class:
                 {
-                    // Classes are content-defined and may coexist. Without an
-                    // authored class ordering, stable Identity ordering is the
-                    // only non-fabricated fallback.
+                    const FString AClass =
+                        AM && !AM->ClassIds.IsEmpty()
+                            ? AM->ClassIds[0].ToString()
+                            : FString();
+                    const FString BClass =
+                        BM && !BM->ClassIds.IsEmpty()
+                            ? BM->ClassIds[0].ToString()
+                            : FString();
                     Compare =
-                        0;
+                        AClass.Compare(
+                            BClass,
+                            ESearchCase::IgnoreCase);
                     break;
                 }
                 case EOGRosterSortDimension::Identity:
