@@ -74,6 +74,26 @@ Sexualized, austere, elegant, monstrous, heavily armored, ceremonial, minimal, s
 
 Mature presentation does not require universal sexualization.
 
+
+## 2.4 Selected core rendering synthesis
+
+The first controlled comparison produced a clear Creative Director preference:
+- retain a **mix of Candidate A (Somber Editorial Anime)** and **Candidate C (Gothic Metaphysical Fantasy)**;
+- reject Candidate D / the third comparison direction as the final rendering target;
+- future iterations should move **slightly more anime-stylized and less realistic** than the first comparison batch.
+
+The resulting provisional house direction is **anime-first gothic editorial fantasy**:
+- clear stylized anime faces, eyes, hair masses and shadow design;
+- less photoreal skin and microtexture;
+- strong editorial composition and controlled palettes;
+- austere, melancholic, mature atmosphere;
+- selective graphic accent colors rather than uniform saturation;
+- gothic/metaphysical environmental weight and uncanny spatial language when appropriate;
+- PGR/Arknights/Reverse:1999/Path to Nowhere seriousness combined with the stranger, grander environmental tone associated with NieR/Elden Ring/Duet Night Abyss;
+- retain enough HI3/WuWa readability that characters remain immediately legible as playable action/turn-combat units.
+
+This is **not yet the final visual-art freeze**. The Creative Director intends to provide additional visual references before the rendering language is finalized.
+
 ## 3. Environment direction
 
 Primary environment mood:
