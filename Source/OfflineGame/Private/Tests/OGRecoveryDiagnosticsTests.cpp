@@ -2416,4 +2416,190 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
     return true;
 }
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGPackagesReports0014NonFabricatingMigrationTest,
+    "OfflineGame.Persistence.Migration0014.PackageDefaultsWithoutFabricatedReportsOrManagement",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGPackagesReports0014NonFabricatingMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_packages_reports.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId RulerId =
+        FOGEntityId::NewId();
+    const FOGEntityId ManifestationId =
+        FOGEntityId::NewId();
+    FString Error;
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema package fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 14"),
+            Store.GetSchemaVersion(
+                Error),
+            14);
+
+        TestTrue(
+            TEXT("Persist legacy package row"),
+            Store.UpsertContentPackage(
+                FOGContentId(
+                    TEXT("test:legacy.package")),
+                7,
+                TEXT("legacy-hash"),
+                true,
+                true,
+                TEXT("{\"legacy\":true}"),
+                Error));
+
+        TestTrue(
+            TEXT("Persist Ruler"),
+            Store.UpsertEntity(
+                RulerId,
+                FName(TEXT("ruler")),
+                0,
+                TEXT("{}"),
+                Error));
+
+        FOGCharacterManifestationRecord Manifestation;
+        Manifestation.ManifestationId =
+            ManifestationId;
+        Manifestation.OwningRulerId =
+            RulerId;
+        Manifestation.IdentityId =
+            FOGContentId(
+                TEXT("test:identity.legacy_management"));
+        Manifestation.ActiveVersionId =
+            FOGContentId(
+                TEXT("test:version.legacy_management"));
+        Manifestation.Level = 1;
+        Manifestation.AcquisitionWorldTick = 10;
+        Manifestation.LifecycleState =
+            FName(TEXT("active"));
+
+        TestTrue(
+            TEXT("Persist legacy Manifestation"),
+            Store.UpsertCharacterManifestation(
+                Manifestation,
+                10,
+                Error));
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 13"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS manifestation_context_selection;"
+            "DROP TABLE IF EXISTS manifestation_management_metadata;"
+            "DROP TABLE IF EXISTS report_delivery;"
+            "DROP TABLE IF EXISTS reports;"
+            "DROP TABLE IF EXISTS package_dependencies;"
+            "ALTER TABLE content_packages DROP COLUMN compatibility_json;"
+            "ALTER TABLE content_packages DROP COLUMN download_state;"
+            "ALTER TABLE content_packages DROP COLUMN sealed_state;"
+            "ALTER TABLE content_packages DROP COLUMN storage_class;"
+            "ALTER TABLE content_packages DROP COLUMN install_uri;"
+            "ALTER TABLE content_packages DROP COLUMN category;"
+            "DELETE FROM schema_migrations WHERE version = 14;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 13 to 14"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("0014 migration source schema"),
+        Migration.SourceSchemaVersion,
+        13);
+    TestEqual(
+        TEXT("0014 migration target schema"),
+        Migration.TargetSchemaVersion,
+        14);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-14 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        bool bPackageFound = false;
+        FOGContentPackageRecord Package;
+        TestTrue(
+            TEXT("Read migrated package"),
+            Store.TryReadContentPackageRecord(
+                FOGContentId(
+                    TEXT("test:legacy.package")),
+                bPackageFound,
+                Package,
+                Error));
+        TestTrue(
+            TEXT("Legacy package survives migration"),
+            bPackageFound);
+        TestEqual(
+            TEXT("Package category receives compatibility default"),
+            Package.Category,
+            FName(TEXT("generic")));
+        TestEqual(
+            TEXT("Package storage receives compatibility default"),
+            Package.StorageClass,
+            FName(TEXT("local_hot")));
+        TestEqual(
+            TEXT("Package download state receives compatibility default"),
+            Package.DownloadState,
+            FName(TEXT("installed")));
+
+        TArray<FOGReportRecord> Reports;
+        TestTrue(
+            TEXT("Report list remains valid"),
+            Store.ListReportsByOwner(
+                RulerId,
+                Reports,
+                Error));
+        TestTrue(
+            TEXT("Migration does not fabricate Reports"),
+            Reports.IsEmpty());
+
+        bool bMetadataFound = false;
+        FOGManifestationManagementMetadataRecord Metadata;
+        TestTrue(
+            TEXT("Management metadata lookup remains valid"),
+            Store.TryReadManifestationManagementMetadata(
+                ManifestationId,
+                bMetadataFound,
+                Metadata,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate Favorite/Protected/Locked flags"),
+            bMetadataFound);
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
 #endif
