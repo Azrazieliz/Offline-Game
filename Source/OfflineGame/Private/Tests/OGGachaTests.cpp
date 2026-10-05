@@ -60,7 +60,7 @@ bool FOGGachaPersistenceAndDuplicateTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         FString Error;
         TestTrue(TEXT("Open database"), Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Schema version is 10"), Store.GetSchemaVersion(Error), 10);
+        TestEqual(TEXT("Schema version is 11"), Store.GetSchemaVersion(Error), 11);
         TestTrue(TEXT("Persist Ruler"), Store.UpsertEntity(
             RulerId, TEXT("ruler"), 0, TEXT("{}"), Error));
         TestTrue(TEXT("Seed pull currency"), Store.SetResourceBalance(
