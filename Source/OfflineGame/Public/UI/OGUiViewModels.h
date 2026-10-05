@@ -688,6 +688,12 @@ struct OFFLINEGAME_API FOGManifestationDetailViewModel
     FString BuildLabel;
 
     UPROPERTY(BlueprintReadOnly)
+    FOGEntityId WorldModeAnchorTerritoryId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FName DeploymentState = FName(TEXT("unanchored"));
+
+    UPROPERTY(BlueprintReadOnly)
     FOGContentId RankId;
 
     UPROPERTY(BlueprintReadOnly)
