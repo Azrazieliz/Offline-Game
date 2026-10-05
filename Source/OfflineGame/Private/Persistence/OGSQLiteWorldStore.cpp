@@ -802,6 +802,30 @@ bool FOGSQLiteWorldStore::RunApplicationValidation(
 
     sqlite3_finalize(ForeignKeyStatement);
 
+    // Migration validators encode durable semantic invariants as well as
+    // one-time transform checks. Re-run every reconciled validator on reopened
+    // current-schema worlds so backups/recovery never label logically corrupt
+    // state as application-valid merely because SQLite itself is healthy.
+    if (!ValidateManifestationMigration0007(
+            OutError) ||
+        !ValidateTerritorySovereigntyMigration0008(
+            OutError) ||
+        !ValidateDomainHeartMigration0009(
+            OutError) ||
+        !ValidateProgressionMigration0010(
+            OutError) ||
+        !ValidateRealityTimeDirectorMigration0011(
+            OutError) ||
+        !ValidateStrategyMigration0012(
+            OutError) ||
+        !ValidateItemsKnowledgeCharactersMigration0013(
+            OutError) ||
+        !ValidatePackagesReportsManagementMigration0014(
+            OutError))
+    {
+        return false;
+    }
+
     FString IntegrityReport;
     if (!RunIntegrityCheck(
             IntegrityReport,
@@ -811,7 +835,7 @@ bool FOGSQLiteWorldStore::RunApplicationValidation(
     }
 
     OutReport = FString::Printf(
-        TEXT("schema=%d; migrations=%d; foreign_keys=ok; integrity=%s"),
+        TEXT("schema=%d; migrations=%d; foreign_keys=ok; semantic_validators=0007-0014:ok; integrity=%s"),
         SchemaVersion,
         MigrationCount,
         *IntegrityReport);
