@@ -411,10 +411,11 @@ bool ValidateAndActivateSlicePackage(
     Manifest.CharacterVersions.Add(
         Version);
 
+    TMap<FOGContentId, EOGCanonicalMaturity> KnownExternalIdentities;
     TArray<FString> ValidationErrors;
     if (!FOGContentManifestValidator::Validate(
             Manifest,
-            {},
+            KnownExternalIdentities,
             ValidationErrors))
     {
         OutError =
