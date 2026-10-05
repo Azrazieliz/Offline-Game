@@ -332,8 +332,6 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
     if (!GachaAccess.RefreshGachaQualification(
             RulerId,
             0,
-            true,
-            false,
             false,
             GachaAccessState,
             OutError) ||
@@ -342,8 +340,6 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
         !GachaAccess.RefreshGachaQualification(
             RulerId,
             9,
-            true,
-            false,
             true,
             GachaAccessState,
             OutError))
