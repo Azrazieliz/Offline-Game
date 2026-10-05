@@ -393,6 +393,17 @@ FOGDamageResolution FOGCombatMath::ResolveDamage(
                     10000));
     }
 
+    Result.RankSuppressionMultiplierBps =
+        FMath::Clamp(
+            Request.RankSuppressionMultiplierBps,
+            0,
+            10000);
+
+    Damage =
+        FOGLargeNumber::ScaleByBasisPoints(
+            Damage,
+            Result.RankSuppressionMultiplierBps);
+
     if (Result.Crit.bCritical)
     {
         Damage =

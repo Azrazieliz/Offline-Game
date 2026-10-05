@@ -80,6 +80,13 @@ public:
         uint64 Seed,
         const TArray<FOGReplayActionCommand>& Commands);
 
+    static FOGReplayResult Run(
+        const FOGTurnBattleState& InitialState,
+        uint64 Seed,
+        const TArray<FOGReplayActionCommand>& Commands,
+        FOGIdentityExclusivityContext IdentityContext,
+        FOGRankSuppressionResolver RankResolver);
+
 private:
     static const FOGCombatUnitState* FindUnit(
         const FOGTurnBattleState& State,

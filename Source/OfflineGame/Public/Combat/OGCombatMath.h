@@ -106,6 +106,13 @@ struct OFFLINEGAME_API FOGDamageRequest
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     bool bAllowHitOverflowReplication = true;
 
+    /**
+     * Resolved channel-specific Rank Suppression multiplier supplied by the
+     * shared Rank hook. 10,000 = no suppression.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 RankSuppressionMultiplierBps = 10000;
+
     /** Additional authored multiplier categories; 10,000 = x1.0 each. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     TArray<int32> AdditionalMultiplierBps;
@@ -127,6 +134,9 @@ struct OFFLINEGAME_API FOGDamageResolution
 
     UPROPERTY(BlueprintReadOnly)
     int32 DefenseMultiplierBps = 10000;
+
+    UPROPERTY(BlueprintReadOnly)
+    int32 RankSuppressionMultiplierBps = 10000;
 
     UPROPERTY(BlueprintReadOnly)
     FOGLargeNumber DamagePerHit;

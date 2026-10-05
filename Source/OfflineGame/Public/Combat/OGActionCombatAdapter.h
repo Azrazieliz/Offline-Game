@@ -1,6 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Combat/OGCombatIdentityRules.h"
+#include "Combat/OGCombatRankHooks.h"
 #include "Combat/OGCombatTypes.h"
 
 /**
@@ -20,5 +22,18 @@ public:
 
     static bool ValidateSwitchParty(
         const TArray<FOGCombatUnitState>& Party,
+        FString& OutError);
+
+    static bool ValidateSwitchParty(
+        const TArray<FOGCombatUnitState>& Party,
+        const FOGIdentityExclusivityContext& IdentityContext,
+        FString& OutError);
+
+    static bool ResolveRankSuppressionMultiplier(
+        const FOGCombatUnitState& Source,
+        const FOGCombatUnitState& Target,
+        FName ChannelId,
+        const FOGRankSuppressionResolver& Resolver,
+        int32& OutMultiplierBps,
         FString& OutError);
 };

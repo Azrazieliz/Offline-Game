@@ -1,4 +1,5 @@
 #include "Combat/OGActionCombatAdapter.h"
+#include "Combat/OGCombatMath.h"
 #include "Combat/OGTurnBattle.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
@@ -497,6 +498,318 @@ bool FOGActionPartyIdentityExclusivityTest::RunTest(const FString& Parameters)
         FOGActionCombatAdapter::ValidateSwitchParty(
             {First, Second},
             Error));
+
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGSharedIdentityExclusivityRuleTest,
+    "OfflineGame.Combat.Shared.IdentityExclusivityAndExplicitOverride",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGSharedIdentityExclusivityRuleTest::RunTest(
+    const FString& Parameters)
+{
+    FOGCombatUnitState First =
+        MakeUnit(
+            0,
+            EOGCombatPresence::Active,
+            0,
+            1000);
+    FOGCombatUnitState Duplicate =
+        MakeUnit(
+            0,
+            EOGCombatPresence::Active,
+            0,
+            1000);
+    FOGCombatUnitState Opponent =
+        MakeUnit(
+            1,
+            EOGCombatPresence::Active,
+            0,
+            1000);
+
+    Duplicate.IdentityId =
+        First.IdentityId;
+
+    FString Error;
+    TestFalse(
+        TEXT("Action combat rejects duplicate Character Identity by default"),
+        FOGActionCombatAdapter::ValidateSwitchParty(
+            {First, Duplicate},
+            Error));
+
+    FOGTurnBattleState Initial;
+    Initial.BattleId =
+        FOGEntityId::NewId();
+    Initial.Teams =
+    {
+        MakeTeam(
+            0,
+            {
+                {First.UnitEntityId},
+                {Duplicate.UnitEntityId}
+            }),
+        MakeTeam(
+            1,
+            {{Opponent.UnitEntityId}})
+    };
+    Initial.Units =
+    {
+        First,
+        Duplicate,
+        Opponent
+    };
+
+    FOGTurnBattle DefaultBattle;
+    Error.Reset();
+    TestFalse(
+        TEXT("Turn combat rejects the same duplicate Identity by default"),
+        DefaultBattle.Initialize(
+            Initial,
+            Error));
+
+    FOGIdentityExclusivityContext OverrideContext;
+    OverrideContext.Override =
+        [](const FOGCombatUnitState& Existing,
+           const FOGCombatUnitState& Candidate)
+        {
+            if (Existing.IdentityId ==
+                Candidate.IdentityId)
+            {
+                return EOGIdentityExclusivityOverrideDecision::AllowDuplicate;
+            }
+
+            return EOGIdentityExclusivityOverrideDecision::UseDefault;
+        };
+
+    Error.Reset();
+    TestTrue(
+        TEXT("Explicit mechanic override allows action-combat duplicate Identity"),
+        FOGActionCombatAdapter::ValidateSwitchParty(
+            {First, Duplicate},
+            OverrideContext,
+            Error));
+
+    FOGTurnBattle OverrideBattle;
+    Error.Reset();
+    TestTrue(
+        TEXT("The same explicit override allows turn-combat duplicate Identity"),
+        OverrideBattle.Initialize(
+            Initial,
+            TArray<FOGCombatTriggerBinding>(),
+            FOGCombatConditionEvaluator(),
+            OverrideContext,
+            FOGRankSuppressionResolver(),
+            Error));
+
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGSharedRankSuppressionHookTest,
+    "OfflineGame.Combat.Shared.RankSuppressionIsChannelBasedAndDataResolved",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGSharedRankSuppressionHookTest::RunTest(
+    const FString& Parameters)
+{
+    FOGCombatUnitState Source =
+        MakeUnit(
+            0,
+            EOGCombatPresence::Active,
+            0,
+            1000);
+    FOGCombatUnitState Target =
+        MakeUnit(
+            1,
+            EOGCombatPresence::Active,
+            0,
+            1000);
+
+    Source.RankProjection.RankId =
+        FOGContentId(
+            TEXT("core:rank.sage"));
+    Source.RankProjection.Level = 70;
+
+    Target.RankProjection.RankId =
+        FOGContentId(
+            TEXT("core:rank.legend"));
+    Target.RankProjection.Level = 10;
+
+    int32 ResolverCalls = 0;
+    FOGRankSuppressionResolver Resolver =
+        [&ResolverCalls](
+            const FOGRankSuppressionQuery& Query,
+            int32& OutMultiplierBps,
+            FString& OutError)
+        {
+            ++ResolverCalls;
+            OutError.Reset();
+
+            if (Query.ChannelId !=
+                    OGRankSuppressionChannels::Damage() ||
+                Query.SourceRankId !=
+                    FOGContentId(TEXT("core:rank.sage")) ||
+                Query.TargetRankId !=
+                    FOGContentId(TEXT("core:rank.legend")))
+            {
+                OutError =
+                    TEXT("Unexpected Rank-suppression query.");
+                return false;
+            }
+
+            // Test-owned tuning result. Production coefficients remain outside
+            // combat code and are supplied by data/tuning resolution.
+            OutMultiplierBps = 4000;
+            return true;
+        };
+
+    FString Error;
+    int32 ActionMultiplier = 0;
+    TestTrue(
+        TEXT("Action combat resolves Rank hook through shared service"),
+        FOGActionCombatAdapter::ResolveRankSuppressionMultiplier(
+            Source,
+            Target,
+            OGRankSuppressionChannels::Damage(),
+            Resolver,
+            ActionMultiplier,
+            Error));
+    TestEqual(
+        TEXT("Action combat receives resolver-owned multiplier"),
+        ActionMultiplier,
+        4000);
+
+    FOGTurnBattleState Initial;
+    Initial.BattleId =
+        FOGEntityId::NewId();
+    Initial.Teams =
+    {
+        MakeTeam(
+            0,
+            {{Source.UnitEntityId}}),
+        MakeTeam(
+            1,
+            {{Target.UnitEntityId}})
+    };
+    Initial.Units =
+    {
+        Source,
+        Target
+    };
+
+    FOGTurnBattle Battle;
+    TestTrue(
+        TEXT("Turn battle initializes with shared Rank resolver"),
+        Battle.Initialize(
+            Initial,
+            TArray<FOGCombatTriggerBinding>(),
+            FOGCombatConditionEvaluator(),
+            FOGIdentityExclusivityContext(),
+            Resolver,
+            Error));
+
+    int32 TurnMultiplier = 0;
+    TestTrue(
+        TEXT("Turn combat resolves Rank hook through same service"),
+        Battle.ResolveRankSuppressionMultiplier(
+            Source.UnitEntityId,
+            Target.UnitEntityId,
+            OGRankSuppressionChannels::Damage(),
+            TurnMultiplier,
+            Error));
+    TestEqual(
+        TEXT("Turn combat receives the same resolver-owned multiplier"),
+        TurnMultiplier,
+        4000);
+
+    FOGCombatStats AttackerStats;
+    AttackerStats.HitBps = 10000;
+    AttackerStats.CritRateBps = 0;
+
+    FOGCombatStats DefenderStats;
+
+    FOGDamageRequest DamageRequest;
+    DamageRequest.BaseDamage =
+        FOGLargeNumber::FromInt64(
+            1000);
+    DamageRequest.DefenseReference =
+        FOGLargeNumber::FromInt64(
+            1000);
+    DamageRequest.DamageType =
+        EOGBaseDamageType::True;
+    DamageRequest.bCanCrit = false;
+    DamageRequest.bCanBeBlocked = false;
+    DamageRequest.bAllowHitOverflowReplication =
+        false;
+    DamageRequest.RankSuppressionMultiplierBps =
+        TurnMultiplier;
+
+    FOGDeterministicRng Rng(17);
+    const FOGDamageResolution Damage =
+        FOGCombatMath::ResolveDamage(
+            DamageRequest,
+            AttackerStats,
+            DefenderStats,
+            Rng);
+
+    TestEqual(
+        TEXT("Damage resolution records Rank suppression multiplier"),
+        Damage.RankSuppressionMultiplierBps,
+        4000);
+    TestTrue(
+        TEXT("Rank-suppressed 1000 true damage resolves to 400"),
+        Damage.TotalDamage ==
+            FOGLargeNumber::FromInt64(
+                400));
+    TestEqual(
+        TEXT("Both executors invoked the same data resolver"),
+        ResolverCalls,
+        2);
+
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGUnknownRankDoesNotInventSuppressionTest,
+    "OfflineGame.Combat.Shared.UnknownRankDoesNotInventGap",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGUnknownRankDoesNotInventSuppressionTest::RunTest(
+    const FString& Parameters)
+{
+    FOGCombatUnitState Source =
+        MakeUnit(
+            0,
+            EOGCombatPresence::Active,
+            0,
+            1000);
+    FOGCombatUnitState Target =
+        MakeUnit(
+            1,
+            EOGCombatPresence::Active,
+            0,
+            1000);
+
+    int32 Multiplier = 0;
+    FString Error;
+    TestTrue(
+        TEXT("Unknown Rank projection remains a valid unsuppressed interaction"),
+        FOGActionCombatAdapter::ResolveRankSuppressionMultiplier(
+            Source,
+            Target,
+            OGRankSuppressionChannels::Control(),
+            FOGRankSuppressionResolver(),
+            Multiplier,
+            Error));
+    TestEqual(
+        TEXT("Combat never fabricates a Rank gap from missing projection"),
+        Multiplier,
+        10000);
 
     return true;
 }

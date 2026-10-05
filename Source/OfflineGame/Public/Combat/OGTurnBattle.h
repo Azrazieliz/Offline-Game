@@ -1,7 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Combat/OGCombatIdentityRules.h"
 #include "Combat/OGCombatLog.h"
+#include "Combat/OGCombatRankHooks.h"
 #include "Combat/OGCombatTriggerRuntime.h"
 #include "Combat/OGCombatTypes.h"
 #include "OGTurnBattle.generated.h"
@@ -88,6 +90,14 @@ public:
         FOGCombatConditionEvaluator ConditionEvaluator,
         FString& OutError);
 
+    bool Initialize(
+        const FOGTurnBattleState& InitialState,
+        TArray<FOGCombatTriggerBinding> TriggerBindings,
+        FOGCombatConditionEvaluator ConditionEvaluator,
+        FOGIdentityExclusivityContext IdentityContext,
+        FOGRankSuppressionResolver RankResolver,
+        FString& OutError);
+
     const FOGTurnBattleState& GetState() const { return State; }
     const FOGCombatLog& GetLog() const { return Log; }
 
@@ -125,6 +135,13 @@ public:
 
     /** Triggered actions are resolved by the normal effect/action layer. */
     TArray<FOGQueuedTriggeredAction> DrainTriggeredActions();
+
+    bool ResolveRankSuppressionMultiplier(
+        const FOGEntityId& SourceUnitId,
+        const FOGEntityId& TargetUnitId,
+        FName ChannelId,
+        int32& OutMultiplierBps,
+        FString& OutError) const;
 
     /**
      * Call after a queued triggered action has fully applied its effects.
@@ -171,6 +188,8 @@ private:
     FOGTurnBattleState State;
     FOGCombatLog Log;
     FOGCombatTriggerRuntime TriggerRuntime;
+    FOGIdentityExclusivityContext IdentityContext;
+    FOGRankSuppressionResolver RankSuppressionResolver;
     TArray<FOGQueuedTriggeredAction> PendingTriggeredActions;
     TSet<int64> OutstandingTriggeredActionSequences;
     TArray<FOGEntityId> PendingDefeatedUnitIds;
