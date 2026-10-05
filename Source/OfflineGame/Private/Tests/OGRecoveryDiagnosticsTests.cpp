@@ -209,6 +209,13 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -246,7 +253,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
     TestEqual(TEXT("Source schema recorded"),
         Result.SourceSchemaVersion, 8);
     TestEqual(TEXT("Target schema recorded"),
-        Result.TargetSchemaVersion, 10);
+        Result.TargetSchemaVersion, 11);
     TestTrue(TEXT("Untouched recovery database retained"),
         IFileManager::Get().FileExists(
             *Result.RecoveryDatabasePath));
@@ -258,8 +265,8 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 10"),
-            Store.GetSchemaVersion(Error), 10);
+        TestEqual(TEXT("Promoted schema is 11"),
+            Store.GetSchemaVersion(Error), 11);
 
         bool bFound = false;
         FName Kind = NAME_None;
@@ -323,15 +330,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0010 table while removing only its ledger row.
+    // Break a migration-0011 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
-    // working-copy transform must fail while the authoritative DB is untouched.
+    // working-copy validation must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE manifestation_reinforcement DROP COLUMN max_reinforced;"
-            "DELETE FROM schema_migrations WHERE version = 10;",
+            "ALTER TABLE time_domains DROP COLUMN rate_denominator;"
+            "DELETE FROM schema_migrations WHERE version = 11;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -479,6 +486,13 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -658,9 +672,9 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 10"),
+            TEXT("Fixture begins at schema 11"),
             Store.GetSchemaVersion(Error),
-            10);
+            11);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -739,6 +753,13 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -781,7 +802,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        10);
+        11);
 
     {
         FOGSQLiteWorldStore Store;
@@ -926,10 +947,10 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 10"),
+            TEXT("Fixture begins at schema 11"),
             Store.GetSchemaVersion(
                 Error),
-            10);
+            11);
 
         TestTrue(
             TEXT("Persist Ruler"),
@@ -1070,6 +1091,13 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -1107,7 +1135,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        10);
+        11);
 
     {
         FOGSQLiteWorldStore Store;
@@ -1241,10 +1269,10 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
                 DatabasePath,
                 Error));
         TestEqual(
-            TEXT("Fixture begins at schema 10"),
+            TEXT("Fixture begins at schema 11"),
             Store.GetSchemaVersion(
                 Error),
-            10);
+            11);
 
         TestTrue(
             TEXT("Persist legacy Ruler"),
@@ -1289,6 +1317,13 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 9"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;"
             "DROP TABLE IF EXISTS character_convergence_sources;"
             "DROP TABLE IF EXISTS character_convergences;"
             "DROP TABLE IF EXISTS protagonist_world_manifestation_state;"
@@ -1309,7 +1344,7 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 9 to 10"),
+        TEXT("Safe bootstrap migrates schema 9 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -1321,12 +1356,12 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
     TestEqual(
         TEXT("Migration target schema"),
         Migration.TargetSchemaVersion,
-        10);
+        11);
 
     {
         FOGSQLiteWorldStore Store;
         TestTrue(
-            TEXT("Open migrated schema-10 database"),
+            TEXT("Open migrated current-schema database"),
             Store.Open(
                 DatabasePath,
                 Error));
@@ -1383,6 +1418,138 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
                 Error));
         TestFalse(
             TEXT("Opaque legacy JSON/Level never fabricates a Rank identity"),
+            bFound);
+
+        Store.Close();
+    }
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGRealityTime0011NonFabricatingMigrationTest,
+    "OfflineGame.Persistence.Migration0011.DoesNotFabricateRealityCalendarOrDirectorState",
+    EAutomationTestFlags::ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        MakeRecoveryTestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("legacy_reality_time.db"));
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    const FOGEntityId LegacyWorldMarkerId =
+        FOGEntityId::NewId();
+    FString Error;
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Create current-schema fixture"),
+            Store.Open(
+                DatabasePath,
+                Error));
+        TestEqual(
+            TEXT("Fixture begins at schema 11"),
+            Store.GetSchemaVersion(
+                Error),
+            11);
+        TestTrue(
+            TEXT("Persist pre-0011 world-like marker"),
+            Store.UpsertEntity(
+                LegacyWorldMarkerId,
+                FName(TEXT("legacy_world_marker")),
+                10,
+                TEXT("{\"legacy\":true}"),
+                Error));
+        Store.Close();
+    }
+
+    TestTrue(
+        TEXT("Convert fixture to valid schema 10"),
+        ExecuteRawDatabaseSql(
+            DatabasePath,
+            "DROP TABLE IF EXISTS offline_simulation_state;"
+            "DROP TABLE IF EXISTS content_unlock_state;"
+            "DROP TABLE IF EXISTS world_director_schedule;"
+            "DROP TABLE IF EXISTS junctions;"
+            "DROP TABLE IF EXISTS reality_nodes;"
+            "DROP TABLE IF EXISTS time_domains;"
+            "DELETE FROM schema_migrations WHERE version = 11;",
+            Error));
+
+    FOGWorldBootstrapResult Migration;
+    TestTrue(
+        TEXT("Safe bootstrap migrates schema 10 to 11"),
+        FOGWorldBootstrap::PrepareWorld(
+            DatabasePath,
+            Migration,
+            Error));
+    TestEqual(
+        TEXT("Migration source schema"),
+        Migration.SourceSchemaVersion,
+        10);
+    TestEqual(
+        TEXT("Migration target schema"),
+        Migration.TargetSchemaVersion,
+        11);
+
+    {
+        FOGSQLiteWorldStore Store;
+        TestTrue(
+            TEXT("Open migrated schema-11 database"),
+            Store.Open(
+                DatabasePath,
+                Error));
+
+        bool bFound = false;
+        FOGRealityNodeRecord Reality;
+        TestTrue(
+            TEXT("Reality lookup remains valid"),
+            Store.TryReadRealityNode(
+                LegacyWorldMarkerId,
+                bFound,
+                Reality,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate a Reality node from a generic legacy entity"),
+            bFound);
+
+        FOGTimeDomainRecord Domain;
+        bFound = false;
+        TestTrue(
+            TEXT("Time-domain lookup remains valid"),
+            Store.TryReadTimeDomain(
+                LegacyWorldMarkerId,
+                bFound,
+                Domain,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate a calendar/time domain"),
+            bFound);
+
+        FOGOfflineSimulationStateRecord OfflineState;
+        bFound = false;
+        TestTrue(
+            TEXT("Offline-state lookup remains valid"),
+            Store.TryReadOfflineSimulationState(
+                LegacyWorldMarkerId,
+                bFound,
+                OfflineState,
+                Error));
+        TestFalse(
+            TEXT("Migration does not fabricate World Director offline state"),
             bFound);
 
         Store.Close();

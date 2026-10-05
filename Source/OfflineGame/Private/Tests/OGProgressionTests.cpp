@@ -117,15 +117,15 @@ bool FOGRankAndFactorPersistenceTest::RunTest(
     FOGSQLiteWorldStore Store;
     FString Error;
     TestTrue(
-        TEXT("Open schema-10 database"),
+        TEXT("Open schema-11 database"),
         Store.Open(
             DatabasePath,
             Error));
     TestEqual(
-        TEXT("Schema version is 10"),
+        TEXT("Schema version is 11"),
         Store.GetSchemaVersion(
             Error),
-        10);
+        11);
 
     const FOGEntityId OwnerId =
         FOGEntityId::NewId();

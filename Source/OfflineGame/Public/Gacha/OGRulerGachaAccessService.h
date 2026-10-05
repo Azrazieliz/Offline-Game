@@ -3,15 +3,14 @@
 #include "CoreMinimal.h"
 #include "Persistence/OGWorldStore.h"
 #include "World/OGTerritoryStateRecords.h"
+#include "World/OGWorldTimeService.h"
 
 /**
  * Persistent first-unlock gate for the gameplay-earned gacha.
  *
- * This service derives qualification continuity from authoritative Territory
- * claims. It does not own calendar conversion.
- * bMoreThanOneInGameMonthElapsed must come from the authoritative world/time
- * layer and means strictly more than one local in-game month has elapsed since
- * the stored qualification start. Schema 0011 supplies that calendar mapping.
+ * Qualification continuity is derived from authoritative Territory claims.
+ * Elapsed "one in-game month" is resolved through the Territory/World's
+ * authored Time Domain + Calendar. This service never invents a month length.
  */
 class OFFLINEGAME_API FOGRulerGachaAccessService
 {
@@ -30,7 +29,8 @@ public:
     bool RefreshGachaQualification(
         const FOGEntityId& RulerId,
         int64 WorldTick,
-        bool bMoreThanOneInGameMonthElapsed,
+        const FOGEntityId& QualificationTimeDomainId,
+        const FOGCalendarElapsedResolver& CalendarResolver,
         FOGRulerGachaAccessRecord& OutAccess,
         FString& OutError);
 

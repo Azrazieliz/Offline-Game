@@ -8,6 +8,7 @@
 #include "Gacha/OGGachaDefinitions.h"
 #include "Progression/OGProgressionRecords.h"
 #include "World/OGDispatchFactionWarRecords.h"
+#include "World/OGRealityTimeRecords.h"
 #include "World/OGTerritoryStateRecords.h"
 #include "World/OGWorldStateRecords.h"
 
@@ -156,6 +157,34 @@ public:
         const FOGCharacterConvergenceSourceRecord&, FString&) = 0;
     virtual bool ListCharacterConvergenceSources(
         const FOGEntityId&, TArray<FOGCharacterConvergenceSourceRecord>&, FString&) const = 0;
+
+    virtual bool UpsertTimeDomain(const FOGTimeDomainRecord&, int64, FString&) = 0;
+    virtual bool TryReadTimeDomain(
+        const FOGEntityId&, bool&, FOGTimeDomainRecord&, FString&) const = 0;
+    virtual bool UpsertRealityNode(const FOGRealityNodeRecord&, int64, FString&) = 0;
+    virtual bool TryReadRealityNode(
+        const FOGEntityId&, bool&, FOGRealityNodeRecord&, FString&) const = 0;
+    virtual bool ListChildRealityNodes(
+        const FOGEntityId&, TArray<FOGRealityNodeRecord>&, FString&) const = 0;
+    virtual bool UpsertJunction(const FOGJunctionRecord&, int64, FString&) = 0;
+    virtual bool TryReadJunction(
+        const FOGEntityId&, bool&, FOGJunctionRecord&, FString&) const = 0;
+    virtual bool ListJunctionsFromReality(
+        const FOGEntityId&, TArray<FOGJunctionRecord>&, FString&) const = 0;
+    virtual bool UpsertWorldDirectorSchedule(
+        const FOGWorldDirectorScheduleRecord&, int64, FString&) = 0;
+    virtual bool TryReadWorldDirectorSchedule(
+        const FOGEntityId&, bool&, FOGWorldDirectorScheduleRecord&, FString&) const = 0;
+    virtual bool ListWorldDirectorSchedulesByContent(
+        const FOGContentId&, TArray<FOGWorldDirectorScheduleRecord>&, FString&) const = 0;
+    virtual bool UpsertContentUnlockState(
+        const FOGContentUnlockStateRecord&, FString&) = 0;
+    virtual bool TryReadContentUnlockState(
+        const FOGContentId&, bool&, FOGContentUnlockStateRecord&, FString&) const = 0;
+    virtual bool UpsertOfflineSimulationState(
+        const FOGOfflineSimulationStateRecord&, FString&) = 0;
+    virtual bool TryReadOfflineSimulationState(
+        const FOGEntityId&, bool&, FOGOfflineSimulationStateRecord&, FString&) const = 0;
 
     virtual bool UpsertDispatch(const FOGDispatchRecord&, int64, FString&) = 0;
     virtual bool TryReadDispatch(const FOGEntityId&, bool&, FOGDispatchRecord&, FString&) const = 0;

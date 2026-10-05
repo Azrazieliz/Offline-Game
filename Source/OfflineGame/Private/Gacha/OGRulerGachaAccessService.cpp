@@ -39,7 +39,8 @@ bool FOGRulerGachaAccessService::CanUseGacha(
 bool FOGRulerGachaAccessService::RefreshGachaQualification(
     const FOGEntityId& RulerId,
     int64 WorldTick,
-    bool bMoreThanOneInGameMonthElapsed,
+    const FOGEntityId& QualificationTimeDomainId,
+    const FOGCalendarElapsedResolver& CalendarResolver,
     FOGRulerGachaAccessRecord& OutAccess,
     FString& OutError)
 {
@@ -183,6 +184,30 @@ bool FOGRulerGachaAccessService::RefreshGachaQualification(
         // Reclamation inside the fixed five-day grace preserves continuity.
         Access.bHasQualificationSuspendedTick = false;
         Access.QualificationSuspendedWorldTick = 0;
+
+        if (!QualificationTimeDomainId.IsValid() ||
+            !CalendarResolver)
+        {
+            OutError =
+                TEXT("Active gacha qualification requires an authored Time Domain and calendar resolver.");
+            return false;
+        }
+
+        FOGWorldTimeService WorldTime(
+            Store);
+        bool bMoreThanOneInGameMonthElapsed = false;
+        if (!WorldTime.HasStrictlyMoreThanCalendarDuration(
+                QualificationTimeDomainId,
+                Access.QualificationStartWorldTick,
+                WorldTick,
+                FName(TEXT("month")),
+                1,
+                CalendarResolver,
+                bMoreThanOneInGameMonthElapsed,
+                OutError))
+        {
+            return false;
+        }
 
         if (bMoreThanOneInGameMonthElapsed)
         {
