@@ -42,6 +42,12 @@ using FOGPackageStorageActionResolver =
         bool& bOutArchiveAllowed,
         FString& OutError)>;
 
+using FOGWorldTickDisplayResolver =
+    TFunction<bool(
+        int64 WorldTick,
+        FString& OutDisplay,
+        FString& OutError)>;
+
 class OFFLINEGAME_API FOGUiViewModelService
 {
 public:
@@ -139,6 +145,13 @@ public:
         FOGManifestationDetailViewModel& OutViewModel,
         FString& OutError) const;
 
+    bool BuildCharacterHistory(
+        const FOGEntityId& RulerId,
+        const FOGContentId& IdentityId,
+        int32 Limit,
+        FOGCharacterHistoryViewModel& OutViewModel,
+        FString& OutError) const;
+
     bool BuildManifestationComparison(
         const FOGEntityId& RulerId,
         const FOGEntityId& LeftManifestationId,
@@ -191,9 +204,22 @@ public:
         TArray<FOGGachaHistoryEntryViewModel>& OutHistory,
         FString& OutError) const;
 
+    bool BuildGachaHistoryFiltered(
+        const FOGEntityId& RulerId,
+        const FOGGachaHistoryFilter& Filter,
+        int32 Limit,
+        const FOGWorldTickDisplayResolver& DateResolver,
+        TArray<FOGGachaHistoryEntryViewModel>& OutHistory,
+        FString& OutError) const;
+
     static bool SetActiveTerritoryOverlay(
         FOGTerritoryViewModel& InOutViewModel,
         FName Overlay,
+        FString& OutError);
+
+    static bool SetTerritoryNavigationPath(
+        FOGTerritoryViewModel& InOutViewModel,
+        const TArray<FOGEntityId>& NavigationNodeIds,
         FString& OutError);
 
     bool BuildChronicleFiltered(
