@@ -59,6 +59,18 @@ public:
         FOGEntityId& OutTerritoryId,
         FString& OutError) const;
 
+    /**
+     * Performs the explicit first World Mode roster-anchoring step after the
+     * owning Ruler has reached effective controlled Territory. Acquisition alone
+     * never anchors/spawns a Manifestation.
+     */
+    bool AnchorManifestationForWorldMode(
+        const FOGEntityId& RulerId,
+        const FOGEntityId& ManifestationId,
+        int64 WorldTick,
+        FOGEntityId& OutTerritoryId,
+        FString& OutError);
+
 private:
     static bool IsEffectiveState(FName ControlState);
 
