@@ -209,6 +209,27 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         TEXT("Downgrade fixture to schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS heroic_records;"
+            "DROP TABLE IF EXISTS character_adult_runtime_state;"
+            "DROP TABLE IF EXISTS npc_promotion_state;"
+            "DROP TABLE IF EXISTS semantic_memories;"
+            "DROP TABLE IF EXISTS entity_languages;"
+            "DROP TABLE IF EXISTS owned_presentation_unlocks;"
+            "DROP TABLE IF EXISTS manifestation_presentation_state;"
+            "DROP TABLE IF EXISTS entity_equipment_proficiency;"
+            "DROP TABLE IF EXISTS item_owner_affinity;"
+            "DROP TABLE IF EXISTS container_contents;"
+            "DROP TABLE IF EXISTS inventory_containers;"
+            "DROP TABLE IF EXISTS equipment_bindings;"
+            "DROP TABLE IF EXISTS item_modifiers;"
+            "DROP TABLE IF EXISTS item_instances;"
+            "ALTER TABLE knowledge_facts DROP COLUMN language_context_content_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN evidence_world_tick;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_event_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_entity_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN confidence_bps;"
+            "ALTER TABLE knowledge_facts DROP COLUMN belief_state;"
+            "DELETE FROM schema_migrations WHERE version = 13;"
             "DROP TABLE IF EXISTS logistics_routes;"
             "DROP TABLE IF EXISTS civilization_dimensions;"
             "DROP TABLE IF EXISTS civilization_state;"
@@ -282,7 +303,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
         FOGSQLiteWorldStore Store;
         TestTrue(TEXT("Open promoted authoritative database"),
             Store.Open(DatabasePath, Error));
-        TestEqual(TEXT("Promoted schema is 12"),
+        TestEqual(TEXT("Promoted schema is 13"),
             Store.GetSchemaVersion(Error), 13);
 
         bool bFound = false;
@@ -347,15 +368,15 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
         Store.Close();
     }
 
-    // Break a migration-0012 table while removing only its ledger row.
+    // Break a migration-0013 table while removing only its ledger row.
     // CREATE TABLE IF NOT EXISTS cannot repair the missing column, so the
     // working-copy validation must fail while the authoritative DB is untouched.
     TestTrue(
         TEXT("Create deterministic migration-failure fixture"),
         ExecuteRawDatabaseSql(
             DatabasePath,
-            "ALTER TABLE project_phases DROP COLUMN progress_bps;"
-            "DELETE FROM schema_migrations WHERE version = 12;",
+            "ALTER TABLE entity_languages DROP COLUMN written_proficiency_bps;"
+            "DELETE FROM schema_migrations WHERE version = 13;",
             Error));
 
     TArray<uint8> BeforeBytes;
@@ -503,6 +524,27 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
         ExecuteRawDatabaseSql(
             DatabasePath,
             "UPDATE character_manifestations SET duplicate_acquisition_count = 1;"
+            "DROP TABLE IF EXISTS heroic_records;"
+            "DROP TABLE IF EXISTS character_adult_runtime_state;"
+            "DROP TABLE IF EXISTS npc_promotion_state;"
+            "DROP TABLE IF EXISTS semantic_memories;"
+            "DROP TABLE IF EXISTS entity_languages;"
+            "DROP TABLE IF EXISTS owned_presentation_unlocks;"
+            "DROP TABLE IF EXISTS manifestation_presentation_state;"
+            "DROP TABLE IF EXISTS entity_equipment_proficiency;"
+            "DROP TABLE IF EXISTS item_owner_affinity;"
+            "DROP TABLE IF EXISTS container_contents;"
+            "DROP TABLE IF EXISTS inventory_containers;"
+            "DROP TABLE IF EXISTS equipment_bindings;"
+            "DROP TABLE IF EXISTS item_modifiers;"
+            "DROP TABLE IF EXISTS item_instances;"
+            "ALTER TABLE knowledge_facts DROP COLUMN language_context_content_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN evidence_world_tick;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_event_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_entity_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN confidence_bps;"
+            "ALTER TABLE knowledge_facts DROP COLUMN belief_state;"
+            "DELETE FROM schema_migrations WHERE version = 13;"
             "DROP TABLE IF EXISTS logistics_routes;"
             "DROP TABLE IF EXISTS civilization_dimensions;"
             "DROP TABLE IF EXISTS civilization_state;"
@@ -787,6 +829,27 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 7"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS heroic_records;"
+            "DROP TABLE IF EXISTS character_adult_runtime_state;"
+            "DROP TABLE IF EXISTS npc_promotion_state;"
+            "DROP TABLE IF EXISTS semantic_memories;"
+            "DROP TABLE IF EXISTS entity_languages;"
+            "DROP TABLE IF EXISTS owned_presentation_unlocks;"
+            "DROP TABLE IF EXISTS manifestation_presentation_state;"
+            "DROP TABLE IF EXISTS entity_equipment_proficiency;"
+            "DROP TABLE IF EXISTS item_owner_affinity;"
+            "DROP TABLE IF EXISTS container_contents;"
+            "DROP TABLE IF EXISTS inventory_containers;"
+            "DROP TABLE IF EXISTS equipment_bindings;"
+            "DROP TABLE IF EXISTS item_modifiers;"
+            "DROP TABLE IF EXISTS item_instances;"
+            "ALTER TABLE knowledge_facts DROP COLUMN language_context_content_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN evidence_world_tick;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_event_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_entity_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN confidence_bps;"
+            "ALTER TABLE knowledge_facts DROP COLUMN belief_state;"
+            "DELETE FROM schema_migrations WHERE version = 13;"
             "DROP TABLE IF EXISTS logistics_routes;"
             "DROP TABLE IF EXISTS civilization_dimensions;"
             "DROP TABLE IF EXISTS civilization_state;"
@@ -1142,6 +1205,27 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 8"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS heroic_records;"
+            "DROP TABLE IF EXISTS character_adult_runtime_state;"
+            "DROP TABLE IF EXISTS npc_promotion_state;"
+            "DROP TABLE IF EXISTS semantic_memories;"
+            "DROP TABLE IF EXISTS entity_languages;"
+            "DROP TABLE IF EXISTS owned_presentation_unlocks;"
+            "DROP TABLE IF EXISTS manifestation_presentation_state;"
+            "DROP TABLE IF EXISTS entity_equipment_proficiency;"
+            "DROP TABLE IF EXISTS item_owner_affinity;"
+            "DROP TABLE IF EXISTS container_contents;"
+            "DROP TABLE IF EXISTS inventory_containers;"
+            "DROP TABLE IF EXISTS equipment_bindings;"
+            "DROP TABLE IF EXISTS item_modifiers;"
+            "DROP TABLE IF EXISTS item_instances;"
+            "ALTER TABLE knowledge_facts DROP COLUMN language_context_content_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN evidence_world_tick;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_event_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_entity_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN confidence_bps;"
+            "ALTER TABLE knowledge_facts DROP COLUMN belief_state;"
+            "DELETE FROM schema_migrations WHERE version = 13;"
             "DROP TABLE IF EXISTS logistics_routes;"
             "DROP TABLE IF EXISTS civilization_dimensions;"
             "DROP TABLE IF EXISTS civilization_state;"
@@ -1385,6 +1469,27 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 9"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS heroic_records;"
+            "DROP TABLE IF EXISTS character_adult_runtime_state;"
+            "DROP TABLE IF EXISTS npc_promotion_state;"
+            "DROP TABLE IF EXISTS semantic_memories;"
+            "DROP TABLE IF EXISTS entity_languages;"
+            "DROP TABLE IF EXISTS owned_presentation_unlocks;"
+            "DROP TABLE IF EXISTS manifestation_presentation_state;"
+            "DROP TABLE IF EXISTS entity_equipment_proficiency;"
+            "DROP TABLE IF EXISTS item_owner_affinity;"
+            "DROP TABLE IF EXISTS container_contents;"
+            "DROP TABLE IF EXISTS inventory_containers;"
+            "DROP TABLE IF EXISTS equipment_bindings;"
+            "DROP TABLE IF EXISTS item_modifiers;"
+            "DROP TABLE IF EXISTS item_instances;"
+            "ALTER TABLE knowledge_facts DROP COLUMN language_context_content_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN evidence_world_tick;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_event_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_entity_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN confidence_bps;"
+            "ALTER TABLE knowledge_facts DROP COLUMN belief_state;"
+            "DELETE FROM schema_migrations WHERE version = 13;"
             "DROP TABLE IF EXISTS logistics_routes;"
             "DROP TABLE IF EXISTS civilization_dimensions;"
             "DROP TABLE IF EXISTS civilization_state;"
@@ -1565,6 +1670,27 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 10"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS heroic_records;"
+            "DROP TABLE IF EXISTS character_adult_runtime_state;"
+            "DROP TABLE IF EXISTS npc_promotion_state;"
+            "DROP TABLE IF EXISTS semantic_memories;"
+            "DROP TABLE IF EXISTS entity_languages;"
+            "DROP TABLE IF EXISTS owned_presentation_unlocks;"
+            "DROP TABLE IF EXISTS manifestation_presentation_state;"
+            "DROP TABLE IF EXISTS entity_equipment_proficiency;"
+            "DROP TABLE IF EXISTS item_owner_affinity;"
+            "DROP TABLE IF EXISTS container_contents;"
+            "DROP TABLE IF EXISTS inventory_containers;"
+            "DROP TABLE IF EXISTS equipment_bindings;"
+            "DROP TABLE IF EXISTS item_modifiers;"
+            "DROP TABLE IF EXISTS item_instances;"
+            "ALTER TABLE knowledge_facts DROP COLUMN language_context_content_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN evidence_world_tick;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_event_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_entity_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN confidence_bps;"
+            "ALTER TABLE knowledge_facts DROP COLUMN belief_state;"
+            "DELETE FROM schema_migrations WHERE version = 13;"
             "DROP TABLE IF EXISTS logistics_routes;"
             "DROP TABLE IF EXISTS civilization_dimensions;"
             "DROP TABLE IF EXISTS civilization_state;"
@@ -1852,6 +1978,27 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
         TEXT("Convert fixture to valid schema 11"),
         ExecuteRawDatabaseSql(
             DatabasePath,
+            "DROP TABLE IF EXISTS heroic_records;"
+            "DROP TABLE IF EXISTS character_adult_runtime_state;"
+            "DROP TABLE IF EXISTS npc_promotion_state;"
+            "DROP TABLE IF EXISTS semantic_memories;"
+            "DROP TABLE IF EXISTS entity_languages;"
+            "DROP TABLE IF EXISTS owned_presentation_unlocks;"
+            "DROP TABLE IF EXISTS manifestation_presentation_state;"
+            "DROP TABLE IF EXISTS entity_equipment_proficiency;"
+            "DROP TABLE IF EXISTS item_owner_affinity;"
+            "DROP TABLE IF EXISTS container_contents;"
+            "DROP TABLE IF EXISTS inventory_containers;"
+            "DROP TABLE IF EXISTS equipment_bindings;"
+            "DROP TABLE IF EXISTS item_modifiers;"
+            "DROP TABLE IF EXISTS item_instances;"
+            "ALTER TABLE knowledge_facts DROP COLUMN language_context_content_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN evidence_world_tick;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_event_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN source_entity_id;"
+            "ALTER TABLE knowledge_facts DROP COLUMN confidence_bps;"
+            "ALTER TABLE knowledge_facts DROP COLUMN belief_state;"
+            "DELETE FROM schema_migrations WHERE version = 13;"
             "DROP TABLE IF EXISTS logistics_routes;"
             "DROP TABLE IF EXISTS civilization_dimensions;"
             "DROP TABLE IF EXISTS civilization_state;"
@@ -1873,7 +2020,7 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
 
     FOGWorldBootstrapResult Migration;
     TestTrue(
-        TEXT("Safe bootstrap migrates schema 11 to 12"),
+        TEXT("Safe bootstrap migrates schema 11 through current schema"),
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
@@ -1883,7 +2030,7 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
         Migration.SourceSchemaVersion,
         11);
     TestEqual(
-        TEXT("Strategy migration target schema"),
+        TEXT("Current migration target schema"),
         Migration.TargetSchemaVersion,
         13);
 
