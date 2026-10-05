@@ -298,6 +298,36 @@ bool FOGPackageDependencyLifecycleTest::RunTest(
             Expansion.PackageId,
             Error));
 
+    FOGPackageDependencyRecord Tightened = ValidDependency;
+    Tightened.MinimumVersion = 3;
+    TestTrue(
+        TEXT("Changing an active package dependency invalidates its activation proof"),
+        Packages.SetDependency(
+            Tightened,
+            Error));
+
+    bPackageFound = false;
+    PersistedPackage = FOGContentPackageRecord();
+    TestTrue(
+        TEXT("Read package after dependency change"),
+        Store.TryReadContentPackageRecord(
+            Expansion.PackageId,
+            bPackageFound,
+            PersistedPackage,
+            Error));
+    TestTrue(
+        TEXT("Package remains registered after dependency change"),
+        bPackageFound);
+    TestFalse(
+        TEXT("Package is deactivated after dependency change"),
+        PersistedPackage.bActivated);
+
+    TestTrue(
+        TEXT("Re-activate package after dependency change is satisfied"),
+        Packages.ActivatePackage(
+            Expansion.PackageId,
+            Error));
+
     FOGPackageDependencyRecord Cycle;
     Cycle.PackageId = Core.PackageId;
     Cycle.DependencyPackageId = Expansion.PackageId;
