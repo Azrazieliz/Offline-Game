@@ -241,7 +241,7 @@ Default mainline solo vocal:
 - fragile head voice or whisper allowed;
 - rare raw belts or forceful peaks should feel earned.
 
-Male vocal is valid only when deliberately authored as a duet or ensemble. It must never replace the intended female solo lead accidentally.
+Male or lower-register contrasting vocals are valid only when deliberately authored as a duet, ensemble, choir, or background layer. They must never replace the intended female solo lead accidentally. Low-register background voices are specifically approved as a contrast device when they deepen the female lead rather than competing with her.
 
 ### 6A.6 Lyric construction
 
@@ -273,6 +273,30 @@ Creative Director assessment:
 - future compositions should not be forced to imitate it simply because it is approved.
 
 This track is therefore a **keeper in the soundtrack palette**, not a replacement for the broader MYTH & ROID + Aimer direction.
+
+### 6A.10 Approved keeper set — Half-lit Remnants
+
+Both completed **Half-lit Remnants** versions are approved soundtrack keepers:
+
+- revision **221320** / hash **86824c33** — approximately 3:52;
+- revision **221321** / hash **f1857ca5** — approximately 3:56.
+
+Creative Director assessment:
+- both versions are really good and should be retained;
+- the 3:56 version remains especially strong;
+- the 3:52 version is also specifically approved, with its **lower-register background vocal layers** singled out as an excellent contrast device;
+- this background-vocal contrast is now an approved production technique for future songs when used intentionally behind a female lead.
+
+These tracks are keeper assets, not mandatory templates for every mainline song.
+
+### 6A.11 Approved keeper set — Flickering Lives
+
+Both **Flickering Lives** versions are approved as good soundtrack candidates:
+
+- revision **221335** / hash **eff389fd**;
+- revision **221336** / hash **76fad847**.
+
+They validate the calmer, darker, chamber-led side of the current MYTH & ROID + Aimer mainline direction. They should be retained as usable soundtrack material rather than treated as discarded experiments.
 
 ### 6A.8 Side-specific electronic / doll branch
 
