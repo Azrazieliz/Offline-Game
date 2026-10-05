@@ -239,7 +239,9 @@ Default mainline solo vocal:
 - restrained vibrato where appropriate;
 - controlled rasp, strain or cracks when expressive;
 - fragile head voice or whisper allowed;
-- rare raw belts or forceful peaks should feel earned.
+- **major narrative songs should normally contain at least one true vocal rupture** unless the scene explicitly requires unwavering restraint;
+- a vocal rupture means the singer stops sounding safely controlled: strong chest/mix belt, near-scream or cry-like attack, audible edge/distortion, open sustained vowels, register break or similarly raw emotional overflow;
+- these peaks must not sound like polished “big notes” pasted onto the song—the voice should briefly feel more intense than the arrangement itself.
 
 Male or lower-register contrasting vocals are valid only when deliberately authored as a duet, ensemble, choir, or background layer. They must never replace the intended female solo lead accidentally. Low-register background voices are specifically approved as a contrast device when they deepen the female lead rather than competing with her.
 
@@ -325,6 +327,21 @@ A specifically approved structural model is the Creative Director's supplied **G
 - approximately 20 seconds of sustained high-pressure climax rather than a brief drop;
 - continuously widening arrangement and interlocking vocal energy;
 - lower male/baritone countervoice may be used intentionally against a dominant female lead.
+
+#### Vocal-intensity correction
+
+Creative Director correction: the previous boss prototypes were far too restrained. The desired reference pattern is not merely “energetic singing”; it requires **genuine vocal eruption**.
+
+For the high-energy boss branch:
+- the female lead must be capable of near-screamed, full-chest / mixed-belt delivery with controlled distortion and emotional edge;
+- climactic lines should use long open vowels, shouted attacks, rapid register changes and phrases that feel close to breaking rather than safely polished;
+- the voice may temporarily dominate the entire mix;
+- a strong male/baritone countervoice is explicitly encouraged here, answering or overlapping the female lead with comparable force;
+- female and male lines may interlock, collide, overlap and hand phrases to one another instead of remaining cleanly separated;
+- the climax should sustain this vocal pressure for a meaningful span rather than peak on one isolated note;
+- the arrangement must create space before the eruption so the vocal burst lands as a major emotional event.
+
+The supplied GREATEST GLORIA passage is treated as a structural reference for this **setup → vocal detonation → sustained interlocked climax** pattern, not merely for instrumentation or tempo.
 
 Boss-branch guardrails:
 - female lead remains dominant unless a true duet is explicitly authored;
