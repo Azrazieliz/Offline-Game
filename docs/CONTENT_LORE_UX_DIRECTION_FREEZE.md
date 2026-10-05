@@ -314,6 +314,26 @@ Pre-gacha gameplay therefore relies on:
 
 The game must never assume the player obtained a specific first Manifestation.
 
+## 12.1 Combat content proportion
+
+The intended personal-combat content balance is approximately:
+
+- **75% turn-based combat**
+- **25% World Mode active/action combat**
+
+This is a production/content proportion rather than a rule that every chapter, region or hour must obey exactly.
+
+The overall identity is a **HSR / HI3 hybrid weighted toward the turn-based side**:
+- turn combat is the dominant authored character-combat format and receives the majority of encounter, roster-synergy, boss/challenge and progression content;
+- World Mode action combat remains a major protected pillar rather than a side minigame;
+- physical exploration encounters naturally use action combat when the player is embodied in World Mode;
+- authored encounters may deliberately enter turn combat when the tactical/roster structure is the intended experience;
+- hybrid bosses may transition between executors when the encounter itself justifies it.
+
+The 75/25 target concerns **combat encounters/content investment**, not total playtime. Exploration, dialogue, Ruler Mode, strategy, Projects, Dispatch, story and other non-combat activity are outside this ratio.
+
+The ratio must not be implemented by mechanically converting three out of four nearby-world fights into turn encounters. Encounter context remains causal; content production and authored encounter placement are balanced over the game toward the target.
+
 ## 13. Enemy and boss design
 
 Enemies are authored as causal inhabitants/entities rather than difficulty tokens.
