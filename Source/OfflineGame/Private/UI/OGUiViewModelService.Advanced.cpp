@@ -534,6 +534,12 @@ bool FOGUiViewModelService::BuildManifestationDetail(
         Manifestation.IdentityId;
     OutViewModel.BuildLabel =
         Manifestation.BuildLabel;
+    OutViewModel.WorldModeAnchorTerritoryId =
+        Manifestation.WorldModeAnchorTerritoryId;
+    OutViewModel.DeploymentState =
+        Manifestation.WorldModeAnchorTerritoryId.IsValid()
+            ? FName(TEXT("anchored"))
+            : FName(TEXT("unanchored"));
     OutViewModel.Level =
         Manifestation.Level;
     OutViewModel.CurrentRarity =
