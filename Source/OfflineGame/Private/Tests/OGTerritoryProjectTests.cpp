@@ -1,5 +1,6 @@
 #include "Persistence/OGSQLiteWorldStore.h"
-#include "World/OGTerritoryProjectService.h"
+#include "World/OGDomainCoreService.h"
+#include "World/OGProjectService.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -75,9 +76,9 @@ bool FOGDomainCoreCaptureBreakTest::RunTest(
             Error));
 
     TestEqual(
-        TEXT("Schema version is 8"),
+        TEXT("Schema version is 9"),
         Store.GetSchemaVersion(Error),
-        8);
+        9);
 
     const FOGEntityId OriginalRuler =
         FOGEntityId::NewId();
@@ -173,8 +174,15 @@ bool FOGDomainCoreCaptureBreakTest::RunTest(
             20,
             Error));
 
-    FOGTerritoryProjectService Service(
+    FOGDomainCoreService Service(
         Store);
+
+    TestTrue(
+        TEXT("Awakened Core becomes Territory heart"),
+        Service.ActivateAwakenedCoreAsHeart(
+            CoreId,
+            20,
+            Error));
 
     TestTrue(
         TEXT("Intact Core can be captured"),
@@ -244,6 +252,26 @@ bool FOGDomainCoreCaptureBreakTest::RunTest(
     TestFalse(
         TEXT("Broken Core has no active controller"),
         Broken.ControllerRulerId.IsValid());
+
+    FOGTerritoryDomainStateRecord LostHeart;
+    bool bDomainStateFound = false;
+    TestTrue(
+        TEXT("Read Domain-heart state after Core loss"),
+        Store.TryReadTerritoryDomainState(
+            TerritoryId,
+            bDomainStateFound,
+            LostHeart,
+            Error));
+    TestTrue(
+        TEXT("Domain-heart state exists"),
+        bDomainStateFound);
+    TestEqual(
+        TEXT("Broken active Core triggers Domain-heart ruin"),
+        LostHeart.DomainState,
+        FName(TEXT("heart_lost_ruining")));
+    TestFalse(
+        TEXT("Lost Domain heart has no active Core"),
+        LostHeart.ActiveCoreId.IsValid());
 
     TestFalse(
         TEXT("Broken Core cannot be captured"),
@@ -317,7 +345,7 @@ bool FOGResourceProjectLazyProgressTest::RunTest(
                 100,
                 Error));
 
-        FOGTerritoryProjectService Service(
+        FOGProjectService Service(
             Store);
 
         FOGProjectResourceCost Cost;
@@ -392,7 +420,7 @@ bool FOGResourceProjectLazyProgressTest::RunTest(
                 DatabasePath,
                 Error));
 
-        FOGTerritoryProjectService Service(
+        FOGProjectService Service(
             Store);
         FOGProjectRecord Completed;
 
