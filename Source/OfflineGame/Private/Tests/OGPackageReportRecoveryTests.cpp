@@ -230,6 +230,74 @@ bool FOGPackageDependencyLifecycleTest::RunTest(
     TestTrue(TEXT("Accept satisfiable dependency"), Packages.SetDependency(ValidDependency, Error));
     TestTrue(TEXT("Activate expansion after ready dependency"), Packages.ActivatePackage(Expansion.PackageId, Error));
 
+    TestTrue(
+        TEXT("Deactivating dependency root succeeds"),
+        Packages.DeactivatePackage(
+            Core.PackageId,
+            Error));
+
+    bool bPackageFound = false;
+    FOGContentPackageRecord PersistedPackage;
+    TestTrue(
+        TEXT("Read dependent after root deactivation"),
+        Store.TryReadContentPackageRecord(
+            Expansion.PackageId,
+            bPackageFound,
+            PersistedPackage,
+            Error));
+    TestTrue(
+        TEXT("Dependent package remains registered"),
+        bPackageFound);
+    TestFalse(
+        TEXT("Dependent package is transitively deactivated"),
+        PersistedPackage.bActivated);
+
+    TestTrue(
+        TEXT("Reactivate dependency root"),
+        Packages.ActivatePackage(
+            Core.PackageId,
+            Error));
+    TestTrue(
+        TEXT("Reactivate dependent"),
+        Packages.ActivatePackage(
+            Expansion.PackageId,
+            Error));
+
+    Core.Version = 3;
+    Core.ContentHash = TEXT("hash-core-v3");
+    TestTrue(
+        TEXT("Updating an active dependency invalidates activation"),
+        Packages.RegisterPackage(
+            Core,
+            Error));
+
+    bPackageFound = false;
+    PersistedPackage = FOGContentPackageRecord();
+    TestTrue(
+        TEXT("Read dependent after dependency update"),
+        Store.TryReadContentPackageRecord(
+            Expansion.PackageId,
+            bPackageFound,
+            PersistedPackage,
+            Error));
+    TestTrue(
+        TEXT("Dependent remains registered after dependency update"),
+        bPackageFound);
+    TestFalse(
+        TEXT("Dependent is deactivated after dependency update"),
+        PersistedPackage.bActivated);
+
+    TestTrue(
+        TEXT("Re-activate updated dependency root"),
+        Packages.ActivatePackage(
+            Core.PackageId,
+            Error));
+    TestTrue(
+        TEXT("Re-activate dependent after updated root"),
+        Packages.ActivatePackage(
+            Expansion.PackageId,
+            Error));
+
     FOGPackageDependencyRecord Cycle;
     Cycle.PackageId = Core.PackageId;
     Cycle.DependencyPackageId = Expansion.PackageId;
