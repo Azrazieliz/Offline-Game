@@ -9,6 +9,7 @@
 #include "Progression/OGProgressionRecords.h"
 #include "World/OGDispatchFactionWarRecords.h"
 #include "World/OGRealityTimeRecords.h"
+#include "World/OGStrategyExpansionRecords.h"
 #include "World/OGTerritoryStateRecords.h"
 #include "World/OGWorldStateRecords.h"
 
@@ -189,6 +190,15 @@ public:
     virtual bool UpsertDispatch(const FOGDispatchRecord&, int64, FString&) = 0;
     virtual bool TryReadDispatch(const FOGEntityId&, bool&, FOGDispatchRecord&, FString&) const = 0;
 
+    virtual bool UpsertDispatchObjective(
+        const FOGDispatchObjectiveRecord&, FString&) = 0;
+    virtual bool ListDispatchObjectives(
+        const FOGEntityId&, TArray<FOGDispatchObjectiveRecord>&, FString&) const = 0;
+    virtual bool UpsertDispatchConstraint(
+        const FOGDispatchConstraintRecord&, FString&) = 0;
+    virtual bool ListDispatchConstraints(
+        const FOGEntityId&, TArray<FOGDispatchConstraintRecord>&, FString&) const = 0;
+
     virtual bool UpsertFaction(const FOGFactionRecord&, int64, FString&) = 0;
     virtual bool TryReadFaction(const FOGEntityId&, bool&, FOGFactionRecord&, FString&) const = 0;
     virtual bool UpsertFactionLink(const FOGFactionLinkRecord&, FString&) = 0;
@@ -197,8 +207,56 @@ public:
     virtual bool UpsertArmy(const FOGArmyRecord&, int64, FString&) = 0;
     virtual bool TryReadArmy(const FOGEntityId&, bool&, FOGArmyRecord&, FString&) const = 0;
 
+    virtual bool UpsertArmyCapability(
+        const FOGArmyCapabilityRecord&, FString&) = 0;
+    virtual bool ListArmyCapabilities(
+        const FOGEntityId&, TArray<FOGArmyCapabilityRecord>&, FString&) const = 0;
+
     virtual bool UpsertWar(const FOGWarRecord&, int64, FString&) = 0;
     virtual bool TryReadWar(const FOGEntityId&, bool&, FOGWarRecord&, FString&) const = 0;
+    virtual bool UpsertWarFront(const FOGWarFrontRecord&, int64, FString&) = 0;
+    virtual bool TryReadWarFront(
+        const FOGEntityId&, bool&, FOGWarFrontRecord&, FString&) const = 0;
+    virtual bool ListWarFronts(
+        const FOGEntityId&, TArray<FOGWarFrontRecord>&, FString&) const = 0;
+    virtual bool UpsertWarObjective(
+        const FOGWarObjectiveRecord&, FString&) = 0;
+    virtual bool ListWarObjectives(
+        const FOGEntityId&, TArray<FOGWarObjectiveRecord>&, FString&) const = 0;
+    virtual bool UpsertWarOrder(const FOGWarOrderRecord&, int64, FString&) = 0;
+    virtual bool TryReadWarOrder(
+        const FOGEntityId&, bool&, FOGWarOrderRecord&, FString&) const = 0;
+    virtual bool ListWarOrders(
+        const FOGEntityId&, TArray<FOGWarOrderRecord>&, FString&) const = 0;
+    virtual bool UpsertWarParticipantHistory(
+        const FOGWarParticipantHistoryRecord&, FString&) = 0;
+    virtual bool ListWarParticipantHistory(
+        const FOGEntityId&, TArray<FOGWarParticipantHistoryRecord>&, FString&) const = 0;
+
+    virtual bool UpsertProjectPhase(
+        const FOGProjectPhaseRecord&, FString&) = 0;
+    virtual bool ListProjectPhases(
+        const FOGEntityId&, TArray<FOGProjectPhaseRecord>&, FString&) const = 0;
+    virtual bool UpsertProjectAssignment(
+        const FOGProjectAssignmentRecord&, FString&) = 0;
+    virtual bool ListProjectAssignments(
+        const FOGEntityId&, TArray<FOGProjectAssignmentRecord>&, FString&) const = 0;
+
+    virtual bool UpsertCivilizationState(
+        const FOGCivilizationStateRecord&, FString&) = 0;
+    virtual bool TryReadCivilizationState(
+        const FOGEntityId&, bool&, FOGCivilizationStateRecord&, FString&) const = 0;
+    virtual bool UpsertCivilizationDimension(
+        const FOGCivilizationDimensionRecord&, FString&) = 0;
+    virtual bool ListCivilizationDimensions(
+        const FOGEntityId&, TArray<FOGCivilizationDimensionRecord>&, FString&) const = 0;
+
+    virtual bool UpsertLogisticsRoute(
+        const FOGLogisticsRouteRecord&, int64, FString&) = 0;
+    virtual bool TryReadLogisticsRoute(
+        const FOGEntityId&, bool&, FOGLogisticsRouteRecord&, FString&) const = 0;
+    virtual bool ListLogisticsRoutesByOwner(
+        const FOGEntityId&, TArray<FOGLogisticsRouteRecord>&, FString&) const = 0;
 
     virtual bool UpsertContentPackage(const FOGContentId&, int32, const FString&, bool, bool, const FString&, FString&) = 0;
     virtual bool SetContentPackageActivated(const FOGContentId&, bool, FString&) = 0;

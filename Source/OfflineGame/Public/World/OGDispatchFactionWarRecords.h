@@ -59,6 +59,24 @@ struct OFFLINEGAME_API FOGDispatchRecord
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int32 RiskBps = 0;
 
+    /** Mission-authorized risk appetite; 10,000 = maximum tolerance. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 RiskToleranceBps = 5000;
+
+    /** Explicit return/abort conditions supplied by the issuing player/system. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FString AbortPolicyJson = TEXT("{}");
+
+    /** Nuanced resolved/delayed/aborted/partial outcome; content-extensible. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FName OutcomeState = NAME_None;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    bool bHasDelayUntilWorldTick = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int64 DelayUntilWorldTick = 0;
+
     /** Recorded deterministic provenance for the eventual resolver. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int64 ResolutionSeed = 0;
@@ -133,7 +151,10 @@ struct OFFLINEGAME_API FOGArmyRecord
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     int64 Headcount = 0;
 
-    /** Aggregate strategic effectiveness, not a direct combat-outcome button. */
+    /**
+     * Cached summary/debug projection only. Authoritative strategic resolution
+     * consumes normalized capability vectors plus named-character intervention.
+     */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     FOGLargeNumber EffectivePower;
 

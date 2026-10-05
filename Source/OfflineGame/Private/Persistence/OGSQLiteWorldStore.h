@@ -205,6 +205,15 @@ public:
     virtual bool UpsertDispatch(const FOGDispatchRecord&, int64, FString&) override;
     virtual bool TryReadDispatch(const FOGEntityId&, bool&, FOGDispatchRecord&, FString&) const override;
 
+    virtual bool UpsertDispatchObjective(
+        const FOGDispatchObjectiveRecord&, FString&) override;
+    virtual bool ListDispatchObjectives(
+        const FOGEntityId&, TArray<FOGDispatchObjectiveRecord>&, FString&) const override;
+    virtual bool UpsertDispatchConstraint(
+        const FOGDispatchConstraintRecord&, FString&) override;
+    virtual bool ListDispatchConstraints(
+        const FOGEntityId&, TArray<FOGDispatchConstraintRecord>&, FString&) const override;
+
     virtual bool UpsertFaction(const FOGFactionRecord&, int64, FString&) override;
     virtual bool TryReadFaction(const FOGEntityId&, bool&, FOGFactionRecord&, FString&) const override;
     virtual bool UpsertFactionLink(const FOGFactionLinkRecord&, FString&) override;
@@ -213,8 +222,59 @@ public:
     virtual bool UpsertArmy(const FOGArmyRecord&, int64, FString&) override;
     virtual bool TryReadArmy(const FOGEntityId&, bool&, FOGArmyRecord&, FString&) const override;
 
+    virtual bool UpsertArmyCapability(
+        const FOGArmyCapabilityRecord&, FString&) override;
+    virtual bool ListArmyCapabilities(
+        const FOGEntityId&, TArray<FOGArmyCapabilityRecord>&, FString&) const override;
+
     virtual bool UpsertWar(const FOGWarRecord&, int64, FString&) override;
     virtual bool TryReadWar(const FOGEntityId&, bool&, FOGWarRecord&, FString&) const override;
+    virtual bool UpsertWarFront(const FOGWarFrontRecord&, int64, FString&) override;
+    virtual bool TryReadWarFront(
+        const FOGEntityId&, bool&, FOGWarFrontRecord&, FString&) const override;
+    virtual bool ListWarFronts(
+        const FOGEntityId&, TArray<FOGWarFrontRecord>&, FString&) const override;
+    virtual bool UpsertWarObjective(
+        const FOGWarObjectiveRecord&, FString&) override;
+    virtual bool ListWarObjectives(
+        const FOGEntityId&, TArray<FOGWarObjectiveRecord>&, FString&) const override;
+    virtual bool UpsertWarOrder(const FOGWarOrderRecord&, int64, FString&) override;
+    virtual bool TryReadWarOrder(
+        const FOGEntityId&, bool&, FOGWarOrderRecord&, FString&) const override;
+    virtual bool ListWarOrders(
+        const FOGEntityId&, TArray<FOGWarOrderRecord>&, FString&) const override;
+    virtual bool UpsertWarParticipantHistory(
+        const FOGWarParticipantHistoryRecord&, FString&) override;
+    virtual bool ListWarParticipantHistory(
+        const FOGEntityId&, TArray<FOGWarParticipantHistoryRecord>&, FString&) const override;
+
+    virtual bool UpsertProjectPhase(
+        const FOGProjectPhaseRecord&, FString&) override;
+    virtual bool ListProjectPhases(
+        const FOGEntityId&, TArray<FOGProjectPhaseRecord>&, FString&) const override;
+    virtual bool UpsertProjectAssignment(
+        const FOGProjectAssignmentRecord&, FString&) override;
+    virtual bool ListProjectAssignments(
+        const FOGEntityId&, TArray<FOGProjectAssignmentRecord>&, FString&) const override;
+
+    virtual bool UpsertCivilizationState(
+        const FOGCivilizationStateRecord&, FString&) override;
+    virtual bool TryReadCivilizationState(
+        const FOGEntityId&, bool&, FOGCivilizationStateRecord&, FString&) const override;
+    virtual bool UpsertCivilizationDimension(
+        const FOGCivilizationDimensionRecord&, FString&) override;
+    virtual bool ListCivilizationDimensions(
+        const FOGEntityId&, TArray<FOGCivilizationDimensionRecord>&, FString&) const override;
+
+    virtual bool UpsertLogisticsRoute(
+        const FOGLogisticsRouteRecord&, int64, FString&) override;
+    virtual bool TryReadLogisticsRoute(
+        const FOGEntityId&, bool&, FOGLogisticsRouteRecord&, FString&) const override;
+    virtual bool ListLogisticsRoutesByOwner(
+        const FOGEntityId&, TArray<FOGLogisticsRouteRecord>&, FString&) const override;
+
+    bool MigrateStrategy0012(FString& OutError);
+    bool ValidateStrategyMigration0012(FString& OutError) const;
 
     virtual bool UpsertContentPackage(const FOGContentId&, int32, const FString&, bool, bool, const FString&, FString&) override;
     virtual bool SetContentPackageActivated(const FOGContentId&, bool, FString&) override;

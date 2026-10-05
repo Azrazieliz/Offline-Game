@@ -212,3 +212,150 @@ bool FOGProjectService::RefreshProject(
         OutProject.StartWorldTick,
         OutError);
 }
+
+
+bool FOGProjectService::SetProjectPhase(
+    const FOGProjectPhaseRecord& Phase,
+    FString& OutError)
+{
+    bool bFound = false;
+    FOGProjectRecord Project;
+    if (!Store.TryReadProject(
+            Phase.ProjectId,
+            bFound,
+            Project,
+            OutError))
+    {
+        return false;
+    }
+
+    if (!bFound)
+    {
+        OutError =
+            TEXT("Project phase requires an existing Project.");
+        return false;
+    }
+
+    return Store.UpsertProjectPhase(
+        Phase,
+        OutError);
+}
+
+bool FOGProjectService::AssignProjectRole(
+    const FOGProjectAssignmentRecord& Assignment,
+    FString& OutError)
+{
+    bool bFound = false;
+    FOGProjectRecord Project;
+    if (!Store.TryReadProject(
+            Assignment.ProjectId,
+            bFound,
+            Project,
+            OutError))
+    {
+        return false;
+    }
+
+    if (!bFound)
+    {
+        OutError =
+            TEXT("Project assignment requires an existing Project.");
+        return false;
+    }
+
+    return Store.UpsertProjectAssignment(
+        Assignment,
+        OutError);
+}
+
+bool FOGProjectService::RefreshProjectPhases(
+    const FOGEntityId& ProjectId,
+    int64 CurrentWorldTick,
+    TArray<FOGProjectPhaseRecord>& OutPhases,
+    FString& OutError)
+{
+    OutPhases.Reset();
+    OutError.Reset();
+
+    if (!ProjectId.IsValid() ||
+        CurrentWorldTick < 0)
+    {
+        OutError =
+            TEXT("Project phase refresh request is invalid.");
+        return false;
+    }
+
+    if (!Store.ListProjectPhases(
+            ProjectId,
+            OutPhases,
+            OutError))
+    {
+        return false;
+    }
+
+    for (FOGProjectPhaseRecord& Phase :
+         OutPhases)
+    {
+        if (Phase.Status !=
+                FName(TEXT("active")) &&
+            Phase.Status !=
+                FName(TEXT("planned")))
+        {
+            continue;
+        }
+
+        if (CurrentWorldTick <
+            Phase.StartWorldTick)
+        {
+            Phase.ProgressBps = 0;
+            Phase.Status =
+                FName(TEXT("planned"));
+        }
+        else if (CurrentWorldTick >=
+                 Phase.ResolveWorldTick)
+        {
+            Phase.ProgressBps = 10000;
+            Phase.Status =
+                FName(TEXT("completed"));
+        }
+        else
+        {
+            const int64 Duration =
+                Phase.ResolveWorldTick -
+                Phase.StartWorldTick;
+
+            if (Duration <= 0)
+            {
+                Phase.ProgressBps = 10000;
+                Phase.Status =
+                    FName(TEXT("completed"));
+            }
+            else
+            {
+                const int64 Elapsed =
+                    CurrentWorldTick -
+                    Phase.StartWorldTick;
+                const double Fraction =
+                    static_cast<double>(Elapsed) /
+                    static_cast<double>(Duration);
+                Phase.ProgressBps =
+                    FMath::Clamp(
+                        FMath::FloorToInt(
+                            Fraction * 10000.0),
+                        0,
+                        10000);
+                Phase.Status =
+                    FName(TEXT("active"));
+            }
+        }
+
+        if (!Store.UpsertProjectPhase(
+                Phase,
+                OutError))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}

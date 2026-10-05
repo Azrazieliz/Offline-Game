@@ -135,10 +135,10 @@ bool FOGDomainCoreFusionLineageTest::RunTest(
             DatabasePath,
             Error));
     TestEqual(
-        TEXT("Schema version is 11"),
+        TEXT("Schema version is 12"),
         Store.GetSchemaVersion(
             Error),
-        11);
+        12);
 
     const FOGEntityId RulerId =
         FOGEntityId::NewId();
