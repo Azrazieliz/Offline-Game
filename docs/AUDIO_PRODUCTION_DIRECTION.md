@@ -343,6 +343,25 @@ For the high-energy boss branch:
 
 The supplied GREATEST GLORIA passage is treated as a structural reference for this **setup → vocal detonation → sustained interlocked climax** pattern, not merely for instrumentation or tempo.
 
+#### Continuous-flow boss escalation correction
+
+Creative Director correction: boss tracks should not default to a fragmented pattern of burst -> quiet reset -> burst, nor should they sit on one intensity level for the entire song.
+
+Preferred macro-shape:
+- a genuinely restrained/calm opening or early passage;
+- a clear transition into sustained high intensity;
+- once the eruption begins, intensity remains elevated for an extended span but **fluctuates non-linearly** through harmony, register, orchestration, density and vocal force;
+- the song may remain one continuous flow rather than visibly segmented into discrete blocks;
+- brief contractions inside the high-intensity span are allowed, but they should feel like inhalations inside the same surge, not a reset to verse-level calm.
+
+The song itself—not only the singers—must carry the escalation. During the high-intensity span, drums, guitars, bass, piano, strings and electronic pressure should all participate in continuous dynamic motion, harmonic escalation and textural widening.
+
+Male/female blend correction:
+- avoid artificial call-and-response as the default duet device;
+- prefer continuous handoff, overlap, shared syllables, unison/octave passages, harmonized phrase continuation, crossfaded entries and lines where one voice naturally inherits the other's melodic motion;
+- the male voice should be an agile **Japanese alt-rock tenor/baritenor** rather than a generic deep baritone: strong mixed voice, emotional chest tone, controlled grit, flexible upper register/falsetto, capable of matching the female lead's intensity;
+- the male part should blend into the same emotional current rather than sounding like a separate narrator.
+
 Boss-branch guardrails:
 - female lead remains dominant unless a true duet is explicitly authored;
 - male/baritone counterlines, duet responses or background layers are allowed;
