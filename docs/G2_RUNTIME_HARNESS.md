@@ -1,26 +1,29 @@
 # G2 Runtime Harness
 
-Checkpoint G2 is retained as **pre-reconciliation proof infrastructure**. It is not the current player-facing contract and must not be compiled/tested as if its acquisition/Territory assumptions were final.
+Checkpoint G2 is retained as the **reconciled Vertical Slice 0 proof
+infrastructure**. The pre-detailing sequence has been replaced by the
+architecture-frozen flow in `VERTICAL_SLICE.md`.
 
 ## Persistent scenario harness
 
-`FOGVerticalSliceScenarioHarness` currently connects the older runtime systems through one SQLite history. The present sequence is intentionally documented here as **stale behavior to replace**:
+`FOGVerticalSliceScenarioHarness` now proves one SQLite history across:
+1. validated package/content state;
+2. real Territory control and authored more-than-one-month gacha qualification;
+3. permanent gacha unlock;
+4. landless acquisition of two independent same-Identity Manifestations;
+5. immediate portrait Ruler Mode projection while still unanchored;
+6. explicit first World Mode anchoring after controlled Territory is reached;
+7. shared action/turn Character-Identity exclusivity;
+8. physical exploration and knowledge-limited HUD state;
+9. a persistent action-combat consequence;
+10. Domain/Core damage, Project completion and objective-faithful Dispatch;
+11. persistent faction/War/front state;
+12. deterministic turn-battle replay;
+13. return to Ruler Mode over the same canonical facts;
+14. process restart and persistence/integrity verification.
 
-1. create the proof Ruler and physical wilderness location;
-2. seed aggregate pull/build resources;
-3. perform one deterministic persistent gacha pull **before Territory exists (superseded; must be removed)**;
-4. validate a World Mode switch party using the acquired Manifestation;
-5. persist physical presence and an Explored location-knowledge fact;
-6. create one territory and Domain Core **after the pull (superseded order)**;
-7. apply a persistent World Mode consequence by damaging the Domain Core;
-8. start and lazily complete one aggregate Project;
-9. run one deterministic turn-battle replay;
-10. persist a compact checkpoint containing the acquired Manifestation, Project,
-    and battle fingerprint;
-11. close/reopen SQLite and verify all relevant consequences survive.
-
-The harness uses provisional `slice:` content IDs only. It is test/developer
-infrastructure, not production balance or lore.
+The harness uses provisional `slice:` content IDs only. It is
+test/developer infrastructure, not production balance or lore.
 
 ## Android baseline
 
@@ -79,8 +82,8 @@ Diagnostics generated through `UOGGameCoreSubsystem` now include the current
 aggregate performance snapshot alongside schema/integrity metadata, without
 copying world/save payloads.
 
-## Reconciliation target
+## Current gate status
 
-Before the real build gate, rewrite this harness to match `VERTICAL_SLICE.md` and `RECONCILIATION_MIGRATION_MATRIX.md`, including one-month sovereignty qualification, permanent gacha unlock, multiple same-Identity Manifestations, first Territory anchoring, five-day reclamation/Core-heart state, and shared action/turn identity-exclusivity validation.
-
-No UE compile/automation result obtained from the current stale harness is considered architectural certification.
+The source-level reconciliation is complete. Static repository/preflight checks
+must be fully green before the first real UE 5.8 compile. No real Unreal,
+Android package or S26 Ultra result is claimed by this document.
