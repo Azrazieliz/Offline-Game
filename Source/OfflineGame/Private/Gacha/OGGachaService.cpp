@@ -367,6 +367,25 @@ bool FOGGachaService::Pull(
         return Fail(Error);
     }
 
+    FOGManifestationReinforcementRecord Reinforcement;
+    Reinforcement.ManifestationId =
+        Manifestation.ManifestationId;
+    Reinforcement.ReinforcementState =
+        FName(TEXT("developing"));
+    Reinforcement.bMaxReinforced =
+        false;
+    Reinforcement.UpdatedWorldTick =
+        WorldTick;
+    Reinforcement.StateJson =
+        TEXT("{\"source\":\"gacha_acquisition\"}");
+
+    if (!Store.UpsertManifestationReinforcement(
+            Reinforcement,
+            Error))
+    {
+        return Fail(Error);
+    }
+
     // Gacha access is permanent after first qualification, so a later landless
     // Ruler may still pull. If an effective Territory exists, the new
     // Manifestation receives its first immutable World Mode anchor immediately.
