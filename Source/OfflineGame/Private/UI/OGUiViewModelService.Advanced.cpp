@@ -1740,6 +1740,11 @@ FOGBackupManagerViewModel FOGUiViewModelService::BuildBackupManager(
             Entry.SourceBuildVersion;
         Backup.ValidationState =
             Entry.ValidationState;
+        Backup.SnapshotKind =
+            Entry.BackupId.StartsWith(
+                TEXT("WorldSnapshot_"))
+                ? FName(TEXT("automatic"))
+                : FName(TEXT("manual"));
         Backup.Actions =
         {
             FName(TEXT("export")),
@@ -1754,6 +1759,7 @@ FOGBackupManagerViewModel FOGUiViewModelService::BuildBackupManager(
 
 bool FOGUiViewModelService::BuildPackageStorage(
     const FOGPackageSizeResolver& SizeResolver,
+    const FOGPackageStorageActionResolver& ActionResolver,
     FOGPackageStorageViewModel& OutViewModel,
     FString& OutError) const
 {
@@ -1805,10 +1811,29 @@ bool FOGUiViewModelService::BuildPackageStorage(
 
         View.Actions.Add(
             FName(TEXT("inspect_update")));
-        if (Package.bInstalled)
+
+        bool bMoveAllowed = false;
+        bool bArchiveAllowed = false;
+        if (Package.bInstalled &&
+            ActionResolver)
+        {
+            if (!ActionResolver(
+                    Package,
+                    bMoveAllowed,
+                    bArchiveAllowed,
+                    OutError))
+            {
+                return false;
+            }
+        }
+
+        if (bMoveAllowed)
         {
             View.Actions.Add(
                 FName(TEXT("move")));
+        }
+        if (bArchiveAllowed)
+        {
             View.Actions.Add(
                 FName(TEXT("archive")));
         }
