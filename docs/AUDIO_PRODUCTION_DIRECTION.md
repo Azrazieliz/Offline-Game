@@ -136,100 +136,140 @@ Critical information must never depend on spoken dialogue alone.
 
 ## 6A. Vocal-song production baseline
 
-Major vocal songs use a darker, predominantly minor/modal language and are authored as narrative events.
+Major vocal songs are narrative events. The **mainline reference corpus is reset and restricted to MYTH & ROID + Aimer only**.
 
-Baseline:
-- Japanese is the default lyric language, with other languages allowed when content supports them;
-- strong melody and leitmotif identity;
-- intimate-to-explosive dynamic architecture;
-- orchestral / rock / electronic / choral hybridization as appropriate;
-- no requirement for heroic or major-key resolution;
-- vocals may carry sensuality, danger, grief, defiance, psychological fracture or transcendence depending on the scene.
+No other artist, franchise soundtrack, prior generated prototype, or earlier mixed-reference brief is authoritative for the mainline vocal style unless the Creative Director explicitly re-adds it later.
 
-Refined phrasing/performance rules:
-- silence and negative space are compositional tools, not dead air;
-- sudden dropouts and explosive leitmotif re-entry are explicitly encouraged;
-- lyric density must fit the rhythm;
-- do not force every word to complete smoothly if that harms groove or emotional phrasing;
-- syllables and words may be split, delayed, repeated, clipped, stretched, interrupted or offset asymmetrically;
-- breaths, rests and silence may occur inside a lexical phrase when musically intentional;
-- vocal delivery should show large emotional/timbral variation rather than one stable polished tone;
-- original performances may use breathy intimacy, dark low-register color, sharp attacks, whisper, controlled rasp/strain, raw belt and abrupt dynamic changes.
+### 6A.1 Authoritative mainline reference corpus
 
-Reference qualities associated with Ado, Aimer and MYTH & ROID are used at the level of **dynamic contrast, expressive intensity, rhythmic treatment and silence-to-explosion architecture**. Production must not attempt to clone or impersonate a specific real singer's voice.
+Primary MYTH & ROID reference set:
+- STYX HELIX;
+- GREATEST GLORIA;
+- HYDRA;
+- Cracked Black;
+- Endless Embrace;
+- shadowgraph;
+- VORACITY;
+- Paradisus-Paradoxum;
+- L.L.L.
 
-### 6A.1 Main vocal-track correction
+Primary Aimer reference set:
+- I beg you;
+- Hana no Uta;
+- Zankyou Sanka.
 
-The main vocal-song line must remain **dark, threatening, highly sensual and highly emotional**. This is the default baseline, not an optional flavor.
+These references are used for high-level compositional, emotional, arrangement and performance qualities. Production must remain original and must not clone or impersonate any real singer.
 
-Primary reference weighting for the main line:
-- **MYTH & ROID — Greatest Gloria / STYX HELIX / Ender Ember**: macro-architecture, silence-to-eruption contrast, dark harmonic pressure, dramatic hook deployment and hybrid escalation;
-- **Heaven's Feel song family**: sensual darkness, intimate emotional gravity, piano/string-led tension, restrained-to-devastating escalation;
-- Ado / Aimer / ASCA remain strong vocal-performance references for expressivity, breath, timbral variation and phrasing, but the main-line arrangement must not drift toward festive, dance-like or beat-led energy.
+### 6A.2 Core synthesis
 
-Main-line instrumentation rule:
-- **piano + cello/viola/strings are the emotional center**;
-- electronic elements are **secondary, sparse and brief**;
-- electronics should appear mainly as transient pressure, distortion, texture or explosive accent around major vocal/leitmotif moments;
-- avoid a continuous beat-like electronic groove;
-- percussion should feel dramatic and physical rather than dance-oriented;
-- silence, breath and acoustic decay are as important as added layers.
+**Aimer contributes the emotional body:**
+- dark, sensual, intimate gravity;
+- breath-led phrasing and close vocal presence;
+- strong low/mid-register identity;
+- controlled vulnerability rather than constant force;
+- piano/string-led emotional tension;
+- poetic ambiguity, desire, grief, tenderness and danger coexisting;
+- gradual escalation that can remain calm while becoming devastating.
 
-The central emotional target is dangerous intimacy: desire, grief, obsession, surrender, tenderness, dread and irreversible emotional consequence may coexist. The music should feel close to the body and psychologically exposed before it becomes large.
+**MYTH & ROID contributes the structural and dramatic architecture:**
+- memorable dark hooks and leitmotifs;
+- minor/modal/chromatic pressure;
+- sudden section contrast and controlled eruption;
+- selective rock/electronic aggression;
+- unstable or threatening harmonic color;
+- strong refrain identity;
+- silence/dropout/re-entry used as drama;
+- vocal intensity that can break restraint at specific moments.
 
-### 6A.4 Fractured Echoes reference reset
+The target is **not** an average of the two. Aimer is the main source for sensual/emotional gravity and vocal intimacy; MYTH & ROID supplies darker architecture, contrast, pressure and eruption.
 
-Creative Director correction: the original **Fractured Echoes** prototype was structurally much closer to the intended mainline vocal identity than the later acoustic-overcorrection attempts. It is therefore restored as the primary prototype reference for **overall song architecture and energy balance**, while still requiring substantial style polish.
+### 6A.3 Mainline tone
 
-Keep from Fractured Echoes:
-- dark minor/modal emotional core;
-- intimate-to-explosive dynamic contrast;
-- memorable leitmotif behavior;
-- silence / dropout / re-entry structure;
-- hybrid orchestral-rock-electronic potential used with restraint;
-- strong narrative-song feeling rather than background underscore;
-- female-led vocal focus.
+Default mainline vocal tone:
+- dark;
+- highly emotional;
+- highly sensual when the scene supports it;
+- intimate;
+- melancholic or threatening as appropriate;
+- mature;
+- character-specific;
+- never generically heroic.
 
-Polish required beyond Fractured Echoes:
-- stronger sensuality and emotional gravity;
-- more distinctive, less generic vocal timbre and acting;
-- more breath as phrasing and emotional punctuation;
-- more rhythmically natural Japanese lyric construction;
-- more intelligent, game-specific poetic writing;
-- tighter control against festive/funk/dance drift;
-- avoid beat-led arrangement as the song engine;
-- preserve piano/cello/strings as important emotional anchors without forcing the whole song into sparse acoustic minimalism;
-- male vocals remain disallowed for solo mainline tracks unless explicitly authored as a duet/ensemble.
+Calmness is valid and often desirable. Intensity does not require speed, loud percussion or constant density.
 
-The later highly sparse piano/cello-only direction is **not** the new default. It remains a valid situational sub-style for selected calm/intimate songs, but must not replace the broader Fractured Echoes-style mainline architecture.
+### 6A.4 Arrangement rules
 
-### 6A.3 Mainline vocal eligibility and anti-drift guardrails
+Preferred emotional anchors:
+- piano;
+- cello;
+- viola;
+- strings;
+- voice;
+- silence / room decay.
 
-For the default/mainline vocal-song family:
+Rock and electronic elements are permitted when they serve the scene, but they must not automatically become the song's engine.
 
-- **solo lead vocals are female**;
-- male lead vocals are not valid for this mainline family;
-- male vocals are allowed only in an explicitly authored duet / ensemble context where the scene and composition call for them (for example, a dramatic male-female exchange), never as an accidental substitute for the intended female lead;
-- the mainline arrangement must not drift into funk, dance-pop, groove-led pop, bouncy syncopation, or beat-driven electronic production;
-- piano, cello, viola and strings carry the harmonic/emotional body;
-- percussion is sparse, dramatic and subordinate;
-- electronics are transient accents, pressure textures, distortion or explosive punctuation, not the continuous engine of the track;
-- silence, breath, sustain and acoustic decay are primary structural materials;
-- the target remains dark, threatening, sensual, intimate and emotionally volatile.
+Hard anti-drift rules:
+- no funk baseline;
+- no dance-pop baseline;
+- no bouncy groove;
+- no continuous beat-led electronic arrangement by default;
+- no celebratory brightness unless a specific scene explicitly requires it;
+- no generic trailer-wall orchestration.
 
-If a generation violates these guardrails, it is rejected as an invalid mainline candidate even if other qualities are strong.
+Electronics should usually act as:
+- pressure;
+- texture;
+- distortion;
+- transient low-end weight;
+- brief eruption support;
+- uncanny color.
 
-### 6A.2 Side-specific electronic / doll branch
+Percussion should usually be dramatic, sparse or sectional rather than continuously groove-driving.
 
-The more beat-driven, synthetic and rhythm-forward vocal direction explored in the later prototype batch is **not** part of the main vocal baseline.
+### 6A.5 Vocal rules
 
-Retain it as a side-specific palette for:
+Default mainline solo vocal:
+- female lead;
+- original performance;
+- dark/smoky or otherwise distinctive timbre;
+- breath is a scored expressive element;
+- strong emotional and timbral variation;
+- low/mid-register intimacy;
+- restrained vibrato where appropriate;
+- controlled rasp, strain or cracks when expressive;
+- fragile head voice or whisper allowed;
+- rare raw belts or forceful peaks should feel earned.
+
+Male vocal is valid only when deliberately authored as a duet or ensemble. It must never replace the intended female solo lead accidentally.
+
+### 6A.6 Lyric construction
+
+Lyrics must be written **with the music**, not as prose later forced onto a melody.
+
+Rules:
+- rhythm and melodic contour may be drafted before final wording;
+- Japanese mora count, vowel shape and consonant attack matter;
+- breath, rests and silence may occur inside a phrase;
+- words may be delayed, split, clipped, stretched or repeated only when musically natural;
+- imagery and implication are preferred over explanatory exposition;
+- lyrics should be specific to the game's character/world situation without naming mechanical systems unless a scene genuinely calls for them;
+- avoid generic perseverance slogans.
+
+### 6A.7 Previous prototypes
+
+Previous generated tracks, including **Fractured Echoes** and all later correction batches, are no longer style authorities for the mainline vocal family.
+
+They may be reviewed only as historical experiments showing what did or did not work. New mainline work must be derived from the MYTH & ROID + Aimer reference corpus above.
+
+### 6A.8 Side-specific electronic / doll branch
+
+The earlier beat-driven, synthetic and rhythm-forward direction remains available only as a **separate side-specific palette** for:
 - doll / puppet / artificial-body characters;
 - manufactured, synthetic or uncanny personalities;
-- scenes where mechanical repetition, artificial affect or controlled performance is narratively appropriate;
-- selected cybernetic / laboratory / constructed-identity contexts.
+- selected cybernetic / laboratory / constructed-identity scenes.
 
-This branch may use stronger electronic pulse, rigid rhythmic behavior, synthetic percussion and less organic sensuality where the character/scene specifically warrants it. It must not leak back into the default main vocal-song identity.
+This side branch must not leak back into the mainline vocal baseline.
 
 ## 7. NPC voice scalability
 
