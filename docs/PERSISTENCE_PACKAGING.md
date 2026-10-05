@@ -25,6 +25,14 @@ Update availability never blocks already-installed offline content merely becaus
 
 ## 3. Storage
 
+Installed-content planning follows `docs/STORAGE_QUALITY_BUDGET.md`.
+
+The standard-quality full-install target is **25-35 GB**. A **35-50 GB** full install is acceptable only when measured production content warrants it after duplication/reuse/compression review. **50 GB** is the soft warning threshold. **60 GB** is the hard installed-content ceiling unless the Creative Director explicitly approves an exception backed by physical Galaxy S26 Ultra profiling and a documented quality/content justification.
+
+The former ~100 GB planning ceiling is superseded.
+
+These installed-size limits apply to shipped/cooked runtime content, not source-production masters, DCC files, lossless audio masters, layered textures, local build intermediates, caches, saves, or optional extra-language/ultra-resolution packs that are not part of the standard-quality full install.
+
 Large/rarely used packages may be placed in Android-permitted user-selected external/shared storage where practical.
 
 Hot/latency-sensitive assets remain in the optimal local location.
