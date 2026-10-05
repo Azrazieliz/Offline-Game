@@ -251,6 +251,9 @@ struct OFFLINEGAME_API FOGGachaHistoryEntryViewModel
     int64 WorldTick = 0;
 
     UPROPERTY(BlueprintReadOnly)
+    FString DateDisplay;
+
+    UPROPERTY(BlueprintReadOnly)
     FOGContentId BannerId;
 
     UPROPERTY(BlueprintReadOnly)
@@ -324,6 +327,9 @@ struct OFFLINEGAME_API FOGTerritoryViewModel
 
     UPROPERTY(BlueprintReadOnly)
     TArray<FName> HierarchyLevels;
+
+    UPROPERTY(BlueprintReadOnly)
+    TArray<FOGEntityId> NavigationNodeIds;
 
     UPROPERTY(BlueprintReadOnly)
     bool bFragmentedCosmologyNavigationSupported = true;
@@ -762,6 +768,45 @@ struct OFFLINEGAME_API FOGManifestationDetailViewModel
 };
 
 USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGCharacterHistoryEntryViewModel
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly)
+    int64 WorldTick = 0;
+
+    UPROPERTY(BlueprintReadOnly)
+    FName Category = NAME_None;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGEntityId EventOrEntityId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGEntityId ManifestationId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId ContentId;
+
+    UPROPERTY(BlueprintReadOnly)
+    FString StateJson = TEXT("{}");
+};
+
+USTRUCT(BlueprintType)
+struct OFFLINEGAME_API FOGCharacterHistoryViewModel
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly)
+    FOGContentId IdentityId;
+
+    UPROPERTY(BlueprintReadOnly)
+    TArray<FOGCharacterHistoryEntryViewModel> Entries;
+
+    UPROPERTY(BlueprintReadOnly)
+    bool bMeaningfulEventsOnly = true;
+};
+
+USTRUCT(BlueprintType)
 struct OFFLINEGAME_API FOGManifestationComparisonViewModel
 {
     GENERATED_BODY()
@@ -1166,6 +1211,9 @@ struct OFFLINEGAME_API FOGBackupEntryViewModel
     int32 SchemaVersion = 0;
 
     UPROPERTY(BlueprintReadOnly)
+    FString WorldIdentity;
+
+    UPROPERTY(BlueprintReadOnly)
     FString CreatedUtc;
 
     UPROPERTY(BlueprintReadOnly)
@@ -1211,7 +1259,13 @@ struct OFFLINEGAME_API FOGPackageStorageEntryViewModel
     FName StorageClass = NAME_None;
 
     UPROPERTY(BlueprintReadOnly)
+    FString InstallUri;
+
+    UPROPERTY(BlueprintReadOnly)
     FName DownloadState = NAME_None;
+
+    UPROPERTY(BlueprintReadOnly)
+    FName UpdateState = NAME_None;
 
     UPROPERTY(BlueprintReadOnly)
     bool bSizeKnown = false;
