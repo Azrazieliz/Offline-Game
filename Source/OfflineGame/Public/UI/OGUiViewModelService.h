@@ -143,6 +143,7 @@ public:
         const FOGEntityId& RulerId,
         const FOGEntityId& LeftManifestationId,
         const FOGEntityId& RightManifestationId,
+        int32 MaxVisibleSkillsPerSide,
         const FOGResolvedStatsProjectionResolver& StatsResolver,
         FOGManifestationComparisonViewModel& OutViewModel,
         FString& OutError) const;
