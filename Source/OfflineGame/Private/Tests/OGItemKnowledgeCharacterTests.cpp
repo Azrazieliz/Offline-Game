@@ -49,8 +49,8 @@ bool FOGItemAffinityProficiencyPresentationTest::RunTest(
 
     FOGSQLiteWorldStore Store;
     FString Error;
-    TestTrue(TEXT("Open schema-13 database"), Store.Open(DatabasePath, Error));
-    TestEqual(TEXT("Schema version is 13"), Store.GetSchemaVersion(Error), 13);
+    TestTrue(TEXT("Open schema-14 database"), Store.Open(DatabasePath, Error));
+    TestEqual(TEXT("Schema version is 14"), Store.GetSchemaVersion(Error), 14);
 
     const FOGEntityId OwnerA = FOGEntityId::NewId();
     const FOGEntityId OwnerB = FOGEntityId::NewId();
