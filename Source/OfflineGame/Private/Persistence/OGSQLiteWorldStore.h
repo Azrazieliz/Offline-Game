@@ -276,6 +276,71 @@ public:
     bool MigrateStrategy0012(FString& OutError);
     bool ValidateStrategyMigration0012(FString& OutError) const;
 
+    virtual bool UpsertItemInstance(const FOGItemInstanceRecord&, int64, FString&) override;
+    virtual bool TryReadItemInstance(
+        const FOGEntityId&, bool&, FOGItemInstanceRecord&, FString&) const override;
+    virtual bool ListItemInstancesByOwner(
+        const FOGEntityId&, TArray<FOGItemInstanceRecord>&, FString&) const override;
+    virtual bool UpsertItemModifier(const FOGItemModifierRecord&, FString&) override;
+    virtual bool ListItemModifiers(
+        const FOGEntityId&, TArray<FOGItemModifierRecord>&, FString&) const override;
+    virtual bool UpsertEquipmentBinding(const FOGEquipmentBindingRecord&, FString&) override;
+    virtual bool TryReadEquipmentBinding(
+        const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentBindingRecord&, FString&) const override;
+    virtual bool ListEquipmentBindings(
+        const FOGEntityId&, TArray<FOGEquipmentBindingRecord>&, FString&) const override;
+    virtual bool UpsertInventoryContainer(
+        const FOGInventoryContainerRecord&, int64, FString&) override;
+    virtual bool TryReadInventoryContainer(
+        const FOGEntityId&, bool&, FOGInventoryContainerRecord&, FString&) const override;
+    virtual bool ListInventoryContainersByOwner(
+        const FOGEntityId&, TArray<FOGInventoryContainerRecord>&, FString&) const override;
+    virtual bool UpsertContainerContent(const FOGContainerContentRecord&, FString&) override;
+    virtual bool ListContainerContents(
+        const FOGEntityId&, TArray<FOGContainerContentRecord>&, FString&) const override;
+    virtual bool UpsertItemOwnerAffinity(
+        const FOGItemOwnerAffinityRecord&, FString&) override;
+    virtual bool TryReadItemOwnerAffinity(
+        const FOGEntityId&, const FOGEntityId&, bool&, FOGItemOwnerAffinityRecord&, FString&) const override;
+    virtual bool UpsertEquipmentProficiency(
+        const FOGEquipmentProficiencyRecord&, FString&) override;
+    virtual bool TryReadEquipmentProficiency(
+        const FOGEntityId&, const FOGContentId&, bool&, FOGEquipmentProficiencyRecord&, FString&) const override;
+    virtual bool UpsertManifestationPresentationState(
+        const FOGManifestationPresentationStateRecord&, FString&) override;
+    virtual bool TryReadManifestationPresentationState(
+        const FOGEntityId&, bool&, FOGManifestationPresentationStateRecord&, FString&) const override;
+    virtual bool UpsertOwnedPresentationUnlock(
+        const FOGOwnedPresentationUnlockRecord&, FString&) override;
+    virtual bool ListOwnedPresentationUnlocks(
+        const FOGEntityId&, TArray<FOGOwnedPresentationUnlockRecord>&, FString&) const override;
+    virtual bool UpsertEntityLanguage(const FOGEntityLanguageRecord&, FString&) override;
+    virtual bool ListEntityLanguages(
+        const FOGEntityId&, TArray<FOGEntityLanguageRecord>&, FString&) const override;
+    virtual bool UpsertSemanticMemory(
+        const FOGSemanticMemoryRecord&, int64, FString&) override;
+    virtual bool TryReadSemanticMemory(
+        const FOGEntityId&, bool&, FOGSemanticMemoryRecord&, FString&) const override;
+    virtual bool ListSemanticMemoriesByOwner(
+        const FOGEntityId&, TArray<FOGSemanticMemoryRecord>&, FString&) const override;
+    virtual bool UpsertNpcPromotionState(
+        const FOGNpcPromotionStateRecord&, FString&) override;
+    virtual bool TryReadNpcPromotionState(
+        const FOGEntityId&, bool&, FOGNpcPromotionStateRecord&, FString&) const override;
+    virtual bool UpsertCharacterAdultRuntimeState(
+        const FOGCharacterAdultRuntimeStateRecord&, FString&) override;
+    virtual bool TryReadCharacterAdultRuntimeState(
+        const FOGEntityId&, bool&, FOGCharacterAdultRuntimeStateRecord&, FString&) const override;
+    virtual bool UpsertHeroicRecord(
+        const FOGHeroicRecord&, int64, FString&) override;
+    virtual bool TryReadHeroicRecord(
+        const FOGEntityId&, bool&, FOGHeroicRecord&, FString&) const override;
+    virtual bool ListHeroicRecordsByIdentity(
+        const FOGContentId&, TArray<FOGHeroicRecord>&, FString&) const override;
+
+    bool MigrateItemsKnowledgeCharacters0013(FString& OutError);
+    bool ValidateItemsKnowledgeCharactersMigration0013(FString& OutError) const;
+
     virtual bool UpsertContentPackage(const FOGContentId&, int32, const FString&, bool, bool, const FString&, FString&) override;
     virtual bool SetContentPackageActivated(const FOGContentId&, bool, FString&) override;
     virtual bool IsContentPackageActivated(const FOGContentId&, bool&, bool&, FString&) const override;
