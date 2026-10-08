@@ -1,0 +1,48 @@
+{
+  "schema": "gate11.artifact_evidence.provisional.v1",
+  "note": "Not the unverified historical CONTENT_ARTIFACT_MANIFEST_TEMPLATE.json v2; Gate 11 must align/adopt fields before acceptance.",
+  "baseline_commit": "3f54f07cacbf193e160d0be15a7be5a7bc730c3b",
+  "content_id": "ui:ruler_shell.primary_destinations",
+  "package_id": "ui:ruler_shell_navigation",
+  "pipeline": "12_engineering_unreal",
+  "content_owner": "gate10_ui_ux_pending_acceptance",
+  "version": 1,
+  "status": "designing",
+  "source": {
+    "path": "Content/Data/Production/Gate12RulerShellContractSmoke.json",
+    "git_blob_sha1": "8baf325c1a4605e1308f6c97d75e407f04334be0",
+    "sha256": null
+  },
+  "validator": {
+    "path": "Scripts/validate_gate12_content_contract.py",
+    "git_blob_sha1": "0545ebb4d87ee00227443f3d64cc2ab90b0f94ec",
+    "sha256": null
+  },
+  "interchange_path": null,
+  "depends_on_content_ids": [],
+  "depends_on_package_ids": [
+    "ui:shared_navigation_contract"
+  ],
+  "unreal_target": null,
+  "content_pack_group": "standard",
+  "measured_source_bytes": 1544,
+  "estimated_cooked_android_bytes": null,
+  "measured_cooked_android_bytes": null,
+  "measured_installed_android_bytes": null,
+  "platform_profiling": null,
+  "validation": {
+    "connected_source_json_schema_smoke": "pass; read-only JS mirror of required DTO/dependency/routes checks with 5 negatives",
+    "python_validator": "not_run_python_runtime",
+    "unreal_native_validator": "not_run_engine",
+    "package_manager_registration": "not_run_engine",
+    "physical_android_test": "not_run_device"
+  },
+  "missing_external_dependencies": [
+    "Gate11 exact authoritative artifact manifest schema v2 and approval",
+    "Gate10 approved UMG/navigation presentation interchange",
+    "Online Windows Unreal development machine for native import and isolated automation",
+    "Online Galaxy S26 Ultra and approved meaningful content slice for device measurements"
+  ],
+  "trust_policy": "Never derive external pak mount authority from this JSON, PackageRecord install flags or imported world DB. Trusted native receipts/byte verification remain mandatory.",
+  "scope": "Source-contract smoke only. No runtime registration, install, content activation or world save mutation was performed."
+}
