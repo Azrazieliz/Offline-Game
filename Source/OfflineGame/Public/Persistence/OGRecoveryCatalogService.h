@@ -43,6 +43,35 @@ public:
         bool bDeleteBackups,
         FString& OutError);
 
+    /**
+     * Export the canonical world database through SQLite's online-backup path,
+     * register it in the recovery catalog and leave the live database untouched.
+     */
+    static bool ExportWorldBackup(
+        const FString& WorldDatabasePath,
+        const FString& DestinationBackupPath,
+        const FString& CatalogPath,
+        const FString& WorldIdentity,
+        const FString& SourceBuildVersion,
+        FString& OutBackupId,
+        FString& OutError);
+
+    /**
+     * Validate/migrate an imported backup on an isolated working copy, preserve
+     * the current canonical world, then restore the validated import through
+     * SQLite's backup API. Call from recovery/opening flow, not while gameplay
+     * is actively mutating the world database.
+     */
+    static bool ImportWorldBackup(
+        const FString& SourceBackupPath,
+        const FString& WorldDatabasePath,
+        const FString& ProtectedArchiveDirectory,
+        const FString& CatalogPath,
+        const FString& WorldIdentity,
+        const FString& SourceBuildVersion,
+        FString& OutPreservedWorldPath,
+        FString& OutError);
+
     static FString HashFile(
         const FString& FilePath);
 };

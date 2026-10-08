@@ -22,7 +22,7 @@ FString MakeWorldStateTestDirectory()
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGSharedWorldStateCrossModeTest,
     "OfflineGame.WorldState.WorldModeDiscoveryVisibleInRulerModeAfterRestart",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGSharedWorldStateCrossModeTest::RunTest(

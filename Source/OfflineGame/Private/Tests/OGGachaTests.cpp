@@ -42,7 +42,7 @@ FOGGachaBannerDefinition MakeSingleFeaturedTopBanner()
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGGachaPersistenceAndDuplicateTest,
     "OfflineGame.Gacha.PersistentPityCurrencyAndDuplicateAcquisition",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGGachaPersistenceAndDuplicateTest::RunTest(const FString& Parameters)
@@ -164,7 +164,7 @@ bool FOGGachaPersistenceAndDuplicateTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGGachaTicketFirstPaymentTest,
     "OfflineGame.Gacha.CompatibleTicketIsConsumedBeforeCurrency",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGGachaTicketFirstPaymentTest::RunTest(

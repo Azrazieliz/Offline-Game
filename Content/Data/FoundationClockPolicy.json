@@ -1,0 +1,14 @@
+{
+  "policy_id": "foundation:clock.temporary_v040",
+  "version": "1",
+  "rate_denominator": "1000000000",
+  "world_rate_numerator": "1000000",
+  "ruler_rate_numerator": "10000",
+  "offline_rate_numerator": "1000000",
+  "turn_local_rate_divisor": "1000000",
+  "max_due_actions_per_pump": "8",
+  "calendar_id": "foundation:calendar.temporary_30_day_month",
+  "local_ticks_per_day": "1",
+  "days_per_month": "30",
+  "tuning_status": "temporary Foundation diagnostic tuning; no production event cadence"
+}

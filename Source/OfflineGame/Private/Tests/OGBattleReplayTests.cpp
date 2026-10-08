@@ -58,7 +58,7 @@ FOGTurnTeamState MakeReplayTeam(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDeterministicFullBattleReplayTest,
     "OfflineGame.Combat.Replay.SameSeedSameCommandsSameFingerprint",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGDeterministicFullBattleReplayTest::RunTest(
     const FString& Parameters)

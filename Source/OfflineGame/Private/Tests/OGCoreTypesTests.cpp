@@ -7,7 +7,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGEntityIdValidityTest,
     "OfflineGame.Core.EntityId.NewIdIsValid",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGEntityIdValidityTest::RunTest(const FString& Parameters)
 {

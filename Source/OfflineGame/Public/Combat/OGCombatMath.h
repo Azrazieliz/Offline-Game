@@ -9,7 +9,7 @@ UENUM(BlueprintType)
 enum class EOGBaseDamageType : uint8
 {
     Physical,
-    True
+    TrueDamage
 };
 
 USTRUCT(BlueprintType)

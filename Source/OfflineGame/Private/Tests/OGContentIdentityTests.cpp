@@ -8,7 +8,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGContentIdValidationTest,
     "OfflineGame.Content.ContentId.Validation",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGContentIdValidationTest::RunTest(const FString& Parameters)
 {
@@ -30,7 +30,7 @@ bool FOGContentIdValidationTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGAdultEligibilityValidationTest,
     "OfflineGame.Content.Character.AdultReferencesRequireCanonicalAdult",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGAdultEligibilityValidationTest::RunTest(const FString& Parameters)
 {
@@ -66,7 +66,7 @@ bool FOGAdultEligibilityValidationTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGAdultCharacterManifestValidationTest,
     "OfflineGame.Content.Character.AdultIdentityCanReferenceAdultContent",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGAdultCharacterManifestValidationTest::RunTest(const FString& Parameters)
 {
@@ -102,7 +102,7 @@ bool FOGAdultCharacterManifestValidationTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGExternalAdultIdentityVersionPackageTest,
     "OfflineGame.Content.Character.ExternalAdultIdentityCanReceiveAdultReferences",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGExternalAdultIdentityVersionPackageTest::RunTest(const FString& Parameters)
 {

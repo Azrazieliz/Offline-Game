@@ -48,7 +48,7 @@ FString ValidDirectorProvenance(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGWorldTimeNestedProjectionTest,
     "OfflineGame.World.Time.NestedRationalProjectionAndCalendarResolver",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGWorldTimeNestedProjectionTest::RunTest(
@@ -227,7 +227,7 @@ bool FOGWorldTimeNestedProjectionTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRealityGraphAndJunctionTest,
     "OfflineGame.World.Reality.GraphWorldRankAndJunctionLifecycle",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGRealityGraphAndJunctionTest::RunTest(
@@ -441,7 +441,7 @@ bool FOGRealityGraphAndJunctionTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGWorldDirectorDeterminismAndBoundsTest,
     "OfflineGame.World.Director.DeterministicSchedulingBoundsAndProvenance",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGWorldDirectorDeterminismAndBoundsTest::RunTest(
@@ -619,7 +619,7 @@ bool FOGWorldDirectorDeterminismAndBoundsTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGWorldDirectorOfflineGovernorTest,
     "OfflineGame.World.Director.OfflineGovernorDefersNewCatastropheButPreservesLockedConsequences",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGWorldDirectorOfflineGovernorTest::RunTest(

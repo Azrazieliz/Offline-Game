@@ -98,7 +98,7 @@ bool SetMaxReinforced(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRankAndFactorPersistenceTest,
     "OfflineGame.Progression.RankAndFactors.DataDrivenAndAllFactorsRemainCausal",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGRankAndFactorPersistenceTest::RunTest(
@@ -329,7 +329,7 @@ bool FOGRankAndFactorPersistenceTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGClassCrownGrandSeatTest,
     "OfflineGame.Progression.Classes.CrownIsNonUniqueGrandSeatIsUnique",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGClassCrownGrandSeatTest::RunTest(
@@ -494,7 +494,7 @@ bool FOGClassCrownGrandSeatTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGCharacterRoutesAndHigherOrderProgressionTest,
     "OfflineGame.Progression.Character.RoutesFormsTranscendenceAndWorldExpressions",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGCharacterRoutesAndHigherOrderProgressionTest::RunTest(
@@ -739,7 +739,7 @@ bool FOGCharacterRoutesAndHigherOrderProgressionTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGGrandConvergencePersistenceTest,
     "OfflineGame.Progression.GrandConvergence.PreservesSourcesAndCreatesGrandManifestation",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGGrandConvergencePersistenceTest::RunTest(

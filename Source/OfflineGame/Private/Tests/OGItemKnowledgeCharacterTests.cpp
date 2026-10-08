@@ -37,7 +37,7 @@ bool PersistTestEntity(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGItemAffinityProficiencyPresentationTest,
     "OfflineGame.Items.AffinityProficiencyTransferAndPresentationRemainDistinct",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGItemAffinityProficiencyPresentationTest::RunTest(
@@ -251,7 +251,7 @@ bool FOGItemAffinityProficiencyPresentationTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGKnowledgePromotionAdultHeroicStateTest,
     "OfflineGame.Characters.KnowledgePromotionAdultRuntimeAndHeroicRecords",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGKnowledgePromotionAdultHeroicStateTest::RunTest(

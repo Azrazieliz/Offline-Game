@@ -302,49 +302,29 @@ Frozen exploration says access depends on the attempting entity's actual capabil
 
 **Reconciliation:** capability-aware traversal query decides access; no global boolean may implement "come back later" gates.
 
-## B17. Knowledge state lacks belief provenance/uncertainty/language
+## B17. Knowledge provenance / uncertainty / language — RESOLVED
 
-Current `knowledge_facts` can store owner-specific JSON, which is a useful base, but no first-class support exists for:
-- source/provenance;
-- confidence/uncertainty;
-- known-false vs believed-false distinction;
-- rumor propagation;
-- language/script knowledge.
+Migration 0013 extends knowledge facts with belief state, confidence, source entity/event, evidence tick and language context. Entity-language proficiency and semantic-memory records are first-class, and UI projections distinguish rumor/uncertain knowledge from confirmed state.
 
-**Reconciliation:** extend semantic fact state while keeping objective truth separate from belief.
+**Resolved contract:** objective world state remains separate from owner-specific belief/knowledge, with provenance and confidence preserved rather than inferred from presentation.
 
-## B18. Mature-content runtime state is not implemented
+## B18. Mature-content runtime boundary — FOUNDATION RESOLVED / CONTENT-EXTENSIBLE
 
-Beyond maturity metadata, there is no first-class:
-- libido/preferences profile;
-- contextual adult-content state;
-- Version/Factor/body-state integration;
-- systemic scene compatibility graph;
-- archive state;
-- Privacy/SFW presentation mask.
+Migration 0013 now provides character adult-runtime state, mutable authored context state and presentation/profile references, while Player Profile keeps Privacy/SFW presentation outside canonical world causality. Character/Manifestation/Factor/body-specific semantics remain content-authored rather than hard-coded globally.
 
-**Reconciliation:** implement as character/content/presentation data, not as combat hard-code.
+**Foundation contract:** the runtime has a stable persistence/presentation boundary; individual preference graphs, scene compatibility and authored variants belong to character/content production and do not reopen Foundation architecture.
 
-## B19. Android Reports notification bridge is absent
+## B19. Android Reports notification bridge — RESOLVED
 
-No Android notification/WorkManager bridge exists in current source.
+The runtime now includes `FOGPlatformLocalNotificationBridge`, which projects persisted Reports into engine-native local notifications without making notification delivery authoritative world state.
 
-**Reconciliation:** add local notification service backed by authoritative Reports; world state must remain correct even if Android suppresses background execution.
+**Resolved contract:** local notification projection is presentation-only; authoritative Reports remain persisted independently of Android background-execution behavior.
 
-## B20. Content-package runtime is too small for the frozen delivery model
+## B20. Content-package runtime delivery model — RESOLVED
 
-Current package persistence tracks ID/version/hash/installed/validated/activated/manifest JSON.
+Package persistence now includes category, install URI, storage class, sealed state, download/update state and compatibility metadata. Dependency edges are persisted separately and the package manager enforces minimum versions, activation readiness and cycle safety.
 
-Missing:
-- install location;
-- dependency activation enforcement;
-- sealed state;
-- hot/cold state;
-- external-storage placement;
-- update/download state;
-- package-level media/region categories.
-
-**Reconciliation:** extend package registry and activation validation.
+**Resolved contract:** package activation is dependency-aware and storage/delivery metadata is first-class rather than hidden in opaque manifest JSON.
 
 ## B21. Save-recovery runtime is only the first layer
 
@@ -363,37 +343,37 @@ Frozen design additionally requires:
 
 **Reconciliation:** retain SQLite online backup primitive; build the higher recovery layer around it.
 
-## B22. Heroic Record / heroification state is absent
+## B22. Heroic Record / heroification state — RESOLVED
 
-No runtime model yet supports recording a dead significant world character into a later gacha-accessible Identity Pattern while preserving canonical death.
+Migration 0013 includes `FOGHeroicRecord` persistence linking source world entity, Identity, canonical death event, resulting Pattern and gacha-access state. Canonical death remains preserved rather than rewritten by later heroification.
 
-**Reconciliation:** add content/state representation when first narrative/gacha content needs it.
+**Resolved contract:** narrative/content decides when a Heroic Record is created; Foundation owns the durable causal representation.
 
-## B23. NPC promotion / language / dialogue architecture is absent
+## B23. NPC promotion / language / semantic-dialogue foundation — FOUNDATION RESOLVED / CONTENT-EXTENSIBLE
 
-No current subsystem implements background-NPC promotion, semantic memory, language/script knowledge or offline hybrid free-text/structured dialogue.
+Migration 0013 includes NPC promotion state, entity language proficiency and semantic memories. These provide the durable runtime contracts required by later structured/hybrid dialogue systems without storing unlimited transcript history.
 
-**Reconciliation:** add data contracts after core character/world schemas are normalized.
+**Foundation contract:** promotion, language and semantic-memory architecture are fixed; concrete dialogue authoring, free-text generation policy and presentation remain content/UI concerns.
 
-## B24. Equipment/inventory physical-state model is absent
+## B24. Equipment/inventory physical-state model — RESOLVED
 
-Current combat units do not yet expose the frozen physical equipment/inventory/history/affinity model.
+Migration 0013 and `FOGInventoryEquipmentService` now provide item instances with durability/evolution/history, inventory containers, equipment bindings, owner affinity, equipment proficiency and presentation state. Transfer preserves history and affinity resolution is content-authored.
 
-**Reconciliation:** add equipment/item entities and storage capability without introducing loot-bloat schemas.
+**Resolved contract:** physical inventory/equipment state is first-class without forcing a universal loot-bloat or damage formula.
 
 ---
 
-## B25. Package dependencies are validated syntactically but not enforced at activation
+## B25. Package dependency activation — RESOLVED
 
-`FOGContentManifestValidator` checks dependency IDs/minimum versions structurally, but `SetContentPackageActivated` currently only checks the package's own installed/validated flags. It does not prove required dependency packages are installed, active and at sufficient versions.
+`FOGPackageManagerService` now resolves dependency graphs before activation, rejects cycles, enforces required minimum versions and activation readiness, and deterministically invalidates activation proofs when dependency semantics change.
 
-**Reconciliation:** dependency resolution becomes part of package activation with cycle detection, minimum-version checks and deterministic error reporting.
+**Resolved contract:** syntactic manifest validation and runtime activation validation are separate layers, and both are enforced.
 
-## B26. Orientation is automatic, but runtime orientation lock is not implemented
+## B26. Presentation-mode orientation policy — RESOLVED
 
-`DefaultEngine.ini` currently uses Android `Orientation=Sensor`, which is compatible with automatic portrait/landscape switching, but the frozen player-facing manual orientation lock does not yet exist as a runtime setting/control.
+Player profile v2 persists automatic/manual orientation preference. `UOGPresentationModeSubsystem` resolves automatic Ruler Mode to portrait and World Mode to landscape while explicit player locks override the mode preference. The World Mode game shell applies the same policy on direct launch.
 
-**Reconciliation:** retain automatic sensor behavior as default and add an explicit player lock that Ruler/World Mode transitions respect.
+**Resolved contract:** automatic portrait/landscape switching and persistent manual orientation override share one profile-backed policy.
 
 # C. P2 - cumulative-baseline supersession / documentation normalization
 

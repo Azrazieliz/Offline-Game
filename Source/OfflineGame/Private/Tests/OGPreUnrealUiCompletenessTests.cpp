@@ -99,7 +99,7 @@ FOGCombatUnitState MakeUiTurnUnit(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGUiCharacterCompletenessTest,
     "OfflineGame.PreUnreal.UI.CharacterRosterDetailWardrobeAdultEquipment",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGUiCharacterCompletenessTest::RunTest(
@@ -776,7 +776,7 @@ bool FOGUiCharacterCompletenessTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGUiRecordsGachaTerritoryCombatCompletenessTest,
     "OfflineGame.PreUnreal.UI.GachaRecordsTerritoryWorldHudTurnBattle",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGUiRecordsGachaTerritoryCombatCompletenessTest::RunTest(
@@ -1289,7 +1289,7 @@ bool FOGUiRecordsGachaTerritoryCombatCompletenessTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGUiRecoveryPackageStrategyCompletenessTest,
     "OfflineGame.PreUnreal.UI.RecoveryPackageProjectDispatchWarRisk",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGUiRecoveryPackageStrategyCompletenessTest::RunTest(
@@ -1420,9 +1420,13 @@ bool FOGUiRecoveryPackageStrategyCompletenessTest::RunTest(
             Storage.Packages[0].InstallUri,
             Package.InstallUri);
         TestEqual(
-            TEXT("Package update/download state is exposed"),
-            Storage.Packages[0].UpdateState,
+            TEXT("Package download/install state is exposed"),
+            Storage.Packages[0].DownloadState,
             Package.DownloadState);
+        TestEqual(
+            TEXT("Package update state remains unknown without a metadata provider"),
+            Storage.Packages[0].UpdateState,
+            FName(TEXT("unknown")));
         TestTrue(
             TEXT("Move is exposed only when storage resolver allows it"),
             Storage.Packages[0].Actions.Contains(

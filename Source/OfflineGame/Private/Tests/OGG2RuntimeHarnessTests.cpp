@@ -1,6 +1,8 @@
 #include "Persistence/OGSQLiteWorldStore.h"
 #include "Runtime/OGPerformanceTelemetry.h"
 #include "Runtime/OGVerticalSliceScenario.h"
+#include "World/OGStartingRegionPresentation.h"
+#include "World/OGTraversalFramework.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -23,7 +25,7 @@ FString MakeVerticalSlice0TestDirectory()
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGVerticalSliceRuntimeHarnessTest,
     "OfflineGame.VerticalSlice.Reconciled.PersistentEndToEndRestart",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
@@ -57,12 +59,16 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
             Store.GetSchemaVersion(Error),
             14);
 
-        TestTrue(
-            TEXT("Run persistent vertical-slice scenario"),
+        const bool bFreshRan =
             FOGVerticalSliceScenarioHarness::RunFresh(
                 Store,
                 Fresh,
-                Error));
+                Error);
+        TestTrue(
+            FString::Printf(
+                TEXT("Run persistent vertical-slice scenario: %s"),
+                *Error),
+            bFreshRan);
 
         TestTrue(
             TEXT("Fresh scenario reports success"),
@@ -115,12 +121,16 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
                 DatabasePath,
                 Error));
 
-        TestTrue(
-            TEXT("Verify same cross-mode history after restart"),
+        const bool bRestartVerified =
             FOGVerticalSliceScenarioHarness::VerifyAfterRestart(
                 Store,
                 Restarted,
-                Error));
+                Error);
+        TestTrue(
+            FString::Printf(
+                TEXT("Verify same cross-mode history after restart: %s"),
+                *Error),
+            bRestartVerified);
 
         TestTrue(
             TEXT("Restart verification reports success"),
@@ -184,7 +194,7 @@ bool FOGVerticalSliceRuntimeHarnessTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGPerformanceTelemetryAggregationTest,
     "OfflineGame.Runtime.PerformanceTelemetry.ConstantMemoryBudgets",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGPerformanceTelemetryAggregationTest::RunTest(
@@ -240,6 +250,134 @@ bool FOGPerformanceTelemetryAggregationTest::RunTest(
         TEXT("Profile change resets aggregation window"),
         Snapshot.FrameCount,
         static_cast<int64>(0));
+
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGWorldSafetyPolicyTest,
+    "OfflineGame.Runtime.WorldSafety.MapBoundaryRecoveryPolicy",
+    EAutomationTestFlags_ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGWorldSafetyPolicyTest::RunTest(
+    const FString& Parameters)
+{
+    constexpr float PlayableHalfExtent = 38400.0f;
+    constexpr float TerrainCellSize = 1200.0f;
+
+    const float SafeHalfExtent =
+        FOGWorldSafetyPolicy::GetSafeHalfExtent(
+            PlayableHalfExtent,
+            TerrainCellSize);
+
+    TestEqual(
+        TEXT("Boundary inset yields expected safe half extent"),
+        SafeHalfExtent,
+        36600.0f);
+
+    TestFalse(
+        TEXT("Interior point remains playable"),
+        FOGWorldSafetyPolicy::IsOutsidePlayableRegion(
+            FVector(35000.0f, 0.0f, 0.0f),
+            PlayableHalfExtent,
+            TerrainCellSize));
+
+    TestTrue(
+        TEXT("Point beyond safe edge requires recovery"),
+        FOGWorldSafetyPolicy::IsOutsidePlayableRegion(
+            FVector(36601.0f, 0.0f, 0.0f),
+            PlayableHalfExtent,
+            TerrainCellSize));
+
+    TestFalse(
+        TEXT("Deep vertical traversal remains legal while XY stays in bounds"),
+        FOGWorldSafetyPolicy::IsOutsidePlayableRegion(
+            FVector(0.0f, 0.0f, -1000000.0f),
+            PlayableHalfExtent,
+            TerrainCellSize));
+
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGTraversalCapabilityFrameworkTest,
+    "OfflineGame.Runtime.Traversal.CapabilityFramework",
+    EAutomationTestFlags_ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGTraversalCapabilityFrameworkTest::RunTest(
+    const FString& Parameters)
+{
+    UOGTraversalCapabilityComponent* Traversal =
+        NewObject<UOGTraversalCapabilityComponent>();
+
+    TestNotNull(
+        TEXT("Traversal capability component can be instantiated"),
+        Traversal);
+    if (!Traversal)
+    {
+        return false;
+    }
+
+    TestTrue(
+        TEXT("Ordinary sprint is baseline capability"),
+        Traversal->HasCapability(
+            FOGTraversalCapabilityIds::Sprint));
+    TestTrue(
+        TEXT("Baseline climb is available without generic stamina gating"),
+        Traversal->HasCapability(
+            FOGTraversalCapabilityIds::Climb));
+    TestTrue(
+        TEXT("Baseline swimming is supported"),
+        Traversal->HasCapability(
+            FOGTraversalCapabilityIds::Swim));
+    TestFalse(
+        TEXT("True flight remains content-granted"),
+        Traversal->HasCapability(
+            FOGTraversalCapabilityIds::Flight));
+
+    FOGTraversalRequirement Requirement;
+    Requirement.RequiredAll = {
+        FOGTraversalCapabilityIds::Swim,
+        FOGTraversalCapabilityIds::Dive
+    };
+
+    TestTrue(
+        TEXT("All-of traversal requirements are evaluated"),
+        Traversal->SatisfiesRequirement(
+            Requirement));
+
+    Requirement.RequiredAny = {
+        FOGTraversalCapabilityIds::Flight,
+        FOGTraversalCapabilityIds::Teleport
+    };
+
+    TestFalse(
+        TEXT("Any-of requirement fails before exotic capability grant"),
+        Traversal->SatisfiesRequirement(
+            Requirement));
+
+    Traversal->GrantCapability(
+        FOGTraversalCapabilityIds::Flight);
+
+    TestTrue(
+        TEXT("Capability grants immediately satisfy traversal gates"),
+        Traversal->SatisfiesRequirement(
+            Requirement));
+
+    TestEqual(
+        TEXT("Flying mode maps to flight capability"),
+        UOGTraversalCapabilityComponent::RequiredCapabilityForMode(
+            EOGTraversalMode::Flying),
+        FOGTraversalCapabilityIds::Flight);
+
+    Traversal->SetTraversalMode(
+        EOGTraversalMode::Flying);
+    TestEqual(
+        TEXT("Traversal mode is explicit and queryable"),
+        Traversal->GetTraversalMode(),
+        EOGTraversalMode::Flying);
 
     return true;
 }

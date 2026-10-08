@@ -1,4 +1,5 @@
 #include "Runtime/OGReportService.h"
+#include "Runtime/OGPlatformLocalNotificationBridge.h"
 
 bool FOGReportService::CreateReport(
     const FOGEntityId& OwnerEntityId,
@@ -219,5 +220,23 @@ bool FOGReportService::DeliverAndroidProjection(
 
     return Store.UpsertReportDelivery(
         Delivery,
+        OutError);
+}
+
+
+bool FOGReportService::DeliverAndroidProjection(
+    const FOGEntityId& ReportId,
+    FName PrivacyState,
+    const FString& ScheduledRealUtc,
+    const FString& DeliveredRealUtc,
+    FString& OutError)
+{
+    FOGPlatformLocalNotificationBridge Bridge;
+    return DeliverAndroidProjection(
+        ReportId,
+        PrivacyState,
+        ScheduledRealUtc,
+        DeliveredRealUtc,
+        Bridge,
         OutError);
 }

@@ -1555,7 +1555,7 @@ bool FOGVerticalSliceScenarioHarness::RunFresh(
             EnemyFamilyMemberId,
             EnemyFamilyIdentityId(),
             1,
-            100);
+            200);
 
     FOGTurnBattleState InvalidDuplicateBattle;
     InvalidDuplicateBattle.BattleId =

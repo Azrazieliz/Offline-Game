@@ -69,7 +69,10 @@ for h in headers:
     elif generated:
         warn(h.relative_to(ROOT), "contains .generated.h but no reflected declaration was detected")
 
-    reflected_body_types = len(re.findall(r"\bU(?:CLASS|STRUCT)\s*\(", text))
+    reflected_body_types = (
+        len(re.findall(r"\bU(?:CLASS|STRUCT)\s*\(", text))
+        + 2 * len(re.findall(r"\bUINTERFACE\s*\(", text))
+    )
     generated_bodies = text.count("GENERATED_BODY()")
     if reflected_body_types != generated_bodies:
         err(
@@ -238,9 +241,9 @@ if not android_config.exists():
 else:
     android = read(android_config)
     required_android_settings = {
-        "PackageName=com.azrazieliz.[PROJECT]": "provisional package identity",
+        "PackageName=com.azrazieliz.OfflineGame": "installed OfflineGame package identity",
         "MinSDKVersion=26": "minimum install SDK",
-        "TargetSDKVersion=35": "UE 5.8 target SDK",
+        "TargetSDKVersion=36": "UE 5.8 target SDK",
         "Orientation=Sensor": "portrait/landscape sensor orientation",
         "bBuildForArm64=True": "ARM64 target",
         "bBuildForX8664=False": "x86_64 disabled",

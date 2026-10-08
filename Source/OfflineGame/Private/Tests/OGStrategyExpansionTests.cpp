@@ -102,7 +102,7 @@ bool PersistStrategyArmy(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDispatchObjectiveFidelityTest,
     "OfflineGame.Strategy.Dispatch.MandatoryObjectivesCannotBeSilentlyBypassed",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGDispatchObjectiveFidelityTest::RunTest(
@@ -371,7 +371,7 @@ bool FOGDispatchObjectiveFidelityTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGContinuousWarStateTest,
     "OfflineGame.Strategy.War.MultipleFrontsOrdersDisobedienceAndParticipantHistory",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGContinuousWarStateTest::RunTest(
@@ -618,7 +618,7 @@ bool FOGContinuousWarStateTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGArmyCapabilityVectorResolutionTest,
     "OfflineGame.Strategy.Army.CapabilityVectorsAreAuthoritativeNotSummaryPower",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGArmyCapabilityVectorResolutionTest::RunTest(
@@ -803,7 +803,7 @@ bool FOGArmyCapabilityVectorResolutionTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGProjectsCivilizationAndLogisticsTest,
     "OfflineGame.Strategy.World.ProjectsCivilizationDimensionsAndCapabilityRoutes",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGProjectsCivilizationAndLogisticsTest::RunTest(

@@ -1,0 +1,9 @@
+{
+  "binding_id": "diagnostic:visual.neutral_material",
+  "priority": -1000,
+  "binding": {
+    "materials": {
+      "0": {"asset_path": "/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"}
+    }
+  }
+}

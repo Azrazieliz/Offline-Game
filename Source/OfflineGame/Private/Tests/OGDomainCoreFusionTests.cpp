@@ -111,7 +111,7 @@ FOGDomainCoreRecord MakeAwakenedCore(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDomainCoreFusionLineageTest,
     "OfflineGame.DomainCore.Fusion.AsymmetricConceptsLineageAndHeartLoss",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGDomainCoreFusionLineageTest::RunTest(
@@ -427,7 +427,7 @@ bool FOGDomainCoreFusionLineageTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDomainHeartProtectionAndReconstitutionTest,
     "OfflineGame.DomainCore.Heart.ProtectedCoreSurvivesPhysicalDamageAndExceptionalReconstitution",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGDomainHeartProtectionAndReconstitutionTest::RunTest(

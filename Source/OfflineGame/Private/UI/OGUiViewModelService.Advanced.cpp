@@ -1,5 +1,6 @@
 #include "UI/OGUiViewModelService.h"
 
+#include "Gacha/OGGachaService.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -2040,8 +2041,10 @@ bool FOGUiViewModelService::BuildPackageStorage(
             Package.InstallUri;
         View.DownloadState =
             Package.DownloadState;
+        // Remote metadata/version checks are provider-driven. Do not lie by
+        // mirroring install/download state into the update-state field.
         View.UpdateState =
-            Package.DownloadState;
+            FName(TEXT("unknown"));
 
         if (SizeResolver)
         {

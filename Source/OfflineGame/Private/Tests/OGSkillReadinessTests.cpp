@@ -7,7 +7,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGSkillResourceReadinessTest,
     "OfflineGame.Combat.SkillReadiness.PersonalResource",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGSkillResourceReadinessTest::RunTest(const FString& Parameters)
 {
@@ -64,7 +64,7 @@ bool FOGSkillResourceReadinessTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGSkillCooldownIsExplicitTest,
     "OfflineGame.Combat.SkillReadiness.CooldownIsExplicitNotUniversal",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGSkillCooldownIsExplicitTest::RunTest(const FString& Parameters)
 {

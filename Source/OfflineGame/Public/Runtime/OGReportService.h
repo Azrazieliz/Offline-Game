@@ -55,6 +55,14 @@ public:
         IOGAndroidNotificationBridge& Bridge,
         FString& OutError);
 
+    /** Uses the engine-native local-notification bridge for the active platform. */
+    bool DeliverAndroidProjection(
+        const FOGEntityId& ReportId,
+        FName PrivacyState,
+        const FString& ScheduledRealUtc,
+        const FString& DeliveredRealUtc,
+        FString& OutError);
+
 private:
     IOGWorldStore& Store;
 };

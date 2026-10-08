@@ -74,7 +74,7 @@ bool ExecuteRawDatabaseSql(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRecoverySnapshotRotationTest,
     "OfflineGame.Persistence.RecoverySnapshotRotation",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGRecoverySnapshotRotationTest::RunTest(const FString& Parameters)
@@ -125,7 +125,7 @@ bool FOGRecoverySnapshotRotationTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDiagnosticsBundleTest,
     "OfflineGame.Diagnostics.BundleExcludesAbsoluteSavePath",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGDiagnosticsBundleTest::RunTest(const FString& Parameters)
@@ -178,7 +178,7 @@ bool FOGDiagnosticsBundleTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGMigrationSafeBootstrapPromotionTest,
     "OfflineGame.Persistence.MigrationBootstrap.PromotesValidatedWorkingCopy",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
@@ -355,7 +355,7 @@ bool FOGMigrationSafeBootstrapPromotionTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGMigrationSafeBootstrapFailureTest,
     "OfflineGame.Persistence.MigrationBootstrap.FailurePreservesAuthoritativeDatabase",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
@@ -450,7 +450,7 @@ bool FOGMigrationSafeBootstrapFailureTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGManifestation0007LegacyFanOutTest,
     "OfflineGame.Persistence.Migration0007.LegacyDuplicateCounterFansOutDeterministically",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
@@ -738,7 +738,7 @@ bool FOGManifestation0007LegacyFanOutTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTerritory0008LegacyProjectionMigrationTest,
     "OfflineGame.Persistence.Migration0008.LegacyTerritoryAndGachaStateArePreserved",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
@@ -1057,7 +1057,7 @@ bool FOGTerritory0008LegacyProjectionMigrationTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDomainHeart0009LegacyProjectionMigrationTest,
     "OfflineGame.Persistence.Migration0009.LegacyCoreAspectsAndHeartStateArePreserved",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
@@ -1155,6 +1155,36 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
             TEXT("Persist broken-heart Territory"),
             PersistTerritory(
                 BrokenLocationId,
+                BrokenTerritoryId));
+
+        const auto PersistSchema8Claim =
+            [&Store, &Error, &RulerId](
+                const FOGEntityId& TerritoryId)
+            {
+                FOGTerritoryClaimRecord Claim;
+                Claim.ClaimId = FOGEntityId::NewId();
+                Claim.TerritoryId = TerritoryId;
+                Claim.RulerId = RulerId;
+                Claim.ClaimKind = FName(TEXT("legacy_control"));
+                Claim.ControlState = FName(TEXT("controlled"));
+                Claim.ControlStrengthBps = 10000;
+                Claim.ClaimStartWorldTick = 0;
+                Claim.bHasEffectiveControlStart = true;
+                Claim.EffectiveControlStartWorldTick = 0;
+                Claim.UpdatedWorldTick = 0;
+                return Store.UpsertTerritoryClaim(
+                    Claim,
+                    0,
+                    Error);
+            };
+
+        TestTrue(
+            TEXT("Persist schema-8 functional Territory claim"),
+            PersistSchema8Claim(
+                FunctionalTerritoryId));
+        TestTrue(
+            TEXT("Persist schema-8 broken-heart Territory claim"),
+            PersistSchema8Claim(
                 BrokenTerritoryId));
 
         FOGDomainCoreRecord FunctionalCore;
@@ -1322,12 +1352,16 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
             Error));
 
     FOGWorldBootstrapResult Migration;
-    TestTrue(
-        TEXT("Safe bootstrap migrates schema 8 through current schema"),
+    const bool bPreparedSchema8 =
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
-            Error));
+            Error);
+    TestTrue(
+        FString::Printf(
+            TEXT("Safe bootstrap migrates schema 8 through current schema: %s"),
+            *Error),
+        bPreparedSchema8);
     TestEqual(
         TEXT("Migration source schema"),
         Migration.SourceSchemaVersion,
@@ -1437,7 +1471,7 @@ bool FOGDomainHeart0009LegacyProjectionMigrationTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGProgression0010LegacyProjectionMigrationTest,
     "OfflineGame.Persistence.Migration0010.LegacyProgressionIsPreservedWithoutFabricatedOntology",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
@@ -1683,7 +1717,7 @@ bool FOGProgression0010LegacyProjectionMigrationTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRealityTime0011NonFabricatingMigrationTest,
     "OfflineGame.Persistence.Migration0011.DoesNotFabricateRealityCalendarOrDirectorState",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
@@ -1865,7 +1899,7 @@ bool FOGRealityTime0011NonFabricatingMigrationTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGStrategy0012LegacyProjectionMigrationTest,
     "OfflineGame.Persistence.Migration0012.PreservesWarHistoryWithoutFabricatingCapabilities",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
@@ -2211,7 +2245,7 @@ bool FOGStrategy0012LegacyProjectionMigrationTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGItemsKnowledge0013NonFabricatingMigrationTest,
     "OfflineGame.Persistence.Migration0013.PreservesKnowledgeWithoutInventingCharacterOntology",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
@@ -2419,7 +2453,7 @@ bool FOGItemsKnowledge0013NonFabricatingMigrationTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGPackagesReports0014NonFabricatingMigrationTest,
     "OfflineGame.Persistence.Migration0014.PackageDefaultsWithoutFabricatedReportsOrManagement",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGPackagesReports0014NonFabricatingMigrationTest::RunTest(
@@ -2497,6 +2531,20 @@ bool FOGPackagesReports0014NonFabricatingMigrationTest::RunTest(
                 Manifestation,
                 10,
                 Error));
+
+        FOGManifestationReinforcementRecord Reinforcement;
+        Reinforcement.ManifestationId = ManifestationId;
+        Reinforcement.ReinforcementState =
+            FName(TEXT("legacy_unassessed"));
+        Reinforcement.bMaxReinforced = false;
+        Reinforcement.UpdatedWorldTick = 10;
+        Reinforcement.StateJson =
+            TEXT("{\"legacy_progression_state_retained\":true}");
+        TestTrue(
+            TEXT("Persist schema-13 reinforcement projection"),
+            Store.UpsertManifestationReinforcement(
+                Reinforcement,
+                Error));
         Store.Close();
     }
 
@@ -2519,12 +2567,16 @@ bool FOGPackagesReports0014NonFabricatingMigrationTest::RunTest(
             Error));
 
     FOGWorldBootstrapResult Migration;
-    TestTrue(
-        TEXT("Safe bootstrap migrates schema 13 to 14"),
+    const bool bPreparedSchema13 =
         FOGWorldBootstrap::PrepareWorld(
             DatabasePath,
             Migration,
-            Error));
+            Error);
+    TestTrue(
+        FString::Printf(
+            TEXT("Safe bootstrap migrates schema 13 to 14: %s"),
+            *Error),
+        bPreparedSchema13);
     TestEqual(
         TEXT("0014 migration source schema"),
         Migration.SourceSchemaVersion,
@@ -2567,6 +2619,25 @@ bool FOGPackagesReports0014NonFabricatingMigrationTest::RunTest(
             TEXT("Package download state receives compatibility default"),
             Package.DownloadState,
             FName(TEXT("installed")));
+
+        // Package lifecycle states are FName-backed and therefore
+        // case-insensitive. A device can persist the display spelling
+        // "Installed"; snapshot validation must not reject that healthy row.
+        Package.bActivated = true;
+        Package.DownloadState = FName(TEXT("Installed"));
+        TestTrue(
+            TEXT("Persist case-equivalent activated package state"),
+            Store.UpsertContentPackageRecord(
+                Package,
+                Error));
+        FString ApplicationReport;
+        TestTrue(
+            *FString::Printf(
+                TEXT("Migration 0014 accepts case-equivalent package lifecycle state: %s"),
+                *Error),
+            Store.RunApplicationValidation(
+                ApplicationReport,
+                Error));
 
         TArray<FOGReportRecord> Reports;
         TestTrue(

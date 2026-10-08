@@ -163,7 +163,7 @@ public:
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGPackageDependencyLifecycleTest,
     "OfflineGame.Runtime.Packages.MinimumVersionsCyclesAndActivation",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGPackageDependencyLifecycleTest::RunTest(
@@ -381,7 +381,7 @@ bool FOGPackageDependencyLifecycleTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGReportProjectionTest,
     "OfflineGame.Runtime.Reports.AcknowledgementAndAndroidProjectionDoNotRewriteWorldEvent",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGReportProjectionTest::RunTest(
@@ -406,8 +406,17 @@ bool FOGReportProjectionTest::RunTest(
     SourceEvent.PayloadJson = TEXT("{\"immutable_source\":\"raid_alpha\"}");
     TestTrue(TEXT("Persist source world event"), Store.AppendWorldEvent(SourceEvent, Error));
 
-    FString PayloadBefore;
-    TestTrue(TEXT("Read source event before Report projection"), ReadEventPayload0014(DatabasePath, SourceEvent.EventId, PayloadBefore, Error));
+    bool bSourceBeforeFound = false;
+    FOGWorldEvent SourceBefore;
+    TestTrue(
+        TEXT("Read source event before Report projection"),
+        Store.TryReadWorldEvent(
+            SourceEvent.EventId,
+            bSourceBeforeFound,
+            SourceBefore,
+            Error));
+    TestTrue(TEXT("Source event exists before Report projection"), bSourceBeforeFound);
+    const FString PayloadBefore = SourceBefore.PayloadJson;
 
     FOGReportService Reports(Store);
     FOGEntityId ReportId;
@@ -450,9 +459,20 @@ bool FOGReportProjectionTest::RunTest(
     TestEqual(TEXT("Delivery is marked delivered"), Delivery.State, FName(TEXT("delivered")));
     TestEqual(TEXT("Platform notification ID is retained"), Delivery.PlatformNotificationId, FString(TEXT("test-notification-001")));
 
-    FString PayloadAfter;
-    TestTrue(TEXT("Read source event after Report operations"), ReadEventPayload0014(DatabasePath, SourceEvent.EventId, PayloadAfter, Error));
-    TestEqual(TEXT("Report acknowledgement/delivery never rewrites source event"), PayloadAfter, PayloadBefore);
+    bool bSourceAfterFound = false;
+    FOGWorldEvent SourceAfter;
+    TestTrue(
+        TEXT("Read source event after Report operations"),
+        Store.TryReadWorldEvent(
+            SourceEvent.EventId,
+            bSourceAfterFound,
+            SourceAfter,
+            Error));
+    TestTrue(TEXT("Source event exists after Report operations"), bSourceAfterFound);
+    TestEqual(
+        TEXT("Report acknowledgement/delivery never rewrites source event"),
+        SourceAfter.PayloadJson,
+        PayloadBefore);
 
     Store.Close();
     IFileManager::Get().DeleteDirectory(*Directory, false, true);
@@ -462,7 +482,7 @@ bool FOGReportProjectionTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGProfileAndRecoverySidecarsTest,
     "OfflineGame.Runtime.Sidecars.ProfileOrientationAndRecoveryCatalogStayOutsideWorldCausality",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGProfileAndRecoverySidecarsTest::RunTest(
@@ -476,6 +496,10 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
     IFileManager::Get().MakeDirectory(*Directory, true);
 
     FOGPlayerProfileSettings Defaults;
+    TestEqual(
+        TEXT("Player profile defaults to current schema version"),
+        Defaults.Version,
+        4);
     TestEqual(
         TEXT("Orientation defaults to automatic"),
         Defaults.OrientationLock,
@@ -491,18 +515,48 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
         TEXT("Default download policy is unmetered/Wi-Fi only"),
         Defaults.NetworkPreferencesJson.Contains(
             TEXT("unmetered_only")));
+    TestFalse(
+        TEXT("Default runtime profile path is stable and non-empty"),
+        FOGPlayerProfileSettingsService::DefaultProfilePath().IsEmpty());
     TestEqual(
-        TEXT("Automatic orientation follows device"),
+        TEXT("Automatic World Mode orientation resolves to landscape"),
         FOGPlayerProfileSettingsService::ResolveOrientation(
             Defaults,
             FName(TEXT("landscape"))),
         FName(TEXT("landscape")));
+    TestEqual(
+        TEXT("Automatic Ruler Mode orientation resolves to portrait"),
+        FOGPlayerProfileSettingsService::ResolveOrientation(
+            Defaults,
+            FName(TEXT("portrait"))),
+        FName(TEXT("portrait")));
+    TestFalse(
+        TEXT("Default camera X is not inverted"),
+        Defaults.bInvertCameraX);
+    TestFalse(
+        TEXT("Default camera Y is not inverted"),
+        Defaults.bInvertCameraY);
+    TestTrue(
+        TEXT("Default horizontal camera sensitivity is positive"),
+        Defaults.CameraHorizontalSensitivity > 0.0f);
+    TestTrue(
+        TEXT("Default vertical camera sensitivity is positive"),
+        Defaults.CameraVerticalSensitivity > 0.0f);
+    TestTrue(
+        TEXT("Camera response curve defaults to precision-biased exponent"),
+        Defaults.CameraResponseExponent > 1.0f);
 
     FOGPlayerProfileSettings Profile = Defaults;
     Profile.bSfwPresentation = true;
     Profile.OrientationLock = FName(TEXT("portrait"));
     Profile.RosterDensity = FName(TEXT("dense"));
     Profile.bReducedMotion = true;
+    Profile.CameraHorizontalSensitivity = 1.35f;
+    Profile.CameraVerticalSensitivity = 0.70f;
+    Profile.CameraResponseExponent = 1.75f;
+    Profile.bInvertCameraX = true;
+    Profile.bInvertCameraY = true;
+    Profile.bSprintToggle = true;
     Profile.AutoCombatPresetJson = TEXT("{\"focus\":\"weakest\"}");
 
     FString Error;
@@ -589,6 +643,20 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
     TestTrue(TEXT("Privacy/SFW setting remains outside canonical DB lifecycle"), Reloaded.bSfwPresentation);
     TestEqual(TEXT("Roster density survives sidecar reload"), Reloaded.RosterDensity, FName(TEXT("dense")));
     TestTrue(TEXT("Auto-download preference survives sidecar reload"), Reloaded.bAutoDownload);
+    TestTrue(TEXT("Camera X inversion survives sidecar reload"), Reloaded.bInvertCameraX);
+    TestTrue(TEXT("Camera Y inversion survives sidecar reload"), Reloaded.bInvertCameraY);
+    TestTrue(
+        TEXT("Horizontal camera sensitivity survives sidecar reload"),
+        FMath::IsNearlyEqual(Reloaded.CameraHorizontalSensitivity, 1.35f));
+    TestTrue(
+        TEXT("Vertical camera sensitivity survives sidecar reload"),
+        FMath::IsNearlyEqual(Reloaded.CameraVerticalSensitivity, 0.70f));
+    TestTrue(
+        TEXT("Camera response exponent survives sidecar reload"),
+        FMath::IsNearlyEqual(Reloaded.CameraResponseExponent, 1.75f));
+    TestTrue(
+        TEXT("Sprint hold/toggle preference survives sidecar reload"),
+        Reloaded.bSprintToggle);
     TestTrue(
         TEXT("Unmetered-only download policy survives sidecar reload"),
         Reloaded.NetworkPreferencesJson.Contains(
@@ -608,10 +676,203 @@ bool FOGProfileAndRecoverySidecarsTest::RunTest(
     return true;
 }
 
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FOGManualRecoveryExportImportTest,
+    "OfflineGame.Runtime.Recovery.ManualExportImportPreservesPreviousWorld",
+    EAutomationTestFlags_ApplicationContextMask |
+        EAutomationTestFlags::EngineFilter)
+
+bool FOGManualRecoveryExportImportTest::RunTest(
+    const FString& Parameters)
+{
+    const FString Directory =
+        Make0014TestDirectory();
+    const FString DatabasePath =
+        FPaths::Combine(
+            Directory,
+            TEXT("world.db"));
+    const FString ExportPath =
+        FPaths::Combine(
+            Directory,
+            TEXT("Exports"),
+            TEXT("manual_export.db"));
+    const FString CatalogPath =
+        FPaths::Combine(
+            Directory,
+            TEXT("RecoveryCatalog.json"));
+    const FString ArchiveDirectory =
+        FPaths::Combine(
+            Directory,
+            TEXT("ProtectedArchive"));
+
+    IFileManager::Get().MakeDirectory(
+        *Directory,
+        true);
+
+    FString Error;
+    FOGSQLiteWorldStore Store;
+    TestTrue(
+        TEXT("Open canonical world for manual recovery test"),
+        Store.Open(
+            DatabasePath,
+            Error));
+
+    const FOGEntityId ExportedMarker =
+        FOGEntityId::NewId();
+    TestTrue(
+        TEXT("Persist marker included in manual export"),
+        Persist0014Entity(
+            Store,
+            ExportedMarker,
+            FName(TEXT("exported_marker")),
+            Error));
+    Store.Close();
+
+    FString BackupId;
+    TestTrue(
+        TEXT("Manual export uses SQLite backup and recovery catalog"),
+        FOGRecoveryCatalogService::ExportWorldBackup(
+            DatabasePath,
+            ExportPath,
+            CatalogPath,
+            TEXT("test:world.manual_recovery"),
+            TEXT("test-build"),
+            BackupId,
+            Error));
+    TestFalse(
+        TEXT("Manual export returns stable catalog identity"),
+        BackupId.IsEmpty());
+    TestTrue(
+        TEXT("Manual export file exists"),
+        IFileManager::Get().FileExists(
+            *ExportPath));
+
+    TestTrue(
+        TEXT("Reopen canonical world after export"),
+        Store.Open(
+            DatabasePath,
+            Error));
+    const FOGEntityId PostExportMarker =
+        FOGEntityId::NewId();
+    TestTrue(
+        TEXT("Persist post-export mutation"),
+        Persist0014Entity(
+            Store,
+            PostExportMarker,
+            FName(TEXT("post_export_marker")),
+            Error));
+    Store.Close();
+
+    FString PreservedWorldPath;
+    TestTrue(
+        TEXT("Manual import validates/migrates source and preserves current canonical world"),
+        FOGRecoveryCatalogService::ImportWorldBackup(
+            ExportPath,
+            DatabasePath,
+            ArchiveDirectory,
+            CatalogPath,
+            TEXT("test:world.manual_recovery"),
+            TEXT("test-build"),
+            PreservedWorldPath,
+            Error));
+
+    TestFalse(
+        TEXT("Import returns protected pre-import world path"),
+        PreservedWorldPath.IsEmpty());
+    TestTrue(
+        TEXT("Pre-import canonical world is archived"),
+        IFileManager::Get().FileExists(
+            *PreservedWorldPath));
+
+    auto ReadEntityPresence =
+        [&Error](
+            FOGSQLiteWorldStore& ReadStore,
+            const FOGEntityId& EntityId,
+            bool& bFound)
+        {
+            FName Kind;
+            FString StateJson;
+            int64 UpdatedWorldTick = 0;
+            return ReadStore.TryReadEntity(
+                EntityId,
+                bFound,
+                Kind,
+                StateJson,
+                UpdatedWorldTick,
+                Error);
+        };
+
+    TestTrue(
+        TEXT("Open canonical world after import"),
+        Store.Open(
+            DatabasePath,
+            Error));
+
+    bool bExportedMarkerFound = false;
+    TestTrue(
+        TEXT("Read exported marker after import"),
+        ReadEntityPresence(
+            Store,
+            ExportedMarker,
+            bExportedMarkerFound));
+    TestTrue(
+        TEXT("Imported canonical world contains exported marker"),
+        bExportedMarkerFound);
+
+    bool bPostExportMarkerFound = false;
+    TestTrue(
+        TEXT("Read post-export marker after import"),
+        ReadEntityPresence(
+            Store,
+            PostExportMarker,
+            bPostExportMarkerFound));
+    TestFalse(
+        TEXT("Imported canonical world does not retain later mutation"),
+        bPostExportMarkerFound);
+    Store.Close();
+
+    FOGSQLiteWorldStore PreservedStore;
+    TestTrue(
+        TEXT("Open protected pre-import world"),
+        PreservedStore.Open(
+            PreservedWorldPath,
+            Error));
+
+    bool bPreservedMutationFound = false;
+    TestTrue(
+        TEXT("Read post-export marker from preserved world"),
+        ReadEntityPresence(
+            PreservedStore,
+            PostExportMarker,
+            bPreservedMutationFound));
+    TestTrue(
+        TEXT("Protected pre-import world retains later mutation"),
+        bPreservedMutationFound);
+    PreservedStore.Close();
+
+    TArray<FOGBackupCatalogEntry> Entries;
+    TestTrue(
+        TEXT("Recovery catalog loads after export/import"),
+        FOGRecoveryCatalogService::LoadEntries(
+            CatalogPath,
+            Entries,
+            Error));
+    TestTrue(
+        TEXT("Recovery catalog records manual export, pre-import protection and import source"),
+        Entries.Num() >= 3);
+
+    IFileManager::Get().DeleteDirectory(
+        *Directory,
+        false,
+        true);
+    return true;
+}
+
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGProtectedManifestationConvergenceTest,
     "OfflineGame.Runtime.Management.ProtectedManifestationSurvivesBackupAndBlocksConvergenceUntilConfirmed",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGProtectedManifestationConvergenceTest::RunTest(

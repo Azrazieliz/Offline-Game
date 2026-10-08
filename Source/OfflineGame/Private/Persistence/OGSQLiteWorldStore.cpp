@@ -640,6 +640,7 @@ void FOGSQLiteWorldStore::Close()
     {
         DatabasePath.Reset();
         bTransactionActive = false;
+        TransactionDepth = 0;
         return;
     }
 
@@ -652,6 +653,7 @@ void FOGSQLiteWorldStore::Close()
             sqlite3_free(ErrorMessage);
         }
         bTransactionActive = false;
+        TransactionDepth = 0;
     }
 
     char* ErrorMessage = nullptr;
@@ -664,6 +666,7 @@ void FOGSQLiteWorldStore::Close()
     sqlite3_close_v2(Database);
     Database = nullptr;
     DatabasePath.Reset();
+    TransactionDepth = 0;
 }
 
 bool FOGSQLiteWorldStore::ExecuteSql(const FString& Sql, FString& OutError) const
@@ -1000,33 +1003,39 @@ bool FOGSQLiteWorldStore::BeginTransaction(FString& OutError)
 {
     if (bTransactionActive)
     {
-        OutError = TEXT("Nested world-store transactions are not supported.");
-        return false;
+        if (TransactionDepth <= 0 || TransactionDepth == MAX_int32)
+        {
+            OutError = TEXT("World-store transaction depth is invalid.");
+            return false;
+        }
+        const FString Sql = FString::Printf(TEXT("SAVEPOINT og_world_tx_%d;"), TransactionDepth + 1);
+        if (!ExecuteSql(Sql, OutError)) return false;
+        ++TransactionDepth;
+        return true;
     }
-
-    if (!ExecuteSql(TEXT("BEGIN IMMEDIATE;"), OutError))
-    {
-        return false;
-    }
-
+    if (!ExecuteSql(TEXT("BEGIN IMMEDIATE;"), OutError)) return false;
     bTransactionActive = true;
+    TransactionDepth = 1;
     return true;
 }
 
 bool FOGSQLiteWorldStore::CommitTransaction(FString& OutError)
 {
-    if (!bTransactionActive)
+    if (!bTransactionActive || TransactionDepth <= 0)
     {
         OutError = TEXT("No active world-store transaction to commit.");
         return false;
     }
-
-    if (!ExecuteSql(TEXT("COMMIT;"), OutError))
+    if (TransactionDepth > 1)
     {
-        return false;
+        const FString Sql = FString::Printf(TEXT("RELEASE SAVEPOINT og_world_tx_%d;"), TransactionDepth);
+        if (!ExecuteSql(Sql, OutError)) return false;
+        --TransactionDepth;
+        return true;
     }
-
+    if (!ExecuteSql(TEXT("COMMIT;"), OutError)) return false;
     bTransactionActive = false;
+    TransactionDepth = 0;
     return true;
 }
 
@@ -1035,16 +1044,25 @@ bool FOGSQLiteWorldStore::RollbackTransaction(FString& OutError)
     if (!bTransactionActive)
     {
         OutError.Reset();
+        TransactionDepth = 0;
         return true;
     }
-
-    const bool bSucceeded = ExecuteSql(TEXT("ROLLBACK;"), OutError);
-    if (bSucceeded)
+    if (TransactionDepth > 1)
     {
-        bTransactionActive = false;
+        // ROLLBACK TO keeps the savepoint open; release closes exactly this scope.
+        const FString Sql = FString::Printf(
+            TEXT("ROLLBACK TO SAVEPOINT og_world_tx_%d; RELEASE SAVEPOINT og_world_tx_%d;"),
+            TransactionDepth, TransactionDepth);
+        if (!ExecuteSql(Sql, OutError)) return false;
+        --TransactionDepth;
+        return true;
     }
-    return bSucceeded;
+    if (!ExecuteSql(TEXT("ROLLBACK;"), OutError)) return false;
+    bTransactionActive = false;
+    TransactionDepth = 0;
+    return true;
 }
+
 
 bool FOGSQLiteWorldStore::UpsertEntity(
     const FOGEntityId& EntityId,

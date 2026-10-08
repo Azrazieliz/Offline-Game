@@ -1,0 +1,45 @@
+OFFLINE-GAME FOUNDATION FREEZE
+Status: FROZEN
+Freeze date: 2026-10-08
+Branch: content/environments-worlds
+Engine: Unreal Engine 5.8.3
+Android package: com.azrazieliz.OfflineGame
+Device acceptance target: Samsung Galaxy S26 Ultra SM-S948B
+
+AUTHORITATIVE FREEZE GATES
+- Win64 Editor + Android ARM64 native build: 294/294 PASS
+- Project compiler errors: 0
+- Project-origin compiler warnings: 0
+- Build/Cook/Stage/Package/Archive: PASS
+- Android SDK validation: VALID r27c
+- Full OfflineGame automation: 139/139 PASS, 0 failed, 0 not-run
+- validate_repo.py: PASS
+- verify_unreal_cpp.py: PASS (104 headers / 142 cpp)
+- git diff --check: PASS
+- Android generated restricted-resizability property count: 1
+- APK install/update on SM-S948B: PASS
+- Normal device launch without temporary command-line override: PASS
+- Device crash/ANR/fatal scan: CLEAN
+- Preserved device WorldState.db: schema 14, PRAGMA integrity_check=ok
+
+FINAL APK
+D:\UnrealProjects\Offline-Game\Saved\AndroidBuild\OfflineGame-arm64.apk
+SHA-256: 87E703E2F9AAAF2A0D0778271320A84A06FACD4C3A73177060BCF0E1DCB46059
+Size: 169804278 bytes
+
+FREEZE POLICY
+Foundation runtime contracts, persistence schema semantics, traversal/combat/gacha/world-state core,
+platform bridges, optional-package runtime, privacy/canonical-state separation, and diagnostic integration
+are now locked. Future work should be game content, UI/UX design, visual identity, lore, world/environment
+design, characters, progression/economy content, encounters, quests/events, animation/VFX/audio and polish.
+
+Modify Foundation only for:
+1. a reproducible defect,
+2. a platform compatibility blocker, or
+3. a content-integration blocker that cannot be solved in the content/design layer.
+
+Any Foundation modification after this marker requires a targeted regression, clean compile, and appropriate
+platform/device validation before this freeze baseline is superseded.
+
+This marker does NOT mean the current dirty worktree has been cleaned, committed, tagged, or pushed.
+Repository cleanup and GitHub baseline publication are the next separate phase.

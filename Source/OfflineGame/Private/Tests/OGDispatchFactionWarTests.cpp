@@ -36,7 +36,7 @@ bool PersistEntity(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDispatchPersistenceTest,
     "OfflineGame.WorldState.Dispatch.ResultOrientedPersistence",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGDispatchPersistenceTest::RunTest(
@@ -222,7 +222,7 @@ bool FOGDispatchPersistenceTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGFactionArmyWarStateTest,
     "OfflineGame.WorldState.FactionWar.MinimalPersistentState",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGFactionArmyWarStateTest::RunTest(
@@ -517,7 +517,7 @@ bool FOGFactionArmyWarStateTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGWarDeclarationDoesNotInventAllianceTest,
     "OfflineGame.WorldState.FactionWar.DeclareWarDoesNotInventAllianceHistory",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGWarDeclarationDoesNotInventAllianceTest::RunTest(

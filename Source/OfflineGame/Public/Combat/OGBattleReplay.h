@@ -53,10 +53,10 @@ struct OFFLINEGAME_API FOGReplayResult
     UPROPERTY(BlueprintReadOnly)
     bool bSucceeded = false;
 
-    UPROPERTY(BlueprintReadOnly)
+    /** Native-only replay seed; uint64 is intentionally not Blueprint-reflected. */
     uint64 Seed = 0;
 
-    UPROPERTY(BlueprintReadOnly)
+    /** Native-only deterministic RNG draw count. */
     uint64 RngDrawCount = 0;
 
     UPROPERTY(BlueprintReadOnly)

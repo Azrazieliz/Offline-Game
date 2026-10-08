@@ -65,7 +65,7 @@ FOGResolvedCombatAction MakeOrdinaryAction(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTurnBattleTimelineTest,
     "OfflineGame.Combat.Turn.TimelineOrdering",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGTurnBattleTimelineTest::RunTest(const FString& Parameters)
 {
@@ -115,7 +115,7 @@ bool FOGTurnBattleTimelineTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTurnBattleDefeatCompletionTest,
     "OfflineGame.Combat.Turn.DefeatCompletesAfterActionWindow",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGTurnBattleDefeatCompletionTest::RunTest(const FString& Parameters)
 {
@@ -171,7 +171,7 @@ bool FOGTurnBattleDefeatCompletionTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTurnBattleDirectSuccessionTest,
     "OfflineGame.Combat.Turn.DirectLaneSuccessionAfterAction",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGTurnBattleDirectSuccessionTest::RunTest(const FString& Parameters)
 {
@@ -247,7 +247,7 @@ bool FOGTurnBattleDirectSuccessionTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTurnBattleRevivalBeforeSuccessionTest,
     "OfflineGame.Combat.Turn.RevivalBeforeSuccession",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGTurnBattleRevivalBeforeSuccessionTest::RunTest(const FString& Parameters)
 {
@@ -360,7 +360,7 @@ bool FOGTurnBattleRevivalBeforeSuccessionTest::RunTest(const FString& Parameters
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTurnBattleCrossLaneRebalanceTest,
     "OfflineGame.Combat.Turn.ExhaustedLaneBorrowsDeepReserve",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGTurnBattleCrossLaneRebalanceTest::RunTest(const FString& Parameters)
 {
@@ -481,7 +481,7 @@ bool FOGTurnBattleCrossLaneRebalanceTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGActionPartyIdentityExclusivityTest,
     "OfflineGame.Combat.Action.IdentityExclusivity",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGActionPartyIdentityExclusivityTest::RunTest(const FString& Parameters)
 {
@@ -505,7 +505,7 @@ bool FOGActionPartyIdentityExclusivityTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGSharedIdentityExclusivityRuleTest,
     "OfflineGame.Combat.Shared.IdentityExclusivityAndExplicitOverride",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGSharedIdentityExclusivityRuleTest::RunTest(
@@ -610,7 +610,7 @@ bool FOGSharedIdentityExclusivityRuleTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGSharedRankSuppressionHookTest,
     "OfflineGame.Combat.Shared.RankSuppressionIsChannelBasedAndDataResolved",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGSharedRankSuppressionHookTest::RunTest(
@@ -740,7 +740,7 @@ bool FOGSharedRankSuppressionHookTest::RunTest(
         FOGLargeNumber::FromInt64(
             1000);
     DamageRequest.DamageType =
-        EOGBaseDamageType::True;
+        EOGBaseDamageType::TrueDamage;
     DamageRequest.bCanCrit = false;
     DamageRequest.bCanBeBlocked = false;
     DamageRequest.bAllowHitOverflowReplication =
@@ -776,7 +776,7 @@ bool FOGSharedRankSuppressionHookTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGUnknownRankDoesNotInventSuppressionTest,
     "OfflineGame.Combat.Shared.UnknownRankDoesNotInventGap",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGUnknownRankDoesNotInventSuppressionTest::RunTest(

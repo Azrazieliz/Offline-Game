@@ -1,8 +1,12 @@
 #include "Persistence/OGRecoveryCatalogService.h"
 
+#include "Persistence/OGSQLiteWorldStore.h"
+#include "Persistence/OGWorldBootstrap.h"
 #include "Dom/JsonObject.h"
 #include "HAL/FileManager.h"
+#include "Misc/DateTime.h"
 #include "Misc/FileHelper.h"
+#include "Misc/Guid.h"
 #include "Misc/Paths.h"
 #include "Misc/SecureHash.h"
 #include "Serialization/JsonReader.h"
@@ -310,7 +314,469 @@ FString FOGRecoveryCatalogService::HashFile(
     const FMD5Hash Hash =
         FMD5Hash::HashFile(
             *FilePath);
-    return Hash.ToString();
+    return LexToString(Hash);
+}
+
+
+bool FOGRecoveryCatalogService::ExportWorldBackup(
+    const FString& WorldDatabasePath,
+    const FString& DestinationBackupPath,
+    const FString& CatalogPath,
+    const FString& WorldIdentity,
+    const FString& SourceBuildVersion,
+    FString& OutBackupId,
+    FString& OutError)
+{
+    OutBackupId.Reset();
+    OutError.Reset();
+
+    if (WorldDatabasePath.IsEmpty() ||
+        DestinationBackupPath.IsEmpty() ||
+        CatalogPath.IsEmpty() ||
+        WorldIdentity.IsEmpty() ||
+        SourceBuildVersion.IsEmpty())
+    {
+        OutError =
+            TEXT("Manual world export requires source, destination, catalog, world identity and build version.");
+        return false;
+    }
+
+    IFileManager& Files = IFileManager::Get();
+    if (!Files.FileExists(*WorldDatabasePath))
+    {
+        OutError =
+            TEXT("Canonical world database does not exist.");
+        return false;
+    }
+
+    const FString DestinationDirectory =
+        FPaths::GetPath(DestinationBackupPath);
+    if (!DestinationDirectory.IsEmpty() &&
+        !Files.MakeDirectory(
+            *DestinationDirectory,
+            true) &&
+        !Files.DirectoryExists(
+            *DestinationDirectory))
+    {
+        OutError =
+            TEXT("Failed to create manual export directory.");
+        return false;
+    }
+
+    FOGSQLiteWorldStore Store;
+    if (!Store.Open(
+            WorldDatabasePath,
+            OutError))
+    {
+        return false;
+    }
+
+    FString SchemaError;
+    const int32 SchemaVersion =
+        Store.GetSchemaVersion(SchemaError);
+    if (!SchemaError.IsEmpty() ||
+        SchemaVersion <= 0)
+    {
+        Store.Close();
+        OutError =
+            SchemaError.IsEmpty()
+                ? TEXT("Manual export could not determine source schema version.")
+                : SchemaError;
+        return false;
+    }
+
+    if (!Store.BackupTo(
+            DestinationBackupPath,
+            OutError))
+    {
+        Store.Close();
+        return false;
+    }
+    Store.Close();
+
+    const FString Hash =
+        HashFile(DestinationBackupPath);
+    if (Hash.IsEmpty())
+    {
+        OutError =
+            TEXT("Manual export backup hash could not be computed.");
+        return false;
+    }
+
+    OutBackupId =
+        FString::Printf(
+            TEXT("manual_export:%s"),
+            *FGuid::NewGuid().ToString(
+                EGuidFormats::DigitsWithHyphensLower));
+
+    FOGBackupCatalogEntry Entry;
+    Entry.BackupId = OutBackupId;
+    Entry.BackupPathOrUri =
+        DestinationBackupPath;
+    Entry.SchemaVersion =
+        SchemaVersion;
+    Entry.WorldIdentity =
+        WorldIdentity;
+    Entry.CreatedUtc =
+        FDateTime::UtcNow().ToIso8601();
+    Entry.ContentHash =
+        Hash;
+    Entry.SourceBuildVersion =
+        SourceBuildVersion;
+    Entry.ValidationState =
+        FName(TEXT("validated"));
+
+    if (!AddOrUpdateEntry(
+            CatalogPath,
+            Entry,
+            OutError))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool FOGRecoveryCatalogService::ImportWorldBackup(
+    const FString& SourceBackupPath,
+    const FString& WorldDatabasePath,
+    const FString& ProtectedArchiveDirectory,
+    const FString& CatalogPath,
+    const FString& WorldIdentity,
+    const FString& SourceBuildVersion,
+    FString& OutPreservedWorldPath,
+    FString& OutError)
+{
+    OutPreservedWorldPath.Reset();
+    OutError.Reset();
+
+    if (SourceBackupPath.IsEmpty() ||
+        WorldDatabasePath.IsEmpty() ||
+        ProtectedArchiveDirectory.IsEmpty() ||
+        CatalogPath.IsEmpty() ||
+        WorldIdentity.IsEmpty() ||
+        SourceBuildVersion.IsEmpty())
+    {
+        OutError =
+            TEXT("Manual world import requires source, destination, protected archive, catalog, world identity and build version.");
+        return false;
+    }
+
+    FString SourceFull =
+        FPaths::ConvertRelativePathToFull(
+            SourceBackupPath);
+    FString TargetFull =
+        FPaths::ConvertRelativePathToFull(
+            WorldDatabasePath);
+    FPaths::NormalizeFilename(SourceFull);
+    FPaths::NormalizeFilename(TargetFull);
+    if (SourceFull.Equals(
+            TargetFull,
+            ESearchCase::IgnoreCase))
+    {
+        OutError =
+            TEXT("Import source must not be the canonical world database itself.");
+        return false;
+    }
+
+    IFileManager& Files =
+        IFileManager::Get();
+    if (!Files.FileExists(
+            *SourceBackupPath))
+    {
+        OutError =
+            TEXT("Import source backup does not exist.");
+        return false;
+    }
+
+    const FString TargetDirectory =
+        FPaths::GetPath(
+            WorldDatabasePath);
+    if (!TargetDirectory.IsEmpty() &&
+        !Files.MakeDirectory(
+            *TargetDirectory,
+            true) &&
+        !Files.DirectoryExists(
+            *TargetDirectory))
+    {
+        OutError =
+            TEXT("Failed to create canonical world directory for import.");
+        return false;
+    }
+
+    if (!Files.MakeDirectory(
+            *ProtectedArchiveDirectory,
+            true) &&
+        !Files.DirectoryExists(
+            *ProtectedArchiveDirectory))
+    {
+        OutError =
+            TEXT("Failed to create protected recovery archive directory.");
+        return false;
+    }
+
+    const FString ImportSessionId =
+        FGuid::NewGuid().ToString(
+            EGuidFormats::DigitsWithHyphensLower);
+    const FString StagingDirectory =
+        FPaths::Combine(
+            TargetDirectory,
+            TEXT("ImportStaging"),
+            ImportSessionId);
+    if (!Files.MakeDirectory(
+            *StagingDirectory,
+            true))
+    {
+        OutError =
+            TEXT("Failed to create isolated import staging directory.");
+        return false;
+    }
+
+    const FString StagingDatabasePath =
+        FPaths::Combine(
+            StagingDirectory,
+            TEXT("ImportedWorld.db"));
+
+    auto CleanupStaging =
+        [&Files, &StagingDirectory]()
+        {
+            Files.DeleteDirectory(
+                *StagingDirectory,
+                false,
+                true);
+        };
+
+    if (Files.Copy(
+            *StagingDatabasePath,
+            *SourceBackupPath,
+            true,
+            true) != COPY_OK)
+    {
+        CleanupStaging();
+        OutError =
+            TEXT("Failed to copy import source into isolated staging.");
+        return false;
+    }
+
+    FOGWorldBootstrapResult ImportBootstrap;
+    if (!FOGWorldBootstrap::PrepareWorld(
+            StagingDatabasePath,
+            ImportBootstrap,
+            OutError))
+    {
+        CleanupStaging();
+        return false;
+    }
+
+    FOGSQLiteWorldStore StagedStore;
+    if (!StagedStore.Open(
+            StagingDatabasePath,
+            OutError))
+    {
+        CleanupStaging();
+        return false;
+    }
+
+    FString StagedSchemaError;
+    const int32 ImportedSchemaVersion =
+        StagedStore.GetSchemaVersion(
+            StagedSchemaError);
+    StagedStore.Close();
+    if (!StagedSchemaError.IsEmpty() ||
+        ImportedSchemaVersion <= 0)
+    {
+        CleanupStaging();
+        OutError =
+            StagedSchemaError.IsEmpty()
+                ? TEXT("Validated import has an invalid schema version.")
+                : StagedSchemaError;
+        return false;
+    }
+
+    FString PreservedBackupId;
+    if (Files.FileExists(
+            *WorldDatabasePath))
+    {
+        const FString Timestamp =
+            FDateTime::UtcNow().ToString(
+                TEXT("%Y%m%dT%H%M%SZ"));
+        OutPreservedWorldPath =
+            FPaths::Combine(
+                ProtectedArchiveDirectory,
+                FString::Printf(
+                    TEXT("pre_import_%s_%s.db"),
+                    *Timestamp,
+                    *ImportSessionId.Left(8)));
+
+        FOGSQLiteWorldStore ExistingStore;
+        if (!ExistingStore.Open(
+                WorldDatabasePath,
+                OutError))
+        {
+            CleanupStaging();
+            return false;
+        }
+
+        FString ExistingSchemaError;
+        const int32 ExistingSchemaVersion =
+            ExistingStore.GetSchemaVersion(
+                ExistingSchemaError);
+        if (!ExistingSchemaError.IsEmpty() ||
+            ExistingSchemaVersion <= 0 ||
+            !ExistingStore.BackupTo(
+                OutPreservedWorldPath,
+                OutError))
+        {
+            ExistingStore.Close();
+            CleanupStaging();
+            if (OutError.IsEmpty())
+            {
+                OutError =
+                    ExistingSchemaError.IsEmpty()
+                        ? TEXT("Failed to preserve canonical world before import.")
+                        : ExistingSchemaError;
+            }
+            return false;
+        }
+        ExistingStore.Close();
+
+        PreservedBackupId =
+            FString::Printf(
+                TEXT("pre_import:%s"),
+                *ImportSessionId);
+
+        FOGBackupCatalogEntry PreservedEntry;
+        PreservedEntry.BackupId =
+            PreservedBackupId;
+        PreservedEntry.BackupPathOrUri =
+            OutPreservedWorldPath;
+        PreservedEntry.SchemaVersion =
+            ExistingSchemaVersion;
+        PreservedEntry.WorldIdentity =
+            WorldIdentity;
+        PreservedEntry.CreatedUtc =
+            FDateTime::UtcNow().ToIso8601();
+        PreservedEntry.ContentHash =
+            HashFile(
+                OutPreservedWorldPath);
+        PreservedEntry.SourceBuildVersion =
+            SourceBuildVersion;
+        PreservedEntry.ValidationState =
+            FName(TEXT("validated"));
+
+        if (PreservedEntry.ContentHash.IsEmpty() ||
+            !AddOrUpdateEntry(
+                CatalogPath,
+                PreservedEntry,
+                OutError))
+        {
+            CleanupStaging();
+            return false;
+        }
+    }
+
+    FOGSQLiteWorldStore TargetStore;
+    if (!TargetStore.Open(
+            WorldDatabasePath,
+            OutError))
+    {
+        CleanupStaging();
+        return false;
+    }
+
+    if (!TargetStore.RestoreFrom(
+            StagingDatabasePath,
+            OutError))
+    {
+        TargetStore.Close();
+        CleanupStaging();
+        return false;
+    }
+
+    FString CheckpointError;
+    if (!TargetStore.Checkpoint(
+            CheckpointError))
+    {
+        TargetStore.Close();
+        CleanupStaging();
+        OutError =
+            FString::Printf(
+                TEXT("Imported world restored but checkpoint failed: %s"),
+                *CheckpointError);
+        return false;
+    }
+    TargetStore.Close();
+
+    FOGWorldBootstrapResult FinalBootstrap;
+    if (!FOGWorldBootstrap::PrepareWorld(
+            WorldDatabasePath,
+            FinalBootstrap,
+            OutError))
+    {
+        if (!OutPreservedWorldPath.IsEmpty() &&
+            Files.FileExists(
+                *OutPreservedWorldPath))
+        {
+            FString RollbackError;
+            FOGSQLiteWorldStore RollbackStore;
+            if (RollbackStore.Open(
+                    WorldDatabasePath,
+                    RollbackError))
+            {
+                RollbackStore.RestoreFrom(
+                    OutPreservedWorldPath,
+                    RollbackError);
+                RollbackStore.Checkpoint(
+                    RollbackError);
+                RollbackStore.Close();
+            }
+        }
+        else
+        {
+            Files.Delete(
+                *WorldDatabasePath,
+                false,
+                true,
+                true);
+        }
+
+        CleanupStaging();
+        return false;
+    }
+
+    FOGBackupCatalogEntry ImportedEntry;
+    ImportedEntry.BackupId =
+        FString::Printf(
+            TEXT("import_source:%s"),
+            *ImportSessionId);
+    ImportedEntry.BackupPathOrUri =
+        SourceBackupPath;
+    ImportedEntry.SchemaVersion =
+        ImportedSchemaVersion;
+    ImportedEntry.WorldIdentity =
+        WorldIdentity;
+    ImportedEntry.CreatedUtc =
+        FDateTime::UtcNow().ToIso8601();
+    ImportedEntry.ContentHash =
+        HashFile(
+            SourceBackupPath);
+    ImportedEntry.SourceBuildVersion =
+        SourceBuildVersion;
+    ImportedEntry.ValidationState =
+        FName(TEXT("validated"));
+
+    if (ImportedEntry.ContentHash.IsEmpty() ||
+        !AddOrUpdateEntry(
+            CatalogPath,
+            ImportedEntry,
+            OutError))
+    {
+        CleanupStaging();
+        return false;
+    }
+
+    CleanupStaging();
+    return true;
 }
 
 bool FOGRecoveryCatalogService::ClearWorld(

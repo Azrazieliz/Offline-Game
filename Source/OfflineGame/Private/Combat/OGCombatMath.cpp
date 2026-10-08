@@ -320,7 +320,7 @@ FOGDamageResolution FOGCombatMath::ResolveDamage(
         ResolveBlock(
             Defender,
             Request.bCanBeBlocked &&
-            Request.DamageType != EOGBaseDamageType::True,
+            Request.DamageType != EOGBaseDamageType::TrueDamage,
             Rng);
 
     FOGLargeNumber Damage =

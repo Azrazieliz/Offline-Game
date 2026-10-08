@@ -101,7 +101,7 @@ bool FOGPlayerProfileSettingsService::Load(
                 NumberOrDefault(
                     Root,
                     TEXT("version"),
-                    1.0)));
+                    4.0)));
     OutSettings.bSfwPresentation =
         BoolOrDefault(
             Root,
@@ -145,6 +145,33 @@ bool FOGPlayerProfileSettingsService::Load(
                     1.0)),
             0.0f,
             1.0f);
+    OutSettings.VoiceVolume =
+        FMath::Clamp(
+            static_cast<float>(
+                NumberOrDefault(
+                    Root,
+                    TEXT("voice_volume"),
+                    1.0)),
+            0.0f,
+            1.0f);
+    OutSettings.SfxVolume =
+        FMath::Clamp(
+            static_cast<float>(
+                NumberOrDefault(
+                    Root,
+                    TEXT("sfx_volume"),
+                    OutSettings.EffectsVolume)),
+            0.0f,
+            1.0f);
+    OutSettings.AmbienceVolume =
+        FMath::Clamp(
+            static_cast<float>(
+                NumberOrDefault(
+                    Root,
+                    TEXT("ambience_volume"),
+                    1.0)),
+            0.0f,
+            1.0f);
     OutSettings.DynamicRangeProfile =
         FName(*JsonOrDefault(
             Root,
@@ -156,6 +183,122 @@ bool FOGPlayerProfileSettingsService::Load(
             Root,
             TEXT("haptics_enabled"),
             true);
+    OutSettings.HapticsIntensity =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("haptics_intensity"),
+                0.80)),
+            0.0f,
+            1.0f);
+    OutSettings.CameraHorizontalSensitivity =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("camera_horizontal_sensitivity"),
+                1.10)),
+            0.35f,
+            2.50f);
+    OutSettings.CameraVerticalSensitivity =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("camera_vertical_sensitivity"),
+                0.82)),
+            0.30f,
+            2.00f);
+    OutSettings.CameraResponseExponent =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("camera_response_exponent"),
+                1.55)),
+            1.0f,
+            2.5f);
+    OutSettings.bInvertCameraX =
+        BoolOrDefault(
+            Root,
+            TEXT("invert_camera_x"),
+            false);
+    OutSettings.bInvertCameraY =
+        BoolOrDefault(
+            Root,
+            TEXT("invert_camera_y"),
+            false);
+    OutSettings.bSprintToggle =
+        BoolOrDefault(
+            Root,
+            TEXT("sprint_toggle"),
+            false);
+    OutSettings.bLeftHandedControls =
+        BoolOrDefault(
+            Root,
+            TEXT("left_handed_controls"),
+            false);
+    OutSettings.TouchControlScale =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("touch_control_scale"),
+                1.0)),
+            0.75f,
+            1.40f);
+    OutSettings.TouchControlOpacity =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("touch_control_opacity"),
+                0.74)),
+            0.30f,
+            1.0f);
+    OutSettings.MovementDeadzone =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("movement_deadzone"),
+                0.08)),
+            0.0f,
+            0.35f);
+    OutSettings.LookDeadzone =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("look_deadzone"),
+                0.03)),
+            0.0f,
+            0.25f);
+    OutSettings.MovementStickInset =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("movement_stick_inset"),
+                0.105)),
+            0.06f,
+            0.34f);
+    OutSettings.MovementStickBottom =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("movement_stick_bottom"),
+                0.14)),
+            0.08f,
+            0.36f);
+    OutSettings.ActionClusterHorizontalOffset =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("action_cluster_horizontal_offset"),
+                0.0)),
+            -0.08f,
+            0.12f);
+    OutSettings.ActionClusterVerticalOffset =
+        FMath::Clamp(
+            static_cast<float>(NumberOrDefault(
+                Root,
+                TEXT("action_cluster_vertical_offset"),
+                0.0)),
+            -0.12f,
+            0.12f);
     OutSettings.ControlProfileJson =
         JsonOrDefault(
             Root,
@@ -172,6 +315,26 @@ bool FOGPlayerProfileSettingsService::Load(
             Root,
             TEXT("reduced_camera_shake"),
             false);
+    OutSettings.bSubtitlesEnabled =
+        BoolOrDefault(
+            Root,
+            TEXT("subtitles_enabled"),
+            true);
+    OutSettings.SubtitlePresentation =
+        FName(*JsonOrDefault(
+            Root,
+            TEXT("subtitle_presentation"),
+            TEXT("standard")));
+    OutSettings.UiReadabilityProfile =
+        FName(*JsonOrDefault(
+            Root,
+            TEXT("ui_readability_profile"),
+            TEXT("standard")));
+    OutSettings.ColorVisionProfile =
+        FName(*JsonOrDefault(
+            Root,
+            TEXT("color_vision_profile"),
+            TEXT("standard")));
     OutSettings.DamageNumberPresentation =
         FName(*JsonOrDefault(
             Root,
@@ -278,12 +441,69 @@ bool FOGPlayerProfileSettingsService::Save(
             Settings.EffectsVolume,
             0.0f,
             1.0f));
+    Root->SetNumberField(
+        TEXT("voice_volume"),
+        FMath::Clamp(Settings.VoiceVolume, 0.0f, 1.0f));
+    Root->SetNumberField(
+        TEXT("sfx_volume"),
+        FMath::Clamp(Settings.SfxVolume, 0.0f, 1.0f));
+    Root->SetNumberField(
+        TEXT("ambience_volume"),
+        FMath::Clamp(Settings.AmbienceVolume, 0.0f, 1.0f));
     Root->SetStringField(
         TEXT("dynamic_range"),
         Settings.DynamicRangeProfile.ToString());
     Root->SetBoolField(
         TEXT("haptics_enabled"),
         Settings.bHapticsEnabled);
+    Root->SetNumberField(
+        TEXT("haptics_intensity"),
+        FMath::Clamp(Settings.HapticsIntensity, 0.0f, 1.0f));
+    Root->SetNumberField(
+        TEXT("camera_horizontal_sensitivity"),
+        FMath::Clamp(Settings.CameraHorizontalSensitivity, 0.35f, 2.50f));
+    Root->SetNumberField(
+        TEXT("camera_vertical_sensitivity"),
+        FMath::Clamp(Settings.CameraVerticalSensitivity, 0.30f, 2.00f));
+    Root->SetNumberField(
+        TEXT("camera_response_exponent"),
+        FMath::Clamp(Settings.CameraResponseExponent, 1.0f, 2.5f));
+    Root->SetBoolField(
+        TEXT("invert_camera_x"),
+        Settings.bInvertCameraX);
+    Root->SetBoolField(
+        TEXT("invert_camera_y"),
+        Settings.bInvertCameraY);
+    Root->SetBoolField(
+        TEXT("sprint_toggle"),
+        Settings.bSprintToggle);
+    Root->SetBoolField(
+        TEXT("left_handed_controls"),
+        Settings.bLeftHandedControls);
+    Root->SetNumberField(
+        TEXT("touch_control_scale"),
+        FMath::Clamp(Settings.TouchControlScale, 0.75f, 1.40f));
+    Root->SetNumberField(
+        TEXT("touch_control_opacity"),
+        FMath::Clamp(Settings.TouchControlOpacity, 0.30f, 1.0f));
+    Root->SetNumberField(
+        TEXT("movement_deadzone"),
+        FMath::Clamp(Settings.MovementDeadzone, 0.0f, 0.35f));
+    Root->SetNumberField(
+        TEXT("look_deadzone"),
+        FMath::Clamp(Settings.LookDeadzone, 0.0f, 0.25f));
+    Root->SetNumberField(
+        TEXT("movement_stick_inset"),
+        FMath::Clamp(Settings.MovementStickInset, 0.06f, 0.34f));
+    Root->SetNumberField(
+        TEXT("movement_stick_bottom"),
+        FMath::Clamp(Settings.MovementStickBottom, 0.08f, 0.36f));
+    Root->SetNumberField(
+        TEXT("action_cluster_horizontal_offset"),
+        FMath::Clamp(Settings.ActionClusterHorizontalOffset, -0.08f, 0.12f));
+    Root->SetNumberField(
+        TEXT("action_cluster_vertical_offset"),
+        FMath::Clamp(Settings.ActionClusterVerticalOffset, -0.12f, 0.12f));
     Root->SetStringField(
         TEXT("control_profile_json"),
         Settings.ControlProfileJson);
@@ -293,6 +513,18 @@ bool FOGPlayerProfileSettingsService::Save(
     Root->SetBoolField(
         TEXT("reduced_camera_shake"),
         Settings.bReducedCameraShake);
+    Root->SetBoolField(
+        TEXT("subtitles_enabled"),
+        Settings.bSubtitlesEnabled);
+    Root->SetStringField(
+        TEXT("subtitle_presentation"),
+        Settings.SubtitlePresentation.ToString());
+    Root->SetStringField(
+        TEXT("ui_readability_profile"),
+        Settings.UiReadabilityProfile.ToString());
+    Root->SetStringField(
+        TEXT("color_vision_profile"),
+        Settings.ColorVisionProfile.ToString());
     Root->SetStringField(
         TEXT("damage_number_presentation"),
         Settings.DamageNumberPresentation.ToString());
@@ -337,17 +569,25 @@ bool FOGPlayerProfileSettingsService::Save(
     return true;
 }
 
+FString FOGPlayerProfileSettingsService::DefaultProfilePath()
+{
+    return FPaths::Combine(
+        FPaths::ProjectSavedDir(),
+        TEXT("OfflineGame"),
+        TEXT("PlayerProfile.json"));
+}
+
 FName FOGPlayerProfileSettingsService::ResolveOrientation(
     const FOGPlayerProfileSettings& Settings,
-    FName CurrentDeviceOrientation)
+    FName ModePreferredOrientation)
 {
     if (Settings.OrientationLock.IsNone() ||
         Settings.OrientationLock ==
             FName(TEXT("automatic")))
     {
-        return CurrentDeviceOrientation.IsNone()
+        return ModePreferredOrientation.IsNone()
             ? FName(TEXT("portrait"))
-            : CurrentDeviceOrientation;
+            : ModePreferredOrientation;
     }
 
     return Settings.OrientationLock;

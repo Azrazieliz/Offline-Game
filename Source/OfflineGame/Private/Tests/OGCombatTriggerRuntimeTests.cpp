@@ -7,7 +7,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGCombatTriggerOrderingTest,
     "OfflineGame.Combat.Triggers.DeterministicOrdering",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGCombatTriggerOrderingTest::RunTest(
     const FString& Parameters)
@@ -66,7 +66,7 @@ bool FOGCombatTriggerOrderingTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGCombatTriggerConditionTest,
     "OfflineGame.Combat.Triggers.ConditionEvaluator",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGCombatTriggerConditionTest::RunTest(
     const FString& Parameters)

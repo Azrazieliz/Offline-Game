@@ -412,4 +412,5 @@ private:
     sqlite3* Database = nullptr;
     FString DatabasePath;
     bool bTransactionActive = false;
+    int32 TransactionDepth = 0;
 };

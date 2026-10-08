@@ -11,7 +11,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGLargeNumberTest,
     "OfflineGame.Rules.LargeNumber.BasicArithmetic",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGLargeNumberTest::RunTest(const FString& Parameters)
 {
@@ -39,7 +39,7 @@ bool FOGLargeNumberTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDeterministicRngTest,
     "OfflineGame.Rules.Rng.Reproducible",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGDeterministicRngTest::RunTest(const FString& Parameters)
 {
@@ -61,7 +61,7 @@ bool FOGDeterministicRngTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRulePriorityTest,
     "OfflineGame.Rules.Priority.AuthorityThenSpecificity",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGRulePriorityTest::RunTest(const FString& Parameters)
 {
@@ -87,7 +87,7 @@ bool FOGRulePriorityTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGResolvedSkillSetDuplicateTest,
     "OfflineGame.Rules.SkillSet.RejectsDuplicates",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGResolvedSkillSetDuplicateTest::RunTest(const FString& Parameters)
 {
@@ -106,7 +106,7 @@ bool FOGResolvedSkillSetDuplicateTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRuleResolverTest,
     "OfflineGame.Rules.Priority.ResolverSelectsHighestPriority",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGRuleResolverTest::RunTest(const FString& Parameters)
 {

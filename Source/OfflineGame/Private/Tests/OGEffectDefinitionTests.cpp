@@ -7,7 +7,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGEffectValidationTest,
     "OfflineGame.Rules.Effects.Validation",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGEffectValidationTest::RunTest(const FString& Parameters)
 {
@@ -31,7 +31,7 @@ bool FOGEffectValidationTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTriggerValidationTest,
     "OfflineGame.Rules.Triggers.Validation",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGTriggerValidationTest::RunTest(const FString& Parameters)
 {

@@ -7,7 +7,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGCritResistanceOverflowTest,
     "OfflineGame.Combat.Math.CritResistanceThenOverflow",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGCritResistanceOverflowTest::RunTest(const FString& Parameters)
 {
@@ -60,7 +60,7 @@ bool FOGCritResistanceOverflowTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGHitOverflowReplicationTest,
     "OfflineGame.Combat.Math.HitOverflowReplication",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGHitOverflowReplicationTest::RunTest(const FString& Parameters)
 {
@@ -104,7 +104,7 @@ bool FOGHitOverflowReplicationTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGIndivisibleHitNoReplicationTest,
     "OfflineGame.Combat.Math.IndivisibleHitDoesNotReplicate",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGIndivisibleHitNoReplicationTest::RunTest(const FString& Parameters)
 {
@@ -133,7 +133,7 @@ bool FOGIndivisibleHitNoReplicationTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTrueDamageBypassTest,
     "OfflineGame.Combat.Math.TrueDamageBypassesDefenseReductionAndBlock",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGTrueDamageBypassTest::RunTest(const FString& Parameters)
 {
@@ -152,7 +152,7 @@ bool FOGTrueDamageBypassTest::RunTest(const FString& Parameters)
     FOGDamageRequest Request;
     Request.BaseDamage = FOGLargeNumber::FromInt64(1000);
     Request.DefenseReference = FOGLargeNumber::FromInt64(100);
-    Request.DamageType = EOGBaseDamageType::True;
+    Request.DamageType = EOGBaseDamageType::TrueDamage;
     Request.bCanCrit = false;
     Request.bCanBeBlocked = true;
     Request.bAllowHitOverflowReplication = false;

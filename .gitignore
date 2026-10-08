@@ -24,3 +24,14 @@ LocalContentCache/
 # OS noise
 .DS_Store
 Thumbs.db
+
+# Generated Unreal Android staging helpers and file-open-order traces.
+# Do NOT ignore Build/Android wholesale: VolumeReceiver.java is authored source
+# required by Source/OfflineGame/OfflineGame_APL.xml.
+/Build/Android/FileOpenOrder/
+/Build/Android_ASTC/FileOpenOrder/
+/Build/Android/src/com/azrazieliz/OfflineGame/AlarmReceiver.java
+/Build/Android/src/com/azrazieliz/OfflineGame/DownloaderActivity.java
+/Build/Android/src/com/azrazieliz/OfflineGame/OBBData.java
+/Build/Android/src/com/azrazieliz/OfflineGame/OBBDownloaderService.java
+/Build/Android/src/com/epicgames/unreal/DownloadShim.java

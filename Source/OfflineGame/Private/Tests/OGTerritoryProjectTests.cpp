@@ -49,7 +49,7 @@ bool PrepareRulerAndLocation(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGDomainCoreCaptureBreakTest,
     "OfflineGame.WorldState.DomainCore.CaptureRequiresIntactCore",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGDomainCoreCaptureBreakTest::RunTest(
@@ -293,7 +293,7 @@ bool FOGDomainCoreCaptureBreakTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGResourceProjectLazyProgressTest,
     "OfflineGame.WorldState.Project.AggregateResourcesAndLazyProgress",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGResourceProjectLazyProgressTest::RunTest(

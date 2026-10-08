@@ -33,6 +33,13 @@ public:
         const FOGContentId& PackageId,
         FString& OutError);
 
+    bool MovePackageStorage(
+        const FOGContentId& PackageId,
+        const FString& DestinationRoot,
+        FName DestinationStorageClass,
+        FString& OutNewInstallUri,
+        FString& OutError);
+
     bool ValidateDependencyGraph(
         FString& OutError) const;
 

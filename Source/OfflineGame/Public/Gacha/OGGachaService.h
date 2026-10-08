@@ -26,10 +26,18 @@ public:
         FOGGachaPullResult& OutResult,
         FString& OutError);
 
+    /** All acquisitions, payment, pity and history succeed or roll back together. */
+    bool PullBatch(const FOGGachaBannerDefinition& Banner, const FOGEntityId& RulerId,
+        int64 WorldTick, int64 Seed, int32 Count,
+        TArray<FOGGachaPullResult>& OutResults, FString& OutError);
+
     static bool ValidateBanner(
         const FOGGachaBannerDefinition& Banner,
         FString& OutError);
 
 private:
+    bool PullInternal(const FOGGachaBannerDefinition& Banner, const FOGEntityId& RulerId,
+        int64 WorldTick, int64 Seed, FOGGachaPullResult& OutResult,
+        FString& OutError, bool bOwnTransaction);
     IOGWorldStore& Store;
 };

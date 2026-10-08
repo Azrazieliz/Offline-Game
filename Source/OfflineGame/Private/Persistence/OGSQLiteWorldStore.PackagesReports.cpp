@@ -1081,7 +1081,7 @@ bool FOGSQLiteWorldStore::ValidatePackagesReportsManagementMigration0014(
             Database,
             "SELECT COUNT(*) FROM content_packages "
             "WHERE activated = 1 AND "
-            "(installed <> 1 OR validated <> 1 OR download_state <> 'installed');",
+            "(installed <> 1 OR validated <> 1 OR lower(download_state) <> 'installed');",
             InvalidActivatedPackages,
             OutError))
     {
@@ -1105,7 +1105,7 @@ bool FOGSQLiteWorldStore::ValidatePackagesReportsManagementMigration0014(
             "WHERE p.activated = 1 AND "
             "(required.version < d.minimum_version OR "
             " required.installed <> 1 OR required.validated <> 1 OR "
-            " required.activated <> 1 OR required.download_state <> 'installed');",
+            " required.activated <> 1 OR lower(required.download_state) <> 'installed');",
             InvalidActiveDependencyEdges,
             OutError))
     {

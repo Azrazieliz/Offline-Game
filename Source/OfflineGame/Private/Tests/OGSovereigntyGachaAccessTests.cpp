@@ -192,7 +192,7 @@ FOGGachaBannerDefinition MakeAccessGateBanner()
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGTerritoryReclamationAndSovereigntyTest,
     "OfflineGame.Sovereignty.OverlappingClaimsReclamationAndPermanentGachaUnlock",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
@@ -499,7 +499,7 @@ bool FOGTerritoryReclamationAndSovereigntyTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGGachaAccessGateAndManifestationAnchorTest,
     "OfflineGame.Gacha.AccessGateAndFirstTerritoryAnchor",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGGachaAccessGateAndManifestationAnchorTest::RunTest(

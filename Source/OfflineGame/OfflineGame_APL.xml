@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+    <gameActivityImportAdditions>
+        <insert><![CDATA[
+import android.content.Intent;
+import android.net.Uri;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+        ]]></insert>
+    </gameActivityImportAdditions>
+
+    <androidManifestUpdates>
+        <!-- UE 5.8 can emit this application property twice for non-resizable Android activities. -->
+        <loopElements tag="property">
+            <setStringFromAttribute result="PropertyName" tag="$" name="android:name" />
+            <setBoolIsEqual result="bRestrictedResizeProperty" arg1="$S(PropertyName)" arg2="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY" />
+            <if condition="bRestrictedResizeProperty">
+                <true>
+                    <removeElement tag="$" />
+                </true>
+            </if>
+        </loopElements>
+        <addElements tag="application">
+            <property android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY" android:value="true" />
+        </addElements>
+    </androidManifestUpdates>
+
+    <resourceCopies>
+        <!-- Keep UE's volume receiver contract; marshal notifications to its game-thread callback. -->
+        <copyFile src="$S(PluginDir)/../../Build/Android/src/com/epicgames/unreal/VolumeReceiver.java"
+                  dst="$S(BuildDir)/src/com/epicgames/unreal/VolumeReceiver.java" />
+    </resourceCopies>
+
+    <gameActivityClassAdditions>
+        <insert><![CDATA[
+public static native void nativeOGMediaVolumeChanged(int volume);
+private static final int OG_BACKUP_EXPORT_REQUEST = 8121;
+private static final int OG_BACKUP_IMPORT_REQUEST = 8122;
+private String OGBackupExportSource = "";
+private String OGBackupImportDestination = "";
+private String OGBackupTransferState = "idle";
+private String OGBackupTransferDetail = "";
+
+public void AndroidThunkJava_OGExportBackup(String sourcePath, String suggestedName)
+{
+    OGBackupExportSource = sourcePath != null ? sourcePath : "";
+    OGBackupTransferState = "pending_export";
+    OGBackupTransferDetail = "";
+
+    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    intent.setType("application/octet-stream");
+    intent.putExtra(Intent.EXTRA_TITLE, suggestedName);
+    startActivityForResult(intent, OG_BACKUP_EXPORT_REQUEST);
+}
+
+public void AndroidThunkJava_OGImportBackup(String destinationPath)
+{
+    OGBackupImportDestination = destinationPath != null ? destinationPath : "";
+    OGBackupTransferState = "pending_import";
+    OGBackupTransferDetail = "";
+
+    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    intent.setType("*/*");
+    startActivityForResult(intent, OG_BACKUP_IMPORT_REQUEST);
+}
+
+public String AndroidThunkJava_OGGetBackupTransferState()
+{
+    return OGBackupTransferState + "|" + OGBackupTransferDetail;
+}
+
+private boolean OGCopyFileToUri(String sourcePath, Uri destination)
+{
+    try
+    {
+        InputStream input = new FileInputStream(new File(sourcePath));
+        OutputStream output = getContentResolver().openOutputStream(destination, "w");
+        if (output == null)
+        {
+            input.close();
+            return false;
+        }
+
+        byte[] buffer = new byte[1024 * 1024];
+        int read;
+        while ((read = input.read(buffer)) > 0)
+        {
+            output.write(buffer, 0, read);
+        }
+        output.flush();
+        output.close();
+        input.close();
+        return true;
+    }
+    catch (Exception e)
+    {
+        OGBackupTransferDetail = e.toString();
+        return false;
+    }
+}
+
+private boolean OGCopyUriToFile(Uri source, String destinationPath)
+{
+    try
+    {
+        File destination = new File(destinationPath);
+        File parent = destination.getParentFile();
+        if (parent != null)
+        {
+            parent.mkdirs();
+        }
+
+        InputStream input = getContentResolver().openInputStream(source);
+        if (input == null)
+        {
+            return false;
+        }
+        OutputStream output = new FileOutputStream(destination, false);
+
+        byte[] buffer = new byte[1024 * 1024];
+        int read;
+        while ((read = input.read(buffer)) > 0)
+        {
+            output.write(buffer, 0, read);
+        }
+        output.flush();
+        output.close();
+        input.close();
+        return true;
+    }
+    catch (Exception e)
+    {
+        OGBackupTransferDetail = e.toString();
+        return false;
+    }
+}
+        ]]></insert>
+    </gameActivityClassAdditions>
+
+    <gameActivityOnActivityResultAdditions>
+        <insert><![CDATA[
+if (requestCode == OG_BACKUP_EXPORT_REQUEST)
+{
+    if (resultCode == RESULT_OK && data != null && data.getData() != null)
+    {
+        Uri uri = data.getData();
+        if (OGCopyFileToUri(OGBackupExportSource, uri))
+        {
+            OGBackupTransferState = "exported";
+            OGBackupTransferDetail = uri.toString();
+        }
+        else
+        {
+            OGBackupTransferState = "error";
+        }
+    }
+    else
+    {
+        OGBackupTransferState = "cancelled";
+        OGBackupTransferDetail = "";
+    }
+}
+
+if (requestCode == OG_BACKUP_IMPORT_REQUEST)
+{
+    if (resultCode == RESULT_OK && data != null && data.getData() != null)
+    {
+        Uri uri = data.getData();
+        if (OGCopyUriToFile(uri, OGBackupImportDestination))
+        {
+            OGBackupTransferState = "imported";
+            OGBackupTransferDetail = uri.toString();
+        }
+        else
+        {
+            OGBackupTransferState = "error";
+        }
+    }
+    else
+    {
+        OGBackupTransferState = "cancelled";
+        OGBackupTransferDetail = "";
+    }
+}
+        ]]></insert>
+    </gameActivityOnActivityResultAdditions>
+</root>

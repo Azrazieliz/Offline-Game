@@ -32,7 +32,7 @@ test/developer infrastructure, not production balance or lore.
 - Android-only shipping focus with ARM64 enabled and x86_64 disabled;
 - Vulkan enabled; experimental Vulkan SM5 disabled;
 - OpenGL ES 3.1/3.2 fallback shader path retained for bring-up;
-- target SDK 35 and minimum install SDK 26 for UE 5.8 compatibility;
+- target SDK 36 and minimum install SDK 26 for the validated UE 5.8 / Android 16 pipeline;
 - sensor orientation so portrait Ruler Mode and landscape World Mode can coexist;
 - app-specific external-files directory rather than requiring broad external
   storage access;

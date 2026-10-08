@@ -8,6 +8,7 @@
 UENUM(BlueprintType)
 enum class EOGLocationKnowledgeLevel : uint8
 {
+    Unknown = 0,
     Rumored = 1,
     Located = 2,
     Observed = 3,
@@ -58,7 +59,7 @@ struct OFFLINEGAME_API FOGWorldPresenceRecord
     FOGEntityId LocationId;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    FVector3d LocalPosition = FVector3d::ZeroVector;
+    FVector LocalPosition = FVector::ZeroVector;
 
     /** Ground / Sky / Underwater / Space / Underground / etc. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly)

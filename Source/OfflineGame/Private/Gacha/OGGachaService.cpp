@@ -170,13 +170,60 @@ bool FOGGachaService::ValidateBanner(
     return true;
 }
 
-bool FOGGachaService::Pull(
+bool FOGGachaService::PullBatch(const FOGGachaBannerDefinition& Banner,
+    const FOGEntityId& RulerId, int64 WorldTick, int64 Seed, int32 Count,
+    TArray<FOGGachaPullResult>& OutResults, FString& OutError)
+{
+    OutResults.Reset();
+    OutError.Reset();
+    if (Count < 1 || Count > 10)
+    {
+        OutError = TEXT("A batch requires between one and ten pulls.");
+        return false;
+    }
+    if (!ValidateBanner(Banner, OutError) || !RulerId.IsValid())
+    {
+        if (OutError.IsEmpty()) OutError = TEXT("Gacha requires a valid owning Ruler ID.");
+        return false;
+    }
+    if (!Store.BeginTransaction(OutError)) return false;
+    auto Fail = [this, &OutResults, &OutError]()
+    {
+        OutResults.Reset();
+        FString RollbackError;
+        Store.RollbackTransaction(RollbackError);
+        if (!RollbackError.IsEmpty()) OutError += TEXT(" | Rollback error: ") + RollbackError;
+        return false;
+    };
+    int64 NextSeed = Seed;
+    for (int32 Index = 0; Index < Count; ++Index)
+    {
+        FOGGachaPullResult Result;
+        if (!PullInternal(Banner, RulerId, WorldTick, NextSeed, Result, OutError, false))
+            return Fail();
+        NextSeed = static_cast<int64>(static_cast<uint64>(NextSeed) +
+            static_cast<uint64>(FMath::Max<int64>(1, Result.RngDrawCount + 1)));
+        OutResults.Add(MoveTemp(Result));
+    }
+    if (!Store.CommitTransaction(OutError)) return Fail();
+    return true;
+}
+
+bool FOGGachaService::Pull(const FOGGachaBannerDefinition& Banner,
+    const FOGEntityId& RulerId, int64 WorldTick, int64 Seed,
+    FOGGachaPullResult& OutResult, FString& OutError)
+{
+    return PullInternal(Banner, RulerId, WorldTick, Seed, OutResult, OutError, true);
+}
+
+bool FOGGachaService::PullInternal(
     const FOGGachaBannerDefinition& Banner,
     const FOGEntityId& RulerId,
     int64 WorldTick,
     int64 Seed,
     FOGGachaPullResult& OutResult,
-    FString& OutError)
+    FString& OutError,
+    bool bOwnTransaction)
 {
     OutResult = FOGGachaPullResult();
     OutError.Reset();
@@ -192,19 +239,20 @@ bool FOGGachaService::Pull(
         return false;
     }
 
-    if (!Store.BeginTransaction(OutError))
+    if (bOwnTransaction && !Store.BeginTransaction(OutError))
     {
         return false;
     }
 
-    auto Fail = [this, &OutError](const FString& Error)
+    auto Fail = [this, &OutError, bOwnTransaction](const FString& Error)
     {
         OutError = Error;
-        FString RollbackError;
-        Store.RollbackTransaction(RollbackError);
-        if (!RollbackError.IsEmpty())
+        if (bOwnTransaction)
         {
-            OutError += FString::Printf(TEXT(" | Rollback error: %s"), *RollbackError);
+            FString RollbackError;
+            Store.RollbackTransaction(RollbackError);
+            if (!RollbackError.IsEmpty())
+                OutError += FString::Printf(TEXT(" | Rollback error: %s"), *RollbackError);
         }
         return false;
     };
@@ -508,7 +556,7 @@ bool FOGGachaService::Pull(
         return Fail(Error);
     }
 
-    if (!Store.CommitTransaction(OutError))
+    if (bOwnTransaction && !Store.CommitTransaction(OutError))
     {
         FString RollbackError;
         Store.RollbackTransaction(RollbackError);

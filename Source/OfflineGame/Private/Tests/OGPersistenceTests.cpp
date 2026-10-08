@@ -20,7 +20,7 @@ FString MakeTestDirectory()
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGPersistenceRestartTest,
     "OfflineGame.Persistence.EntitySurvivesRestart",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGPersistenceRestartTest::RunTest(const FString& Parameters)
 {
@@ -86,7 +86,7 @@ bool FOGPersistenceRestartTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGPersistenceBackupRestoreTest,
     "OfflineGame.Persistence.BackupRestore",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGPersistenceBackupRestoreTest::RunTest(const FString& Parameters)
 {
@@ -132,7 +132,7 @@ bool FOGPersistenceBackupRestoreTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGCharacterManifestationPersistenceTest,
     "OfflineGame.Persistence.CharacterManifestationSurvivesRestart",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGCharacterManifestationPersistenceTest::RunTest(const FString& Parameters)
 {
@@ -207,7 +207,7 @@ bool FOGCharacterManifestationPersistenceTest::RunTest(const FString& Parameters
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGContentPackageActivationTest,
     "OfflineGame.Persistence.ContentPackage.RequiresValidationBeforeActivation",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::EngineFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::EngineFilter)
 
 bool FOGContentPackageActivationTest::RunTest(const FString& Parameters)
 {

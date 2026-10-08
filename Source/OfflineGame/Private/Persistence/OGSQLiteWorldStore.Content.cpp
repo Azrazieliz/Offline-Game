@@ -81,12 +81,24 @@ bool FOGSQLiteWorldStore::UpsertCharacterManifestation(
         return Fail(TEXT("Cannot persist a Character Manifestation for an unknown owning Ruler entity."));
     }
 
+    // Manifestation metadata shares an entity with canonical anatomy, injury and
+    // history. Updating its typed record must not erase those independent fields.
+    bool bManifestationEntityFound = false;
+    FName ManifestationEntityKind = NAME_None;
+    FString ManifestationEntityStateJson;
+    int64 ManifestationEntityRevision = 0;
     FString EntityError;
+    if (!TryReadEntity(Manifestation.ManifestationId, bManifestationEntityFound,
+            ManifestationEntityKind, ManifestationEntityStateJson,
+            ManifestationEntityRevision, EntityError))
+    {
+        return Fail(EntityError);
+    }
     if (!UpsertEntity(
             Manifestation.ManifestationId,
             TEXT("character_manifestation"),
             CreatedWorldTick,
-            TEXT("{}"),
+            bManifestationEntityFound ? ManifestationEntityStateJson : TEXT("{}"),
             EntityError))
     {
         return Fail(EntityError);

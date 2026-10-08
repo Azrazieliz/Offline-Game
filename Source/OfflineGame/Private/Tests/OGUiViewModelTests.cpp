@@ -76,7 +76,7 @@ bool PersistUiManifestation(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRulerUiStableGrammarTest,
     "OfflineGame.UI.RulerMode.StableFiveDestinationGrammarAndRecordsHub",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGRulerUiStableGrammarTest::RunTest(
@@ -222,7 +222,7 @@ bool FOGRulerUiStableGrammarTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRosterIdentityGroupingViewModelTest,
     "OfflineGame.UI.Characters.IdentityGroupedRosterUsesLastUsedManifestation",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGRosterIdentityGroupingViewModelTest::RunTest(
@@ -472,7 +472,7 @@ bool FOGRosterIdentityGroupingViewModelTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGKnowledgeLimitedWorldHudTest,
     "OfflineGame.UI.WorldMode.CompactHudRespectsKnowledgeAndUpperRightCompanions",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGKnowledgeLimitedWorldHudTest::RunTest(
@@ -675,7 +675,7 @@ bool FOGKnowledgeLimitedWorldHudTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGGachaTerritoryOpeningAndNumberProjectionTest,
     "OfflineGame.UI.Projections.GachaTerritoryOpeningAndLargeNumbersFollowFreeze",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
@@ -719,6 +719,8 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
     FOGRulerGachaAccessRecord Access;
     Access.RulerId = RulerId;
     Access.bPermanentlyUnlocked = true;
+    Access.bHasUnlockedWorldTick = true;
+    Access.UnlockedWorldTick = 20;
     Access.UpdatedWorldTick = 20;
     TestTrue(
         TEXT("Persist gacha unlock"),
@@ -962,7 +964,7 @@ bool FOGGachaTerritoryOpeningAndNumberProjectionTest::RunTest(
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FOGRecordsAndGachaHistoryProjectionTest,
     "OfflineGame.UI.Records.GachaHistoryChronicleAndIntelligenceAreQueryable",
-    EAutomationTestFlags::ApplicationContextMask |
+    EAutomationTestFlags_ApplicationContextMask |
         EAutomationTestFlags::EngineFilter)
 
 bool FOGRecordsAndGachaHistoryProjectionTest::RunTest(
