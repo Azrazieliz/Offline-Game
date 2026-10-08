@@ -54,3 +54,11 @@ Gate 11 must accept the exact namespace, dependency and packaging schema; Gate 1
 The provisional machine-readable evidence record is docs/production/gate12/GATE11_P0_ARTIFACT_HANDOFF.json. Its schema is a clearly labeled proposal, not the absent historical v2 template.
 
 Gate 00 approvals needed for P0 source review: **none**. Promotion to imported/integrated requires approved input assets/manifests and online native validation. Keep this branch separate from frozen Foundation pending review.
+
+
+## Additional frozen World / Character presentation integration check
+
+- Source/OfflineGame/Private/Runtime/OGCanonicalCharacterPresentation.cpp derives visual state from canonical entity injury/restoration, current outfit, presentation variants, equipped-item condition and exact Manifestation projection. Its optional asset loader retains current valid rig/materials if the authored media cannot load. A different body requires compatible skeleton/rig family/animation; rejected parts must not overwrite the retained body. Privacy presentation is a different binding, not a new character or world state.
+- Source/OfflineGame/Private/Runtime/OGCharacterVisualResolverProvider.cpp consumes validated package ManifestJson only for specifically authored character_visual_bindings rows selected by exact character Identity, Version, active form and entity scope; ambiguous matches reject and preserve the current body. This is **a specialized visual metadata consumer**, not a generic Gate 11 JSON import, not physical pak authority, and not justification for invented Body/Asset paths.
+- Source/OfflineGame/Private/World/OGStartingRegionPresentation.cpp is still a Foundation procedural presentation/scaffolding layer with generated terrain/instances, reproducible seed and persistent canonical locations. Its debug fixtures require -FoundationFixtures in non-shipping builds. A high-quality Gate 02 region must come as real accepted source/interchange before this gate can claim final .umap/PCG/mesh integration.
+- These character/world discoveries do not change the source-only RulerShell navigation sample. They constrain later importer validation: reject mismatched rig/animation/selector assets, honor active form/outfit/injury and never convert temporary map presentation into a competing world save.
