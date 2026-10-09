@@ -191,7 +191,7 @@ def main() -> int:
             "trusted_installation_provenance": None,
         }
         args.emit_adapter.parent.mkdir(parents=True, exist_ok=True)
-        args.emit_adapter.write_text(json.dumps(mapping, indent=2) + "\n", encoding="utf-8")
+        args.emit_adapter.write_bytes((json.dumps(mapping, indent=2) + "\n").encode("utf-8"))
     print("PASS: sample matches frozen content ID, DTO, dependency and safe omission rules (source-only).")
     return 0
 
