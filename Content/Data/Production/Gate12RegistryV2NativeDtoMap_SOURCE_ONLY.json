@@ -1,0 +1,34 @@
+{
+  "schema": "gate12.native_dto_source_map.v1",
+  "runtime_manifest_dtos": [
+    {
+      "PackageId": "ui:shared_navigation_contract",
+      "Version": 1,
+      "Dependencies": [],
+      "CharacterIdentities": [],
+      "CharacterVersions": []
+    },
+    {
+      "PackageId": "ui:ruler_shell_navigation",
+      "Version": 1,
+      "Dependencies": [
+        {
+          "PackageId": "ui:shared_navigation_contract",
+          "MinimumVersion": 1
+        }
+      ],
+      "CharacterIdentities": [],
+      "CharacterVersions": []
+    }
+  ],
+  "package_dependency_records": [
+    {
+      "PackageId": "ui:ruler_shell_navigation",
+      "DependencyPackageId": "ui:shared_navigation_contract",
+      "MinimumVersion": 1
+    }
+  ],
+  "source_only": true,
+  "native_registration_performed": false,
+  "trusted_installation_provenance": null
+}

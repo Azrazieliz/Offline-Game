@@ -1,0 +1,53 @@
+{
+  "schema": "gate12.embedded-contract-smoke.v1",
+  "authority": {
+    "foundation_commit": "3f54f07cacbf193e160d0be15a7be5a7bc730c3b",
+    "source": "Source/OfflineGame/Private/UI/OGUiViewModelService.cpp",
+    "runtime_method": "FOGUiViewModelService::BuildRulerShell",
+    "non_diagnostic": true
+  },
+  "production_state": "designing",
+  "external_container": false,
+  "native_manifests": [
+    {
+      "PackageId": "ui:shared_navigation_contract",
+      "Version": 1,
+      "Dependencies": [],
+      "CharacterIdentities": [],
+      "CharacterVersions": []
+    },
+    {
+      "PackageId": "ui:ruler_shell_navigation",
+      "Version": 1,
+      "Dependencies": [
+        {
+          "PackageId": "ui:shared_navigation_contract",
+          "MinimumVersion": 1
+        }
+      ],
+      "CharacterIdentities": [],
+      "CharacterVersions": []
+    }
+  ],
+  "content": {
+    "ContentId": "ui:ruler_shell.primary_destinations",
+    "OwnerPackageId": "ui:ruler_shell_navigation",
+    "ContentKind": "ruler_shell_navigation_projection_contract",
+    "PrimaryDestinations": [
+      "Home",
+      "Characters",
+      "Gacha",
+      "Territory",
+      "Records"
+    ],
+    "OptionalVisualAsset": null,
+    "MissingOptionalAssetPolicy": "preserve_canonical_view_model"
+  },
+  "boundaries": {
+    "stored_world_data": false,
+    "installs_or_activates_packages": false,
+    "guarantees_unreal_import": false,
+    "container_verification_source": "FOGLocallyInstalledPackageProvider",
+    "requires_gate11_approval_before_production_import": true
+  }
+}
