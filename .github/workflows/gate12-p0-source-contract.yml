@@ -1,0 +1,42 @@
+name: Gate 12 P0 Python Source Contract
+
+on:
+  push:
+    branches:
+      - production/gate12-p0-content-contract-20261008
+  pull_request:
+    paths:
+      - 'Scripts/validate_gate12_content_contract.py'
+      - 'Content/Data/Production/Gate12RulerShellContractSmoke.json'
+      - 'Source/OfflineGame/Private/UI/OGUiViewModelService.cpp'
+      - '.github/workflows/gate12-p0-source-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate12-p0:
+    name: Validator and frozen C++ cross-check (not Unreal native)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Identify source tree
+        run: |
+          git rev-parse HEAD
+          git rev-parse HEAD^{tree}
+          sha256sum Scripts/validate_gate12_content_contract.py Content/Data/Production/Gate12RulerShellContractSmoke.json Source/OfflineGame/Private/UI/OGUiViewModelService.cpp
+      - name: Gate 12 self-tests, source comparison and DTO export
+        run: |
+          python Scripts/validate_gate12_content_contract.py --self-test --check-runtime-source Source/OfflineGame/Private/UI/OGUiViewModelService.cpp --emit-adapter Saved/Gate12/RulerShellNativeDtoMap.json
+          python -m json.tool Saved/Gate12/RulerShellNativeDtoMap.json > /dev/null
+          cat Saved/Gate12/RulerShellNativeDtoMap.json
+      - name: Archive source-only mapping and command evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate12-p0-source-only-native-dto-map
+          path: Saved/Gate12/RulerShellNativeDtoMap.json
+          retention-days: 30
