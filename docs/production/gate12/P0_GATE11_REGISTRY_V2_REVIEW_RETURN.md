@@ -1,3 +1,7 @@
+> **SUPERSEDED HISTORICAL STATUS — Gate 00 closure, 2026-10-09.** The offline-host blocker and **PARTIAL / NOT RUN** native verdict in the report below describe the earlier source-only execution snapshot. They are **not the current Gate 12 P0 result**. After Windows Unreal Engine 5.8.3 became available, Gate 12 completed a **149/149-action editor build**, **13/13 targeted native tests**, and **3/3 GitHub source workflows**, and restored the Foundation checkout clean. **Gate 00 independently verified the results and approved/closed P0 for source-contract and targeted native compatibility**. The authoritative later evidence is [P0_GATE11_REGISTRY_V2_NATIVE_ACCEPTANCE_20261009.md](P0_GATE11_REGISTRY_V2_NATIVE_ACCEPTANCE_20261009.md) together with the preserved Gate 00 evidence package and [Gate 00 closure record](P0_GATE00_APPROVAL_CLOSURE_20261009.md). **PR #16 remains draft and unmerged; no real production asset import or trusted installation approval is implied.** Original historical text follows unchanged.
+
+---
+
 # Gate 12 P0 — Gate 00 review return (Registry v2)
 
 Date: 2026-10-09. Review profile: \`gate11.production_artifact.historical_v2_compatible.1\`.
