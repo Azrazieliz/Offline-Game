@@ -33,6 +33,8 @@ jobs:
         run: |
           python Scripts/validate_gate12_content_contract.py --self-test --check-runtime-source Source/OfflineGame/Private/UI/OGUiViewModelService.cpp --emit-adapter Saved/Gate12/RulerShellNativeDtoMap.json
           python -m json.tool Saved/Gate12/RulerShellNativeDtoMap.json > /dev/null
+          cmp Saved/Gate12/RulerShellNativeDtoMap.json Content/Data/Production/Gate12RegistryV2NativeDtoMap_SOURCE_ONLY.json
+          sha256sum Saved/Gate12/RulerShellNativeDtoMap.json Content/Data/Production/Gate12RegistryV2NativeDtoMap_SOURCE_ONLY.json
           cat Saved/Gate12/RulerShellNativeDtoMap.json
       - name: Archive source-only mapping and command evidence
         uses: actions/upload-artifact@v4
