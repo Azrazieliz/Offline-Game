@@ -1,0 +1,233 @@
+{
+  "status": "PASS_BLUEPRINT_ASSEMBLED_PENDING_COOK_AND_ANDROID",
+  "player": "/Game/Experimental/Gate12Koikatsu/PlayableQA/BP_KoikatsuFixturePlayable",
+  "game_mode": "/Game/Experimental/Gate12Koikatsu/PlayableQA/BP_KoikatsuFixtureWorldMode",
+  "world": "/Game/Experimental/Gate12Koikatsu/PlayableQA/Maps/L_KoikatsuPlayable_UE583",
+  "parts": [
+    {
+      "component": "KK_Full_M00P00",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.Mesh_00_Prim_00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P00.AN_KK_NativeRestSafe_M00_P00",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": true
+    },
+    {
+      "component": "KK_Full_M00P01",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01.Mesh_00_Prim_01",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P01.AN_KK_NativeRestSafe_M00_P01",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": true
+    },
+    {
+      "component": "KK_Full_M00P02",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02.Mesh_00_Prim_02",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P02.AN_KK_NativeRestSafe_M00_P02",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": true
+    },
+    {
+      "component": "KK_Full_M01P00",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00.Mesh_01_Prim_00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M01_P00.AN_KK_NativeRestSafe_M01_P00",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": true
+    },
+    {
+      "component": "KK_Full_M02P00",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00.Mesh_02_Prim_00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M02_P00.AN_KK_NativeRestSafe_M02_P00",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": true
+    },
+    {
+      "component": "KK_Full_M03P00",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00.Mesh_03_Prim_00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P00.AN_KK_NativeRestSafe_M03_P00",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P01",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01.Mesh_03_Prim_01",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P01.AN_KK_NativeRestSafe_M03_P01",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P02",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02.Mesh_03_Prim_02",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P02.AN_KK_NativeRestSafe_M03_P02",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P03",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03.Mesh_03_Prim_03",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P03.AN_KK_NativeRestSafe_M03_P03",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P04",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04.Mesh_03_Prim_04",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P04.AN_KK_NativeRestSafe_M03_P04",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P05",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05.Mesh_03_Prim_05",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P05.AN_KK_NativeRestSafe_M03_P05",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P06",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06.Mesh_03_Prim_06",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P06.AN_KK_NativeRestSafe_M03_P06",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P07",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07.Mesh_03_Prim_07",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P07.AN_KK_NativeRestSafe_M03_P07",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P08",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08.Mesh_03_Prim_08",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P08.AN_KK_NativeRestSafe_M03_P08",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P09",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09.Mesh_03_Prim_09",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P09.AN_KK_NativeRestSafe_M03_P09",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P10",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10.Mesh_03_Prim_10",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P10.AN_KK_NativeRestSafe_M03_P10",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M03P11",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11.Mesh_03_Prim_11",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P11.AN_KK_NativeRestSafe_M03_P11",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M04P00",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04.FullMesh_04",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M04_P00.AN_KK_NativeRestSafe_M04_P00",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    },
+    {
+      "component": "KK_Full_M05P00",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05.FullMesh_05",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+      "idle_clip": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M05_P00.AN_KK_NativeRestSafe_M05_P00",
+      "source_asset_fidelity": "FULL",
+      "disabled_optional_effect": false
+    }
+  ],
+  "run_type": "ENGINEERING_FIXTURE",
+  "native_player_parent": "<Object '/Script/OfflineGame.OGWorldPrototypeCharacter' (0x00000213BFB7E880) Class 'Class'>",
+  "native_gm_parent": "<Object '/Script/OfflineGame.OGWorldPresentationGameMode' (0x00000213BFB7ED80) Class 'Class'>",
+  "inherited_subobjects": [
+    {
+      "name": "Default__BP_KoikatsuFixturePlayable_C",
+      "type": "BP_KoikatsuFixturePlayable_C"
+    },
+    {
+      "name": "CharacterMesh0",
+      "type": "SkeletalMeshComponent"
+    },
+    {
+      "name": "CameraBoom",
+      "type": "SpringArmComponent"
+    },
+    {
+      "name": "FollowCamera",
+      "type": "CameraComponent"
+    },
+    {
+      "name": "CollisionCylinder",
+      "type": "CapsuleComponent"
+    },
+    {
+      "name": "Arrow",
+      "type": "ArrowComponent"
+    },
+    {
+      "name": "WorldActionRuntime",
+      "type": "OGWorldActionRuntimeComponent"
+    },
+    {
+      "name": "TraversalCapabilities",
+      "type": "OGTraversalCapabilityComponent"
+    },
+    {
+      "name": "DiagnosticAnimations",
+      "type": "OGDiagnosticAnimationPresentation"
+    },
+    {
+      "name": "CharMoveComp",
+      "type": "CharacterMovementComponent"
+    },
+    {
+      "name": "SemanticAudio",
+      "type": "OGSemanticAudioRuntime"
+    },
+    {
+      "name": "DiagnosticMenu",
+      "type": "OGFoundationDiagnosticMenu"
+    },
+    {
+      "name": "InteractionHost",
+      "type": "OGFoundationInteractionHost"
+    },
+    {
+      "name": "CanonicalCharacterPresentation",
+      "type": "OGCanonicalCharacterPresentation"
+    },
+    {
+      "name": "WorldPartyRuntime",
+      "type": "OGWorldPartyRuntimeComponent"
+    },
+    {
+      "name": "FoundationCombat",
+      "type": "OGDiagnosticCombatComponent"
+    }
+  ],
+  "player_blueprint_saved": true,
+  "default_pawn_class": "<Object '/Game/Experimental/Gate12Koikatsu/PlayableQA/BP_KoikatsuFixturePlayable.BP_KoikatsuFixturePlayable_C' (0x00000213F1C89300) Class 'BlueprintGeneratedClass'>",
+  "actual_playable_map_saved": true,
+  "utc": "2026-10-10T17:32:58Z"
+}

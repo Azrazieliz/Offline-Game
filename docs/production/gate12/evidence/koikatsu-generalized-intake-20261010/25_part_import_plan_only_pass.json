@@ -1,0 +1,239 @@
+﻿{
+    "status":  "PLAN_VERIFIED",
+    "character_id":  "KK_TEST_0002",
+    "source_sha256":  "ad06955e6f725c63c6ee014828877a9a8fa3a19479ca29936c58c96ed6d012e0",
+    "source_meshes":  6,
+    "source_primitives":  25,
+    "source_morph_links":  4611,
+    "planned_count":  25,
+    "stage":  [
+                  {
+                      "part":  "000_000",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_00_Prim_00.glb",
+                      "sha256":  "ebd78b977bc86f73084209510c1b766c782db654a8720e331c1fb240fe82256f",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh000Prim000",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh000Prim000",
+                      "target_count":  598,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "000_001",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_00_Prim_01.glb",
+                      "sha256":  "8668a5f40559e8effa7dd708025073cb77c2fdb5b0a559813e96eea6695961da",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh000Prim001",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh000Prim001",
+                      "target_count":  598,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "000_002",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_00_Prim_02.glb",
+                      "sha256":  "5d1dcd91c020bf4e5485364a6a00c3f173f9599266a265ee33d360ee6977891b",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh000Prim002",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh000Prim002",
+                      "target_count":  598,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "001_000",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_01_Prim_00.glb",
+                      "sha256":  "d780843200ee44bbbd293f0b41515f3b52a73fdd3b7e20c0823d399be1e12402",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh001Prim000",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh001Prim000",
+                      "target_count":  598,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "002_000",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_02_Prim_00.glb",
+                      "sha256":  "f6e81b1dc1729a734e2855cfe38f4d0f3a93da679f089df86ca1da9d1b94e82d",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh002Prim000",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh002Prim000",
+                      "target_count":  453,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_000",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_00.glb",
+                      "sha256":  "15744666ce683f1d5b603664b43f3afccd8fec73eea6f3cea96cfe66f729e4ad",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim000",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim000",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_001",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_01.glb",
+                      "sha256":  "246c4145d075cbc6c0d6f233d7a50ace40f30bc74b21b4b8b2eed3a5a9e7721c",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim001",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim001",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_002",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_02.glb",
+                      "sha256":  "143d0fefa2430b146e99c9f7be1d11b8baff9284a16b0c7c390880cc019f7afe",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim002",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim002",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_003",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_03.glb",
+                      "sha256":  "e4958916d5704fc28897d0bfbfba6faeb60639164acfe4685caffee6c147555a",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim003",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim003",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_004",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_04.glb",
+                      "sha256":  "a66f7558e2470b25e5621d0a798c95e328362debdcb11349856e48ccdab856ed",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim004",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim004",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_005",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_05.glb",
+                      "sha256":  "0fbb62cba4e1353c6f598d6c944d31510e752b1e93d6c908837acf0e4c3df03e",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim005",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim005",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_006",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_06.glb",
+                      "sha256":  "24ca5da00c97c4d152918ee1d03913dcdfc9d34a59d4bde30c14d65e6b8adcbd",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim006",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim006",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_007",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_07.glb",
+                      "sha256":  "7d0179df33370bbeb16fb4a2d73b603fe7ae8fad220b9459348afb150a54030d",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim007",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim007",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_008",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_08.glb",
+                      "sha256":  "edd47e3f58f06fb5d1ae4485e20c52188ebbd6c41098ed6e78572e0766c4da1f",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim008",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim008",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_009",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_09.glb",
+                      "sha256":  "c4462e0769365aa04e95f0a3e2b23ff128bf01a39e714dbbfd1ae452bef1e749",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim009",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim009",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_010",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_10.glb",
+                      "sha256":  "c8f9e8fafa559d76c09731cef9d3a04c5b34621d92edfde452a5b714bde69e80",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim010",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim010",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "003_011",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_03_Prim_11.glb",
+                      "sha256":  "f0956781f33e0701b6f7cf3766199be724289879ffb84f226559b9c81cf487e1",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh003Prim011",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh003Prim011",
+                      "target_count":  147,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "004_000",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_04_Prim_00.glb",
+                      "sha256":  "9a4d200817fe917542ae70ba78129ff7baa8102bbad7036c0e205626a6ed276b",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh004Prim000",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh004Prim000",
+                      "target_count":  1,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "004_001",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_04_Prim_01.glb",
+                      "sha256":  "ccff348d8b8171d58cea00b4da2ae78a2a02d2f0bf86c1e10f7e17150d5f95af",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh004Prim001",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh004Prim001",
+                      "target_count":  1,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "005_000",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_05_Prim_00.glb",
+                      "sha256":  "1e1139e09decd6c6ba8104b074097ed2c9f17925b0c7bfde056c7ff4084286dc",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh005Prim000",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh005Prim000",
+                      "target_count":  0,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "005_001",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_05_Prim_01.glb",
+                      "sha256":  "9059c966954dbdf10373046a367436f456c98df70ef3ce03d6018af35c19479c",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh005Prim001",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh005Prim001",
+                      "target_count":  0,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "005_002",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_05_Prim_02.glb",
+                      "sha256":  "5489efed67b6b2c1874165f4bee2ed0fac97bfc8aa0ee11665baea46674631e2",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh005Prim002",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh005Prim002",
+                      "target_count":  0,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "005_003",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_05_Prim_03.glb",
+                      "sha256":  "dd34fb05de0b294af5eeb96787db4ab4ecb011c7522a5e7f353299ca80698d9f",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh005Prim003",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh005Prim003",
+                      "target_count":  0,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "005_004",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_05_Prim_04.glb",
+                      "sha256":  "8d1cb9d75384a671b504c8e6c2d64948b304dcc1f86497252eb303e74f8891c9",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh005Prim004",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh005Prim004",
+                      "target_count":  0,
+                      "status":  "PENDING"
+                  },
+                  {
+                      "part":  "005_005",
+                      "source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\ReusableExports\\KK_TEST_0002\\shards\\Mesh_05_Prim_05.glb",
+                      "sha256":  "b3d20b753d82c24f84184ea7c2b2e24af3c65d0beea57d2ba23e74a09fc891eb",
+                      "ue_destination":  "/Game/Experimental/KoikatsuConverted/KK_TEST_0002/Parts/Mesh005Prim005",
+                      "disk_destination":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\KoikatsuConverted\\KK_TEST_0002\\Parts\\Mesh005Prim005",
+                      "target_count":  0,
+                      "status":  "PENDING"
+                  }
+              ],
+    "frozen_foundation":  "3f54f07cacbf193e160d0be15a7be5a7bc730c3b",
+    "asset_registry_status":  "ENGINEERING_FIXTURE_ONLY_NOT_ARTIFACT_READY",
+    "timestamp_utc":  "2026-10-10T17:26:11.8253948Z"
+}
