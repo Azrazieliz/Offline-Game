@@ -1,0 +1,21 @@
+﻿{
+    "status":  "PASS_PAK_BUILD_LIST_AND_DEVICE_TRANSFER_NOT_RUNTIME_MOUNT",
+    "timestamp_utc":  "2026-10-10T18:49:20.0571045Z",
+    "character_id":  "KK_TEST_0002",
+    "version":  "v0001",
+    "pak_sha256":  "f0e998038a124878e0611f34610b517c3697fe791f6168bdeedbd76fb6357b22",
+    "pak_bytes":  9823496,
+    "pak_input_cooked_files":  234,
+    "pak_input_cooked_bytes":  36633270,
+    "pak_listed_files":  234,
+    "ue_pak_tool_exit":  0,
+    "physical_device":  "Samsung Galaxy S26 Ultra SM-S948B",
+    "adb_serial":  "R3GYC0LSC7K",
+    "transferred_device_path":  "/sdcard/Android/data/com.azrazieliz.gate12fixture/files/OfflineGame/ContentBundles/KK_TEST_0002/v0001/OG_KK_KK_TEST_0002_v0001_Android_ASTC.pak",
+    "phone_sha256_verified":  true,
+    "fixture_apk_currently_installed":  false,
+    "original_offlinegame_installed":  true,
+    "mount_runtime_not_tested":  true,
+    "frozen_foundation_sha256_or_git_commit":  "3f54f07cacbf193e160d0be15a7be5a7bc730c3b",
+    "status_note":  "Device transport passed. Package is a proof using previously cooked assets, not a verified hot mount or a Gate11 ARTIFACT_READY pack."
+}

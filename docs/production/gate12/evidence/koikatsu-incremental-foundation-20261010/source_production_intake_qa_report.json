@@ -1,0 +1,16 @@
+﻿{
+    "schema":  "GATE12_KK_SOURCE_INTAKE_1",
+    "character_id":  "KKFixturePreProduction0002",
+    "original_source":  "D:\\Tools\\GameAssetPipeline\\KoikatsuParty\\characters\\G01-KK-PIPELINE-TEST-0002\\conversion\\character_unreal_skeleton.glb",
+    "archived_source":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\Production_Intake_Script_QA\\KKFixturePreProduction0002\\original_KKFixturePreProduction0002.glb",
+    "source_sha256":  "ad06955e6f725c63c6ee014828877a9a8fa3a19479ca29936c58c96ed6d012e0",
+    "output_shard_manifest":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\Production_Intake_Script_QA\\KKFixturePreProduction0002\\shards\\manifest_full_fidelity_primitives.json",
+    "mesh_count":  6,
+    "primitive_count":  25,
+    "morph_target_references":  4611,
+    "state":  "SOURCE_VERIFIED_ENGINEERING_STAGED_NOT_ARTIFACT_READY",
+    "native_unreal_import":  "NOT_TESTED",
+    "android_cook":  "NOT_TESTED",
+    "device_validation":  "NOT_TESTED",
+    "timestamp_utc":  "2026-10-10T18:57:36.5714323Z"
+}

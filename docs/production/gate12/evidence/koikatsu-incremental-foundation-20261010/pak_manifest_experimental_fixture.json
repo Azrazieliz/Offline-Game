@@ -1,0 +1,1189 @@
+﻿{
+    "schema":  "OG_KK_COOKED_BUNDLE_V1",
+    "status":  "PAK_BUILT_NOT_RUNTIME_MOUNT_VALIDATED",
+    "character_id":  "KK_TEST_0002",
+    "version":  "v0001",
+    "target_platform":  "Android_ASTC",
+    "engine":  "UE_5.8",
+    "source_cook_root":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Cooked\\Android_ASTC\\OfflineGame\\Content\\Experimental\\Gate12Koikatsu",
+    "bundle_file":  "OG_KK_KK_TEST_0002_v0001_Android_ASTC.pak",
+    "bundle_sha256":  "f0e998038a124878e0611f34610b517c3697fe791f6168bdeedbd76fb6357b22",
+    "bundle_bytes":  9823496,
+    "cooked_input_bytes":  36633270,
+    "cooked_file_count":  234,
+    "entries":  [
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P00.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P00.uasset",
+                        "size":  1784,
+                        "sha256":  "d2a06dd7e96b1232e5ea21c15e3b257db8257cfa563922ab4a01f28393ccbd83"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P00.uexp",
+                        "size":  272,
+                        "sha256":  "0ed1c1012f9a31cf7622b6243c8ed06dee7ef2ca632942908bd11c3c222f3f5b"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P01.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P01.uasset",
+                        "size":  1784,
+                        "sha256":  "44d00158c22cba7030ceac7cbba71796a3adeb91f84f8c7badb0db99bda3eabd"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P01.uexp",
+                        "size":  272,
+                        "sha256":  "bfe802256b1dcd64ecee1b2e6d328f24711627a4b0f3cd0c63e06e9f0a71110b"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P02.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P02.uasset",
+                        "size":  1784,
+                        "sha256":  "fceaaea23ae26a59d11cfe35442f1beb2c46714352adca275916eedbded0ebb4"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M00_P02.uexp",
+                        "size":  272,
+                        "sha256":  "a6751dd24afdcae124e915cad3987495844272a49745642f7c50879f9fd37927"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M01_P00.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M01_P00.uasset",
+                        "size":  1784,
+                        "sha256":  "65b4390fc56207e6a3ab55112d36a36b889dec096dd33d0cf9d406e95fe534fc"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M01_P00.uexp",
+                        "size":  272,
+                        "sha256":  "66ae0a88bed9824793e48000ec40e1f1fbc7d56635ddd1099864d78075274c5f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M02_P00.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M02_P00.uasset",
+                        "size":  1784,
+                        "sha256":  "0683ae161b42b879cb477ce261cc660216cdebb08b6cced8cacf7f6625a56bd3"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M02_P00.uexp",
+                        "size":  272,
+                        "sha256":  "c8beff3fbbb77d84c697ca68e6efe1129b81faf6069d569fd263678beca2c496"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P00.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P00.uasset",
+                        "size":  1833,
+                        "sha256":  "22bf3488bee5f7b3c03be159c5cc941940723de62d6dfed16eea50ee3b29e31e"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P00.uexp",
+                        "size":  513,
+                        "sha256":  "df3b852a112f9844035035332ca9962a9b765c1673d894db37661d48cae61a2d"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P01.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P01.uasset",
+                        "size":  1810,
+                        "sha256":  "f1dda1bddd37c214eac5b32f42722977283ce26f979693c2764e083618b9b2c2"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P01.uexp",
+                        "size":  428,
+                        "sha256":  "55e1112b6bbace2d5391197e9395fe3fb88bdc7e38073ad20c79c468c7e27175"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P02.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P02.uasset",
+                        "size":  1813,
+                        "sha256":  "f51f1329d6a59d3d257ba5763784fffc3a61da00e102057d378ef848797d8d18"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P02.uexp",
+                        "size":  428,
+                        "sha256":  "96334c9f741ea2c795c53c089d9fd8292c3c67d5a947e204e7f3a625f6cf8c2d"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P03.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P03.uasset",
+                        "size":  1833,
+                        "sha256":  "c5a5aa0968a76e35eb10b6a8de6b460a5f1b0203672959ef2f4aa65db95e10b1"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P03.uexp",
+                        "size":  513,
+                        "sha256":  "6d5811df9f4e5f86fa915aa94437506570a834d7bc1bcd093bc28ab2abd28b1d"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P04.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P04.uasset",
+                        "size":  1784,
+                        "sha256":  "a245ac943c8a60ce202272c0b502e01482ebf1c641648c4c978cb76b5f3bd623"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P04.uexp",
+                        "size":  272,
+                        "sha256":  "010fb307dc63e9a51d550a39d76aabc0b3ec89c4ab257eeb812c734073649396"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P05.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P05.uasset",
+                        "size":  1784,
+                        "sha256":  "7704872fa40dd0497e1a7bb9230e156cf6dc81aaf9e6a1b8d8ef5ed4b63e3685"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P05.uexp",
+                        "size":  272,
+                        "sha256":  "e9e5961494bb35b435e164c26dd843356a12ac610114add24cee2df3c784cbfb"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P06.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P06.uasset",
+                        "size":  1784,
+                        "sha256":  "74d84962628a8b3d18dbeffb8bbd8a91732dec1e951c4a9a42a014a91d2c4847"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P06.uexp",
+                        "size":  272,
+                        "sha256":  "e7eb5fbb7238d4389e1e2fe8cd08068f8098c9147ceaaf1794aa05004007dc1e"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P07.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P07.uasset",
+                        "size":  1784,
+                        "sha256":  "eadc416b0519c60e833e9a15e9e156fea81f2701a2fe24dc269a05d1e1160341"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P07.uexp",
+                        "size":  272,
+                        "sha256":  "d34eaba030fc3ef635ed342d8e427478eb28333b499bd7c6b0c31efc0e482b2b"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P08.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P08.uasset",
+                        "size":  1784,
+                        "sha256":  "22f757c26a21590f3369e5dc20736607a9697634fcf5bdd61f84460f102702a3"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P08.uexp",
+                        "size":  272,
+                        "sha256":  "dc2ab82a656b44dbdba3eadf80a9b9e46a7be188a3c73240756b120fa2fdb08b"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P09.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P09.uasset",
+                        "size":  1784,
+                        "sha256":  "554413d29558022fd5c16bef68c41a3c2c9427dc6bac6b52596ed34bdd396209"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P09.uexp",
+                        "size":  272,
+                        "sha256":  "3cb2ac6d8ecd896c8c4ad9df883bc1bb3b0ed1ef86224137ddb007bb646397b6"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P10.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P10.uasset",
+                        "size":  1833,
+                        "sha256":  "3cbe6ba64eb365146265da098d13b2ce220c099c249ae3e190f7cc9085a95f65"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P10.uexp",
+                        "size":  513,
+                        "sha256":  "954dc84cb4b18d121735d85c41cfa5e1f4b279a81f202cdd5bb0ef78657dda63"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P11.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P11.uasset",
+                        "size":  1784,
+                        "sha256":  "bcf59e48a3fc07bc59d08f4789561120f865f42318b364e13e43aff76ec062d0"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M03_P11.uexp",
+                        "size":  272,
+                        "sha256":  "3bd9b39ceb5b789648ed74cd72d9d5d558c28f3352fd102920c5409d27cc6b78"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M04_P00.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M04_P00.uasset",
+                        "size":  1764,
+                        "sha256":  "b70d7bbd532bbfc01b9ea50a878c49e0786a41ce0872a73ab42a8a611f8a23ce"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M04_P00.uexp",
+                        "size":  272,
+                        "sha256":  "7ece4b64a085eba48eb6b47dc0a63590a1056097d9f8c2f6e17591c159e7fea6"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M05_P00.m.ubulk",
+                        "size":  2182,
+                        "sha256":  "56e56de2e076bc0419cd165d6601feb1bf4dc15a5a16c876531fc5b30983d21f"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M05_P00.uasset",
+                        "size":  1764,
+                        "sha256":  "4ed85c8a5a256d2fb25c794d5c7a85701c411fe9f0f253a6369657f6ad27e753"
+                    },
+                    {
+                        "file":  "Animation/StressFaceQA/AN_KK_StressFace_M05_P00.uexp",
+                        "size":  272,
+                        "sha256":  "7da6de9acd27206c6a3c0ee996153b7fb1ebf439240a558db5ad8569b8db636b"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04.uasset",
+                        "size":  4682,
+                        "sha256":  "be5badfe4cd9826e1c5390544286c83aeaf8d92c9736ec7a76e4c90b710fd60c"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04.uexp",
+                        "size":  422867,
+                        "sha256":  "e073c40b0f9d577733842e7fe1dc0a49da25ef83ce25ca2b048e22bed7b6d8a7"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_PhysicsAsset.uasset",
+                        "size":  1285,
+                        "sha256":  "f5c1e1f516e571ff30b6cc6267743830a50b48ccf8ba3ec0fd6a5a346ca849c7"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_PhysicsAsset.uexp",
+                        "size":  278,
+                        "sha256":  "8014638790e6675b0d1cc3f14406e6f8b3d6100cf8a19b4d56af2042f2685ea9"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.uasset",
+                        "size":  3895,
+                        "sha256":  "04e914419c0cb3a6998fcedee0d2fd2b87c77b117ab0bce25c0efe308c147bc8"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.uexp",
+                        "size":  13680,
+                        "sha256":  "0ab5e3ae7b4453267092117f8d1a0777fe6db8adc3dd4ef8710cea82ee125d1b"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/Textures/cf_m_hair_b_08_00_3840_light.uasset",
+                        "size":  1440,
+                        "sha256":  "b89b79e36110750ff9a3493704c6d2ead75a1ac82d452b55cba5fb031fd9abe3"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/Textures/cf_m_hair_b_08_00_3840_light.ubulk",
+                        "size":  2494944,
+                        "sha256":  "fa184bb6d90042546a6e4a35dcf492c7efc2d4876b2a19f06c80ba66aadd9c68"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/Textures/cf_m_hair_b_08_00_3840_light.uexp",
+                        "size":  3089,
+                        "sha256":  "501e3bd956dfab63c3f7d5d38744e893474b53fd378c2783a401e79cbf7d2964"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/Textures/cf_m_hair_f_14_00_i_4000_light.uasset",
+                        "size":  1446,
+                        "sha256":  "c090ce835fa3b7f29f3db1b368c7fef1ee1aee1ecd0db520fd87b11b6d200b07"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/Textures/cf_m_hair_f_14_00_i_4000_light.ubulk",
+                        "size":  2494944,
+                        "sha256":  "63986eedd2047517351b379942cce409c785e3880211d358fd0235a235e0df61"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh04/FullMesh_04/Textures/cf_m_hair_f_14_00_i_4000_light.uexp",
+                        "size":  3089,
+                        "sha256":  "31238230913339361047ddac7f76adf51203f25a37c76ce7f1325203aabd9427"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05.uasset",
+                        "size":  5517,
+                        "sha256":  "c497d5ca8a1d15cfa6ac88ac8a7cca84a00e01146701fe06c932ca1fcb136bd7"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05.uexp",
+                        "size":  712799,
+                        "sha256":  "4483e241c2ad7ac604e388e8b6edab5a3ea652a9721c8cd18a83a302cae12c26"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_PhysicsAsset.uasset",
+                        "size":  5353,
+                        "sha256":  "4264c247fc1b2f0249740ebd198a34f145db84679af2c7a3b4fa42c2bc574147"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_PhysicsAsset.uexp",
+                        "size":  5312,
+                        "sha256":  "e2ab7480728c32fa2c8f1f3d7220a85ae0b7580da5ca2fc41eb2ab0005820959"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.uasset",
+                        "size":  3882,
+                        "sha256":  "8432833415712ac17704f1fb51b1c992b5c420d7ba55a2eeb56303d1e5defe0d"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.uexp",
+                        "size":  13653,
+                        "sha256":  "fc168234c43bf3938b6e5923b79d8ee5efa90b8a9b3ebe4608ea478712dd7d20"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_bot_skirt08_7750_light.uasset",
+                        "size":  1392,
+                        "sha256":  "f4df51920082c1ed7e8aaa78cbdcecaea0daf8e365298e242fc3dff00add3a1b"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_bot_skirt08_7750_light.ubulk",
+                        "size":  623520,
+                        "sha256":  "04b8847b8e26d1f2a61e1dae493977eddd34bcdc157f038f0e244133c216e714"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_bot_skirt08_7750_light.uexp",
+                        "size":  3073,
+                        "sha256":  "071184926aa67e1cee9bb02d93164bad8f9a4e33ecc12f69a56b4e26643040a4"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_bra_01_7860_light.uasset",
+                        "size":  1377,
+                        "sha256":  "573bd5a22907f1833406e05676c465eeb0969a307998ff3b0ba705c71b9a9ec4"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_bra_01_7860_light.ubulk",
+                        "size":  623520,
+                        "sha256":  "c216957f2d2513efcb558027b2f13e5ac8688cce5e3fdca72125b4a8268d14f1"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_bra_01_7860_light.uexp",
+                        "size":  3073,
+                        "sha256":  "053a50ace72c3bfe1a39f8649f89bd0ad2602af72bdbf8b5e49332f0ca4df6d0"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_shoes_roafer01_8150_light.uasset",
+                        "size":  1356,
+                        "sha256":  "c862ff2543468d0751ec81fcd20708f7766fd47553bf665a32542a462dd66709"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_shoes_roafer01_8150_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "7bd30967cc788f730a47399fa7f831af0ef8e7d32c5e56f82f48eebb7e46411a"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_shoes_roafer01_8150_light.uexp",
+                        "size":  3057,
+                        "sha256":  "4a606fd466c63d3abf8491dd732aa1126aaa461658a56c00bf37f3bea6671d9f"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_shorts_01_7960_light.uasset",
+                        "size":  1386,
+                        "sha256":  "beb406c93d2e0ae7748f6772e61895945e81f4bad432a52d47d950a2a1cdc8a0"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_shorts_01_7960_light.ubulk",
+                        "size":  623520,
+                        "sha256":  "0846e673d2c6746923db48556f8af37d546c770c1e1766a5afc8725451b479b5"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_shorts_01_7960_light.uexp",
+                        "size":  3073,
+                        "sha256":  "01149da1676d6eedb6184809dfc793b09318e9aea2da0194bfa8664b823358b5"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_socks_knee01_8080_light.uasset",
+                        "size":  1395,
+                        "sha256":  "f2b585bd57c8c431fcfa0c35e277de122f6cccc7c3fd1cce892f9fe0b0c226b0"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_socks_knee01_8080_light.ubulk",
+                        "size":  623520,
+                        "sha256":  "f8cf821ee7ad08323d59dc536a81a91e9ef70c1c34f46b53adad33bec5eac0fb"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_socks_knee01_8080_light.uexp",
+                        "size":  3073,
+                        "sha256":  "4425c5fa24ccd3bbe3673ee03c35be03ec8fd3db84aa12cbe60af165bfb38146"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_top_ofcard_7660_light.uasset",
+                        "size":  1389,
+                        "sha256":  "d21d7234461b6e42ba88ee469434b678cf3315a82cdfce6fbcbde12f5e186a91"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_top_ofcard_7660_light.ubulk",
+                        "size":  623520,
+                        "sha256":  "27ba5096585617af28180394ffc8ad0f3608ea0024deaa1747237ae79b59b492"
+                    },
+                    {
+                        "file":  "FullFidelity/Mesh05/FullMesh_05/Textures/cf_m_top_ofcard_7660_light.uexp",
+                        "size":  3073,
+                        "sha256":  "5fe0ad51b51b5d6536b0dabd6357bf54095c6b4bfc274c54cee0adfb8abc775d"
+                    },
+                    {
+                        "file":  "FullFidelityQA/Maps/L_KK_StressFace_UE583.uexp",
+                        "size":  3609,
+                        "sha256":  "1bac197f8f96a6ae7aa1d2fd337be84bf9651c4799a31961b54dbb29d6e05a14"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.uasset",
+                        "size":  22897,
+                        "sha256":  "5be0c137ef3e9f7af95e922bd604e3633041130dfd69d92d37bac9b0216a6a6a"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.uexp",
+                        "size":  33322,
+                        "sha256":  "ed13501202083a746f37d3e0ef7c34127a83cdf02632e8f41e4d17baad0b09d2"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "4b3d34fb6e786ada6bffdcc7b6a0d041c6bc08179f6e4381c8b0ad08a97e33b6"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "2c8890510ad2c88d52d30183dc95239d6777cd49637c8f09e744f91446bc12c9"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.uasset",
+                        "size":  22035,
+                        "sha256":  "31821a44ca1abcea685fcf5c7751efa53479810b682c2cd09bfb15268841f05e"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.uexp",
+                        "size":  25023,
+                        "sha256":  "d4554db5409d45f9a35a38a25f5d35bbe146c3b130a89e23c42cd1658b002fd8"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01.uasset",
+                        "size":  22897,
+                        "sha256":  "23691e01ed6297b0c3693891721c21f35b0986559712d69358765fbef0a82c85"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01.uexp",
+                        "size":  33322,
+                        "sha256":  "65914f4b0c4811590ed2526b866233841419da6e96bef91d5ed1aa5025a48304"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "253771de53ab56084b14be683fcdaa08597ed46f8942bdcb26e600ad4d8f512c"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "7bd9ac74f538b4bd0e881cce46633a80c6ebb499e58e817d1de51e1b7f44f76c"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.uasset",
+                        "size":  22035,
+                        "sha256":  "ffff4f3b4638500529664b221fa031dffac219b63786a332a0a49af4ca89bbb4"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.uexp",
+                        "size":  25023,
+                        "sha256":  "297e67ac06ccbb8287973da64a35557affde1a89bcce29600a10b8fa7a6b2d46"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02.uasset",
+                        "size":  22897,
+                        "sha256":  "b716cbccaa4022946e0c3c7b312c89d6e85e3ef0405e2b98f15808e457004e31"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02.uexp",
+                        "size":  33322,
+                        "sha256":  "49a28e8450bf426f20c0f6c7fea751d47668fb5efcff25b71edd53f7fcaf7e92"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "5db31048cb7f1136902b0caff3624b524b3a065f52d787cff2da1c4453f5d121"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "a5f9bdb268eb0232fd66dfe6a5ae179e9007558822dd9d1fbf04a9319c9633dd"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.uasset",
+                        "size":  22035,
+                        "sha256":  "1842dae49a0f4c005c1844288c4b7871623ad9f68d2085e9d523148d02b21d1d"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.uexp",
+                        "size":  25023,
+                        "sha256":  "59a8cfaae64acd78c59512560ae1203f143ec9692332c5e9e95020f359728ee1"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00.uasset",
+                        "size":  36008,
+                        "sha256":  "0b977046b547a2b8578fed70bc2f3b04a0ebf8e01596fd734e21379e07108f1b"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00.uexp",
+                        "size":  491626,
+                        "sha256":  "c6957fff4df884cf241ac1de6bb72ff11db932101f21dfa72f99c626d7599812"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "b50ea46045a327037ade8112d3b855e8f7a95bbc96ecdfe1f6b83af3b6c0324d"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "d32d5d55387e3a9899e2e93df630b975167d5eee7c2dfb4c73e53e80964ba7b8"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.uasset",
+                        "size":  22038,
+                        "sha256":  "77d962214abd4c0d2e5dbd836d542b0f693af2cbe210c337581b1ac541120372"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.uexp",
+                        "size":  25023,
+                        "sha256":  "52183d8a3c860d010b23ff48c1912b939b1ec773e3ebbf7377abc0285d42913c"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/Materials/KK_cf_m_tang_001.uasset",
+                        "size":  1086,
+                        "sha256":  "16e6332e63aebaa6a11c7f78a79236b0bb82dffd1c5cbd20cf9f10ae525249b2"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/Materials/KK_cf_m_tang_001.uexp",
+                        "size":  6428,
+                        "sha256":  "5aca1b579766196e6ce358d309ae77649ed46510dd0f70f8951de408da7bd5fa"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00.uasset",
+                        "size":  18684,
+                        "sha256":  "195808b9447375401c84288265bbdbe26de4980c946d46e489ec2021e119bb05"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00.uexp",
+                        "size":  32276,
+                        "sha256":  "f89e2c103cd997fa5ec3d0cda2b11eb349190005baaf7e77f91cbbeaf09c71ad"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_PhysicsAsset.uasset",
+                        "size":  1179,
+                        "sha256":  "e9386990896155ec203e3c88ed7659af254fc0ac454a8894ddea37104722930d"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "a3b1fbe79838d1e20895d908021f5f3af8ba4bc6e9bee9055fb6481dc51b6ef5"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.uasset",
+                        "size":  18075,
+                        "sha256":  "3235a7b191c784ff1613f3d0e92dbab0d8daed1ef5b6952f453647a90b059128"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.uexp",
+                        "size":  22268,
+                        "sha256":  "ee087be34e3810b5983334d80edbd847282c99f8e3c2ebc8e30529b9cbbdce73"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00.uasset",
+                        "size":  19129,
+                        "sha256":  "9a6b4c2e0e6a6f931675d7a4d15689edded8bdf14c05f5de39d65dc476c8290e"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00.uexp",
+                        "size":  559623,
+                        "sha256":  "cd5e8101c0f8b0a5eadfdecaca5ddd8876205b0761b18648f49cfb822df79f7f"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "487663174c2e3a283f0902a27be70fae68f9a5dd0e6a2733b36f28e037fe3992"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "16af136d215dd380c7b7357efc5c18d53f0bb6f9a40a14a7c71e892225046217"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "5ef98bab871f62aef67b516b3983eecd21a54b989e49cd159a54da97589fd1fe"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "1a97a397c2baf8bfad9fc38769088b06db91f71efadaef92059232ce157ad8a7"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/Textures/cf_m_face_00_light.uasset",
+                        "size":  1479,
+                        "sha256":  "fc593d7ef6a18cec26f918838770f2c7765203a1ff3ba1bfaa8c49e153f97aa3"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/Textures/cf_m_face_00_light.ubulk",
+                        "size":  9958768,
+                        "sha256":  "7e5aef8d32d247a882281c868c207f497a7a9ce887decf7527eb41db7cae28b4"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/Textures/cf_m_face_00_light.uexp",
+                        "size":  3105,
+                        "sha256":  "430ab2c1ac74d7f626ee03633745804820d1cd2d9b8c8ff376cf5341cefd696d"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01.uasset",
+                        "size":  10433,
+                        "sha256":  "2423d5dcb1bc11744d6a8f469c619093c7fa61311fa82bdd582ea203f70d91ff"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01.uexp",
+                        "size":  60128,
+                        "sha256":  "e0233cda9705e6c957a2a986a860db07d13ceeed11952906ca6c7f6b1a4582e1"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "f29a92d3d2eb1574b93fb821dc25243a28d9e9b56710d730d4bb9a65e976d4e5"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "59d053bbc9128d30fc5503a1894b96bbb9e855654b06014d6a18aa2a6467ad0e"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "b87126d6cc316b67152a324ef63374aa5202b65d7731d5d96c336ff1a325bb89"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "6063b6882525bd57ba18a9d4dd96901646e0202f4ec3c9b77f6a281db2c7ec05"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/Textures/cf_m_mayuge_00_light.uasset",
+                        "size":  1350,
+                        "sha256":  "0c03655b5d73709cd3e3b645beeea8b9a791734beb1832355a83ad97819c33aa"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/Textures/cf_m_mayuge_00_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "0b42dffd95c10ef2788d53281c4b8c69786c91c26d45996bf8e3f8ced54882ad"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/Textures/cf_m_mayuge_00_light.uexp",
+                        "size":  3057,
+                        "sha256":  "dfdbaeb01faa97b2e08d160b25a9b8d477ac7194212a3a66832cb2f08af8cddb"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02.uasset",
+                        "size":  14033,
+                        "sha256":  "133375a1f3b1f1fe3f5051d5bfca9e0b676b654035c0236f4d06ee4b39b9719d"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02.uexp",
+                        "size":  33407,
+                        "sha256":  "1e098a0c6ee4a3d1eaed5c3faaca056e96fd0518a98de4796cf7f524836ef608"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "45a0cd740a9411b0bc3a03d8d1eea4195c95618aec61ea2b65f5e17c75557424"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "727ec5db439c60ab45f085d05ef829b84f710a0f41731a4383dff94eeb2e72ed"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "cbcdd1315a51ea0d55a25663b87b6b185ca33a0f7d50aa74bc9bd75348bbe4b6"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "96c3cde99501194956325916e88d5892d62c2477d2dbdb22a7c17b2cf9b2ca69"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/Textures/cf_m_noseline_00_light.uasset",
+                        "size":  1356,
+                        "sha256":  "f4f1bdbd2f63498465b84fc137eebb8f2dfba321518532d883bcabd4192494f2"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/Textures/cf_m_noseline_00_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "b2297b18dc2661bdb37b793e2ca0aa31242ff565a6823f67e254e585b36e6843"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/Textures/cf_m_noseline_00_light.uexp",
+                        "size":  3057,
+                        "sha256":  "1cc66d76eb594706955f91f8e3f2463428701f9791333891a3555ae1c5417a05"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03.uasset",
+                        "size":  13093,
+                        "sha256":  "78db3ccf5abf67f445d7625c98615b9ef29d928da0e5123b67fd524bb14382cf"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03.uexp",
+                        "size":  102136,
+                        "sha256":  "4bca00519f42619d2c770034f81ec2e63eb5fccd0ba837f3cfbe974ea688398f"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "a3ae8e908c75f04392d50deb6892d446eed3d1f16d588b31df29f788373696b4"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "7a94806182fce9034ec4778911a485056a4aab154c3960e783173ce690db2a88"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "8c45efa3d8f5ea029d008a4be50936e4051b7a045d8234bd4a15217a3f0e5607"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "a84da82dc838215b2e711de24b7f89fd2e5dff1fa9ea05807302e30f499a091a"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/Textures/cf_m_tooth_light.uasset",
+                        "size":  1293,
+                        "sha256":  "ff14e766db0e3b9cb2c81cd40aca87d851ee2398bf81c208631e4274270fe297"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/Textures/cf_m_tooth_light.ubulk",
+                        "size":  37328,
+                        "sha256":  "842dbf81550169139601c28b0ae7f8811517eb6688273814854a6635525fd277"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/Textures/cf_m_tooth_light.uexp",
+                        "size":  3041,
+                        "sha256":  "9c40a4a855157c0c2e465a36b8376ed2157fb5b1bb5ab1d64720efe2e35ca3b8"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04.uasset",
+                        "size":  13107,
+                        "sha256":  "0a3edc4ed03e29451b14452eba77444aa6aa8d0bab6d25f90908e5b74c3955b2"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04.uexp",
+                        "size":  130173,
+                        "sha256":  "c39ec33c71207f469c579aaba188a0a9149eaf5fce89f1a41d62d0284889d511"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "1afa16c42d56069cca876df6817584368ec7e59d37d247a8f217ac659273d9c4"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "c281bc63641dd611e10fa92b57126fc07aa37f55b2fe5703f07b87ca72795254"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "746c58657f80552e7fb68b8d1b3e818ae6c1d35dfb10b9e39ea8c0672e49ff03"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "c2d3438b9562bd121ef02ef2eef7941daf6b0d588e69e2f54f591b295a420768"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/Textures/cf_m_eyeline_down_light.uasset",
+                        "size":  1359,
+                        "sha256":  "7ece350f6fc1d2ded4d3c2ebb48cd6446134ab46c976e602224b1ad2f08c5032"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/Textures/cf_m_eyeline_down_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "0be828eea980b96882d3f0baef2ad44122f2c0687d5efcaaa515238de0f2b9d9"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/Textures/cf_m_eyeline_down_light.uexp",
+                        "size":  3057,
+                        "sha256":  "bc7ae6097c33aa379556b32d01e0aa99c1297e20e863e3a708074247e9995b8a"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05.uasset",
+                        "size":  13109,
+                        "sha256":  "b34ef1158f07580c1897e9cfcf515501a57271cb0110631cbe127612124a6bb7"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05.uexp",
+                        "size":  150320,
+                        "sha256":  "7551d25c8f95c5aae6ebb424a78ae55a88622bbcbbc8a4377d5e019c38699565"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "bbb8d0f008af5a6792f292268e15626716bf4f8872de4b696cec72a9f6a97ae7"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "418ffd0dd0a6263d77ae82fcea81c4d1300acc25de14c4b3b198388f13645505"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "69d198171d04fc618452e5f409055980af1e2684b15bdb948bd274df07832695"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "6e07b0c53419f0ef625a0fcfe5c9fc0a43b5d3c5cca410efb2dcf670bac2665a"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/Textures/cf_m_eyeline_00_up_light.uasset",
+                        "size":  1362,
+                        "sha256":  "11f728cf8b47a7b64c00b5aece0629a0130f775d12199b9219206457f595e305"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/Textures/cf_m_eyeline_00_up_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "e98f087a7fedfdc4731192dc18301b2aa9895ccff310dbacf3d9bea7eb19de28"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/Textures/cf_m_eyeline_00_up_light.uexp",
+                        "size":  3057,
+                        "sha256":  "dfc2a6d0d8a65a6305acc0d6603675042722119d8cdf615baa026e60d4ce28da"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06.uasset",
+                        "size":  13107,
+                        "sha256":  "e7cd7588d0e3cabb8e5dcabba33decf80a160b61ed97e11a9f266c9c27dbca7d"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06.uexp",
+                        "size":  152904,
+                        "sha256":  "be7aee0b8b6041b3637d1bd5aca0c08e6ed85eb2d8759dfc51fefd24f7076968"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "221b45fcd0b01014e1afaa33731133bd1efbfbfe7b3c63f403571ec4fef2bf15"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "96604ceec2e92c58062914ae1bdc62d9976ffe175b841db7cdf47384ccddb4e6"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "08343df4255048d139668d6b62db6bc492cd8fd4ba32f1f180183605d026d05c"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "b556044e53223c1d2d3702d6b8af836874db676f873ea81d9418b862780f0d08"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/Textures/cf_m_eyeline_kage_light.uasset",
+                        "size":  1359,
+                        "sha256":  "d418baf492de33ef50987652f7e547475def22615ec4c9b3f0581b1ea76a9998"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/Textures/cf_m_eyeline_kage_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "6dc2139919125e39658bbe96a5fec6493566c0ab3b4e8930eb3fa5660ab07914"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/Textures/cf_m_eyeline_kage_light.uexp",
+                        "size":  3057,
+                        "sha256":  "58b561b44857796677bc49fb79347d9669552748d8e3c2a100f7ddd21e1da124"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07.uasset",
+                        "size":  13101,
+                        "sha256":  "018c82a6cb2580e1f44ef91d03bb8f94a6bc11e2401e7ffd80612c31e7d33009"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07.uexp",
+                        "size":  89268,
+                        "sha256":  "da4e7e0bf52eb5c3281adf4b83c9f2aeec0ab4e54e80ac23d88eb03c11b1a521"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "dce4438a26254d3a7db00d0c03429a3f72ffc8054ae4d23e15a38d1864dd4670"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "8ea77a4e3a20239fa39e38cf967394a47373e6dfc2a7b877508915e8686e2212"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "82d70f9fd8b3c6ea8a1c557c615d1962580dc3a54828f7accadb6b5e3a9d7de5"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "26d096d2fd03f8c552071e8306f130c3e57102c162a0ff8ba907206109fd34e1"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/Textures/cf_m_sirome_00_light.uasset",
+                        "size":  1350,
+                        "sha256":  "5dc6419fa1e6f6cd4abadb1d9e26b5f70dbb1696e85dc06123e004c2d69c4cad"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/Textures/cf_m_sirome_00_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "65fdb9f321f6ae9e08c877431ef44ed30a0fbb2ec2e480bfe86da64a91fda25d"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/Textures/cf_m_sirome_00_light.uexp",
+                        "size":  3057,
+                        "sha256":  "556b071b43fc585a148cf691ba90df5798590cef97c59c2e5ed050c8659613eb"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08.uasset",
+                        "size":  9767,
+                        "sha256":  "d3e25ba7491b9c7b8cef166c2603f826713221eb41d27bbba1461e7bb5229a08"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08.uexp",
+                        "size":  27932,
+                        "sha256":  "24cb6f2b99700a26333e919386ca64ad9001bb6df0c435d31f1ab4ec14d365c7"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_PhysicsAsset.uasset",
+                        "size":  1175,
+                        "sha256":  "15731aae64b0790ee0b5d02cfc9f02246ada63213d019037daec1698f98d8439"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "5027807e687f5f7999e1eb1467477d0c03285886943862eed1a66b3e21d1884e"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "a7baad01957d7ae37e088f9a151f648a33a35ebdd37eaff927bc20f79fa70ba1"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "941aebd029605162a4b4b381a757384c45c652ac13b73fc781d77fdf0027c11e"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/Textures/cf_m_hitomi_00_cf_Ohitomi_L02_light.uasset",
+                        "size":  1395,
+                        "sha256":  "50486993d3b819646ef53fc6560a205f0db760df5b0ef1f8925976a9b4e0b264"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/Textures/cf_m_hitomi_00_cf_Ohitomi_L02_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "8946b9ba288dd57cbf3c3e52fa8cfff3565a745bd4c1f45e08612112f54dde0a"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/Textures/cf_m_hitomi_00_cf_Ohitomi_L02_light.uexp",
+                        "size":  3057,
+                        "sha256":  "a29ea5a89d3c5d74407214eb48b7ace84e07906cbf3c55516bb4612f3a83e61b"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09.uasset",
+                        "size":  9767,
+                        "sha256":  "c4ed02134915fb66c94a1a232f33d36a2e024dd1ec010274d6886bb111acd125"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09.uexp",
+                        "size":  27932,
+                        "sha256":  "376037cdc47a8af7a7d8c7ac743d568d5c219a530d73709194b5ad791afdafa4"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_PhysicsAsset.uasset",
+                        "size":  1176,
+                        "sha256":  "b2f6f24823eb8e0afb50a7116a520c23a13ee8eca07bde343135c8fb7526db70"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "a031008bbde01de80240f295fe02fd4d0bd58f04d3c9495f38ef862fa5a9d428"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "bac35c7aed68c8a3196cc48d19faadec1e08655795614934584c7a58f59693c6"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "e1ba99b042c345441cc18a30e619f7a1e9c0428ecd6bf477210bbf7815032c2f"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/Textures/cf_m_hitomi_00_cf_Ohitomi_R02_light.uasset",
+                        "size":  1395,
+                        "sha256":  "26342cdc23959764a8cfcfe84c93ec8fa7975094d15a22810cdf250a03a9839e"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/Textures/cf_m_hitomi_00_cf_Ohitomi_R02_light.ubulk",
+                        "size":  155664,
+                        "sha256":  "4804991b75f325abf0990f8641eec7f9d22a728ba577ca15149cfcd7ba54711b"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/Textures/cf_m_hitomi_00_cf_Ohitomi_R02_light.uexp",
+                        "size":  3057,
+                        "sha256":  "0022a8586bc15962c561ec103d5161ad189260b1b4d804adc9fc5420ddb6b152"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10.uasset",
+                        "size":  12737,
+                        "sha256":  "6e5b09103804557f573c2924e28bafcb6110e0da51512fa554dc0375ad9e6f17"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10.uexp",
+                        "size":  98156,
+                        "sha256":  "5d29de93d80681e29443f090718e14e067e3aa9f4a49337333195818dd1cd5a9"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_PhysicsAsset.uasset",
+                        "size":  1171,
+                        "sha256":  "82ba3c9b56ebd309003e567ff11e0be501ebcfae8680b2e3691ff839619deacf"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_PhysicsAsset.uexp",
+                        "size":  144,
+                        "sha256":  "deb3b11ed43b0acec6838bd6f9ce86b065c6710dfa658d56993c0c2c63710d05"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "a8f19a07438c6b0992fc298183eb9e292d7d86f1d8c2a22b8d5d97755521410e"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "ab08ffdd77325a2f2aed11b77fbc0127ae577ca3c14ac93fa02a1ce35ed0f0be"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/Textures/cf_m_tang_light.uasset",
+                        "size":  1425,
+                        "sha256":  "a80b6077f7753052143be2f69fe48a0afc28f1f7b5cb65463c7036e699bf4ac8"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/Textures/cf_m_tang_light.ubulk",
+                        "size":  2494944,
+                        "sha256":  "d3ed6384511ade1938f8368e0dfcd586ff00571e0f92fe540f1838468290b02a"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/Textures/cf_m_tang_light.uexp",
+                        "size":  3089,
+                        "sha256":  "ebb7ae10bd759ef927163656eb37c3e608870ab99d7ddd30097adee614287ad5"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11.uasset",
+                        "size":  8432,
+                        "sha256":  "ca05bc7226c3124aa0704eedf9284d5912d27a1e16657dcdd76aed19a4bca1a1"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11.uexp",
+                        "size":  428040,
+                        "sha256":  "38a6b37c80de949539ead395baff92988861d62ffe91467e57b69739277f0154"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_PhysicsAsset.uasset",
+                        "size":  3208,
+                        "sha256":  "bbc1c518b5cafd55dec95d14dc04cb863f25ce2813a59ffa6e6ff2662da0160e"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_PhysicsAsset.uexp",
+                        "size":  2215,
+                        "sha256":  "6be1f2c73edcbb7e8a205fd02ae461f9867e0936f5abbcd72989fd52b8779d9a"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.uasset",
+                        "size":  7837,
+                        "sha256":  "e15c4a79ad9dfb76e1f64acdd8b96097daa3290da2e23d8f4546441b237b2dec"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.uexp",
+                        "size":  16133,
+                        "sha256":  "4b4b9a98d0d6095b5436727d9fefbb3f98c65c8c6dab91f3be0aac63aa507785"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/Textures/cf_m_body_light.uasset",
+                        "size":  1470,
+                        "sha256":  "3be20d84526f72906924bbbc93cfcd46d4370e2e17863b42cd2494855c59a049"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/Textures/cf_m_body_light.ubulk",
+                        "size":  9958768,
+                        "sha256":  "2f53c0c9a32dbf627c07da7f0a572efc54ee9062fe8d9cb878675da55ddd6753"
+                    },
+                    {
+                        "file":  "FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/Textures/cf_m_body_light.uexp",
+                        "size":  3105,
+                        "sha256":  "3f3c09a5e887c79b35f313afc695c4945be3dd67c610081972448d0d3b06888f"
+                    }
+                ],
+    "loader_mount_required":  true,
+    "registry_status":  "EXPERIMENTAL_FIXTURE_NOT_ARTIFACT_READY",
+    "creation_utc":  "2026-10-10T18:44:19.9620265Z"
+}
