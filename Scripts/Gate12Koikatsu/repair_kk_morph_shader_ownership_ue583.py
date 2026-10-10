@@ -5,8 +5,10 @@ Existing material instances keep their texture/scalar/vector parameters and sour
 A separate cold-editor process MUST validate persistence; no Android PASS here.
 """
 import hashlib
+import importlib.util
 import json
 import os
+import socket
 import pathlib
 import re
 import shutil
@@ -134,8 +136,24 @@ try:
             str(unreal.Paths.get_project_file_path()), "Wrong Unreal project")
     require(ROOT.is_dir() and branch() ==
             "production/gate12-koikatsu-ue583-fixture-20261010", "Wrong branch")
-    require(os.environ.get("COMPUTERNAME", "").upper() != "LAPTOP-1LI4VRCJ",
+    host = socket.gethostname().upper()
+    require(host != "LAPTOP-1LI4VRCJ",
             "Unsafe known 8GiB laptop: use approved high-memory UE 5.8.3 host")
+    preflight = ROOT / "Scripts/Gate12Koikatsu/preflight_kk_native_shader_host.py"
+    require(preflight.is_file(), "Missing fail-closed physical-memory guard module")
+    spec = importlib.util.spec_from_file_location("_gate12_host_memory_guard", str(preflight))
+    require(spec is not None and spec.loader is not None, "Cannot load physical-memory guard")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    total_bytes, free_bytes = module.physical_memory()
+    receipt["host_preflight"] = {
+        "hostname": host, "installed_gib": round(total_bytes / module.GIB, 3),
+        "available_gib": round(free_bytes / module.GIB, 3)}
+    require(total_bytes >= module.MIN_TOTAL_BYTES,
+            "Unsafe host installed physical RAM: minimum 15GiB usable")
+    require(free_bytes >= module.MIN_FREE_BYTES,
+            "Insufficient free physical RAM: require 8GiB before native editing")
+    flush()
     rows = json.loads(SOURCE.read_text(encoding="utf-8-sig"))["processed"]
     require(len(rows) == 15, "Unexpected morph material count; stop and re-audit")
     entries = []

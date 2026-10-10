@@ -49,3 +49,21 @@ The scripts do not alter glTF source, original bitmaps, saved gameplay DB, froze
 | Original app, private user data preservation | PASS for read-only checks this session |
 
 Historical videos, full reports and five evidence directories remain untouched and authoritative. No previously successful experimental native skeletal motion result is downgraded.
+
+## 2026-10-10 replacement Gate 12 host recheck — blocked with executable evidence
+
+At the next requested native execution checkpoint, Remote Desktop Commander showed **exactly one** connected authorized device: `LAPTOP-1LI4VRCJ`. Windows measured **7.63 GiB physical RAM, 2.17 GiB free**, and no UnrealEditor or ShaderCompileWorker processes running. Installed engine `Engine/Build/Build.version` independently states UE **5.8.3**, changelist `58210709`.
+
+A safety defect was identified in the earlier unexecuted native script: its hostname check relied on `os.environ["COMPUTERNAME"]`, but the actual remote process exposes no such environment variable. The independent Python `socket.gethostname()` correctly returns `LAPTOP-1LI4VRCJ`. This defect was **corrected before any native execution**.
+
+New `Scripts/Gate12Koikatsu/preflight_kk_native_shader_host.py` measures actual Windows installed/free physical memory via `GlobalMemoryStatusEx` (not commit size, pagefile, or phone RAM); it **fails closed** below 15 GiB installed usable RAM (~16 GB marketed) or 8 GiB presently available. Only hosts meeting those thresholds proceed to isolated branch, frozen Foundation and exact UE5.8.3 version preflight. Thresholds are safety floors for *attempting* native shader work, not performance acceptance. The Unreal repair script also checks the actual socket hostname and reloads the physical-memory probe before changing assets. Both checks remain separate from explicit repair opt-in.
+
+**Executed test (NO Unreal launched):**
+- Command: `python Scripts/Gate12Koikatsu/preflight_kk_native_shader_host.py --project D:\UnrealProjects\OfflineGame_Gate12_Koikatsu_20261010 --foundation D:\UnrealProjects\Offline-Game --engine "D:\Epic Games\UE_5.8"`
+- Native preflight process **exit code 10**, status **`BLOCKED_INSUFFICIENT_PHYSICAL_RAM`**.
+- Observed `7.629 GiB installed / 2.171 GiB available`; enforced `15.0 GiB installed / 8.0 GiB available`.
+- Locally preserved machine-readable receipt: `Saved/Gate12Koikatsu/native_shader_host_preflight.json`, SHA256 `5D6D451F7DD1F4E3425FFC8AF1F8503127BA4C6B6696E2F53DADE520B6F0AED1`. Receipt remains local because it is machine-specific evidence, not shader-validation proof.
+- Updated Python scripts compiled with `py_compile` **PASS**. **Native material repair NOT_TESTED, cold editor reload NOT_TESTED, Android fixed face visuals NOT_TESTED**.
+- Original face material `KK_cf_m_face_00.uasset` retains SHA256 `3DB5AAE185A0901E0246B704A0C340AE402FC475EC41E312FC0FFA19106F2DC9`; neither original app nor character files were altered.
+
+**Next execution trigger**: authorized Windows UE5.8.3 host with at least 15 GiB *measured installed usable* and 8 GiB *measured available* physical RAM; previous requirement for user-provided authorized host remains. Do not execute or classify material repair as native PASS until an independent UE process completes, the second cold reload verifies persistent flags/parents, and physical S26 Android visuals are retested. Current result is a justified **BLOCKED** not a repair success or failure.
