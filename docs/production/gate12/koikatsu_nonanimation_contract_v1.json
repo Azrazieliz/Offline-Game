@@ -1,0 +1,74 @@
+﻿{
+    "schema":  "GATE12_KOIKATSU_NONANIMATION_LOCK_1",
+    "freeze_id":  "G12-KK-NONANIM-1.0.0",
+    "date_utc":  "2026-10-11",
+    "status":  "FROZEN_REFERENCE_NOT_UNIVERSAL_APPROVAL",
+    "baseline_commit":  "ac9b9b8c1bfddcf53419199c97ba6cdf1d646642",
+    "isolated_branch":  "production/gate12-koikatsu-ue583-fixture-20261010",
+    "foundation_worktree":  "D:\\UnrealProjects\\Offline-Game",
+    "foundation_sha":  "3f54f07cacbf193e160d0be15a7be5a7bc730c3b",
+    "foundation_save_sha256":  "4dbb961d45823763ebce7e16dc62b1102b32b8ffd46003ab61ab05f0ef83554a",
+    "source_fixture_glb_sha256":  "ad06955e6f725c63c6ee014828877a9a8fa3a19479ca29936c58c96ed6d012e0",
+    "source_fixture_bytes":  29572372,
+    "android_fixture_apk_sha256":  "3e68cdf3e300badcc5e26161c8f082948740189aad64949f25d551eb86fc9833",
+    "android_fixture_elf_build_id":  "8f2022c36b8ac949ea46e15f0e910691c300e403",
+    "validated_fixture":  "ONE_PHYSICAL_S26_KOIKATSU_DERIVED_CHARACTER",
+    "source_sharder":  "PASS",
+    "new_character_native_import":  "NOT_TESTED",
+    "new_character_full_device":  "NOT_TESTED",
+    "animation_quality":  "FAILED_NEEDS_REFINEMENT",
+    "facial_morph_motion":  "NOT_TESTED",
+    "gate11_artifact_ready":  false,
+    "locked_files":  [
+                         {
+                             "path":  "Scripts/Gate12Koikatsu/build_kk_export_generic.py",
+                             "sha256":  "7ce5796b4637f1c111e495ad91fa74bfb828023e6d1d0dcc4819f1cecd18571f",
+                             "evidence_scope":  "PASS_FIXTURE_BYTE_PRESERVING_GLB_SHARDS"
+                         },
+                         {
+                             "path":  "Scripts/Gate12Koikatsu/stage_new_koikatsu_character.ps1",
+                             "sha256":  "ff7c3076f0109b13692d55ed09bff7efe4d61842942e068cf07edcad888c3335",
+                             "evidence_scope":  "SOURCE_STAGING_INTERFACE_NEW_CHAR_EXECUTE_UNTESTED"
+                         },
+                         {
+                             "path":  "Scripts/Gate12Koikatsu/import_kk_character_guarded.ps1",
+                             "sha256":  "56aa89f761fa3e14fdad01ec5f2c647a7c622dc74a410c69dc20d3c50f3241de",
+                             "evidence_scope":  "PASS_FIXTURE_25_SHARD_PLAN_NEW_CHAR_EXECUTE_UNTESTED"
+                         },
+                         {
+                             "path":  "Scripts/Gate12Koikatsu/repair_kk_morph_shader_ownership_ue583.py",
+                             "sha256":  "fde8aa41dcfa5e8575a5f87806351d7da54e0a1ac3dc8744b20f6398d4d6d5d6",
+                             "evidence_scope":  "PASS_FIXTURE_COLD_PERSISTED_MORPH_PARENTS_ONLY"
+                         },
+                         {
+                             "path":  "Scripts/Gate12Koikatsu/verify_kk_morph_shader_cold_reload_ue583.py",
+                             "sha256":  "bb5a3a67d3639be4a0e28d35ba812fe8900addbbf94d51636ff9e4816e82c65d",
+                             "evidence_scope":  "PASS_COLD_NATIVE_UE_FACIAL_MATERIALS_FIXTURE_ONLY"
+                         },
+                         {
+                             "path":  "Scripts/Gate12Koikatsu/verify_kk_playable_native_cold_ue583.py",
+                             "sha256":  "844e5e039c7b2d9e14982ad362594f79f1e8c6df535e074c584a05f44d0b8c00",
+                             "evidence_scope":  "PASS_COLD_NATIVE_UE_19_MESH_BP_FIXTURE_ONLY"
+                         },
+                         {
+                             "path":  "Scripts/Gate12Koikatsu/author_playable_character_blueprints.py",
+                             "sha256":  "6f3375fcd035d94cf12e52b9df8ebb1959d5697e1f77569f207300c7e702d551",
+                             "evidence_scope":  "PASS_UE_SERIALIZED_FIRST_FIXTURE_ONLY"
+                         },
+                         {
+                             "path":  "Config/DefaultEditor.ini",
+                             "sha256":  "8a3e92cc1a828df2f07917390c3bc5952ff9ff1c5e791107ed65bd26b460837c",
+                             "evidence_scope":  "PASS_836_ANDROID_ASTC_PLAYABLE_MAP_COOK_SETTINGS"
+                         },
+                         {
+                             "path":  "docs/production/gate12/evidence/koikatsu-final-20261010/native_playable_19part_cold_unreal.json",
+                             "sha256":  "e4378b591f6f95cb05915d150977eca852bbff077f338778ee568f25635f17d6",
+                             "evidence_scope":  "PASS_ARCHIVED_NATIVE_UE_FIXTURE_EVIDENCE"
+                         },
+                         {
+                             "path":  "docs/production/gate12/evidence/koikatsu-final-20261010/android_astc_facial_map_cook_pass.json",
+                             "sha256":  "89800bc3a1229e905c3754f0328c21501dc93495c723d0fe23a92b7bf2317799",
+                             "evidence_scope":  "PASS_ARCHIVED_FACIAL_ASTC_COOK_EVIDENCE"
+                         }
+                     ]
+}
