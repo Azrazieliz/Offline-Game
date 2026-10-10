@@ -1,0 +1,43 @@
+﻿{
+    "status":  "PASS_NO_OBSERVED_EXIT_60S",
+    "samples":  [
+                    {
+                        "t_seconds":  0,
+                        "utc":  "2026-10-10T17:07:43.2727310Z",
+                        "pids":  "9646 9688",
+                        "total_pss":  "TOTAL PSS:   503849            TOTAL RSS:   386784       TOTAL SWAP PSS:   247414",
+                        "thermal_status":  "Thermal Status: 0",
+                        "battery_temperature_tenths_C":  "temperature: 288",
+                        "alive":  true
+                    },
+                    {
+                        "t_seconds":  20,
+                        "utc":  "2026-10-10T17:08:03.9706089Z",
+                        "pids":  "9646 9688",
+                        "total_pss":  "TOTAL PSS:   505150            TOTAL RSS:   400696       TOTAL SWAP PSS:   239466",
+                        "thermal_status":  "Thermal Status: 0",
+                        "battery_temperature_tenths_C":  "temperature: 287",
+                        "alive":  true
+                    },
+                    {
+                        "t_seconds":  40,
+                        "utc":  "2026-10-10T17:08:24.3114919Z",
+                        "pids":  "9646 9688",
+                        "total_pss":  "TOTAL PSS:   502606            TOTAL RSS:   398188       TOTAL SWAP PSS:   239438",
+                        "thermal_status":  "Thermal Status: 0",
+                        "battery_temperature_tenths_C":  "temperature: 286",
+                        "alive":  true
+                    },
+                    {
+                        "t_seconds":  60,
+                        "utc":  "2026-10-10T17:08:44.7011552Z",
+                        "pids":  "9646 9688",
+                        "total_pss":  "TOTAL PSS:   502694            TOTAL RSS:   398416       TOTAL SWAP PSS:   239298",
+                        "thermal_status":  "Thermal Status: 0",
+                        "battery_temperature_tenths_C":  "temperature: 285",
+                        "alive":  true
+                    }
+                ],
+    "duration_s":  60,
+    "end_utc":  "2026-10-10T17:08:44.8206375Z"
+}

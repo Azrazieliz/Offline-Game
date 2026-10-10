@@ -1,0 +1,53 @@
+{
+  "status": "MEASURED",
+  "frame_count": 60,
+  "image_dimensions": [
+    1280,
+    720
+  ],
+  "character_bbox": [
+    0,
+    79,
+    1259,
+    655
+  ],
+  "comparisons": {
+    "opposite_pose": {
+      "frames": [
+        6,
+        10
+      ],
+      "foreground_px": 55287,
+      "silhouette_difference_percent": 25.111,
+      "color_difference_percent": 42.542
+    },
+    "same_cycle_2s": {
+      "frames": [
+        6,
+        14
+      ],
+      "foreground_px": 49549,
+      "silhouette_difference_percent": 0.644,
+      "color_difference_percent": 0.101
+    },
+    "second_opposite": {
+      "frames": [
+        9,
+        13
+      ],
+      "foreground_px": 59192,
+      "silhouette_difference_percent": 37.226,
+      "color_difference_percent": 50.764
+    },
+    "second_same_cycle": {
+      "frames": [
+        9,
+        17
+      ],
+      "foreground_px": 46589,
+      "silhouette_difference_percent": 0.466,
+      "color_difference_percent": 0.036
+    }
+  },
+  "note": "Frame difference confirms actual motion, not facial-only morph. Visual review required for clipping and color."
+}
