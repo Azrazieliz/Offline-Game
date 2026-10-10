@@ -76,3 +76,7 @@ The **bulk-data memory-mapping warnings** in Android logs persist but are not pr
 **Accept as Gate 12 isolated engineering milestone only**: complete-detail UE5.8.3 skeletal import and **physical Android basic animation** can work when each animation is generated from the native target skeleton's rest pose. This provides a repeatable method for future Koikatsu engineering fixtures.
 
 **Do not merge into frozen Foundation, make PR #16 ready, promote to ARTIFACT_READY, or claim full DEVICE_VALIDATED.** Open requirements include visually reviewed facial-expression curves, advanced motion/skin stress, engine shader parity, asset rights/provenance, stable mobile performance, and Gate 11 intake.
+
+## Reviewable evidence committed to this isolated GitHub branch
+
+The actual physical-device screenshots, 12-second landscape recording, and quantitative per-frame motion JSON (not AI-generated or illustrative) are under `docs/production/gate12/evidence/koikatsu-restsafe-s26-20261010/`. These files show phase A vs phase B of the same two-second loop. They are engineering validation evidence, not production art approvals.

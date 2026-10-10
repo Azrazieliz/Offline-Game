@@ -1,0 +1,71 @@
+{
+  "status": "MEASURED",
+  "frame_count": 48,
+  "video_size": [
+    1280,
+    720
+  ],
+  "bbox": [
+    590,
+    231,
+    688,
+    590
+  ],
+  "comparisons": {
+    "quarter_cycle": {
+      "frame_a": 6,
+      "frame_b": 8,
+      "t_a_sec": 1.25,
+      "t_b_sec": 1.75,
+      "foreground_pixels": 18106,
+      "shape_changed_pixels": 1671,
+      "shape_change_pct": 9.229,
+      "rgb_changed_pixels": 4102,
+      "rgb_change_pct": 22.655
+    },
+    "opposite_pose": {
+      "frame_a": 6,
+      "frame_b": 10,
+      "t_a_sec": 1.25,
+      "t_b_sec": 2.25,
+      "foreground_pixels": 18609,
+      "shape_changed_pixels": 2743,
+      "shape_change_pct": 14.74,
+      "rgb_changed_pixels": 5293,
+      "rgb_change_pct": 28.443
+    },
+    "two_second_loop": {
+      "frame_a": 6,
+      "frame_b": 14,
+      "t_a_sec": 1.25,
+      "t_b_sec": 3.25,
+      "foreground_pixels": 17176,
+      "shape_changed_pixels": 49,
+      "shape_change_pct": 0.285,
+      "rgb_changed_pixels": 0,
+      "rgb_change_pct": 0.0
+    },
+    "another_opposite": {
+      "frame_a": 8,
+      "frame_b": 12,
+      "t_a_sec": 1.75,
+      "t_b_sec": 2.75,
+      "foreground_pixels": 17676,
+      "shape_changed_pixels": 606,
+      "shape_change_pct": 3.428,
+      "rgb_changed_pixels": 2326,
+      "rgb_change_pct": 13.159
+    },
+    "another_loop": {
+      "frame_a": 11,
+      "frame_b": 19,
+      "t_a_sec": 2.5,
+      "t_b_sec": 4.5,
+      "foreground_pixels": 17525,
+      "shape_changed_pixels": 61,
+      "shape_change_pct": 0.348,
+      "rgb_changed_pixels": 3,
+      "rgb_change_pct": 0.017
+    }
+  }
+}
