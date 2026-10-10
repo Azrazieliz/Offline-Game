@@ -38,3 +38,11 @@ Earlier ASTC cook attempts aborted at 387 and 560 packages because the cooker ha
 | Trusted Pak activation / production acceptance Gate11 | **NOT_TESTED / NO APPROVAL** |
 
 All work remains on the isolated Gate12 branch. Frozen Foundation at `3f54f07cacbf193e160d0be15a7be5a7bc730c3b` remains clean; original PC `WorldState.db` SHA256 `4DBB961D45823763EBCE7E16DC62B1102B32B8FFD46003AB61AB05F0EF83554A`, original Galaxy S26 Ultra app `com.azrazieliz.OfflineGame` and PR#16 draft/unmerged preserved. Provide source/evidence link and accurate statuses to Gate00 issue #19. Never elevate this fixture to Gate11 ARTIFACT_READY.
+
+### Independent saved Android output inventory
+
+An independent disk inspection following the actual successful Android_ASTC commandlet cook confirmed **171/171 freshly emitted cooked action `.uasset` packages**, **19/19 cooked native rest-safe idle sequences**, **3 project-owned shader-parent assets**, and the repaired face material instance under `Saved/Cooked/Android_ASTC/OfflineGame/Content/Experimental/Gate12Koikatsu/`. The 171 Android-cooked action binaries are recorded individually by file name/bytes/SHA256 in `docs/production/gate12/evidence/koikatsu-final-20261010/android_cooked_animation_material_inventory.json` with stable aggregate checksum `e8305b04776577bc65dab52c55203c469ae206eb769d6350a32980cff8c1e679`. This verifies **cooked-content completeness for native clips and the facial test**, not that the playable QA map was cooked, phone installation succeeded, or new native movement gameplay works on device.
+
+### Engine-side installation attempt
+
+Epic Games Launcher is installed but the Desktop Commander service shell does not expose the interactive Launcher interface through UIAutomation. The engine optional Android platform binaries cannot be installed by guessing manifests or copying arbitrary toolchain files. No programmatic edit to Epic Launcher installation manifests was performed. The existing Android SDK/NDK/JDK do **not** substitute for UE5.8.3's missing Android target/platform binaries. Exactly one user-side Launcher Options selection is needed before an actual ARM64 native binary or Android APK can be assembled, signed and physically tested.

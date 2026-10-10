@@ -1,0 +1,867 @@
+﻿{
+    "status":  "PASS_STATIC_ANDROID_ASTC_COOKED_ASSET_PRESENCE",
+    "android_application_installed":  "NOT_TESTED",
+    "unreal_fps":  "NOT_TESTED",
+    "cooked_action_sequences":  171,
+    "cooked_existing_idle_sequences":  19,
+    "cooked_owned_shader_assets":  3,
+    "cooked_repaired_face_instances":  1,
+    "cooked_action_binary_aggregate_sha256":  "e8305b04776577bc65dab52c55203c469ae206eb769d6350a32980cff8c1e679",
+    "actions":  [
+                    {
+                        "file":  "AN_KK_Action_M00_P00.uasset",
+                        "cooked_sha256":  "68adc5b26bb331ead4ac9f26335109300fc4f7c873c19d364c0aa1e5637fd9bc",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M00_P01.uasset",
+                        "cooked_sha256":  "2813d529dc9e3357d04e521b622f413c0f2758affe902c80c1a06cd64a397537",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M00_P02.uasset",
+                        "cooked_sha256":  "59381ccf742722be8004656aa34021b6cb9940c180c004917f84ea67fc01b0cc",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M01_P00.uasset",
+                        "cooked_sha256":  "29e38c5d61f78985d2693d0f195d3e7d2f9ff69e763af0dffbcf61c0e5a6d6dc",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M02_P00.uasset",
+                        "cooked_sha256":  "eec89df3c38b691d3dde3aef13ca29aaf6c369d616b23aa944f58e240d194c1c",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P00.uasset",
+                        "cooked_sha256":  "53ce332cfaa0f0e9bf9e89b33d58add5fe32e419c2ef94c12b8308cb5a5fefdb",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P01.uasset",
+                        "cooked_sha256":  "f9f40a0d1dedf7de3d2fd58f33227b0c194beed0f85b3dfe1328a1f64edee34b",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P02.uasset",
+                        "cooked_sha256":  "bfdc4af81599642934b4054ce6f070285d8312c9ddde3f600cf1db28d1c8de61",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P03.uasset",
+                        "cooked_sha256":  "954cc04c9a786c2f09ea5afafc0952dea0d302828ad3e1db2c7b2b33ed94a30c",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P04.uasset",
+                        "cooked_sha256":  "0172979f1b8b0167ed0f15bf0fb1592c4305faa8bc283a80f5c10e4f66652231",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P05.uasset",
+                        "cooked_sha256":  "c6cb5dbb86044b8b926ad03b2aa51a39ef7ea1a8e44e8b0496233b72f33a4160",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P06.uasset",
+                        "cooked_sha256":  "0d0fb3a8794fc06cadfa0c1d0d15d72131aa49ed6eb58a150917177076a3b4fe",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P07.uasset",
+                        "cooked_sha256":  "c5e2f61cd37019f2142b8cc460a3f61eeec4d34919dac2da98f9ec59b305835f",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P08.uasset",
+                        "cooked_sha256":  "16c85fcfcbd90a3be0aa0f1b4cbbaca1487478b3a1ad92933379ea55b3920b2b",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P09.uasset",
+                        "cooked_sha256":  "87f6837477bd7afec12694066f6822ccddad95e712671d8e417be42d9d0d4310",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P10.uasset",
+                        "cooked_sha256":  "7e159723f838105f4c4c640d0190679cdfb5ab2efee213d5df5c09ea289a850e",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M03_P11.uasset",
+                        "cooked_sha256":  "18ae2efb25d6a16b26c9de753037111bd455235b25d8b3f1c6016c2645b4f910",
+                        "bytes":  2040
+                    },
+                    {
+                        "file":  "AN_KK_Action_M04_P00.uasset",
+                        "cooked_sha256":  "27a00e63fe3bf6f4d9853446cdc20ec44054783c0d8e66babfcc00f2da261156",
+                        "bytes":  2020
+                    },
+                    {
+                        "file":  "AN_KK_Action_M05_P00.uasset",
+                        "cooked_sha256":  "632ec201d06743597bf412539e1d844bc2e4c32b753dbe23ca7071f10b78b7cb",
+                        "bytes":  2020
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M00_P00.uasset",
+                        "cooked_sha256":  "6a5b27e13a6abbf74ee6ef4bad23f44527b0354aef3031dfbafa681c132a36a6",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M00_P01.uasset",
+                        "cooked_sha256":  "0968d286fccdd227d1e195728d0e91db27cc8a8c50ce4721a12ab49401a17d27",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M00_P02.uasset",
+                        "cooked_sha256":  "9f282ddaf23ba8473b6cc056f0b83672fc56ad3d43e2c5732584c893fa63ccbf",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M01_P00.uasset",
+                        "cooked_sha256":  "e421389b654c8c891568d76fe4e8de11e919882ead7ab41f2d7f928ffdc8acfa",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M02_P00.uasset",
+                        "cooked_sha256":  "281cd329a6ccd4b87b7632b376ee7f8ccf8512f2d2049f26fd71ebab2b30f7ee",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P00.uasset",
+                        "cooked_sha256":  "323242f14caf504031a051052e7aff4f7b4345c097fad28981eb959c75246a17",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P01.uasset",
+                        "cooked_sha256":  "1fb5b73aa1a9471b326e6ebe8aaabdd82f8c5039515d55223f8b3f22ff6371e6",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P02.uasset",
+                        "cooked_sha256":  "0b502227cfaeee70713cf876e744f10d456ced471c917c62b7cab63088e46b66",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P03.uasset",
+                        "cooked_sha256":  "8083695bcbe4ec15864e3623d7eaa2dc8415184c361de7e2dab9cf8b58b36a09",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P04.uasset",
+                        "cooked_sha256":  "c24ad66019dc9ed49d6b043ef0af05fcb8e37e22a8a2227ba339d2c61e5828ea",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P05.uasset",
+                        "cooked_sha256":  "bd00e4c4e4a68c33b1d9c6fbe5ad1007d32972bb5283c7cb1137399c39d1bcf2",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P06.uasset",
+                        "cooked_sha256":  "9774939be08b8ec032c6b9f721e806a7938ad7626ccc24d1a1ee43dbc36574c4",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P07.uasset",
+                        "cooked_sha256":  "5e276b0225d5a67f63b2565b4930c96150e8a0994d8c822e4d3317d1029b466d",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P08.uasset",
+                        "cooked_sha256":  "1d08eba2a9b0c78c2323ae7bd4a6926fb49190b1de4a10d863cada0097764ef8",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P09.uasset",
+                        "cooked_sha256":  "9a28b1b8111a911cd824bec9e87ffbf1aa943b8c2d47000c4901f7de473fced7",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P10.uasset",
+                        "cooked_sha256":  "1390e48c99fa574e6d552b2bf94abe8b4023e6fd9c3478f75ec5be1597c0aa21",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M03_P11.uasset",
+                        "cooked_sha256":  "dc9812d7fe09168d32f9e7385813ff200ca2871d0ceb05f695092df2aa4f98eb",
+                        "bytes":  2037
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M04_P00.uasset",
+                        "cooked_sha256":  "8f1e0c98a9cc93b25857be36eddec8a0824cb43211065ec1e5b55480aa211628",
+                        "bytes":  2017
+                    },
+                    {
+                        "file":  "AN_KK_Dodge_M05_P00.uasset",
+                        "cooked_sha256":  "9e29887ed5a86ef5ad9869dab5da4b4a127e11277e029a8be0209193321f4ee1",
+                        "bytes":  2017
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M00_P00.uasset",
+                        "cooked_sha256":  "ca6400ff3bef2aa5d63469b2aeef052ec62bfc5a16f0f4eb0552583431e94fa0",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M00_P01.uasset",
+                        "cooked_sha256":  "ece866077cd8be642c58e577d36ed6ea7c489f65acabadeb052fe3ac2c001cba",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M00_P02.uasset",
+                        "cooked_sha256":  "a0be7f698c875031a85a796e362c3b4a101bcdb79e631908e44e0544f149a57b",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M01_P00.uasset",
+                        "cooked_sha256":  "534e06ba2df0762c7e87057216169450a393d6309a5feb8d05c35b02463b4cc4",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M02_P00.uasset",
+                        "cooked_sha256":  "160ec20397cadcec5ae71842a0d412f1e4d61baee1274652675a43069d56a0f5",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P00.uasset",
+                        "cooked_sha256":  "4c162c685de498ab8bc022ab3782ba194452c57c59341589b354ea52d25612dd",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P01.uasset",
+                        "cooked_sha256":  "94ed217003a0cb756ac490786ecca0c6e0e1380c28640d7c1d3e944fb3b5964d",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P02.uasset",
+                        "cooked_sha256":  "912f30984788aeff4c826ab84ab63e6c99e9f24b10b54553ec1a74776292fe88",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P03.uasset",
+                        "cooked_sha256":  "a4ff5b9ae560d76806de6ed669043ec62acf4f9f4b0d5553d5db10602bd7ff2c",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P04.uasset",
+                        "cooked_sha256":  "8f08f0b49e8a7d0c19fd31471089cd102f181cf26fb4cea9568ba60e69ffe029",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P05.uasset",
+                        "cooked_sha256":  "969a63296ecdee44e1a5c578f48677c229958f588a9dfe4d68d74d0827dfa3fc",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P06.uasset",
+                        "cooked_sha256":  "d42587fc159350fd1cc2fa6d30819102cfa2cf7d1709bcfd582f05f339208371",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P07.uasset",
+                        "cooked_sha256":  "e834c8167064396dcf892e9ad18afa18ac562d8d26667ba3ef4f8bc1fbfbf444",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P08.uasset",
+                        "cooked_sha256":  "be66dc4575281ebe3909be917a94a5d0f1ae76e27bf01318ef67ecbd6eb715fb",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P09.uasset",
+                        "cooked_sha256":  "7ca9d1b8ad92b7d587af3e34926d970ef877293f44ad4197f71bc72c25943823",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P10.uasset",
+                        "cooked_sha256":  "a99b35ec112425164037e9bdbab75c9935a2245dabec7c8ab60a68e7549bec1c",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M03_P11.uasset",
+                        "cooked_sha256":  "4b55bdbb0abcf934d95116bccbba2d9d0cecdd091eb21f716b058b0501d68238",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M04_P00.uasset",
+                        "cooked_sha256":  "13431a49a6b286f4b0f1bbc8f46037bd42e412973df3cc4a7f5bce0ec683adb4",
+                        "bytes":  2014
+                    },
+                    {
+                        "file":  "AN_KK_Fall_M05_P00.uasset",
+                        "cooked_sha256":  "1d939ac88b7dd7b5ff2b714b90ca55a595034b14f786eb58af116148e4bf336b",
+                        "bytes":  2014
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M00_P00.uasset",
+                        "cooked_sha256":  "bb72c1c76d8376480e8fd1b06ea5c67031f856a769bc85328fd77c894efbe76f",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M00_P01.uasset",
+                        "cooked_sha256":  "fd216fde5eb4ed380777a0ed8114831902fb77cd4d775fa6a7bf807c716d4287",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M00_P02.uasset",
+                        "cooked_sha256":  "56f480934d5f721ef210aec549db435de5d31c46ddb5150e09918a7faa801aec",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M01_P00.uasset",
+                        "cooked_sha256":  "871b84ebde709ece5c0779e20a9c33ec4345f7ddc56b34bd88c76312fbc1378b",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M02_P00.uasset",
+                        "cooked_sha256":  "ebb2780eb8e6d687e7f3d59e883c859e58f12594073e28bee130f03671dcec84",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P00.uasset",
+                        "cooked_sha256":  "dc399ca8bf5b23ef2bac25544fa3c501901b99aa743200e0ab321abfa00c0cc6",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P01.uasset",
+                        "cooked_sha256":  "e4f60389af28d70cdfa27d9b7e3cbb3cab26adbe331719eecdd96041eb9de6ea",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P02.uasset",
+                        "cooked_sha256":  "b6fac35d3c738d53ee4f8c871ae121c1c5d4740629154eefc3a28a6ce354632d",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P03.uasset",
+                        "cooked_sha256":  "da49fc5267a8bfa981cae4a203fb9fdb5e6fd5bfe7acfa888dd3f8867629e8fd",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P04.uasset",
+                        "cooked_sha256":  "ce7d97c3491779a58758c3a0fce9c502336741bb423337367b5ececc64a4ed3d",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P05.uasset",
+                        "cooked_sha256":  "bd274e1f733b6dfef3c00b26c8107fbb5a5d54537d927eb3e7278891dc967564",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P06.uasset",
+                        "cooked_sha256":  "aa785a8b7559f3da997f2c6d6b2cac032a81b3d859feb4a0af77025bff877f4a",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P07.uasset",
+                        "cooked_sha256":  "679d320eafcee74b371707e83638ad9b00450a7583106940b1fd8a1d1db1c213",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P08.uasset",
+                        "cooked_sha256":  "62d9db59f841d58457f305f108b516795a620432b484247d5745915eddc815d1",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P09.uasset",
+                        "cooked_sha256":  "b91cc6b548fbffb4e19e7b6ba74fea6a7177ed7bb2ef2207be8d191929a42723",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P10.uasset",
+                        "cooked_sha256":  "1199092ef4e761bb4744e8ebaf0aa2d88db1ded75f5473299ce222c85a8021d8",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M03_P11.uasset",
+                        "cooked_sha256":  "e05cf23e20f74304fd01b70d89f6b3f6f2720758622bcefbf4b20f24ed485a59",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M04_P00.uasset",
+                        "cooked_sha256":  "033edd6bf0cbd2cd4125c9d031c0c8b10113cfb0cade17d95babdf4a6f12a377",
+                        "bytes":  2014
+                    },
+                    {
+                        "file":  "AN_KK_Jump_M05_P00.uasset",
+                        "cooked_sha256":  "3d7600a91ea15e0838d85359e81681230e54f33f43e3d5b393a834292e7bb048",
+                        "bytes":  2014
+                    },
+                    {
+                        "file":  "AN_KK_Land_M00_P00.uasset",
+                        "cooked_sha256":  "efccbbbddebbc20e46c602b81c2f72c0a9251057f6fb2a391fbe8d1570f43f7f",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M00_P01.uasset",
+                        "cooked_sha256":  "bc234b3bd1be9207a06fac3f9f5310ce0fdab4b3362dcc903296c1adb37f3ec5",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M00_P02.uasset",
+                        "cooked_sha256":  "0f9969e3a3cb8aebd216fefbae5da342eb83800da984aa3ec379c534af3f1850",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M01_P00.uasset",
+                        "cooked_sha256":  "ddfa11076f3421752e2b67694e7790d0ffce37b59a61f0898e7795dc62dd87a1",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M02_P00.uasset",
+                        "cooked_sha256":  "f0b8ab1ccb717e39cba0af9d0ce285e37e9c5ac4ebff6ff93adc5e0bebe6e349",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P00.uasset",
+                        "cooked_sha256":  "2505dd0a443d6311b389e6a96d3ecbaea64a6bde17426cedb476062ac8b0632b",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P01.uasset",
+                        "cooked_sha256":  "e7005b61a8c35f76bedb32875f85af90fccf73302ccf59cab8c2bdfd84ae24d5",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P02.uasset",
+                        "cooked_sha256":  "82b55024246b5ea76f2be8a0a5ceef38fc73086e9e2b6e6238f58cffeaa8ace6",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P03.uasset",
+                        "cooked_sha256":  "fc5f5b8e582de4c80a7b39c90edc3eff2ee24522466ee3fc0c79316ae04b4cd2",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P04.uasset",
+                        "cooked_sha256":  "e2b9decc2c1fb5015247513bc4bc19a70c2c7c435eec22b03af4838692186338",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P05.uasset",
+                        "cooked_sha256":  "e1d0e18c61f06b342a774e9cf75ea7cdcb4bf9be6821ea1de4b1c21a44637129",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P06.uasset",
+                        "cooked_sha256":  "a9fecf7df1aefda8512c8a55f14003c43c072cf650587c5575c568a145054445",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P07.uasset",
+                        "cooked_sha256":  "45e9dd93979af2c6f1f924cf91a12178e80f7267c70dce1d760385423d1db396",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P08.uasset",
+                        "cooked_sha256":  "48ebe2b7620308ab65861380006d4256955d7d96c615ea89211bf8522516d122",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P09.uasset",
+                        "cooked_sha256":  "686cb25a6a7c340f682021991705a72d82e02dd0a0ae8bb566e3d2bdb138294f",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P10.uasset",
+                        "cooked_sha256":  "30c4e52c2634989372d96b6f7c4e533c52cee1cc301a7c44ad4521d86dbf8489",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M03_P11.uasset",
+                        "cooked_sha256":  "6ecd03d8987a2f40018715c2cb88145bb35a69d56d91eb63b6dcb76759fade06",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Land_M04_P00.uasset",
+                        "cooked_sha256":  "0788ada6c4dfe28ed7bd7c516e7f3a3b7fae506a711bd494505521a60cae9b8e",
+                        "bytes":  2014
+                    },
+                    {
+                        "file":  "AN_KK_Land_M05_P00.uasset",
+                        "cooked_sha256":  "ff239fb67ff0d2d2c9a14a2599272954231bb5bd535c64b2613974d1699500e3",
+                        "bytes":  2014
+                    },
+                    {
+                        "file":  "AN_KK_Run_M00_P00.uasset",
+                        "cooked_sha256":  "d4990850698a4675a3ed4fc04d0fa86c7e4c7e94d58c042ba78ff9fb4c1cae37",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M00_P01.uasset",
+                        "cooked_sha256":  "25e8018c962d9579a0aa59822ee851994e42280f677847a0ee539ff22b962fac",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M00_P02.uasset",
+                        "cooked_sha256":  "8543ae37284bac1af8ecb1a35313469d42455be4ece6149b7aaef7e80a98e2ba",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M01_P00.uasset",
+                        "cooked_sha256":  "bf4569e8f0ae2bed020950c831273768258ce6e5c4b81e089dda91db4dec76fc",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M02_P00.uasset",
+                        "cooked_sha256":  "bcb3d4d0743ae78cb60526c2faf13125987f6642f28b4c0f600aff16e60e8326",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P00.uasset",
+                        "cooked_sha256":  "45d28c67c0479b69566a9da9b9692eb107ca1d3fad04cd4cebf62e76d90f5a0e",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P01.uasset",
+                        "cooked_sha256":  "98b49dac52de551ae99931934ea19cb12987fc6eb68f2cc86630a0ea79ad8595",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P02.uasset",
+                        "cooked_sha256":  "c6733f436e67a5fdb665049f92ad427ee743fad3c42b267171feb8c51ce0471b",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P03.uasset",
+                        "cooked_sha256":  "632d9c5d6f31529fa6a5a3bdd47b90d64296db934afeeea28f75814d98a4f865",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P04.uasset",
+                        "cooked_sha256":  "b198d110b555b0410b03ef0ba612d72fb0fbd705c0f4bacfe3b5947d84250600",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P05.uasset",
+                        "cooked_sha256":  "f9a7469326b3c0bde9495601c2929db3bdbd4b95d529a4c61c0ebfbc74328444",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P06.uasset",
+                        "cooked_sha256":  "411449e6c8cadad38d6f1ee3ba3df1337c2a196a5cea7d0a784f60c2582605bb",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P07.uasset",
+                        "cooked_sha256":  "75912e201d22b0c7cd7377e44199a561a3d1c7b5c5d1593d073285906b1cb017",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P08.uasset",
+                        "cooked_sha256":  "bfaa0a44ee151c223a7a1948e319dd91ca2d903a46bc6d093e2ad7c39e0639d7",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P09.uasset",
+                        "cooked_sha256":  "fc8dcfba807d84dcf84aefce096d8c6ea7edb57374c7fb766db770e5184922d3",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P10.uasset",
+                        "cooked_sha256":  "ab071f58ba9872c02d7cd75e4378da49da223d182b69b8f0333aead0ac088663",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M03_P11.uasset",
+                        "cooked_sha256":  "c646852fd10362aed1d0a14384c9d82a55583386f9433e9e8f867298cdfdca4b",
+                        "bytes":  2031
+                    },
+                    {
+                        "file":  "AN_KK_Run_M04_P00.uasset",
+                        "cooked_sha256":  "18029ffa05fe46913187c83787dc9057104cf12f6fa6130345ae3be1cb38294f",
+                        "bytes":  2011
+                    },
+                    {
+                        "file":  "AN_KK_Run_M05_P00.uasset",
+                        "cooked_sha256":  "cac2c2568de1ae6808d690eb9c84bf1b5dbd187c310c65c9235c7e60bf61ba5b",
+                        "bytes":  2011
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M00_P00.uasset",
+                        "cooked_sha256":  "656f4b8ccab7bf6afd403b0f520809fdde603e041b3878fdc007ade1f8677fa5",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M00_P01.uasset",
+                        "cooked_sha256":  "e3cbf2e21693f3d9a85ed9d0cbf8e516d7528249fbee6e4df5306bdaa5e97c01",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M00_P02.uasset",
+                        "cooked_sha256":  "f46f6fb2686c4af1f272596f1f15a3cf88564f241c8603d69cde56f3b31dbefb",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M01_P00.uasset",
+                        "cooked_sha256":  "bd759c93540a8d2601a5c78f940aef82d58a03bf4eaa3762971e1477e332224d",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M02_P00.uasset",
+                        "cooked_sha256":  "8cfdc37da93836caa2ea01fc29418e43d8569d7f25a11a2d3b9d82c0861202c8",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P00.uasset",
+                        "cooked_sha256":  "ecafdf549cb695f4bf7a103f7a37f3babb9883ad127cfc52395d5000f24b860e",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P01.uasset",
+                        "cooked_sha256":  "36a95bb8bc319fa842aff050ffc4ced83afd5201d7e6b00233681e571cbc5b70",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P02.uasset",
+                        "cooked_sha256":  "df20e1d68617b6eda77093eb6f7666c8bfe520c160ed68bf561d1efc4440dc57",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P03.uasset",
+                        "cooked_sha256":  "07135a6da7ea066397bac1636911cc570059dc911219fbb4c35abf9af5204154",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P04.uasset",
+                        "cooked_sha256":  "7cfbcdb958ae668f98560aafb002851a30992da4d1e632acd9ca6d66647b59d3",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P05.uasset",
+                        "cooked_sha256":  "1d9ebc5335dc50b5195265e5cdbcf493b3596c426e31b203d8965dee0f2172f4",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P06.uasset",
+                        "cooked_sha256":  "0bd943e6d3db94c25cde8f2a5c8fc90456eee559a06f488b9e74f91c147b1a01",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P07.uasset",
+                        "cooked_sha256":  "133fe92f6bf16bec3f2c6484d6ba2e6aa56c1d871a25437ad1137d52a8299f5b",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P08.uasset",
+                        "cooked_sha256":  "d4b70498845e1130b480ebd53422596450c1850fae290b001991e5b9af669cc2",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P09.uasset",
+                        "cooked_sha256":  "6016af988ae86bbba9041336da8f8e74b2bc5bdb01058b2a20c56dee794dd82f",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P10.uasset",
+                        "cooked_sha256":  "a8725fb573f1e55104f1db8fe6fb99245b162de64185e6da38dec7cfebcd77bb",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M03_P11.uasset",
+                        "cooked_sha256":  "f14b016969c229f4b72a6564a78421f57f43db1c50844e0566736bc1e1bcc2ec",
+                        "bytes":  2046
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M04_P00.uasset",
+                        "cooked_sha256":  "b654dba91adce6fa594dc77e9699ef0121fa2d951bb86ed46bf1f5f1bb730722",
+                        "bytes":  2026
+                    },
+                    {
+                        "file":  "AN_KK_TurnLeft_M05_P00.uasset",
+                        "cooked_sha256":  "4ad9c95f4980cc1e105b41e940b80aae8d3dc627faf77434b12fffa40732feaa",
+                        "bytes":  2026
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M00_P00.uasset",
+                        "cooked_sha256":  "74107d5b4e5b02142ce5d04b7e2ebf50bd4496ce0734667e29e0bbc7b92a5bee",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M00_P01.uasset",
+                        "cooked_sha256":  "885043dd3388896238fa12a0112222e34625e76fa77a86545213bcd3e52c1358",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M00_P02.uasset",
+                        "cooked_sha256":  "e9ce8d40da6beb68c3661ba1ad95fdc3e54f2e0cd19b43736fca07bb02249851",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M01_P00.uasset",
+                        "cooked_sha256":  "34b758dc518fb58836daf3c0f6fb0ab66788a2e9dbc307048a5b5d186e4ab9c9",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M02_P00.uasset",
+                        "cooked_sha256":  "72bac64fd766d054a40acc6982c3f8ce8a2ae312c11f76ff0da3fa45c4f9da9b",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P00.uasset",
+                        "cooked_sha256":  "ff69a4f69f4ca0054af41a9f7e9168b4e0a842af79b29979899bf05062484158",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P01.uasset",
+                        "cooked_sha256":  "fbb7cae2ff7f6dccc36dabc037e164c4a2fb7cda240ca3be021bfb0ce767bfea",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P02.uasset",
+                        "cooked_sha256":  "c7cd6d716b66fe901e2abc553de09f2232acbfc86d93ff090850999b8d711457",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P03.uasset",
+                        "cooked_sha256":  "ca434d381492cee5bd4f0cbc297fc83b751e96a02c4d1eac588df61df36d097d",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P04.uasset",
+                        "cooked_sha256":  "809fb65c8b034695cf53e0a95a65634342e0b63a59c9c1d69de579925fece818",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P05.uasset",
+                        "cooked_sha256":  "162266702c381f5c6e06fe46c4014b1b155617a77548859bce97f21185a059e3",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P06.uasset",
+                        "cooked_sha256":  "64e51d259424b5c9b200007e6a2d520d52d38096e44b7a019cb86b08332abada",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P07.uasset",
+                        "cooked_sha256":  "b615b0e818c39f6ae6730ee23a216b106bfb7b77291ac6bfcea5c2e5825fa357",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P08.uasset",
+                        "cooked_sha256":  "4fde9c1ea7cec244d30a045b21311668d40043967fb79fa5c8dd4b5baa91cafe",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P09.uasset",
+                        "cooked_sha256":  "e1b15447230196d76da2ef28b7b50239120a3f733c332a3bf70dae77190bc9d5",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P10.uasset",
+                        "cooked_sha256":  "fd3e180f6b01f14daa05778c864412c7e2f0836bf27360001730d8cc3f3c34bd",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M03_P11.uasset",
+                        "cooked_sha256":  "6707410a54afcfbac00affca0c17efa88b22e75f4aeb16c1e27dbfb19f264d7d",
+                        "bytes":  2049
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M04_P00.uasset",
+                        "cooked_sha256":  "efa0f4369cc4cdae73397dd78720c42447abc9ff1e61def1e6408e93bab013b4",
+                        "bytes":  2029
+                    },
+                    {
+                        "file":  "AN_KK_TurnRight_M05_P00.uasset",
+                        "cooked_sha256":  "8a0db08640dbc7beca525b56daf3b7aa6fab1d4b596a7cf139ae3d94a9f38c41",
+                        "bytes":  2029
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M00_P00.uasset",
+                        "cooked_sha256":  "bf742d9045cb8ad28cae1775955ff7b208a9395d6ef9c61d987a4431dcac18d4",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M00_P01.uasset",
+                        "cooked_sha256":  "891bf44471ee08e68d67a3f4fd7ee346d649a7ae938b806553eb0e2f4cc20f3d",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M00_P02.uasset",
+                        "cooked_sha256":  "3b33a48bb1328bec19627976058ac6a0005f9173fb546ffd582b2f38bb0ba903",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M01_P00.uasset",
+                        "cooked_sha256":  "b72ced038902eac1e4f3e0efe5ef7ebdbc1bc72cfc8dd38f9349d748b56f9cc4",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M02_P00.uasset",
+                        "cooked_sha256":  "567f2a943b0c54f142ddf54fcaecf96c61f780e7680689f772770fc1b8671a3d",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P00.uasset",
+                        "cooked_sha256":  "080dea81a926d17f66531d92ce511a84bcae1be99355a534e5d3cac81fb22540",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P01.uasset",
+                        "cooked_sha256":  "d69035ff645b10616802ec9ab7adb1a5d708520c20b072926bc9e98292cd82f6",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P02.uasset",
+                        "cooked_sha256":  "2db96f7869bf25205af36f63a800f590aa17198aa832da25cb8c4b3443ca9ad5",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P03.uasset",
+                        "cooked_sha256":  "be98bc20ccea770680b875e19f9d77c59032f4d69abd7fb782b87803e87f8ea5",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P04.uasset",
+                        "cooked_sha256":  "b8d0ea87f1cf3155cf65d5d8d54fd5478e4e818968751f6261a6c655f8846da6",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P05.uasset",
+                        "cooked_sha256":  "5fc33f140d39e4e9ae3a683fca3160f179aa80035da5f757674df0658ec1fc28",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P06.uasset",
+                        "cooked_sha256":  "8b9cd8915c3bba0b1a784d95dd2a3c45d7ad9f04a4ff0153ee53e3005557db0d",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P07.uasset",
+                        "cooked_sha256":  "427b45ec6932e4c16f7c5e45fb35d7415b4e6c670aa9550d56d1a039cb860b3d",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P08.uasset",
+                        "cooked_sha256":  "dfcd1b929fde5345dde0ea6c0c0ba8327c03191c7b31ced3451c7ffb8833fa11",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P09.uasset",
+                        "cooked_sha256":  "bb8bacc3091f3a2224c62ddb0ae0332033a5567b04a65417fbdb967cc22dac5b",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P10.uasset",
+                        "cooked_sha256":  "ad035c7540fbb9320fb35bd65ecdb6720e080992a4a5824a0ed4fea5f05c4590",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M03_P11.uasset",
+                        "cooked_sha256":  "2c2186ab10e5d04ca5dc82cbd8f92b5fd756ac2534565c2bb8d947f0343829da",
+                        "bytes":  2034
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M04_P00.uasset",
+                        "cooked_sha256":  "815d53f7d88414a3ee31ab1c70780f56347295fe80a9fe45ed645f9452298862",
+                        "bytes":  2014
+                    },
+                    {
+                        "file":  "AN_KK_Walk_M05_P00.uasset",
+                        "cooked_sha256":  "1590c0625e9985b300c8ee9479a517fa7465d7b3a7551d1178b398092fafbfd0",
+                        "bytes":  2014
+                    }
+                ]
+}
