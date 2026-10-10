@@ -96,7 +96,24 @@ def clone_external_chain(source):
     require(isinstance(source, (unreal.Material, unreal.MaterialInstanceConstant)),
             "Unknown material parent type: " + source_path)
     dest_path = local_name(source)
-    require(not EAL.does_asset_exist(dest_path), "Existing owned shader (refuse overwrite): " + dest_path)
+    if EAL.does_asset_exist(dest_path):
+        existing = unreal.load_asset(dest_path)
+        require(isinstance(existing, type(source)),
+                "Unexpected existing local shader class: " + dest_path)
+        if isinstance(existing, unreal.Material):
+            require(bool(MEL.has_material_usage(existing, FLAGS)),
+                    "Existing project-owned shader lacks persisted morph usage")
+        else:
+            source_parent = source.get_editor_property("parent")
+            require(source_parent is not None, "External shader chain has no base")
+            expected_parent = clone_external_chain(source_parent)
+            require(existing.get_editor_property("parent").get_path_name() ==
+                    expected_parent.get_path_name(), "Existing local parent chain differs")
+        clone_cache[source_path] = existing
+        receipt.setdefault("parent_reused", []).append({
+            "original":source_path,"existing":existing.get_path_name()})
+        flush()
+        return existing
 
     if isinstance(source, unreal.MaterialInstanceConstant):
         source_parent = source.get_editor_property("parent")
@@ -112,7 +129,8 @@ def clone_external_chain(source):
         MEL.set_base_material_usage(copied, FLAGS, True)
         require(bool(MEL.has_material_usage(copied, FLAGS)),
                 "Morph usage missing on cloned material: " + dest_path)
-        MEL.recompile_material(copied)
+        # Shader permutations are compiled separately by Android cooking.
+        # This step verifies only persisted native material usage and ownership.
     else:
         require(isinstance(copied, unreal.MaterialInstanceConstant),
                 "Cloned shader instance wrong type: " + dest_path)
@@ -152,26 +170,40 @@ try:
     receipt["host_preflight"] = {
         "hostname": host, "installed_gib": round(total_bytes / module.GIB, 3),
         "available_gib": round(free_bytes / module.GIB, 3)}
-    require(free_bytes >= module.LOW_RAM_STOP_BYTES + 250 * module.MIB,
-            "Insufficient in-editor physical RAM margin; abort before asset edits")
+    require(free_bytes >= 600 * module.MIB,
+            "Insufficient current physical RAM margin before native material editing")
     flush()
     rows = json.loads(SOURCE.read_text(encoding="utf-8-sig"))["processed"]
     require(len(rows) == 15, "Unexpected original morph material count; stop and re-audit")
     scope = os.environ.get("G12_MATERIAL_SCOPE", "face")
-    require(scope in ("face", "all"), "Invalid material repair scope")
+    require(scope in ("face", "remaining", "all"), "Invalid material repair scope")
     if scope == "face":
         rows = [r for r in rows if r["slot_path"].endswith("/KK_cf_m_face_00.KK_cf_m_face_00")]
         require(len(rows) == 1, "Face material not uniquely located")
+    if scope == "remaining":
+        rows = [r for r in rows if not r["slot_path"].endswith("/KK_cf_m_face_00.KK_cf_m_face_00")]
+        require(len(rows) == 14, "Unexpected original residual material count")
     receipt["scope"] = scope
     receipt["expected_materials"] = len(rows)
+    receipt["materials_already_owned_verified"] = []
     entries = []
     for row in rows:
         material = unreal.load_asset(row["slot_path"])
         require(isinstance(material, unreal.MaterialInstanceConstant),
                 "Expected imported material instance: " + row["slot_path"])
         parent = material.get_editor_property("parent")
-        require(parent is not None and parent.get_path_name().startswith(BASE_EXPECTED),
-                "Material not using known Interchange parent: " + row["slot_path"])
+        require(parent is not None, "Material instance has no shader parent")
+        if parent.get_path_name().startswith(OWNED + "/"):
+            base=parent.get_base_material() if isinstance(parent,unreal.MaterialInstance) else parent
+            require(isinstance(base,unreal.Material) and bool(MEL.has_material_usage(base,FLAGS)),
+                    "Previously owned shader lost morph usage: " + row["slot_path"])
+            existing_path=package_file(row["slot_path"])
+            receipt["materials_already_owned_verified"].append({
+                "slot_path":row["slot_path"],"new_parent":parent.get_path_name(),
+                "after_sha256":sha(existing_path),"already_persisted":True})
+            continue
+        require(parent.get_path_name().startswith(BASE_EXPECTED),
+                "Material references unexpected external shader: " + row["slot_path"])
         entries.append((row["slot_path"], material, parent,
                         package_file(row["slot_path"]), material_properties(material)))
     stamp = time.strftime("%Y%m%d_%H%M%S", time.gmtime())
@@ -184,8 +216,8 @@ try:
                      hashlib.sha256(obj_path.encode()).hexdigest()[:10] + ".uasset"))
     flush()
     for obj_path, mat, original_parent, old_file, values in entries:
-        require(module.physical_memory()[1] >= module.LOW_RAM_STOP_BYTES + 100 * module.MIB,
-                "Available physical RAM too low to continue native editing")
+        require(module.physical_memory()[1] >= 550 * module.MIB,
+                "Available physical RAM too low to continue native material editing")
         before_sha = sha(old_file)
         owned_parent = clone_external_chain(original_parent)
         MEL.set_material_instance_parent(mat, owned_parent)
