@@ -17,7 +17,7 @@ $ubt='D:\Epic Games\UE_5.8\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildToo
 $r=Join-Path $w 'Saved\Gate12Koikatsu\NativeGameplayCompiler'
 New-Item -ItemType Directory -Force $r|Out-Null
 $args=@(('"'+$ubt+'"'),'OfflineGameEditor','Win64','Development',('-Project="'+(Join-Path $w 'OfflineGame.uproject')+'"'),
- '-MaxParallelActions=1','-NoHotReload','-WaitMutex','-NoUBA','-NoXGE')
+ '-MaxParallelActions=1','-NoPCH','-NoHotReload','-WaitMutex','-NoUBA','-NoXGE')
 $out=Join-Path $r 'ubt_single_parallel_stdout.log'
 $err=Join-Path $r 'ubt_single_parallel_stderr.log'
 $receipt=Join-Path $r 'ubt_single_parallel_watchdog.json'

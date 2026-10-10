@@ -18,6 +18,9 @@ bool AOGKoikatsuPlayableCharacter::ParsePartId(
     FString Left, Right, MeshString, PrimitiveString;
     if (!Name.Split(TEXT("_M"), &Left, &Right)) return false;
     if (!Right.Split(TEXT("P"), &MeshString, &PrimitiveString)) return false;
+    // UE5 SCS component templates can retain a _GEN_VARIABLE suffix;
+    // runtime instances and source receipts use the public primitive ID.
+    PrimitiveString.RemoveFromEnd(TEXT("_GEN_VARIABLE"));
     if (!MeshString.IsNumeric() || !PrimitiveString.IsNumeric()) return false;
     Mesh = FCString::Atoi(*MeshString);
     Primitive = FCString::Atoi(*PrimitiveString);

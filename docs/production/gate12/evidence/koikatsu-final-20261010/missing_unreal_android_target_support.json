@@ -1,0 +1,13 @@
+﻿{
+    "status":  "FAIL_ANDROID_BUILD_AND_UAT_STAGING_PLATFORM_COMPONENT_ABSENT",
+    "android_unrealbuildtool":  "Missing files required to build Android targets. Enable Android as an optional download component in the Epic Games Launcher.",
+    "uat_staging":  "GetBuildPlatform: No BuildPlatform found for Android",
+    "engine_android_build_files":  false,
+    "engine_android_binaries":  false,
+    "sdk":  true,
+    "ndk27":  true,
+    "android_test_apk":  "NOT_BUILT",
+    "android_install":  "NOT_PERFORMED",
+    "original_game_untouched":  true,
+    "recommended_engine_option":  "Epic Games Launcher \u003e Unreal Engine \u003e Library \u003e UE 5.8 Options \u003e Android Target Platform"
+}

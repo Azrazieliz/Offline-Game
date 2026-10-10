@@ -1,0 +1,17 @@
+﻿{
+    "status":  "PASS_ANDROID_ASTC_COOK_NOT_APK",
+    "source_commit":  "b116bee5b45f0193abb3bd78ff8381655ac48dbe",
+    "recovery_method":  "UE5.8 project DefaultEditor.ini PackagesPerGC=12, SoftGCTimeFractionBudget=0.20, SoftGCMinimumPeriodSeconds=5, MemoryMinFreePhysical=1536, MaxConcurrentShaderJobs=1, one Cook commandlet",
+    "cooked":  800,
+    "skipped_by_platform":  43,
+    "total_packages":  843,
+    "android_shader_jobs":  43,
+    "shader_jobs_completed":  43,
+    "engine_reports_zero_errors":  true,
+    "editor_cooked_map":  "/Game/Experimental/Gate12Koikatsu/FullFidelityQA/Maps/L_KK_StressFace_UE583",
+    "physical_free_min_mib":  458,
+    "commit_headroom_min_mib":  4745,
+    "android_package":  "NOT_TESTED",
+    "phone_facial_visuals":  "NOT_TESTED",
+    "mobile_shader_compiled":  "PASS_COOK_ONLY"
+}

@@ -1,0 +1,440 @@
+{
+  "schema_version": "KK_UNREAL_CHARACTER_DESCRIPTOR_1",
+  "status": "PASS",
+  "character_id": "G01-KK-PIPELINE-TEST-0002",
+  "source_glb_sha256": "ad06955e6f725c63c6ee014828877a9a8fa3a19479ca29936c58c96ed6d012e0",
+  "source_primitive_count": 25,
+  "source_morph_reference_count": 4611,
+  "native_part_count": 19,
+  "parts": [
+    {
+      "mesh_index": 0,
+      "primitive_index": 0,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.Mesh_00_Prim_00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P00",
+      "visible": false,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P00",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M00_P00",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M00_P00",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M00_P00",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M00_P00",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M00_P00",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M00_P00",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M00_P00",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M00_P00",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M00_P00"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 0,
+      "primitive_index": 1,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01.Mesh_00_Prim_01",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P01",
+      "visible": false,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P01",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M00_P01",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M00_P01",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M00_P01",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M00_P01",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M00_P01",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M00_P01",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M00_P01",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M00_P01",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M00_P01"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 0,
+      "primitive_index": 2,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02.Mesh_00_Prim_02",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P02",
+      "visible": false,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M00_P02",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M00_P02",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M00_P02",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M00_P02",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M00_P02",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M00_P02",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M00_P02",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M00_P02",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M00_P02",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M00_P02"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 1,
+      "primitive_index": 0,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00.Mesh_01_Prim_00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M01_P00",
+      "visible": false,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M01_P00",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M01_P00",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M01_P00",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M01_P00",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M01_P00",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M01_P00",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M01_P00",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M01_P00",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M01_P00",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M01_P00"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 2,
+      "primitive_index": 0,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00.Mesh_02_Prim_00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M02_P00",
+      "visible": false,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M02_P00",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M02_P00",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M02_P00",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M02_P00",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M02_P00",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M02_P00",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M02_P00",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M02_P00",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M02_P00",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M02_P00"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 0,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00.Mesh_03_Prim_00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P00",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P00",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P00",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P00",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P00",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P00",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P00",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P00",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P00",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P00",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P00"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 1,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01.Mesh_03_Prim_01",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P01",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P01",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P01",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P01",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P01",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P01",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P01",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P01",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P01",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P01",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P01"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 2,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02.Mesh_03_Prim_02",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P02",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P02",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P02",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P02",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P02",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P02",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P02",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P02",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P02",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P02",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P02"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 3,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03.Mesh_03_Prim_03",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P03",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P03",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P03",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P03",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P03",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P03",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P03",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P03",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P03",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P03",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P03"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 4,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04.Mesh_03_Prim_04",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P04",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P04",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P04",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P04",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P04",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P04",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P04",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P04",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P04",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P04",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P04"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 5,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05.Mesh_03_Prim_05",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P05",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P05",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P05",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P05",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P05",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P05",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P05",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P05",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P05",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P05",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P05"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 6,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06.Mesh_03_Prim_06",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P06",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P06",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P06",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P06",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P06",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P06",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P06",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P06",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P06",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P06",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P06"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 7,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07.Mesh_03_Prim_07",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P07",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P07",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P07",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P07",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P07",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P07",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P07",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P07",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P07",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P07",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P07"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 8,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08.Mesh_03_Prim_08",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P08",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P08",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P08",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P08",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P08",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P08",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P08",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P08",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P08",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P08",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P08"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 9,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09.Mesh_03_Prim_09",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P09",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P09",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P09",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P09",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P09",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P09",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P09",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P09",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P09",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P09",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P09"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 10,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10.Mesh_03_Prim_10",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P10",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P10",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P10",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P10",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P10",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P10",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P10",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P10",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P10",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P10",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P10"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 3,
+      "primitive_index": 11,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11.Mesh_03_Prim_11",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P11",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M03_P11",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P11",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P11",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P11",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P11",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P11",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P11",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P11",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P11",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P11"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 4,
+      "primitive_index": 0,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04.FullMesh_04",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M04_P00",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M04_P00",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M04_P00",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M04_P00",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M04_P00",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M04_P00",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M04_P00",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M04_P00",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M04_P00",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M04_P00",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M04_P00"
+      },
+      "facial_curve_names": []
+    },
+    {
+      "mesh_index": 5,
+      "primitive_index": 0,
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05.FullMesh_05",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M05_P00",
+      "visible": true,
+      "motion_map": {
+        "idle": "/Game/Experimental/Gate12Koikatsu/Animation/NativeRestSafe/AN_KK_NativeRestSafe_M05_P00",
+        "walk": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M05_P00",
+        "run": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M05_P00",
+        "jump": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M05_P00",
+        "fall": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M05_P00",
+        "land": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M05_P00",
+        "turn_left": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M05_P00",
+        "turn_right": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M05_P00",
+        "dodge": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M05_P00",
+        "action": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M05_P00"
+      },
+      "facial_curve_names": []
+    }
+  ],
+  "asset_status": "ENGINEERING_FIXTURE_NOT_ARTIFACT_READY",
+  "native_cold_validated_motion_states": [
+    "idle",
+    "walk",
+    "run",
+    "jump",
+    "fall",
+    "land",
+    "turn_left",
+    "turn_right",
+    "dodge",
+    "action"
+  ],
+  "android_validated_motion_states": [],
+  "motion_evidence_scope": "171_NATIVE_COLD_RELOADED_NOT_ANDROID",
+  "validated_motion_states": [
+    "idle_basic_sway"
+  ],
+  "unvalidated_motion_states": [
+    "walk",
+    "run",
+    "jump",
+    "fall",
+    "land",
+    "turn_left",
+    "turn_right",
+    "dodge",
+    "action"
+  ],
+  "requires_gate11_provenance": true
+}

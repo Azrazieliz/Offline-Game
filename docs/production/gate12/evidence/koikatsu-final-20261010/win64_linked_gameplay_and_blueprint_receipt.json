@@ -1,0 +1,19 @@
+﻿{
+    "status":  "PASS_NATIVE_WIN64_LINK_AND_UE_COLD_BP",
+    "source_commit_before_new_work":  "b116bee5b45f0193abb3bd78ff8381655ac48dbe",
+    "editor_unreal_version":  "5.8.3",
+    "win64_build_command":  "UnrealBuildTool OfflineGameEditor Win64 Development -MaxParallelActions=1 -NoPCH -NoUBA -NoXGE",
+    "native_compilation_status":  "PASS",
+    "native_link_status":  "PASS",
+    "dll_sha256":  "1e0f08f6d339c467aabbe1f4d85033efc06a0905ee3ebd6f49e9ddfae6f22044",
+    "dll_bytes":  5538304,
+    "isolated_blueprint":  "/Script/OfflineGame.OGKoikatsuPlayableCharacter",
+    "imported_mesh_count":  19,
+    "cold_blueprint_status":  "PASS_COLD_NATIVE_BP_19_EXACT_PARTS_GAMEMODE",
+    "game_mode_default_pawn":  "/Game/Experimental/Gate12Koikatsu/PlayableQA/BP_KoikatsuFixturePlayable.BP_KoikatsuFixturePlayable_C",
+    "original_saves_sha256":  "4dbb961d45823763ebce7e16dc62b1102b32b8ffd46003ab61ab05f0ef83554a",
+    "original_foundation_commit":  "3f54f07cacbf193e160d0be15a7be5a7bc730c3b",
+    "original_foundation_dirty":  false,
+    "android_player_runtime":  "NOT_TESTED",
+    "android_facial_runtime":  "NOT_TESTED"
+}

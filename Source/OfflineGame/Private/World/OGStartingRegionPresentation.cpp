@@ -1,5 +1,6 @@
 #include "World/OGStartingRegionPresentation.h"
 #include "Components/SkinnedMeshComponent.h"
+#include "Components/InputComponent.h"
 
 #include "Camera/CameraComponent.h"
 #include "AudioDevice.h"
