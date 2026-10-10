@@ -44,8 +44,14 @@ try:
     require(previous["status"] == "PASS_SAVED_REPARENT_PENDING_COLD_RELOAD",
             "No previously saved native material repair to verify")
     rows = json.loads(SOURCE.read_text(encoding="utf-8-sig"))["processed"]
+    require(len(rows) == 15, "Unexpected base material inventory")
+    scope = previous.get("scope", "all")
+    require(scope in ("face", "all"), "Invalid repair scope")
+    if scope == "face":
+        rows = [r for r in rows if r["slot_path"].endswith("/KK_cf_m_face_00.KK_cf_m_face_00")]
     expected = {x["slot_path"]: x for x in previous["materials_reparented"]}
-    require(len(expected) == len(rows) == 15, "Unmatched slot count")
+    require(len(expected) == len(rows) == previous.get("expected_materials", len(rows)),
+            "Unmatched repaired material slot count")
     for row in rows:
         path = row["slot_path"]
         expected_row = expected[path]

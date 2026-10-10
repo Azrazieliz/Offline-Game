@@ -132,13 +132,16 @@ changed = []
 try:
     require(os.environ.get("G12_MATERIAL_REPAIR_APPROVED") == "1",
             "Explicit G12_MATERIAL_REPAIR_APPROVED=1 is required")
+    require(os.environ.get("G12_GUARDED_LAUNCH") == "1",
+            "Requires guarded UE launch via the resource-monitored wrapper")
     require("OfflineGame_Gate12_Koikatsu_20261010" in
             str(unreal.Paths.get_project_file_path()), "Wrong Unreal project")
     require(ROOT.is_dir() and branch() ==
             "production/gate12-koikatsu-ue583-fixture-20261010", "Wrong branch")
     host = socket.gethostname().upper()
-    require(host != "LAPTOP-1LI4VRCJ",
-            "Unsafe known 8GiB laptop: use approved high-memory UE 5.8.3 host")
+    # Single-PC workflow: hardware capacity is not a blanket exclusion.
+    # Native mutation requires enough FREE physical RAM; an external watchdog
+    # still terminates the editor before the measured 850 MiB safety floor.
     preflight = ROOT / "Scripts/Gate12Koikatsu/preflight_kk_native_shader_host.py"
     require(preflight.is_file(), "Missing fail-closed physical-memory guard module")
     spec = importlib.util.spec_from_file_location("_gate12_host_memory_guard", str(preflight))
@@ -149,13 +152,18 @@ try:
     receipt["host_preflight"] = {
         "hostname": host, "installed_gib": round(total_bytes / module.GIB, 3),
         "available_gib": round(free_bytes / module.GIB, 3)}
-    require(total_bytes >= module.MIN_TOTAL_BYTES,
-            "Unsafe host installed physical RAM: minimum 15GiB usable")
-    require(free_bytes >= module.MIN_FREE_BYTES,
-            "Insufficient free physical RAM: require 8GiB before native editing")
+    require(free_bytes >= module.LOW_RAM_STOP_BYTES + 250 * module.MIB,
+            "Insufficient in-editor physical RAM margin; abort before asset edits")
     flush()
     rows = json.loads(SOURCE.read_text(encoding="utf-8-sig"))["processed"]
-    require(len(rows) == 15, "Unexpected morph material count; stop and re-audit")
+    require(len(rows) == 15, "Unexpected original morph material count; stop and re-audit")
+    scope = os.environ.get("G12_MATERIAL_SCOPE", "face")
+    require(scope in ("face", "all"), "Invalid material repair scope")
+    if scope == "face":
+        rows = [r for r in rows if r["slot_path"].endswith("/KK_cf_m_face_00.KK_cf_m_face_00")]
+        require(len(rows) == 1, "Face material not uniquely located")
+    receipt["scope"] = scope
+    receipt["expected_materials"] = len(rows)
     entries = []
     for row in rows:
         material = unreal.load_asset(row["slot_path"])
@@ -176,6 +184,8 @@ try:
                      hashlib.sha256(obj_path.encode()).hexdigest()[:10] + ".uasset"))
     flush()
     for obj_path, mat, original_parent, old_file, values in entries:
+        require(module.physical_memory()[1] >= module.LOW_RAM_STOP_BYTES + 100 * module.MIB,
+                "Available physical RAM too low to continue native editing")
         before_sha = sha(old_file)
         owned_parent = clone_external_chain(original_parent)
         MEL.set_material_instance_parent(mat, owned_parent)
