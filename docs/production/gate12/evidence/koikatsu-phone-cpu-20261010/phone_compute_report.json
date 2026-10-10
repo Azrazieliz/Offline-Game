@@ -1,0 +1,30 @@
+﻿{
+    "status":  "PASS_PHONE_NATIVE_CPU",
+    "character_id":  "KK_TEST_0002",
+    "device":  "Galaxy S26 Ultra",
+    "adb_serial":  "R3GYC0LSC7K",
+    "abi":  "arm64-v8a",
+    "original_sha256":  "ad06955e6f725c63c6ee014828877a9a8fa3a19479ca29936c58c96ed6d012e0",
+    "remote_glb_sha256":  "ad06955e6f725c63c6ee014828877a9a8fa3a19479ca29936c58c96ed6d012e0",
+    "source_glb":  "D:\\Tools\\GameAssetPipeline\\KoikatsuParty\\characters\\G01-KK-PIPELINE-TEST-0002\\conversion\\character_unreal_skeleton.glb",
+    "source_bytes":  29572372,
+    "worker_sha256":  "33EBCB35E13603DF4972012AD64333F6807EDBDF138C7A2E4C47FE8D944F4A41",
+    "workload_sha256":  "FF6441CC8015DA629EB96278314A214EC8887C4D501CC791DF54FFA93E33CBDE",
+    "computation":  {
+                        "status":  "PASS_REAL_PHONE_CPU_MORPH_EVALUATION",
+                        "primitives":  25,
+                        "source_morph_targets":  4611,
+                        "frames":  61,
+                        "executed_sparse_dense_vertex_deltas":  12740399,
+                        "changed_vertex_samples":  371646,
+                        "max_morph_vertex_delta":  0.0353559,
+                        "sum_delta":  2678.42,
+                        "invalid_vertices":  0,
+                        "compute_elapsed_ms":  22,
+                        "total_elapsed_ms":  43
+                    },
+    "foundation_unchanged":  true,
+    "ue_cook_validated":  false,
+    "gameplay_character_validated":  false,
+    "time_utc":  "2026-10-10T18:05:38.9421450Z"
+}

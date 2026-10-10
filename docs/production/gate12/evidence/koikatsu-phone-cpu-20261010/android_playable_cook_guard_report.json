@@ -1,0 +1,19 @@
+﻿{
+    "status":  "STOPPED_LOW_RAM",
+    "pid":  2892,
+    "exit_code":  -1,
+    "start_utc":  "2026-10-10T17:35:07.5619259Z",
+    "end_utc":  "2026-10-10T17:35:18.0818997Z",
+    "samples":  [
+                    {
+                        "s":  5,
+                        "free_mb":  1488,
+                        "rss_mb":  866
+                    },
+                    {
+                        "s":  10,
+                        "free_mb":  422,
+                        "rss_mb":  1860
+                    }
+                ]
+}

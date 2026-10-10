@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "processed": [
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/Materials/KK_Gag00_ChikaHaruno.KK_Gag00_ChikaHaruno",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 1,
+      "before": false,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/Materials/KK_Gag01_ChikaHaruno.KK_Gag01_ChikaHaruno",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 1,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/Materials/KK_Gag02_ChikaHaruno.KK_Gag02_ChikaHaruno",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 1,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/Materials/KK_Tears_ChikaHaruno.KK_Tears_ChikaHaruno",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 114,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/Materials/KK_cf_m_face_00.KK_cf_m_face_00",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 91,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/Materials/KK_cf_m_mayuge_00.KK_cf_m_mayuge_00",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 16,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/Materials/KK_cf_m_noseline_00.KK_cf_m_noseline_00",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 47,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/Materials/KK_cf_m_tooth.KK_cf_m_tooth",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 39,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/Materials/KK_cf_m_eyeline_down.KK_cf_m_eyeline_down",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 39,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/Materials/KK_cf_m_eyeline_00_up.KK_cf_m_eyeline_00_up",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 39,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/Materials/KK_cf_m_eyeline_kage.KK_cf_m_eyeline_kage",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 39,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/Materials/KK_cf_m_sirome_00.KK_cf_m_sirome_00",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 39,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/Materials/KK_cf_m_hitomi_00_cf_Ohitomi_L02.KK_cf_m_hitomi_00_cf_Ohitomi_L02",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 10,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/Materials/KK_cf_m_hitomi_00_cf_Ohitomi_R02.KK_cf_m_hitomi_00_cf_Ohitomi_R02",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 10,
+      "before": true,
+      "after": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/Materials/KK_cf_m_tang.KK_cf_m_tang",
+      "native_material": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "morphs": 36,
+      "before": true,
+      "after": true
+    }
+  ],
+  "fixed": [
+    "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/Materials/KK_Gag00_ChikaHaruno.KK_Gag00_ChikaHaruno"
+  ],
+  "total_materials_with_morphed_meshes": 15,
+  "finished_utc": "2026-10-10T17:28:22Z"
+}
