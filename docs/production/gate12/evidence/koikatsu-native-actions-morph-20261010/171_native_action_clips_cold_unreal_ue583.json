@@ -1,0 +1,1302 @@
+{
+  "status": "PASS_COLD_UNREAL_171_EXACT_SKELETON_CLIPS",
+  "verified": 171,
+  "errors": [],
+  "per_part": [
+    {
+      "part": "KK_Full_M00P00",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M00_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M00P01",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M00_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M00P02",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M00_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M01P00",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M01_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M02P00",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M02_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P00",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P01",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P01",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P02",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P02",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P03",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P03",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P04",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P04",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P05",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P05",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P06",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P06",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P07",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P07",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P08",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P08",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P09",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P09",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P10",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P10",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M03P11",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M03_P11",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M04P00",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M04_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "part": "KK_Full_M05P00",
+      "actions": [
+        {
+          "name": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Walk_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Run_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Jump",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Jump_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Fall",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Fall_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        },
+        {
+          "name": "Land",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Land_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.6000000238418579
+        },
+        {
+          "name": "TurnLeft",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnLeft_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "TurnRight",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_TurnRight_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Dodge",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Dodge_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 0.800000011920929
+        },
+        {
+          "name": "Action",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeActions/AN_KK_Action_M05_P00",
+          "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+          "tracks": 11,
+          "duration": 1.0
+        }
+      ]
+    }
+  ],
+  "android_runtime": "NOT_TESTED",
+  "mobile_render": "NOT_TESTED",
+  "utc": "2026-10-10T20:30:13Z"
+}

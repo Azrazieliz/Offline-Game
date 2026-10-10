@@ -1,0 +1,153 @@
+{
+  "status": "PASS_SAVED_REPARENT_PENDING_COLD_RELOAD",
+  "ue_verification": "NOT_TESTED",
+  "android_shader_visuals": "NOT_TESTED",
+  "parent_copies": [
+    {
+      "original": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Blend_DS.MI_Default_Blend_DS",
+      "new": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Blend_DS_b2c1dcdc6478.MI_G12_MI_Default_Blend_DS_b2c1dcdc6478"
+    }
+  ],
+  "materials_reparented": [
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/Materials/KK_Gag00_ChikaHaruno.KK_Gag00_ChikaHaruno",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Opaque_DS.MI_Default_Opaque_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1",
+      "before_sha256": "f40a1d08523cc6331bb7e93d1f5f1690a1861049b560588e5d7df5d29754fb4d",
+      "after_sha256": "e8eec3efe0a90205e2b9c8159f3697f5a6325907b467dd2ec0b3b0249c75c131",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/Materials/KK_Gag01_ChikaHaruno.KK_Gag01_ChikaHaruno",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Opaque_DS.MI_Default_Opaque_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1",
+      "before_sha256": "55c2c9b2b6a1c00455020edd970f70a480711a35599d0a3b01993ed255ccb854",
+      "after_sha256": "b7b1399adf1e48f0f53fe103b417e1402e9281c040c57d083960d8ad48aeac99",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/Materials/KK_Gag02_ChikaHaruno.KK_Gag02_ChikaHaruno",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Opaque_DS.MI_Default_Opaque_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1",
+      "before_sha256": "917e4019cd4aa7f015f4bdd5bc807494f298bfe64326bea97595345fb305aea5",
+      "after_sha256": "3a6d158abeddfbab4b47820c7d9d1955628aea57b168c3d85d62e293a55d411c",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/Materials/KK_Tears_ChikaHaruno.KK_Tears_ChikaHaruno",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Opaque_DS.MI_Default_Opaque_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1",
+      "before_sha256": "959b0833658a4a429a44683398b26d4f127b7251551104313e33480974795149",
+      "after_sha256": "5eba9e11c0cdcbe5236a56a13085d7d77f4d4c3317836286ac1d81fecc90dc8d",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/Materials/KK_cf_m_mayuge_00.KK_cf_m_mayuge_00",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Blend_DS.MI_Default_Blend_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Blend_DS_b2c1dcdc6478.MI_G12_MI_Default_Blend_DS_b2c1dcdc6478",
+      "before_sha256": "1975c8b17df52656b4ce27b534ae6751504942f7d4b751db9485090f587846f2",
+      "after_sha256": "83d6933b07253f7e615f3e0dcd3497ecbbf8602ca746cd43a09cdc011a0fb6a5",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/Materials/KK_cf_m_noseline_00.KK_cf_m_noseline_00",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Blend_DS.MI_Default_Blend_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Blend_DS_b2c1dcdc6478.MI_G12_MI_Default_Blend_DS_b2c1dcdc6478",
+      "before_sha256": "1c74630575988429ac64531f955f992e7e9ec74eacdc82b85edd63652b233de3",
+      "after_sha256": "21895f87909312ecac80933c837bfe948fd50e69bd51d939b36327e6a2cbc94c",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/Materials/KK_cf_m_tooth.KK_cf_m_tooth",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Opaque_DS.MI_Default_Opaque_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1",
+      "before_sha256": "3b35b1b485124117858342ab311f6bd644e0f029f7d88f00367b413e5478658b",
+      "after_sha256": "46d580758cb4c78c91a65c55f313020e4e68910f467e3a7fcf67a35f16b4b320",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/Materials/KK_cf_m_eyeline_down.KK_cf_m_eyeline_down",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Blend_DS.MI_Default_Blend_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Blend_DS_b2c1dcdc6478.MI_G12_MI_Default_Blend_DS_b2c1dcdc6478",
+      "before_sha256": "dda6c5600ec6f19492c0dc453da71ee1d52d8979cd22515496d12a09c3778597",
+      "after_sha256": "8dff8d33931ecb24245aceddbc7e5e78125caeabf7c436800733ab080d3f0ff2",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/Materials/KK_cf_m_eyeline_00_up.KK_cf_m_eyeline_00_up",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Blend_DS.MI_Default_Blend_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Blend_DS_b2c1dcdc6478.MI_G12_MI_Default_Blend_DS_b2c1dcdc6478",
+      "before_sha256": "947bd905055de5545d04f1a4fcf7a858250c575fc39f0b9bc2b8273f9ff89cd5",
+      "after_sha256": "0eb58de56b285e718f7bbfda99354a2def4b65ccefd0de2ba4d23d4f79e4cec0",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/Materials/KK_cf_m_eyeline_kage.KK_cf_m_eyeline_kage",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Blend_DS.MI_Default_Blend_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Blend_DS_b2c1dcdc6478.MI_G12_MI_Default_Blend_DS_b2c1dcdc6478",
+      "before_sha256": "5b65cb175dd0e9e74269410794db16cc44ad8e12aef495ad585a55ecd99f1f8a",
+      "after_sha256": "0b4fcaabc7fab0c1a73e7c0c63784774a01f3df77c481989c04501f2c067d31c",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/Materials/KK_cf_m_sirome_00.KK_cf_m_sirome_00",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Opaque_DS.MI_Default_Opaque_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1",
+      "before_sha256": "7adde313ae6e547fc03a176725b33c16abbf9099d50ff242d73931b30823af14",
+      "after_sha256": "5604150af821f9ce0a2a05f512c124d8dc56e225f6fafa10ed310cf18b3d396c",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/Materials/KK_cf_m_hitomi_00_cf_Ohitomi_L02.KK_cf_m_hitomi_00_cf_Ohitomi_L02",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Blend_DS.MI_Default_Blend_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Blend_DS_b2c1dcdc6478.MI_G12_MI_Default_Blend_DS_b2c1dcdc6478",
+      "before_sha256": "b33e4e8ff6b323b812da4d491ea7904dc5d19ee63e8a536eb046c1a690c659aa",
+      "after_sha256": "5aed3d5bcc9b8ed663dee600d13bc895672937485197e0de6d452e4bb1b3e09b",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/Materials/KK_cf_m_hitomi_00_cf_Ohitomi_R02.KK_cf_m_hitomi_00_cf_Ohitomi_R02",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Blend_DS.MI_Default_Blend_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Blend_DS_b2c1dcdc6478.MI_G12_MI_Default_Blend_DS_b2c1dcdc6478",
+      "before_sha256": "6f2242354c02d427cb53eae11b4c773a3fbc160b5bf4ad10a18750fc45926f4d",
+      "after_sha256": "525e75ad8d7b2da595a488ae8aa53255736c5294af74b26e199fb86c35c3f082",
+      "parameter_arrays_preserved": true
+    },
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/Materials/KK_cf_m_tang.KK_cf_m_tang",
+      "previous_parent": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Opaque_DS.MI_Default_Opaque_DS",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1",
+      "before_sha256": "4eaca233d2d3a5727b020a9223fa983515de909d200b246d271f0e3cd470067c",
+      "after_sha256": "ebbed04f649d41a020812b278ed9e54df5eccb0a071b53040451e45c4b7b1f2e",
+      "parameter_arrays_preserved": true
+    }
+  ],
+  "backup_dir": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Gate12Koikatsu\\MaterialRepairBackups\\20261010_202117",
+  "errors": [],
+  "host_preflight": {
+    "hostname": "LAPTOP-1LI4VRCJ",
+    "installed_gib": 7.629,
+    "available_gib": 0.78
+  },
+  "scope": "all",
+  "expected_materials": 15,
+  "materials_already_owned_verified": [
+    {
+      "slot_path": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/Materials/KK_cf_m_face_00.KK_cf_m_face_00",
+      "new_parent": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1",
+      "after_sha256": "e2ccdd95a5c4aff5e0e562bae580693c52548369653c9661b9285fa7d1e1a4c1",
+      "already_persisted": true
+    }
+  ],
+  "parent_reused": [
+    {
+      "original": "/InterchangeAssets/gltf/M_Default.M_Default",
+      "existing": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/M_G12_M_Default_54bd2060f8fd.M_G12_M_Default_54bd2060f8fd"
+    },
+    {
+      "original": "/InterchangeAssets/gltf/MaterialInstances/MI_Default_Opaque_DS.MI_Default_Opaque_DS",
+      "existing": "/Game/Experimental/Gate12Koikatsu/MaterialShaderOverrides/MI_G12_MI_Default_Opaque_DS_a53f40f348e1.MI_G12_MI_Default_Opaque_DS_a53f40f348e1"
+    }
+  ],
+  "timestamp_utc": "2026-10-10T20:21:17Z"
+}

@@ -1,0 +1,18 @@
+﻿{
+    "status":  "PASS_SINGLE_CPP_TRANSLATION_UNIT_COMPILED_OBJECT_ONLY",
+    "fixture_only":  true,
+    "cpp":  "Source/OfflineGame/Private/Koikatsu/OGKoikatsuPlayableCharacter.cpp",
+    "native_header":  "Source/OfflineGame/Public/Koikatsu/OGKoikatsuPlayableCharacter.h",
+    "compiler":  "MSVC 14.51.36248",
+    "host":  "8GB single Windows laptop",
+    "source_worktree":  "production/gate12-koikatsu-ue583-fixture-20261010",
+    "compiled_obj_sha256":  "09a4eb63dad5aecaedde2553ebdac893d935bf0172955139c2fe219bef6b1e0a",
+    "compiled_obj_bytes":  17629860,
+    "compiler_error_lines":  0,
+    "unreal_header_tool_processed":  "PASS_PREVIOUS_UBT_ATTEMPT",
+    "whole_module_linked":  "NOT_TESTED",
+    "blueprint_reparent":  "NOT_TESTED",
+    "android_gameplay":  "NOT_TESTED",
+    "method":  "single cl.exe invocation, UnrealBuildTool generated response paths, Engine/Source working directory, no incompatible PCH",
+    "note":  "Object compiled separately and is not registered with a linked Unreal module or Android package"
+}

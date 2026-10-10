@@ -1,0 +1,1163 @@
+{
+  "status": "PASS_STATIC_171_REAL_UE_UASSET_PACKAGES",
+  "native_cold_reload": "NOT_TESTED",
+  "android_actions": "NOT_TESTED",
+  "native_gameplay_binding": "NOT_TESTED",
+  "per_part": [
+    {
+      "index": 0,
+      "component": "KK_Full_M00P00",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "441624da4150735a6341066b7025c5541480dc6982125fc4e179af2a2fe619af",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "7de49195b1a58a5516d8e13bf80c8a753a3f7143184aed01882b29a97f9572f7",
+          "bytes": 27613,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "436b92c41b015ddaa7568db95524a112499e9f395c7b20b895ce6427ae2d16c5",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "85960902939ab86e8bc9420f86d4db9a79300f68a2085c39dd0dcf50e3de2ab1",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "bce77da7b45b1ffb55dd1fc4fed59e9095b37789f8626c3762fbe041cb9cadb1",
+          "bytes": 25505,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "7be434e8628f6e7ec299d6d79be2682e4e414a50a26b6ce210467ff1e527542a",
+          "bytes": 22033,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "99a4d4d5eaa0bbad0aa8db8e5d17639f874af41e9e361fdc6923624da1a871c3",
+          "bytes": 22037,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "85811c653983dafacd83e89aae79e44fb02f07eedce0cd2c24c919c1f37679cb",
+          "bytes": 28421,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "6ac0bd192b7479af802eb67c016dd146d78f3c810a69031b5ca25585d6457d93",
+          "bytes": 25769,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "component": "KK_Full_M00P01",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "851d4d3fd5a0c73bb576567bd2900f8a35693fe33f580f1f37fe4fa88f5927a1",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "b70ea8cfc6412f0c4397fdb2ce9d817d7b3bf3dbd28876c43b47e809168efc36",
+          "bytes": 27613,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "a2fa8273eab2b7fb336862c17176572f0703d7e1e51d5e77f240401f201412d9",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "fc009d8c8c7c9f98f80fba4f150f948adada784255df740b4c9d38c3b1996d52",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "f4f96e679d3d2108285ede18fff9ac0aeac779d426e6689fca227b7e38d97125",
+          "bytes": 25505,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "bf9c486638b11a20395ec99b67819f81831cd8a253dba3470f3cec28c19947e7",
+          "bytes": 22033,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "2fd0f8171162ad67fb0cd378a3e33fe555584a2db87f5adbdf107a4b867745de",
+          "bytes": 22037,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "88474aea8e4ccf4bdf92b9ac3af308275c7b0e9dc335a3c8ac6b79e951efd24a",
+          "bytes": 28421,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "4352ecaf2ca1666cabc7c331d760b81e5f77c0be16c14b7114c6dbd5082e1949",
+          "bytes": 25769,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "component": "KK_Full_M00P02",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "5bfa33cb30e306e2e7a1180d16bb57c95d40c502284e92ba37e5d2838b05ac44",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "b2737aa84272534929544ff24abfadd6f5b4293c5227eb3d7fda74a28d0b0271",
+          "bytes": 27613,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "106a4685418c7485d64cd0767882e636e0ac6d70c4fc4670c0cedee6d44fe6d2",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "877f905df1c14e56eb39085f00da2c3df85efd0a3551249da20b761caf45c7ab",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "ef011158912b5a577b61a8c43801fa49693157589f084bb3c2287db7817ff4df",
+          "bytes": 25505,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "3e824b84e7136c83d9271c459a33fecae594e6a148bacbb7ccd7ea0d5f20c600",
+          "bytes": 22033,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "77e8acddd4724db35a6f52193d275294ce4d733b4c909dc4949e29736750deb5",
+          "bytes": 22037,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "1252b14de8ae9cf740694c26f7c92490d1299fba45d2f27470b4fd7565c15711",
+          "bytes": 28421,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "9eb23a7148f630f36aa39d62bce19805376ebe0a8ca21b87d3125a2e6b65d530",
+          "bytes": 25769,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "component": "KK_Full_M01P00",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "f905580cf21439785def82a2cd4d4f92d92b0ae86be942ed5e83ba9ca3ad79cd",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "22e5b368f725d3fcdea4648e4b3b5b021331e2a3ff31411ea3176332bd42d630",
+          "bytes": 27613,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "1dd4e26ca4cb6d8035a973e6a4d6570c552e3ea5b17eabaec7c4544852460152",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "f29948e44143a74f12d0d043d8fbd7f517358cf1a0642e289f626024c1a9ca0f",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "ff65386369d338db6317abc64812a851c00d28db220ce0d77decd04780296489",
+          "bytes": 25505,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "fef6bdc7134f42fc9c593adea3922edb47c343f710bd5aac98ff31a400eb83de",
+          "bytes": 22033,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "83a1a1ad702aab232f2099de9cda554fd955b62a91ebbf65fb54b2075c405042",
+          "bytes": 22037,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "83e84ed1451e0118ae3cecd21a4cb58b12b5cc2408ffcc5dada9ed1544838015",
+          "bytes": 28421,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "93aaa2293ec979aaaae53ca977752a8fa5692047330fc2748e578b3f002ce828",
+          "bytes": 25769,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "component": "KK_Full_M02P00",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "bad7ce76ac1db8d418d5dd7ef27a275bd399b178f97e845712f3dc77532e5b1b",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "9709ee8689ec4eed9040e09924796f62f1d61922d9386b3ffa30b24f47fb6220",
+          "bytes": 27613,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "210f0f2cbbbbbd89f3f42f050d8e7855a7444869c4702a3593c0bc73ba7048aa",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "da2e60c8376cfc02760a4ea58e15a35c3566b7c5c8995065cabf7f67eda3bbd8",
+          "bytes": 29729,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "daad7d3a88adcd1aa764386480dfcd72720a08762612566f031f37366d0022ff",
+          "bytes": 25505,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "33b5f70fb8ed9a3169f73cdc5b06373e20dbd1a65708e91904825d8773d481b4",
+          "bytes": 22033,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "10dfae985a275baa310f8eedc8e8cd9b5032bf897c3649c8768fe28f23de018c",
+          "bytes": 22037,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "a978ec13223d6e09f7bd0bccb6988dfb8eebca7c307872bde18f29c3d648dc02",
+          "bytes": 28421,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "722b37910db4fb9206fec7fec481488a14f21c3cce2e162a92b99eb1e41dd9dc",
+          "bytes": 25769,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "component": "KK_Full_M03P00",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "9b32dee1b01e859f9509d84ed0367dce5637c7164591720b725dd8f34d9a1fc4",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "347bd5026343b193622aaa31d38e664809d4fbf513c8194b496336fa4ea2a436",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "cd3f0eba1b850f10519955b425cd75cb7d401df78e67847d84379d7345765265",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "d8f7aa1d6506dc894640997112b5ef690afb3a673541fb1484902803098946c6",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "e4c87990a5e477d67410dbd67e081ac0f0ab303e41345f1d2039e2669ae6bdc6",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "427dee48c04df99553aac0a7b7630d5583221db9ed8b4d732c5f9497a5939d8a",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "8ff00dc02204e3ac0079183b299c0ec8526661a03dff565b536f01969db0139f",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "31b614c234ef244e4a3d51b82cffb054fa52fff5f76da2041ad12471d4eab8af",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "e59bde2ca4f88df9f16d87bbddf7b515b09fda2b4bda37cbc7fe10721f46bdd5",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "component": "KK_Full_M03P01",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "dab2b5667867fd41dbe64fae4b3c23300e8366ab5329cca82b9f39cd2bdcc01c",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "d9df58e2ae406b6ec39c6b4720a075bf16978fe3f49a48053a91987d2bdace63",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "1394b81c8a863b73443899faff464a6da414bdea6d6f7a230fa74a50d3674437",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "46341eaadb8ab12740b009ceafff67ff2cd69362c9bd566949b91eaf11365d35",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "d14d926bf521a0f5464fe02d0312f685b01f41c58ecf62e0e434dd50032c81f7",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "6b2312d420ac85127c4ae889c171029f7e39d84562a410cadd1b0af031f8cf2c",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "bb189a06322e1820ef9cfdc9a6d380719f398a12b9fc7ed0e47d5572a0f791fc",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "09b07f5fa239df897303952eee170e3a0bfa14914f421bbe2183beca87461c4f",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "144a395f90bc27129e2e56e4971e37a3d605dcced761a5738344a82e7d45a653",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "component": "KK_Full_M03P02",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "3a5b4e0c16a98abbf9733056db83bb694ffd21d135d804dcaf535ceeb0113b32",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "de5aa39ca352e058c7db320f44b35431c8459fe268a1163305b3663457989876",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "b371606c299fabaf2e518bcf7755c170494c10e86508add7b94a14984657e883",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "66cca446a51d5c2063adbcb823ba1bdd6129ee2583113f140a8429a521d1de37",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "11af1d31b75ffb2ff9bfc18101a1909c7762ed0196911fcd780fcc66f402ea70",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "7f7e544f6c56c004de29bb60a6f13fecb828c741f03809a38ca3fd350d075339",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "5d646b3ef44cabce212b1ede0b4f07996e08fe598de8b048b571478a84e39904",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "12514907c461d9888f35fe965ea2dc2c531fc6805097d00152ad44e3d55bca02",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "e14022935e0feb6addfe9782f456369e798123948b3e36590cf439448cf817b0",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "component": "KK_Full_M03P03",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "cd432d56a77b6046cd8cf52673c9ae68809a3ac02de7a819ed0c9c1e69b76ccd",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "dafbe27d581b19abd7a71baac577a33cb0f9721f2ff4e580982ad48ef8b8f097",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "713f24dcdb253c7d09b1e76b8c9eef6ad31db2d5c8168dfcae90e53163fdfcf0",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "5576da93de64e5d8015bf5a4de012e2a9fb5f1e20337c70a9b5b94ea0341dff3",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "846b7bb93f460d0f3eda8d5104da2a5f76c058ec6f93c063eb836ec81136ec5c",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "f08e221b8e669af8a7a411e2439a3740385faf3aa0ea7da53ca074fd3e91979b",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "2e82b187fae7769731028d91e86ff4fc370a6cb2ee8ceb156fa752251d6dfa61",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "98b8218e97e3baa4033a15176f3df95840a5931074d24de9cf90af059bc9a105",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "8f71703033bccf086134a3da0b63af0f644ae9ac0ae94ef55707f16480deba3d",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "component": "KK_Full_M03P04",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "a7880a4853b61dda44ee145e5c96b80fdd58c9f1df1a5483ca1535625ff892e0",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "879bdc79db64d6bcd91775539c18149ddd69d2eefbe44a6feb862708304175a3",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "83f3662252169619ec9e8a76a63c4569a6c1d9181502b8fe587895031797336a",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "42b9192b72a09937c58bd9169f46f9ed0efba3ed990836a74ab4e208a493429a",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "952219d7d25309b7f16e1e38b2165ff87536bbcf987c92310fe059cd9593e764",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "53367c418c446764a14c00282043449262b9bb82ed5da2aa720d18a7ea6e3d94",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "355ad149d05769c1fbc3be4fd08b13a4726c8771cd519d385834a56657eaa4b0",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "79a0aa43d64de9a45505f370cd20bfcf012c34687313187d6a8e690f3bc541a5",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "a9f2cd7ec42f3600beb61a76731d1cc286963e79d9f24400a3529b2ccf053ae5",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "component": "KK_Full_M03P05",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "d57787f2cb2a32b9042a2ddc9f2708c32ee868af01ceec2cc636a4a45d1a152a",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "c4f3234b19d5ccfbc68a94a73f46072091c05029eed2d3318502c8bf518d3e0c",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "d24ce7dc4793e11adb16bd7b52a3b30a3a88ef9f2ebcdd58bd0d02c7562993d9",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "11e78a9d7916d212f48e114e9f6be7ec1aacf601c069c2963d9cc2c296d27dbf",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "0be7fd8ffbcbff64e45b854ab1691877662f90a11ac1a575b61f2f39f6b29c6c",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "0101af44cc0777fb5ff3fb7c008bcc405bd942fd14368dcbc88e402fce526ce3",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "0dae34db102d8e48134e91837c8b5b4451895976be4b1b1e0c5521a6b8378f94",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "4f0fe204d8aeb640354e80874f9ddce8f42a64f5c83022155f8e61aacb2f40ba",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "d9c1f2e6d7aa756c6ea3b6e700a8ea2ced245d1935e37b098c4cb35cc21d6715",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "component": "KK_Full_M03P06",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "39326c75d9cbb4f7f3bc18030aa23d00caa8fa69905b3c5b02c54955f06585c8",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "1c9b5b9919bb4c668c9f20b3c531d1672e901c4c6fab15ebb465a977535f3d95",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "b7d6445b7ad332ab159286c33ee907ac079c6fb9a7870c2416b450ba7d26cdcd",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "0f22a3148e7f89af8237f9d7a8867a1031fe119f3609eeee104027a988dada68",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "990ef444cd4de1734331d3dcfd95415e8d286d6693129c5c7b094adcdc5eaa21",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "85b87bda4c4ac0642e9db46f1f7e4bed9da4471374d591753638d812f4c9a327",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "8518964e5bbb9d64afb66755dc7d4a0baa5813bb61233a478f151e60189aba64",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "bb7ebf48c3380d16d8ef6769cc165f333caaa344657a9197fa2543d0d32db876",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "23192469846589ecf551de529b691af8d4d179c1200055389e356390ff120949",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "component": "KK_Full_M03P07",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "e8d9a3bae738078a776b7d9258af881027bf9215fddce83400e88f5b7afba529",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "c4d01e8cdc2c15965caafbacb8eccfe36d9874bec68e9fed28e0701b8ad2399b",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "94eabc8944f410caa5bc55c25f0c969d00727bc67a59289d8de671efb318b392",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "ebfe859251ea1588eb6c7ad64dabe1a06f2234f949ad0fc1eb5c0a8cc4c68b86",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "caa765fb0111577d03a8f7262a43d45d65104c2240a203a156eed2cd7666cb74",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "c613ca0002ab7c2761a21d74c82159d87a058d6531b76bdc3f3b45ec64ba0437",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "a99c62113721e1c0671bf96405d78ef3ba28a8b3d457f08358df335d6ae5a008",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "bd88a7e072c224aa792a76e74c3462dc90b6643093a5e0d3075215ea6ac14351",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "a9759ae66f735ecc106c6f012e98dbaab3bc6e70eb0fb1d7c4c5211fd2137f2b",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "component": "KK_Full_M03P08",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "5a6b749a637d8964bedc2dfd049dd649be37663cbc515a5f19b17a2275a3d593",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "a36e9506ea2bd38f07b13d76c93304145dff20f98a6d6005e79e3d982634ad70",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "65fd65b4661c3647678051c362c4bb5dc93290d495434a0c527a2563607a77c6",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "4c71d492041a0e1f70781ce0fb669621c8c1efcb8ea80a40f8170e72ca2d5285",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "3f7f648f7239c721b1c0b238f715e39c3e24369a5dcfc5fb04838f1210825130",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "5d946e71cedc49899c04d510e1d4cc7ce306f9a71bc7cb767dbd13fcaccef805",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "e48530ec1cb07b6c47b1e3469727e1fa6ece6c5a6dabe56c6c28d11d03cde6fe",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "7b3d4696cc75d6d28a8b8199c72ce5cca8260fef32586881b3524dacb87ca1d4",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "45bb1870e0bd272935d18aa22b724080f3200dcb677c37dda2a2298837ea1a4b",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "component": "KK_Full_M03P09",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "19ef39ab259d22b43f9ae8fda5f6324b3b48cd49834961f0faecb1169cb93fc4",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "83601c988f858fc716d29f1c51cd346d49af6731b6d6011edc55e0cb1ba67c87",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "7b4e2fc388dfbdca2696709d61fb49fd081141cfd5f75cdf2a8ec62c5fa5f365",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "66212e2652e152c1de4ca240da24df5674bf5bb8f01fddf811db107ad4d591d0",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "69ab2e8d18255b6bbb41efe86497511f05bf945f5e42082e7fdb3ae91f3de6e6",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "c3032731bd9009b3ade3a322f44c22f2b88dada6adef21f487e8c5aeb7d94528",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "bc52a4ccf1ba82e9fcaeb715e4f1c4f593924d2497730e9805ca3011fc537515",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "2adba86bd87f082bc02532dc01ec412dd3cda6c98473e5ef79919972790c7abe",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "ffa8657cd4b558cd7c0b833210efb4d37f45b3a0e8db38c62014c61688679373",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "component": "KK_Full_M03P10",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "2359667fdecc8dd2ab23b6477f81dfcca6c2dc651ec806d400abbdb8a4fa01a4",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "3bc54c63ce1c9f1840fdf01ae403849ac701b383d6b6bf959c293ea47b83bdc7",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "1c08df877d37ee4e0ca4066be5966f0966fa9c28e71111b0c7bd37f197d209bf",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "aead8844c659a0b365522866a0590cd86286844c557ac5a361f6fdd71d18b9cb",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "1a176f3904e65bdba2450443ede346d83d56ab62a867b9acb660391ad013a5dc",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "3b93e7696c56a6d2370bd7bfcd5c524e789c294e969abd04ef4a9f1cf3f66200",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "99235ad9bf5101a9efbed20f0a05fe38df4cef4292262181dc234070cc1034b7",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "e73dc5638a01a920dbdd56195143eb8cfbe0a8b3196c99e69779055aceecd939",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "339dc06a05668d5b696a6ec11232b021c15b0b60a89ab34c53bea32eb942386a",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "component": "KK_Full_M03P11",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "5902a329bebedb2ae67c2e9246d2752b68df28211a42a29c9f235be9236d726e",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "12f5a133097762f60eb25c2958558755c1ef95ee09a9abbf123aff28cd9a5a5e",
+          "bytes": 27610,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "a063934316e068d20d1553f35ba9c78166d80c9aa76af757da39fa3ba30f60a3",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "bbc9abf8c69b3c49f2ae19460d8b5346feb059a1c0f0cb4feebe99f0fac68291",
+          "bytes": 29726,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "26e7fd8a21a8d2d3665f7b1bed1e7d2bfc6570bd8efd828cae82e3ec993494fc",
+          "bytes": 25502,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "070ecaa7caa44afd6e6b8e1ef3a094408c00a69acb3cf60c0762823709873f37",
+          "bytes": 22030,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "a25b2e66cb21914c10f283cf7cb60ac72c7f92ab7adc841ad8944a6ec1bfd5b5",
+          "bytes": 22034,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "5757c60155d6fb22bf3e360eea05a66862f472a35a8baddfe52493b465675226",
+          "bytes": 28418,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "587a7324ea3b1dd0139f590e93fae0b9ff420298d95c1c5b4c8d332d4f3dfac7",
+          "bytes": 25766,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "component": "KK_Full_M04P00",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "0f7a8644db785fbe0479a70b8bbbce5a238ddfd27b6c5a8a51e2331c60cbe340",
+          "bytes": 29689,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "82f75cadaf65752d2ba7903464d6bc53f5b83182734624496a9dbc946283d324",
+          "bytes": 27573,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "deda5c699f768c88d535d85794086ba81b10dac995955a2ff3d8bc1d5174b815",
+          "bytes": 29689,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "85211f2d0071d59ddca7544a01d2066e0347f6c2753a6f5082d9096c147cf0f1",
+          "bytes": 29689,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "cbe091ee829b38ee2d16a2dae1cefe01a71b31fbd1e681e9cb79a332d6176a7b",
+          "bytes": 25465,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "36c715af7819674748c05ea114c3ad617263052924b938e9f2adb34ba38cefa8",
+          "bytes": 21993,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "f3b5d7e9892b8c1ee7ba713f417dccb11892b92132c629786eca9269548f93fc",
+          "bytes": 21997,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "2868e54fc9042c19b44b5a0de65c4c053bd64320084c6f58c7da05d2b6dcf287",
+          "bytes": 28381,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "f2b574198d54e8afac9be633bbfdd913cdeba67becc6de1a1cc71172fa9fe882",
+          "bytes": 25729,
+          "tracks": 11
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "component": "KK_Full_M05P00",
+      "actions": [
+        {
+          "action": "Walk",
+          "sha256": "d40f793e2f144e538d38cfb5eaf59e0100df33cbf01e1da73165ff1121ee60aa",
+          "bytes": 29689,
+          "tracks": 11
+        },
+        {
+          "action": "Run",
+          "sha256": "775130814958741c2ca55668916eeef624ecf6df2fa773e846ce338f868b6a12",
+          "bytes": 27573,
+          "tracks": 11
+        },
+        {
+          "action": "Jump",
+          "sha256": "98b5a1c0cfaa7f59ad03b40e4b17470c289c56da47b48a6a37fc2d1180ef6c0f",
+          "bytes": 29689,
+          "tracks": 11
+        },
+        {
+          "action": "Fall",
+          "sha256": "61c3122aadb0e1bb9f9516d0fca4e02261996e1ebcad30f38831e14a427af2a2",
+          "bytes": 29689,
+          "tracks": 11
+        },
+        {
+          "action": "Land",
+          "sha256": "7524e595fbd910b9f31611c59a98ed989bfe46b125f840e1e5722a43a5bc8ba7",
+          "bytes": 25465,
+          "tracks": 11
+        },
+        {
+          "action": "TurnLeft",
+          "sha256": "3bb52261d769e7c8ca8eaa6a9892da92abf639b1737334d9b948321de979631a",
+          "bytes": 21993,
+          "tracks": 11
+        },
+        {
+          "action": "TurnRight",
+          "sha256": "b91f3ca22b23424f0420d447b18e01e8587e76b8a082d4877e181347ec080fa9",
+          "bytes": 21997,
+          "tracks": 11
+        },
+        {
+          "action": "Dodge",
+          "sha256": "65c5afbe64b0cb76915dc53364c11bebea4ddc2a06aa442cd46a3a6ae04cae86",
+          "bytes": 28381,
+          "tracks": 11
+        },
+        {
+          "action": "Action",
+          "sha256": "d9f03c3594c1089e14be1eb65831fd7a6608a280de3b15db2fa3428dea0d502a",
+          "bytes": 25729,
+          "tracks": 11
+        }
+      ]
+    }
+  ],
+  "total_parts": 19,
+  "total_native_assets": 171,
+  "total_bytes": 4569691,
+  "per_action_counts": {
+    "Walk": 19,
+    "Run": 19,
+    "Jump": 19,
+    "Fall": 19,
+    "Land": 19,
+    "TurnLeft": 19,
+    "TurnRight": 19,
+    "Dodge": 19,
+    "Action": 19
+  },
+  "aggregate_sha256": "188f874055d0238f047f27e897dbc9f1cdc2b175f122b2c3a340466a2410c57f"
+}
