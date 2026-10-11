@@ -53,7 +53,14 @@ try{
   sourceWorktree=$w;target='OfflineGame Android Development';physicalPhone='NOT_TESTED';
   rebuilt_binary_sha256=if($pass){(Get-FileHash $bin -Algorithm SHA256).Hash.ToLowerInvariant()}else{$null};
   samples=$samples}
- $receipt|ConvertTo-Json -Depth 6|Set-Content (Join-Path $r 'arm64_native_build_receipt.json') -Encoding UTF8
- Write-Output "ARM64_NATIVE_RESULT=$($receipt.status)"
+ $uniquereceipt=Join-Path $r ('arm64_native_build_receipt_'+$t.ToString('yyyyMMdd_HHmmss')+'.json')
+ $receipt|ConvertTo-Json -Depth 6|Set-Content -LiteralPath $uniquereceipt -Encoding UTF8
+ try {
+  Copy-Item -LiteralPath $uniquereceipt -Destination (Join-Path $r 'arm64_native_build_receipt.json') -Force -ErrorAction Stop
+ } catch {
+  Write-Output ('CANONICAL_RECEIPT_LOCKED_BACKUP_VALID='+$uniquereceipt)
+ }
+ Write-Output "ARM64_NATIVE_RESULT=$($receipt.status) UNIQUE_RECEIPT=$uniquereceipt"
  if(Test-Path $output){Get-Content $output -Tail 12}
+ if(-not $pass){exit 28}
 }

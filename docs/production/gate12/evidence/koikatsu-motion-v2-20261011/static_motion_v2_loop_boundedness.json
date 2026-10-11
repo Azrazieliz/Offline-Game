@@ -1,0 +1,13 @@
+﻿{
+  "status": "PASS_STATIC_V2_BOUNDED_LOOP_SEAMS",
+  "action_count": 4,
+  "actions": [
+    "Walk",
+    "Run",
+    "Swim",
+    "SwimIdle"
+  ],
+  "full_fidelity_source_untouched": true,
+  "real_device_quality": "NOT_TESTED",
+  "postfreeze_not_final_locmotion": true
+}

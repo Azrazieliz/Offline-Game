@@ -1,0 +1,752 @@
+{
+  "status": "PASS_COLD_UNREAL_19_PARTS_76_EXACT_SKELETON_V2_MOTION_PRE_ANDROID",
+  "time_utc": "2026-10-10T23:54:30Z",
+  "total_expected": 76,
+  "parts": [
+    {
+      "name": "KK_Full_M00P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.Mesh_00_Prim_00",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M00_P00",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M00_P00",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M00_P00",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M00_P00",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M00P01",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01_Skeleton.Mesh_00_Prim_01_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim01/Mesh_00_Prim_01/SkeletalMeshes/Mesh_00_Prim_01.Mesh_00_Prim_01",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M00_P01",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M00_P01",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M00_P01",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M00_P01",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M00P02",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02_Skeleton.Mesh_00_Prim_02_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim02/Mesh_00_Prim_02/SkeletalMeshes/Mesh_00_Prim_02.Mesh_00_Prim_02",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M00_P02",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M00_P02",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M00_P02",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M00_P02",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M01P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00_Skeleton.Mesh_01_Prim_00_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh01Prim00/Mesh_01_Prim_00/SkeletalMeshes/Mesh_01_Prim_00.Mesh_01_Prim_00",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M01_P00",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M01_P00",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M01_P00",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M01_P00",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M02P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00_Skeleton.Mesh_02_Prim_00_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh02Prim00/Mesh_02_Prim_00/SkeletalMeshes/Mesh_02_Prim_00.Mesh_02_Prim_00",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M02_P00",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M02_P00",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M02_P00",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M02_P00",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00_Skeleton.Mesh_03_Prim_00_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim00/Mesh_03_Prim_00/SkeletalMeshes/Mesh_03_Prim_00.Mesh_03_Prim_00",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P00",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P00",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P00",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P00",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P01",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01_Skeleton.Mesh_03_Prim_01_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim01/Mesh_03_Prim_01/SkeletalMeshes/Mesh_03_Prim_01.Mesh_03_Prim_01",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P01",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P01",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P01",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P01",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P02",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02_Skeleton.Mesh_03_Prim_02_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim02/Mesh_03_Prim_02/SkeletalMeshes/Mesh_03_Prim_02.Mesh_03_Prim_02",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P02",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P02",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P02",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P02",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P03",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03_Skeleton.Mesh_03_Prim_03_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim03/Mesh_03_Prim_03/SkeletalMeshes/Mesh_03_Prim_03.Mesh_03_Prim_03",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P03",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P03",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P03",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P03",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P04",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04_Skeleton.Mesh_03_Prim_04_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim04/Mesh_03_Prim_04/SkeletalMeshes/Mesh_03_Prim_04.Mesh_03_Prim_04",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P04",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P04",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P04",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P04",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P05",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05_Skeleton.Mesh_03_Prim_05_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim05/Mesh_03_Prim_05/SkeletalMeshes/Mesh_03_Prim_05.Mesh_03_Prim_05",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P05",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P05",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P05",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P05",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P06",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06_Skeleton.Mesh_03_Prim_06_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim06/Mesh_03_Prim_06/SkeletalMeshes/Mesh_03_Prim_06.Mesh_03_Prim_06",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P06",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P06",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P06",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P06",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P07",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07_Skeleton.Mesh_03_Prim_07_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim07/Mesh_03_Prim_07/SkeletalMeshes/Mesh_03_Prim_07.Mesh_03_Prim_07",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P07",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P07",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P07",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P07",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P08",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08_Skeleton.Mesh_03_Prim_08_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim08/Mesh_03_Prim_08/SkeletalMeshes/Mesh_03_Prim_08.Mesh_03_Prim_08",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P08",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P08",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P08",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P08",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P09",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09_Skeleton.Mesh_03_Prim_09_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim09/Mesh_03_Prim_09/SkeletalMeshes/Mesh_03_Prim_09.Mesh_03_Prim_09",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P09",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P09",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P09",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P09",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P10",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10_Skeleton.Mesh_03_Prim_10_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim10/Mesh_03_Prim_10/SkeletalMeshes/Mesh_03_Prim_10.Mesh_03_Prim_10",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P10",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P10",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P10",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P10",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M03P11",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11_Skeleton.Mesh_03_Prim_11_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh03Prim11/Mesh_03_Prim_11/SkeletalMeshes/Mesh_03_Prim_11.Mesh_03_Prim_11",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M03_P11",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M03_P11",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M03_P11",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M03_P11",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M04P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04_Skeleton.FullMesh_04_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh04/FullMesh_04/SkeletalMeshes/FullMesh_04.FullMesh_04",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M04_P00",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M04_P00",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M04_P00",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M04_P00",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    },
+    {
+      "name": "KK_Full_M05P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05_Skeleton.FullMesh_05_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullFidelity/Mesh05/FullMesh_05/SkeletalMeshes/FullMesh_05.FullMesh_05",
+      "clips": [
+        {
+          "state": "Walk",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M05_P00",
+          "seconds": 1.0,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Run",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M05_P00",
+          "seconds": 0.800000011920929,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "Swim",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M05_P00",
+          "seconds": 1.2000000476837158,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        },
+        {
+          "state": "SwimIdle",
+          "asset": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M05_P00",
+          "seconds": 1.7999999523162842,
+          "tracks": 11,
+          "no_root_tracks": true,
+          "exact_skeleton": true
+        }
+      ]
+    }
+  ],
+  "cold_unreal_process": true,
+  "phone_validated": false,
+  "final_animation_approved": false,
+  "native_animation_asset_count": 76
+}

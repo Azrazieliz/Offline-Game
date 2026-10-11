@@ -1,0 +1,109 @@
+{
+  "status": "PASS_NATIVE_QUALITY_V2_SEQUENCE_ASSET_AUTHORING",
+  "part_index": 0,
+  "requested_action": "ALL",
+  "action_assets": [
+    {
+      "action": "Walk",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Walk_M00_P00.AN_KK_V2_Walk_M00_P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.Mesh_00_Prim_00",
+      "frames": 31,
+      "duration_sec": 1.0,
+      "looping_at_runtime": true,
+      "bone_tracks": [
+        "thigh_l",
+        "thigh_r",
+        "calf_l",
+        "calf_r",
+        "upperarm_l",
+        "upperarm_r",
+        "lowerarm_l",
+        "lowerarm_r",
+        "spine_02",
+        "spine_03",
+        "neck"
+      ],
+      "root_animation_tracks": 0,
+      "saved_native_asset": true
+    },
+    {
+      "action": "Run",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Run_M00_P00.AN_KK_V2_Run_M00_P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.Mesh_00_Prim_00",
+      "frames": 25,
+      "duration_sec": 0.800000011920929,
+      "looping_at_runtime": true,
+      "bone_tracks": [
+        "thigh_l",
+        "thigh_r",
+        "calf_l",
+        "calf_r",
+        "upperarm_l",
+        "upperarm_r",
+        "lowerarm_l",
+        "lowerarm_r",
+        "spine_02",
+        "spine_03",
+        "neck"
+      ],
+      "root_animation_tracks": 0,
+      "saved_native_asset": true
+    },
+    {
+      "action": "Swim",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_Swim_M00_P00.AN_KK_V2_Swim_M00_P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.Mesh_00_Prim_00",
+      "frames": 37,
+      "duration_sec": 1.2000000476837158,
+      "looping_at_runtime": true,
+      "bone_tracks": [
+        "thigh_l",
+        "thigh_r",
+        "calf_l",
+        "calf_r",
+        "upperarm_l",
+        "upperarm_r",
+        "lowerarm_l",
+        "lowerarm_r",
+        "spine_02",
+        "spine_03",
+        "neck"
+      ],
+      "root_animation_tracks": 0,
+      "saved_native_asset": true
+    },
+    {
+      "action": "SwimIdle",
+      "sequence": "/Game/Experimental/Gate12Koikatsu/Animation/NativeQualityV2/AN_KK_V2_SwimIdle_M00_P00.AN_KK_V2_SwimIdle_M00_P00",
+      "skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+      "mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.Mesh_00_Prim_00",
+      "frames": 55,
+      "duration_sec": 1.7999999523162842,
+      "looping_at_runtime": true,
+      "bone_tracks": [
+        "thigh_l",
+        "thigh_r",
+        "calf_l",
+        "calf_r",
+        "upperarm_l",
+        "upperarm_r",
+        "lowerarm_l",
+        "lowerarm_r",
+        "spine_02",
+        "spine_03",
+        "neck"
+      ],
+      "root_animation_tracks": 0,
+      "saved_native_asset": true
+    }
+  ],
+  "fidelity": "ORIGINAL_NATIVE_SKELETON_REFERENCE_POSE",
+  "not_android_runtime_validated": true,
+  "component": "KK_Full_M00P00",
+  "native_mesh": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00.Mesh_00_Prim_00",
+  "native_skeleton": "/Game/Experimental/Gate12Koikatsu/FullPrimitives/Mesh00Prim00/Mesh_00_Prim_00/SkeletalMeshes/Mesh_00_Prim_00_Skeleton.Mesh_00_Prim_00_Skeleton",
+  "timestamp_utc": "2026-10-10T23:48:37Z"
+}

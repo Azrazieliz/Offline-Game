@@ -1,0 +1,544 @@
+{
+  "status": "PASS_76_ANDROID_ASTC_V2_CLIP_OUTPUT_COLD_NATIVE_REF_CROSSCHECK",
+  "native_cold_status": "PASS_COLD_UNREAL_19_PARTS_76_EXACT_SKELETON_V2_MOTION_PRE_ANDROID",
+  "source_dir": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Content\\Experimental\\Gate12Koikatsu\\Animation\\NativeQualityV2",
+  "android_cooked_dir": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\Saved\\Cooked\\Android_ASTC\\OfflineGame\\Content\\Experimental\\Gate12Koikatsu\\Animation\\NativeQualityV2",
+  "assets": [
+    {
+      "name": "AN_KK_V2_Run_M00_P00",
+      "native_bytes": 34029,
+      "cooked_bytes": 2044,
+      "source_sha256": "9f7aa53689bbe30b92c1324619d6ae8557c9b16dff0bdec85c36685584b33826",
+      "android_cooked_sha256": "07ef663811cf252a1ecfaa3f35a94bd1c131957153f1b56481705f3bc2792217"
+    },
+    {
+      "name": "AN_KK_V2_Run_M00_P01",
+      "native_bytes": 34029,
+      "cooked_bytes": 2044,
+      "source_sha256": "24beff9355bc9e21360884cf386b73b4ca106fdbd0e4836bb7dd337750ee42a5",
+      "android_cooked_sha256": "c444139b05eb7b644cc48dc26ffac3acb2a3573b52df6a5780a7ba8174997744"
+    },
+    {
+      "name": "AN_KK_V2_Run_M00_P02",
+      "native_bytes": 34029,
+      "cooked_bytes": 2044,
+      "source_sha256": "e1809dbc437e63dc9a589edb2e880e2865ce5d3a3f5a39e01ff0f3782bae63bd",
+      "android_cooked_sha256": "4600fa9fc7d198bc57e74892b6a4b11cb730d616c17b10886e3dcb679d48d71e"
+    },
+    {
+      "name": "AN_KK_V2_Run_M01_P00",
+      "native_bytes": 34029,
+      "cooked_bytes": 2044,
+      "source_sha256": "3cbea87c0f2478885cc172e0ce0e87c38ac47677c33c11d7d9e500d714352401",
+      "android_cooked_sha256": "110a931996da2b13d5f4c69efab98e963d338f0495f208400049d6c51ac33c6e"
+    },
+    {
+      "name": "AN_KK_V2_Run_M02_P00",
+      "native_bytes": 34029,
+      "cooked_bytes": 2044,
+      "source_sha256": "bb0a32ff31849ad979d029ed720e6122cf8942e0bf896ca78777e6956caa9a98",
+      "android_cooked_sha256": "3aa8723a676cdb7406b5475c1d6b489935fc0fda3840b62c86b48f901e6bce8d"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P00",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "99db29597822df17b3590e916216701c74942950bf08149add7d9418e226d5fa",
+      "android_cooked_sha256": "318953a6c9dcf4b7b8122fd7745cd2301ac47e9be505b77a0fbf456cd0744c7c"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P01",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "71ef6806066dcd043c5ae6fa880d403d480d87a02db10d0ffd02684c3c4f16eb",
+      "android_cooked_sha256": "a5995dc4dee85846f5fba3e9ae8d3f4ad14530f3d895ec0a040c51c6304d3df8"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P02",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "c5d02089c038dd5035ae31f72549121044daaa9d802a8a3602b0cfc2d2e605a2",
+      "android_cooked_sha256": "7363bb0c19b011bc05a8bf6b6e8d9a8300e54a12278f3ca14a4543b6eb851b4d"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P03",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "373f6ee843d9259c16ff51d19ff097bd675ee3c4442d6b3bf9dd736aa8d6558c",
+      "android_cooked_sha256": "04dac78956098a523e7a6e5eb6930d614acbdba6e2eed6be2a4fa1997b338b71"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P04",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "9732824dad7b74304abb339dbe9735e68242cb2635fefd7c51d8250540fa7aea",
+      "android_cooked_sha256": "b933b411667b4774e8ba27e23600fb288ee7fafe8a3b141a6bb68be6189bd160"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P05",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "b6ae7d89e89101e69d4b97def389018ba5e08e9d10a8be0ff3e42f849da79fee",
+      "android_cooked_sha256": "741c7dd9409a143f25a5dc74535bc21cca6282a3b5b85af12fa10d187bafdb41"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P06",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "4312cdbd9d51b2a3de228e233686200d2cd2293d1525e114ae66fb7e9bbc9523",
+      "android_cooked_sha256": "2eeada63fdfe047c6b7a9c0e786b4b1990e91d9a90281ba25ec94e5a6ff1d9db"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P07",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "7f536739cb86f8d9b3766ad527f602ab92abbcc496addf5083da256138df5631",
+      "android_cooked_sha256": "899836ce0af671bb5b4a991fde2d70dcec758e50e1799fa2c9185b2d63dbd1ae"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P08",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "8d8ef221840b31243144ec915f29f470f0784f35cbfb097b3fd71c377bf0e430",
+      "android_cooked_sha256": "57ec982240e2e29c8469d971dfa1d15f50d54e3387443a1802435b6a02d64ee5"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P09",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "fdc2340d1b2e7ed30405837dc4bce65bc5d57873b266b50bf0e0c5abbd630ef5",
+      "android_cooked_sha256": "7ef76666d72277bd7c453a4dbb23f8240b55931eac144809250ddc0e4b608237"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P10",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "a83b9494d85bda1239bdbc63b09240587f8acf420fd1c3df5dea505b8e205dfe",
+      "android_cooked_sha256": "ae4166582d91b931480ce0a7ea0ee87827da61d3c1d1803325447ebab02c8106"
+    },
+    {
+      "name": "AN_KK_V2_Run_M03_P11",
+      "native_bytes": 34026,
+      "cooked_bytes": 2044,
+      "source_sha256": "f6f2bf2ccf33fab1ad763d17f20f9035a299b71ca24db519c7fb9d076b2fb927",
+      "android_cooked_sha256": "76f88c8f1d8f635e4456049bb3c7d34723ae8cc19538049d8c3f3d646cf0afb4"
+    },
+    {
+      "name": "AN_KK_V2_Run_M04_P00",
+      "native_bytes": 33989,
+      "cooked_bytes": 2024,
+      "source_sha256": "7548de94cf1db7aa5abe27e90b43c5e2f155986462e756b820354aa007bd4b5f",
+      "android_cooked_sha256": "bcc4bb9d677126883d8a44e01d5aeb3c26e83392e069f10f35dd5544b2bf9a11"
+    },
+    {
+      "name": "AN_KK_V2_Run_M05_P00",
+      "native_bytes": 33989,
+      "cooked_bytes": 2024,
+      "source_sha256": "0aa28b20712203a4d8709daf1d66ef866a441c653ad09c6d47150f043ee7237b",
+      "android_cooked_sha256": "a6f3a7391ec455deb4fdfed123b4cb081e99a5ffba1e9a5d63a41eacd3fcb422"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M00_P00",
+      "native_bytes": 52289,
+      "cooked_bytes": 2059,
+      "source_sha256": "e555ff0c935a5a09e77913e3ca3be5c6bfbedab71f7f7b5d0b038b1cbf67adc1",
+      "android_cooked_sha256": "269a360f8b14dbf52c3df9d207d651d5eccfca2da5f5d9d98485f2dd214a7866"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M00_P01",
+      "native_bytes": 52289,
+      "cooked_bytes": 2059,
+      "source_sha256": "fbfae9a978ca1d3e3d6f872a32eee5e9b5182ef0465bad0b320323165e3da9e4",
+      "android_cooked_sha256": "eb63ac915cd75e972a041f22991118bed2f3436d9ddd9c3e32c323de89d4ba7d"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M00_P02",
+      "native_bytes": 52289,
+      "cooked_bytes": 2059,
+      "source_sha256": "5cb93d09327eee1e8ba6224321ac21031dc8a62a0666f718e4182968f3922aec",
+      "android_cooked_sha256": "f14320ed9bb17509f27c095da9f7a267e4c06cbbaf3b4802ed79e8163e03549f"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M01_P00",
+      "native_bytes": 52289,
+      "cooked_bytes": 2059,
+      "source_sha256": "ad2c71dbc57a9b5559db1ca3f9f4606fdc54470a69cb0701f164d4ce9c7e1dbc",
+      "android_cooked_sha256": "7d9a98bfa688a4c0e8287b71f8de7d67fd1361e52cf8eaf00a9d96c4e2bbfa35"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M02_P00",
+      "native_bytes": 52289,
+      "cooked_bytes": 2059,
+      "source_sha256": "0cb403681c44bc75f3a18271533a7f3f396f2b8e2e9952033f884f29389b5392",
+      "android_cooked_sha256": "c83ec69e7ae09d92349b187fdb71095bb3842617040600fabc636982025399da"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P00",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "919e42d6da5aa6a2d8b771557aae834c6a837f8b993bf59f8892986e85d7544f",
+      "android_cooked_sha256": "5a3fa94b296ff7210ed3d0a48adbdb8161e9b5b1da9ef9038ff832727ee8b7dc"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P01",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "a841f351d1220c2c8750c748e1dca968d94aaa64b7a4fbd3ec172eff68b65276",
+      "android_cooked_sha256": "2caa63b823c028c4a6a609a573dc3131198c5cbc7b7b9b93016a77022880519f"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P02",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "8e7f2c953792158d4fe3ac9ff1dfe5347a9b4178025e2ed38597e1ab321b87f4",
+      "android_cooked_sha256": "5d15dcb1712b7cb4fa1fb23f133466932e1836605f71ff415ee3ebc5f04300d2"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P03",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "eee51c498437b4c78a339586ab4bcd07dc9384099317f80003ee1dd18fa5241d",
+      "android_cooked_sha256": "1214b074f14c9e526e1a0ad860d7402a34d20d7f6678c9a4e1333b295515bdf9"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P04",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "849dd2c449479b79e95ac97f0401f988debe9912db87873a1df09c7b9778f161",
+      "android_cooked_sha256": "aeac75773abbd416df7e4c95390c875f86f08fd2a2a37acc7b66dea3eff4cd94"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P05",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "e6981a99ef691228d4157686a6740693a7853e2630579d21adc0556ad722d7d0",
+      "android_cooked_sha256": "b3dafbfeb7591401797bae54a6105be92c5da7fbd2dfd3b5d2226dcbbce1026a"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P06",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "5dc1b9f1535611a0157e5126d646f0714aeaf3433f20be86b16646e3eb73a9fa",
+      "android_cooked_sha256": "496f3f69cfe8cf672e3b6a9fdc68dba8c3d95fc341ba3b9ccbfe7b847aa74e9e"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P07",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "6ccaeb170a7b7f6a6a10c219ddd711e294ecf1860514d4013bff2e8338ba3636",
+      "android_cooked_sha256": "7157f5152e8bc8c177f885d879168e195b4249a52d6bc032ef4a66d04d8b24a9"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P08",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "00767707136f2ecb42b13f0cd22a2d41a98d279e6a9dc44a29209b91f68a1066",
+      "android_cooked_sha256": "ce42cf0476e0d8135d586da506b8334b20cc4be7c272b50c93e0cc67f915fc43"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P09",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "d69db270597375458e0270cb46ee8388c0a2fbf680dc6a617fb450601d091ff3",
+      "android_cooked_sha256": "4097392161c23e6b46a4bd4475d770997190971654ea557d13b972448bc174b1"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P10",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "d9afc8c06cc39c1e4df17ecd0a4297af936d58e10af479a59eb0d2b5d3271773",
+      "android_cooked_sha256": "a51939165ec4f643de4b070ddd7d3bba9f067560e91073b5499aa6cb2cc0fb0b"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M03_P11",
+      "native_bytes": 52286,
+      "cooked_bytes": 2059,
+      "source_sha256": "774d90780d9b6281081c010fba466a37120a16660dcea483dfff29ac8f3e7c27",
+      "android_cooked_sha256": "122b7dfb9b2e7df397adf44082333778f63245add9459eb1b85543157cede03a"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M04_P00",
+      "native_bytes": 52249,
+      "cooked_bytes": 2039,
+      "source_sha256": "def5babfef849f4ad7ab536544a3614b7f1845a760757390a6b3c74f31233830",
+      "android_cooked_sha256": "c4ea3eb6c4ed633898e7f45498c4b3e8277b3337327d1fb1d09b2eae0cc62de9"
+    },
+    {
+      "name": "AN_KK_V2_SwimIdle_M05_P00",
+      "native_bytes": 52249,
+      "cooked_bytes": 2039,
+      "source_sha256": "97c9a9e3e88d41db51a38accc18a5210b55a1df4e041bc5ab145201048b1e4f5",
+      "android_cooked_sha256": "67a1a9806ef0893f2254b26a6209cdf2eb610ae6e8d58ce37b2c40b05704358f"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M00_P00",
+      "native_bytes": 41329,
+      "cooked_bytes": 2047,
+      "source_sha256": "4660e83a59dadec1a4fa8ef14ed8a7cb895ac34f5d6e240ba353800489de1444",
+      "android_cooked_sha256": "706b14e87dbc04345e0bf9e20cc6e3a08dac79f7fb6cced9208234760f6b8424"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M00_P01",
+      "native_bytes": 41329,
+      "cooked_bytes": 2047,
+      "source_sha256": "df5b23f74c496df5c95cf894f2c840c8fceba35befb549b33f810c9651d6f511",
+      "android_cooked_sha256": "0734f83fec58c2771ebb5247eee8c84f1b74fcaaa0d9b02602c5861bb884044a"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M00_P02",
+      "native_bytes": 41329,
+      "cooked_bytes": 2047,
+      "source_sha256": "7b53cb5e67d62b134294ce50a9f4875c6839edfba4b64b0759c0a33eb4af6d5c",
+      "android_cooked_sha256": "a46e58a456b5f3030daf797bfa627c58009059ea66eb53744a21317e6f101e3a"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M01_P00",
+      "native_bytes": 41329,
+      "cooked_bytes": 2047,
+      "source_sha256": "e0f24de4b29bc9260a2088a5b9b9439f6302b04753c9cfa48de0218caf1983f1",
+      "android_cooked_sha256": "6608ca266e9870307d098f45e2a207cbd1bbf0f6abaf78949ba075668984e39c"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M02_P00",
+      "native_bytes": 41329,
+      "cooked_bytes": 2047,
+      "source_sha256": "5dcff77b007fb199cc479e86092b0ac3107bdb1d1e3bd7294c45031ba27550de",
+      "android_cooked_sha256": "2cd82eb0725e380a9f23f55350e8c280e6add33e1f0006d700bf0e214db66470"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P00",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "d88ff571bb77009ff1a7eb591ca6db3cc76f63374898b3f7ae4ba327570e0b34",
+      "android_cooked_sha256": "5b8d823dd42da250c821445b6f57a2c08483f65772aedbb70466dcdf9bfd0757"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P01",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "794fe16162571284fd4af0cb4e45ef8c72ff03189fae18efeca770f3e4a6658e",
+      "android_cooked_sha256": "b726776f69cf5e2e1527e92ab5d9b12bb612c1c93653aa5630b7d49e37ba5280"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P02",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "42ab790a64885bfbd597cca9ceabfd97008376d2bcdbdd4597582015370a14ab",
+      "android_cooked_sha256": "dbae58f31b758ec2e9956803a16098f62b445e50684fb7f8617dce6e219fe6b4"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P03",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "c41777b63bc12d1d781ace69a8b71719f27c96add3efc5634dac4f5a02c1eece",
+      "android_cooked_sha256": "481c6a979ce35bb23803b35a7e32b25e7c830db59b4851a641357691d21bbfc0"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P04",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "5f80a023222f18faf6c1ef1908b16a4849a606ed6165abebbb0d3ad90e3c4b44",
+      "android_cooked_sha256": "6665168202e4938cf2705aa35c107b6d324e242cdc771be19221902c57bf417d"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P05",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "f644c1f41b4199e154e2ab693d758af4d82e160b4008c332b44e072c9e2fad0d",
+      "android_cooked_sha256": "ac6e13aa9a2a01bc3604bd781ff1a95b19cd5bcc17e978b7c3eb6c158856c59d"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P06",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "aa58944152653e2c18cd687064393860b4e6ba0817ec9ae8c42a0df3aa41f224",
+      "android_cooked_sha256": "e96a1c74366bf8ce7cfb020639c6e44f388fac0d1c8b407313db816271a1e0c6"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P07",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "77bc41dcb14b1b1158c2f040b2fdd2e7a38e0181b2ed9ddf42e21f5a08ee6a01",
+      "android_cooked_sha256": "eb47b90aa35cb55f98ccc35a10dc5d648dd98bce325e2999643976d14dce59ae"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P08",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "8970bfbb594f784138b5248aa7238c91b2bf35d60358a40ebb594efb994c8dd8",
+      "android_cooked_sha256": "4b6e1aad05b354e23954625a9dcc96893c7af6b635d07b6e2406e0d9e7ff635e"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P09",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "b5b7d461880774777d223fe2477d110a72f01b00200c20136f8f350979003246",
+      "android_cooked_sha256": "f6183ea75194c4291d534bf82b8fcd1479f1e419434913abcb1272b4c424e9ac"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P10",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "a3bf1be52e63b3563d58c04a5ee7aad65167b0f0358029be9a97e8c735041796",
+      "android_cooked_sha256": "7530051965bc88874eb7cbbd7bebf6180de823d0c658011ce9c856167f601cfb"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M03_P11",
+      "native_bytes": 41326,
+      "cooked_bytes": 2047,
+      "source_sha256": "87be25f226229ae01affdd4b545404d0903ba5d3cdb533860c3bfcb5492dab96",
+      "android_cooked_sha256": "db0c5b4ed17ea9a87135e106404e6cef82f5901c5fc99f7d095175b3e686de1d"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M04_P00",
+      "native_bytes": 41289,
+      "cooked_bytes": 2027,
+      "source_sha256": "cb5a3c2d9df571bfe0855d3ed4e306f55b142006657326f1817a0e0bf925ef91",
+      "android_cooked_sha256": "2ce28439c2651954bec3069b6604606fbfce3321f54c675e6d0d102fd0fb088d"
+    },
+    {
+      "name": "AN_KK_V2_Swim_M05_P00",
+      "native_bytes": 41289,
+      "cooked_bytes": 2027,
+      "source_sha256": "9535118efd9fb25f240b2a2043dcce2ac3ca15e233859e8dfb3499d56d895892",
+      "android_cooked_sha256": "688ea2b668693d76d310ae4726f4273ad5103a3eec0d0bab705af41e8f78c4fe"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M00_P00",
+      "native_bytes": 37681,
+      "cooked_bytes": 2047,
+      "source_sha256": "85616ec0505105a3fe30536ee613e26066de5185518694b8f534379aaf89f2d7",
+      "android_cooked_sha256": "cedfc3f4cd929879a05cd639a379a4adda1bb3940e8d0e3eef5625b5c62b9267"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M00_P01",
+      "native_bytes": 37681,
+      "cooked_bytes": 2047,
+      "source_sha256": "4130a2e4dee1daa1a8e63362fe66ba309ed07506d06e8b35bb46a346e950b5ff",
+      "android_cooked_sha256": "afb937f82e0aaca5d9ca725f98db07f38ac68c0a8206703c14f1bc707350c4f2"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M00_P02",
+      "native_bytes": 37681,
+      "cooked_bytes": 2047,
+      "source_sha256": "522c0de9457166eab9c0451c704a49d310b26aea82d9e34e68201550f5574058",
+      "android_cooked_sha256": "3ccc472009da892b25e9eec4d4e28000c0648402a3323397e3547e1b8bc99c10"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M01_P00",
+      "native_bytes": 37681,
+      "cooked_bytes": 2047,
+      "source_sha256": "fcc834cbdb49a0d0973cfb9f0375580d3cb99e585683aba2602b61bd3b8a462e",
+      "android_cooked_sha256": "06ec5fc26bc33a7c6c24985aa1f94a230bf410f82d2db70a1ea1ddacd9ed1572"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M02_P00",
+      "native_bytes": 37681,
+      "cooked_bytes": 2047,
+      "source_sha256": "d5db6d677067b6439805e1a219769bde0b7af1ffa4211ab11b0fbd322b1a4d36",
+      "android_cooked_sha256": "135c2bf34a1f08b55d510f5c96dfb1d819de35e8aa5b8ff868d0b307244ad28b"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P00",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "b4a381a366ffa38c2dbaeb91c91391e7824ca8864409fe199cf66f157920657c",
+      "android_cooked_sha256": "0e89160ce558f27ceca9d22eae70e1e6deca88926979863338b51c2f809cf087"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P01",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "312095855bdf56653045738031758ba5e28ec22871ad9ba5baefe89076a91554",
+      "android_cooked_sha256": "e803fef547664eb5a478e0ccd24f5503664616bce4c1d818f8d89c74cad6245f"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P02",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "bf46d74ebb3b621ab520b8400ea79759d830ffa742cc198f315e48da5f6cd8dc",
+      "android_cooked_sha256": "fb374303508a4825fa6921969b0deb3f17834177c1590223e13b0710b96e4e1c"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P03",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "743f18d7d12209929fad157e548d0891c79e680fcc8b1520b06b115e24af51ff",
+      "android_cooked_sha256": "8e84b9c6533030e7f286194250533f7e50378cabd6b83ae3c5fd3aaf660c1473"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P04",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "574687c6548b5db6f72d7063959bc13488c5c8c4cf838b8c1ad5183059e08438",
+      "android_cooked_sha256": "4056c01c1db8f70ead36bd064508ab05118176b0a5baad571a545ede7c23de82"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P05",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "a034443dd9e56169f1ef88531d4accc26012af23e3ff0cbb31acaa4fecea1313",
+      "android_cooked_sha256": "65fab8ea21eba3e6487820e23cd3525907f5fb680360aca09883005151e46f3a"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P06",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "b6e226017f1aacd365bf9fab996dabf5fd7b92e65079633c3bf029c9a25d7986",
+      "android_cooked_sha256": "5786ff46f5b6f032fd96dc107804ff7ba1ff8dc2660cc2a6497ebf2bc8b3e9b1"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P07",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "e229151226cacd978ad4ef420a96748ced7d04b093371f05bcd13d393515e920",
+      "android_cooked_sha256": "3d9f4428971c358fb6132580edbd6334df28f2924122954e21707c05e2847245"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P08",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "3a0e92dfa6a7e2074167ada741c5733e6d15ad2b68dc237093194e3611d8bc60",
+      "android_cooked_sha256": "093b8a5c7e02739cba869ee7e917abaaa85eebaead49d396d996eaff721d0b83"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P09",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "eae4af27b00f54dd9b6910c940779113913e62a0690e4667f265e0d5403fcda1",
+      "android_cooked_sha256": "053a25e5614c919ebbaf457861101764adf073ed2531835d7d2962b5311be34b"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P10",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "2ba27b2961d4459fc0a194c5e48b0f58fba59f2658d1f13d4a69e1632938653c",
+      "android_cooked_sha256": "c3d22ed70238fb813b83e012441b0e08cc6222395d488d0d1a4b9075987d6948"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M03_P11",
+      "native_bytes": 37678,
+      "cooked_bytes": 2047,
+      "source_sha256": "4909f9fdc775a91d7d111e13347e2a22cac7b2bf2d4997cab29ca02f7d27ec76",
+      "android_cooked_sha256": "cd861cf021be6f7bad814773211961883d90b8d2699fc0c553fb0c2db81da8b6"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M04_P00",
+      "native_bytes": 37641,
+      "cooked_bytes": 2027,
+      "source_sha256": "176e4d89ccf34418799dd11f509d92519c788f40eaf83ea0d849f1244b0a39cb",
+      "android_cooked_sha256": "ca6a415801b366695180c6cab0d3e8209f63bcdaeb2bb2fd3d38531e10dd9f2b"
+    },
+    {
+      "name": "AN_KK_V2_Walk_M05_P00",
+      "native_bytes": 37641,
+      "cooked_bytes": 2027,
+      "source_sha256": "0838abc16bd5be50405aac1b20aa024364aa631c2c05bb2ba2bb63161c24f8e1",
+      "android_cooked_sha256": "3c2b23f73776c90172c9b5bb3832ddffbd1e728e735e7d531c05082b36b4e362"
+    }
+  ],
+  "visual_quality": "NOT_TESTED",
+  "phone_validation": "NOT_TESTED",
+  "asset_count": 76,
+  "time_utc": "2026-10-10T23:56:49Z"
+}

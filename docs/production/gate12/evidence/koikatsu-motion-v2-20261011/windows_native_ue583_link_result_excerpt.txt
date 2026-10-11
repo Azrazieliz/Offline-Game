@@ -1,0 +1,17 @@
+	                        ^
+D:\Epic Games\UE_5.8\Engine\Source\Runtime\Engine\Classes\Engine\SkeletalMesh.h(3015,57): warning C4996: 'USkinnedAsset::GetLODInfoArray': Use GetLODInfo and GetLODNum instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual const TArray<FSkeletalMeshLODInfo>& GetLODInfoArray() const override;
+	                                                       ^
+D:\Epic Games\UE_5.8\Engine\Source\Runtime\Engine\Classes\Engine\SkeletalMesh.h(3009,51): warning C4996: 'USkinnedAsset::GetLODInfoArray': Use GetLODInfo and GetLODNum instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual TArray<FSkeletalMeshLODInfo>& GetLODInfoArray() override;
+	                                                 ^
+[10/12] Link [x64] UnrealEditor-OfflineGame.dll [NoUba]
+[11/12] Link [x64] UnrealEditor-OfflineGame.lib [NoUba]
+[12/12] WriteMetadata OfflineGameEditor.target [NoUba]
+
+Total time in Unreal Build Accelerator local executor: 297.35 seconds
+Output binary: D:\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe
+
+Result: Succeeded
+Total execution time: 364.29 seconds
+Trace written to file C:\Users\mimim\AppData\Local\UnrealBuildTool\Trace.uba with size 30.5kb

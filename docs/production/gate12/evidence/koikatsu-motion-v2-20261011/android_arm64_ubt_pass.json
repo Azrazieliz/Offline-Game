@@ -1,0 +1,397 @@
+﻿{
+    "status":  "PASS_ANDROID_ARM64_NATIVE_LINK",
+    "processStatus":  "PROCESS_EXITED",
+    "startedUTC":  "2026-10-11T00:01:41.9665716Z",
+    "endedUTC":  "2026-10-11T00:04:24.6192022Z",
+    "sourceWorktree":  "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010",
+    "target":  "OfflineGame Android Development",
+    "physicalPhone":  "NOT_TESTED",
+    "rebuilt_binary_sha256":  "437cf370e62460b07e7e970408c0fa8ab94182d6bb03430756e0000e631b90af",
+    "samples":  [
+                    {
+                        "sec":  2,
+                        "freePhysicalMB":  3063,
+                        "freeCommitMB":  5288
+                    },
+                    {
+                        "sec":  4,
+                        "freePhysicalMB":  2283,
+                        "freeCommitMB":  4977
+                    },
+                    {
+                        "sec":  7,
+                        "freePhysicalMB":  1501,
+                        "freeCommitMB":  4588
+                    },
+                    {
+                        "sec":  9,
+                        "freePhysicalMB":  953,
+                        "freeCommitMB":  4090
+                    },
+                    {
+                        "sec":  11,
+                        "freePhysicalMB":  921,
+                        "freeCommitMB":  4092
+                    },
+                    {
+                        "sec":  13,
+                        "freePhysicalMB":  939,
+                        "freeCommitMB":  4077
+                    },
+                    {
+                        "sec":  15,
+                        "freePhysicalMB":  924,
+                        "freeCommitMB":  4044
+                    },
+                    {
+                        "sec":  17,
+                        "freePhysicalMB":  925,
+                        "freeCommitMB":  4055
+                    },
+                    {
+                        "sec":  19,
+                        "freePhysicalMB":  827,
+                        "freeCommitMB":  4062
+                    },
+                    {
+                        "sec":  21,
+                        "freePhysicalMB":  567,
+                        "freeCommitMB":  4066
+                    },
+                    {
+                        "sec":  23,
+                        "freePhysicalMB":  3084,
+                        "freeCommitMB":  5433
+                    },
+                    {
+                        "sec":  25,
+                        "freePhysicalMB":  3122,
+                        "freeCommitMB":  5417
+                    },
+                    {
+                        "sec":  27,
+                        "freePhysicalMB":  3264,
+                        "freeCommitMB":  5436
+                    },
+                    {
+                        "sec":  29,
+                        "freePhysicalMB":  3395,
+                        "freeCommitMB":  5435
+                    },
+                    {
+                        "sec":  32,
+                        "freePhysicalMB":  3501,
+                        "freeCommitMB":  5423
+                    },
+                    {
+                        "sec":  34,
+                        "freePhysicalMB":  3457,
+                        "freeCommitMB":  5396
+                    },
+                    {
+                        "sec":  36,
+                        "freePhysicalMB":  3277,
+                        "freeCommitMB":  5167
+                    },
+                    {
+                        "sec":  38,
+                        "freePhysicalMB":  3132,
+                        "freeCommitMB":  4922
+                    },
+                    {
+                        "sec":  40,
+                        "freePhysicalMB":  3019,
+                        "freeCommitMB":  4859
+                    },
+                    {
+                        "sec":  42,
+                        "freePhysicalMB":  2999,
+                        "freeCommitMB":  4822
+                    },
+                    {
+                        "sec":  44,
+                        "freePhysicalMB":  2942,
+                        "freeCommitMB":  4811
+                    },
+                    {
+                        "sec":  46,
+                        "freePhysicalMB":  2846,
+                        "freeCommitMB":  4694
+                    },
+                    {
+                        "sec":  48,
+                        "freePhysicalMB":  2847,
+                        "freeCommitMB":  4727
+                    },
+                    {
+                        "sec":  50,
+                        "freePhysicalMB":  2795,
+                        "freeCommitMB":  4671
+                    },
+                    {
+                        "sec":  52,
+                        "freePhysicalMB":  2790,
+                        "freeCommitMB":  4665
+                    },
+                    {
+                        "sec":  54,
+                        "freePhysicalMB":  2698,
+                        "freeCommitMB":  4580
+                    },
+                    {
+                        "sec":  57,
+                        "freePhysicalMB":  2672,
+                        "freeCommitMB":  4559
+                    },
+                    {
+                        "sec":  59,
+                        "freePhysicalMB":  2662,
+                        "freeCommitMB":  4545
+                    },
+                    {
+                        "sec":  61,
+                        "freePhysicalMB":  2606,
+                        "freeCommitMB":  4492
+                    },
+                    {
+                        "sec":  63,
+                        "freePhysicalMB":  2570,
+                        "freeCommitMB":  4416
+                    },
+                    {
+                        "sec":  65,
+                        "freePhysicalMB":  2529,
+                        "freeCommitMB":  4411
+                    },
+                    {
+                        "sec":  67,
+                        "freePhysicalMB":  2514,
+                        "freeCommitMB":  4366
+                    },
+                    {
+                        "sec":  70,
+                        "freePhysicalMB":  2506,
+                        "freeCommitMB":  4363
+                    },
+                    {
+                        "sec":  72,
+                        "freePhysicalMB":  2509,
+                        "freeCommitMB":  4370
+                    },
+                    {
+                        "sec":  74,
+                        "freePhysicalMB":  2522,
+                        "freeCommitMB":  4283
+                    },
+                    {
+                        "sec":  76,
+                        "freePhysicalMB":  2473,
+                        "freeCommitMB":  4285
+                    },
+                    {
+                        "sec":  78,
+                        "freePhysicalMB":  2326,
+                        "freeCommitMB":  4144
+                    },
+                    {
+                        "sec":  80,
+                        "freePhysicalMB":  2304,
+                        "freeCommitMB":  4128
+                    },
+                    {
+                        "sec":  82,
+                        "freePhysicalMB":  2306,
+                        "freeCommitMB":  4139
+                    },
+                    {
+                        "sec":  85,
+                        "freePhysicalMB":  2295,
+                        "freeCommitMB":  4134
+                    },
+                    {
+                        "sec":  87,
+                        "freePhysicalMB":  2255,
+                        "freeCommitMB":  4129
+                    },
+                    {
+                        "sec":  89,
+                        "freePhysicalMB":  2289,
+                        "freeCommitMB":  4157
+                    },
+                    {
+                        "sec":  91,
+                        "freePhysicalMB":  2291,
+                        "freeCommitMB":  4159
+                    },
+                    {
+                        "sec":  93,
+                        "freePhysicalMB":  2308,
+                        "freeCommitMB":  4159
+                    },
+                    {
+                        "sec":  95,
+                        "freePhysicalMB":  2306,
+                        "freeCommitMB":  4145
+                    },
+                    {
+                        "sec":  97,
+                        "freePhysicalMB":  2307,
+                        "freeCommitMB":  4159
+                    },
+                    {
+                        "sec":  99,
+                        "freePhysicalMB":  2309,
+                        "freeCommitMB":  4158
+                    },
+                    {
+                        "sec":  101,
+                        "freePhysicalMB":  2306,
+                        "freeCommitMB":  4156
+                    },
+                    {
+                        "sec":  103,
+                        "freePhysicalMB":  2309,
+                        "freeCommitMB":  4159
+                    },
+                    {
+                        "sec":  106,
+                        "freePhysicalMB":  2308,
+                        "freeCommitMB":  4158
+                    },
+                    {
+                        "sec":  108,
+                        "freePhysicalMB":  2308,
+                        "freeCommitMB":  4157
+                    },
+                    {
+                        "sec":  110,
+                        "freePhysicalMB":  2308,
+                        "freeCommitMB":  4160
+                    },
+                    {
+                        "sec":  112,
+                        "freePhysicalMB":  2331,
+                        "freeCommitMB":  4161
+                    },
+                    {
+                        "sec":  114,
+                        "freePhysicalMB":  2328,
+                        "freeCommitMB":  4166
+                    },
+                    {
+                        "sec":  116,
+                        "freePhysicalMB":  2285,
+                        "freeCommitMB":  4111
+                    },
+                    {
+                        "sec":  118,
+                        "freePhysicalMB":  2010,
+                        "freeCommitMB":  4069
+                    },
+                    {
+                        "sec":  121,
+                        "freePhysicalMB":  2003,
+                        "freeCommitMB":  4065
+                    },
+                    {
+                        "sec":  123,
+                        "freePhysicalMB":  2049,
+                        "freeCommitMB":  4098
+                    },
+                    {
+                        "sec":  125,
+                        "freePhysicalMB":  2081,
+                        "freeCommitMB":  4093
+                    },
+                    {
+                        "sec":  127,
+                        "freePhysicalMB":  2088,
+                        "freeCommitMB":  4050
+                    },
+                    {
+                        "sec":  129,
+                        "freePhysicalMB":  1567,
+                        "freeCommitMB":  3810
+                    },
+                    {
+                        "sec":  131,
+                        "freePhysicalMB":  1566,
+                        "freeCommitMB":  3814
+                    },
+                    {
+                        "sec":  133,
+                        "freePhysicalMB":  1566,
+                        "freeCommitMB":  3813
+                    },
+                    {
+                        "sec":  136,
+                        "freePhysicalMB":  2157,
+                        "freeCommitMB":  4051
+                    },
+                    {
+                        "sec":  138,
+                        "freePhysicalMB":  2178,
+                        "freeCommitMB":  4076
+                    },
+                    {
+                        "sec":  140,
+                        "freePhysicalMB":  2188,
+                        "freeCommitMB":  4075
+                    },
+                    {
+                        "sec":  142,
+                        "freePhysicalMB":  2197,
+                        "freeCommitMB":  4075
+                    },
+                    {
+                        "sec":  144,
+                        "freePhysicalMB":  2178,
+                        "freeCommitMB":  4078
+                    },
+                    {
+                        "sec":  146,
+                        "freePhysicalMB":  2108,
+                        "freeCommitMB":  4031
+                    },
+                    {
+                        "sec":  148,
+                        "freePhysicalMB":  2142,
+                        "freeCommitMB":  4057
+                    },
+                    {
+                        "sec":  150,
+                        "freePhysicalMB":  2156,
+                        "freeCommitMB":  4054
+                    },
+                    {
+                        "sec":  152,
+                        "freePhysicalMB":  2158,
+                        "freeCommitMB":  4056
+                    },
+                    {
+                        "sec":  154,
+                        "freePhysicalMB":  2161,
+                        "freeCommitMB":  4061
+                    },
+                    {
+                        "sec":  156,
+                        "freePhysicalMB":  2186,
+                        "freeCommitMB":  4072
+                    },
+                    {
+                        "sec":  158,
+                        "freePhysicalMB":  2195,
+                        "freeCommitMB":  4074
+                    },
+                    {
+                        "sec":  161,
+                        "freePhysicalMB":  2088,
+                        "freeCommitMB":  4080
+                    },
+                    {
+                        "sec":  163,
+                        "freePhysicalMB":  3668,
+                        "freeCommitMB":  6996
+                    }
+                ]
+}
