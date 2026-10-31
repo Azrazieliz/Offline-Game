@@ -61,6 +61,13 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Motion|Character")
     bool bUseIdenticalTopologyLeaderPose = false;
 
+    /** Whole-character rig cohorts: each exact reference-pose family has one
+     * native clip driver, with all compatible original mesh parts following
+     * its pose. Incompatible skeletons get their own authentic clip; no
+     * character Version-specific copies or approximate retargeting. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Motion|Character")
+    bool bGroupPartsByReferencePose = false;
+
     /** Keep same source-action phase across independently rigged visual parts. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Motion|Character")
     bool bPhaseLockIndependentParts = true;
@@ -201,6 +208,10 @@ private:
 
     UPROPERTY(Transient)
     TArray<TObjectPtr<USkeletalMeshComponent>> PlayingParts;
+
+    /** Only actual animated drivers; followers never replay an extra clip. */
+    UPROPERTY(Transient)
+    TArray<TObjectPtr<USkeletalMeshComponent>> PlayingDriverParts;
 
     UPROPERTY(Transient)
     TObjectPtr<USkeletalMeshComponent> CurrentLeader;

@@ -170,7 +170,10 @@ AOGLuminousV3PlayableCharacter::AOGLuminousV3PlayableCharacter()
     SharedMotionController = CreateDefaultSubobject<UOGSharedMotionControllerComponent>(TEXT("NativeSharedMotionController"));
     CanonicalCombatBody = CreateDefaultSubobject<UOGCanonicalCombatActorBindingComponent>(TEXT("CanonicalCombatNativeBody"));
     SharedMotionController->RigProfile = TEXT("koikatsu_original");
-    SharedMotionController->bUseIdenticalTopologyLeaderPose = true;
+    // Attach the WHOLE current character to one shared library. Source
+    // garments and body parts need not all share identical bone topology.
+    SharedMotionController->bUseIdenticalTopologyLeaderPose = false;
+    SharedMotionController->bGroupPartsByReferencePose = true;
     // Existing Gate11 allocated DESIGN identifiers, verified from the original
     // preserved intake. Assignment here does NOT install a Registry package,
     // grant a Manifestation or declare this asset production-accepted.
@@ -375,6 +378,11 @@ bool AOGLuminousV3PlayableCharacter::ApplyVisualWardrobe(
     {
         TArray<USkeletalMeshComponent*> Native;
         for (int32 I = 0; I < ActivePartCount; ++I) Native.Add(RuntimeParts[I]);
+        // Enforce one whole-character binding at runtime. Some preserved
+        // native Blueprints serialize old controller defaults, so constructor
+        // settings alone cannot guarantee the approved rig-cohort path.
+        SharedMotionController->bUseIdenticalTopologyLeaderPose = false;
+        SharedMotionController->bGroupPartsByReferencePose = true;
         SharedMotionController->RigProfile = MotionRigProfile;
         SharedMotionController->AnatomyProfile = MotionAnatomyProfile;
         SharedMotionController->Capabilities = MotionCapabilities;
@@ -736,28 +744,40 @@ bool AOGLuminousV3PlayableCharacter::PlaySharedGameplayAction(
           (ActionName.StartsWith(TEXT("AdultInteraction.")) ||
            ActionName.StartsWith(TEXT("Adult.")))
         ? FName(TEXT("AdultInteraction")) : FName(TEXT("Interaction"));
-    UAnimSequence* Clip = ResolveSharedMotion(GameplayAction, Context,
-        bAuthorizedAdultContext, ParticipantCount, &Entry);
-    if (!Clip || !Entry) return false;
-    // All character Versions use one source-authoritative native controller.
-    // If the reusable controller cannot bind an approved exact-rig derivative,
-    // retain the established working Luminous driver as a safe fallback.
+    // The controller owns ALL currently rendered parts and can choose one
+    // exact native clip per compatible rig cohort or genuine reference
+    // motion. Do not reject an entire character because a legacy single-
+    // skeleton lookup cannot resolve every original wardrobe mesh at once.
     const bool bControllerPlayed = SharedMotionController &&
         SharedMotionController->PlayAction(GameplayAction, Context,
             bAuthorizedAdultContext, ParticipantCount);
-    if (!bControllerPlayed && !SetLuminousNativeMotionClip(Clip, Entry->bLoop))
-        return false;
     if (bControllerPlayed)
     {
-        CurrentNativeClip = Clip;
+        CurrentNativeClip = nullptr;
         ActiveMotionLeaderIndex = INDEX_NONE;
         bCompatibleNativeMotion = true;
+        bSharedActionPlaying = true;
+        // The shared controller has its own authored motion lifecycle.
+        // Never invent a clip duration when it plays a reference packet.
+        SharedActionEndTime = 0.f;
+        UE_LOG(LogTemp, Display,
+            TEXT("G12_SHARED_WHOLE_CHARACTER_ACTION=%s source=%s parts=%d"),
+            *GameplayAction.ToString(),
+            *SharedMotionController->CurrentSourceClipId.ToString(),
+            SharedMotionController->GetNativePartCount());
+        return true;
     }
+    // Preserve the established exact native Luminous playback fallback,
+    // without substituting a different character or cross-form clip.
+    UAnimSequence* Clip = ResolveSharedMotion(GameplayAction, Context,
+        bAuthorizedAdultContext, ParticipantCount, &Entry);
+    if (!Clip || !Entry || !SetLuminousNativeMotionClip(Clip, Entry->bLoop))
+        return false;
     bSharedActionPlaying = true;
     SharedActionEndTime = GetWorld()->GetTimeSeconds() +
         FMath::Max(0.02f, Clip->GetPlayLength() / FMath::Max(0.01f, Entry->PlayRate));
     UE_LOG(LogTemp, Display,
-        TEXT("G12_SHARED_ACTION_PLAYED=%s source=%s native=%s"),
+        TEXT("G12_SHARED_LEGACY_FALLBACK_ACTION=%s source=%s native=%s"),
         *GameplayAction.ToString(), *Entry->SourceClipId.ToString(),
         *Clip->GetPathName());
     return true;
@@ -1321,8 +1341,10 @@ void AOGLuminousV3PlayableCharacter::Tick(float DeltaSeconds)
     }
     if (bSharedActionPlaying)
     {
-        if (Now < SharedActionEndTime)
-            return; // Do not let traversal overwrite an accepted gameplay action.
+        if (Now < SharedActionEndTime ||
+            (SharedActionEndTime <= 0.f && SharedMotionController &&
+             SharedMotionController->IsPlayingAction()))
+            return; // Shared source lifecycle, not guessed Version-specific timing.
         bSharedActionPlaying = false;
         SharedActionEndTime = 0.f;
         if (SharedMotionController && SharedMotionController->IsPlayingAction())

@@ -1,0 +1,88 @@
+{
+  "form": "Awakened",
+  "original_card": "D:\\UnrealProjects\\Gate12_WholeCharacter_Build_20261031\\Assets\\NoWorld\\Luminous\\KoikatsuOriginalCards\\LUMINOUS_AWAKENED_CLOTHED_KK.png",
+  "original_export_receipt": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\Saved\\CorrectKoikatsuExports\\Gate12_Card_AWAKENED_CLOTHED_Original_API_Export.json",
+  "status": "PASS_EXACT_ORIGINAL_KOIKATSU_CARD_SIX_SOURCED_GLBS_PENDING_NATIVE_UE",
+  "native_unreal_import_verified": false,
+  "reference_visual_accepted": false,
+  "original_card_sha256": "e6b53e82c0d87ecdbd0ff8bf510ce93a1d7e557b436382271fcfed6451897bd5",
+  "native_pmx_sha256": "81ba05fc1286302aa908068e253fa57e1d693207a76d4ec4119ee0a35e357a9f",
+  "native_pmx_path": "D:\\Tools\\Steam\\steamapps\\common\\Koikatsu Party\\Export_PMX\\20261031183237_ValentineLuminous\\model.pmx",
+  "true_card_to_export_api_verified": true,
+  "source_geometry": {
+    "armatures": 1,
+    "bones": 1073,
+    "mesh_parts": 6,
+    "vertices": 80923,
+    "shape_keys": 2146,
+    "materials": 82,
+    "images": 142,
+    "import_seconds": 136.93
+  },
+  "source_blend": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Awakened\\Luminous_Awakened_ExactOriginalClothed_Rig.blend",
+  "source_blend_sha256": "4420495f7358af7d813fbe448bf1d182d821fbf877d58b511467b1e48fc9ff8e",
+  "native_unreal_part_sources": [
+    {
+      "part": 0,
+      "original_mesh_name": "Body ValentineLuminous",
+      "source_vertices": 13135,
+      "source_morphs": 167,
+      "source_bones": 1073,
+      "source_glb_sha256": "82dacb325cd24b975946ac4d1132db11f24b6f4b6eaa09c185a47b129eea6150",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Awakened\\Luminous_Awakened_TrueOriginalPart_00.glb",
+      "bytes": 19304540
+    },
+    {
+      "part": 1,
+      "original_mesh_name": "Gag Eyes ValentineLuminous",
+      "source_vertices": 720,
+      "source_morphs": 708,
+      "source_bones": 1073,
+      "source_glb_sha256": "8a96e5ef904e44d5460435b45f39e0d22f65206210d501e41dd17009402e473f",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Awakened\\Luminous_Awakened_TrueOriginalPart_01.glb",
+      "bytes": 3033568
+    },
+    {
+      "part": 2,
+      "original_mesh_name": "Hair Outfit 00 ValentineLuminous",
+      "source_vertices": 38929,
+      "source_morphs": 0,
+      "source_bones": 1073,
+      "source_glb_sha256": "bbbf02587b89dbfbf0597cb12b7801c4f74faaa70d9b4eb3a3abc2138471bd50",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Awakened\\Luminous_Awakened_TrueOriginalPart_02.glb",
+      "bytes": 20387312
+    },
+    {
+      "part": 3,
+      "original_mesh_name": "Outfit 00 ValentineLuminous",
+      "source_vertices": 26731,
+      "source_morphs": 0,
+      "source_bones": 1073,
+      "source_glb_sha256": "260ad4690a6f6c2ba1995c7e3f1a1504e918f419aabafc152fffaae8c4842775",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Awakened\\Luminous_Awakened_TrueOriginalPart_03.glb",
+      "bytes": 12915060
+    },
+    {
+      "part": 4,
+      "original_mesh_name": "Tears ValentineLuminous",
+      "source_vertices": 1162,
+      "source_morphs": 708,
+      "source_bones": 1073,
+      "source_glb_sha256": "42a238d438ec8a5b9e9fa0ee8cfbb7ed018b9f2dfc585a8f8acbaaea7cf072ff",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Awakened\\Luminous_Awakened_TrueOriginalPart_04.glb",
+      "bytes": 4543320
+    },
+    {
+      "part": 5,
+      "original_mesh_name": "Tongue (rigged) ValentineLuminous",
+      "source_vertices": 246,
+      "source_morphs": 563,
+      "source_bones": 1073,
+      "source_glb_sha256": "2d64b308616d3b7630da7a79e5e5184c6c829e4523bbd971a26cdb3c71f0b9f4",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Awakened\\Luminous_Awakened_TrueOriginalPart_05.glb",
+      "bytes": 958408
+    }
+  ],
+  "error": "RuntimeError(\"Error: Object 'Tongue (rigged) ValentineLuminous' cannot be selected because it is not in View Layer 'ViewLayer'!\\n\")",
+  "trace": "Traceback (most recent call last):\n  File \"D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\Scripts\\convert_verified_original_card_pmx.py\", line 65, in <module>\n    arms[0].select_set(True);m.select_set(True);bpy.context.view_layer.objects.active=arms[0]\n                             ~~~~~~~~~~~~^^^^^^\nRuntimeError: Error: Object 'Tongue (rigged) ValentineLuminous' cannot be selected because it is not in View Layer 'ViewLayer'!\n\n"
+}

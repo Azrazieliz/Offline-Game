@@ -13,6 +13,8 @@ PARSER.add_argument("--character-id",required=True)
 PARSER.add_argument("--output-root",required=True,type=pathlib.Path)
 PARSER.add_argument("--expected-sha256",default="")
 PARSER.add_argument("--inspect-only",action="store_true")
+PARSER.add_argument("--group-primitives-by-mesh",action="store_true",
+    help="Keep all original primitives of one mesh in one intact six-part Unreal source bundle")
 args=PARSER.parse_args()
 if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]{2,63}",args.character_id):
     raise ValueError("Unsafe character identifier")
@@ -74,9 +76,9 @@ def referenced_texture_slots(node):
     elif isinstance(node,list):
         for item in node:yield from referenced_texture_slots(item)
 
-def process_mesh(mesh_index,primitive_index):
+def process_mesh(mesh_index,primitive_index=None):
     mesh=copy.deepcopy(doc["meshes"][mesh_index])
-    mesh["primitives"]=[mesh["primitives"][primitive_index]]
+    mesh["primitives"]=[mesh["primitives"][primitive_index]] if primitive_index is not None else mesh["primitives"]
     needed_access=set()
     used_mat=sorted(set(p["material"] for p in mesh["primitives"] if "material" in p))
     all_mat_ids.update(used_mat)
@@ -171,7 +173,8 @@ def process_mesh(mesh_index,primitive_index):
     shard["buffers"][0]["byteLength"]=len(output)
     encoded=json.dumps(shard,ensure_ascii=False,separators=(",",":")).encode("utf-8")
     encoded+=b" " * ((-len(encoded))%4)
-    target=DEST/("Mesh_%02d_Prim_%02d.glb"%(mesh_index,primitive_index))
+    target=DEST/("Mesh_%02d_AllOriginalPrimitives.glb"%mesh_index if primitive_index is None
+                     else "Mesh_%02d_Prim_%02d.glb"%(mesh_index,primitive_index))
     with target.open("wb") as f:
         f.write(struct.pack("<4sII",b"glTF",2,12+8+len(encoded)+8+len(output)))
         f.write(struct.pack("<II",len(encoded),0x4e4f534a));f.write(encoded)
@@ -187,7 +190,7 @@ def process_mesh(mesh_index,primitive_index):
                                "shard_sha256":hashlib.sha256(b).hexdigest(),"bytes_identical":a==b})
     # Prove mesh indexes, vertex counts, material slots, morph target counts preserved.
     orig_mesh=copy.deepcopy(doc["meshes"][mesh_index])
-    orig_mesh["primitives"]=[orig_mesh["primitives"][primitive_index]]
+    orig_mesh["primitives"]=[orig_mesh["primitives"][primitive_index]] if primitive_index is not None else orig_mesh["primitives"]
     native_counts=[{"vertex_count":doc["accessors"][p["attributes"]["POSITION"]]["count"],
                     "target_count":len(p.get("targets",[])),"material_id":p.get("material")}
                    for p in orig_mesh["primitives"]]
@@ -203,11 +206,12 @@ def process_mesh(mesh_index,primitive_index):
             "source_image_payloads_preserved":all(x["bytes_identical"] for x in texture_checks),
             "full_asset_no_shape_target_reduction":equal,"path":str(target),"bytes":target.stat().st_size,
             "sha256":hashlib.sha256(target.read_bytes()).hexdigest()}
-items=[process_mesh(i,j) for i in range(len(doc["meshes"])) for j in range(len(doc["meshes"][i]["primitives"]))]
+items=([process_mesh(i) for i in range(len(doc["meshes"]))] if args.group_primitives_by_mesh
+       else [process_mesh(i,j) for i in range(len(doc["meshes"])) for j in range(len(doc["meshes"][i]["primitives"]))])
 assert all(x["primitives_equal"] and x["source_image_payloads_preserved"] for x in items)
 assert all_mat_ids=={p["material"] for m in doc["meshes"] for p in m["primitives"] if "material" in p}
 manifest={"status":"SOURCE_LOSSLESS_SHARDS_VERIFIED","character_id":args.character_id,
-          "source_glb_path":str(SOURCE),"pipeline_version":"generic-1",
+          "source_glb_path":str(SOURCE),"pipeline_version":"generic-1-mesh-group" if args.group_primitives_by_mesh else "generic-1",
           "original_glb_sha256":ORIGINAL_SHA,
           "full_mesh_count":len(doc["meshes"]),"full_primitive_count":sum(len(m["primitives"]) for m in doc["meshes"]),
           "shard_primitive_count":sum(len(x["shard_primitive_counts"]) for x in items),

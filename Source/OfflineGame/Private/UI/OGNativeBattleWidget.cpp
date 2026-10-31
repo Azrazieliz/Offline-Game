@@ -110,7 +110,8 @@ void UOGNativeBattleWidget::AddButton(UPanelWidget* Parent,const FString& Label,
     Parent->AddChild(Bounds);
     auto* Button=WidgetTree->ConstructWidget<UOGNativeBattleButton>();
     Button->Screen=this; Button->Command=Command; Button->TargetIndex=TargetIndex;
-    Button->SetIsFocusable(false); Button->SetIsEnabled(Enabled); Button->SetToolTipText(FText::FromString(Hint));
+    // Native touch, keyboard and gamepad share the same authoritative action.
+    Button->SetIsFocusable(true); Button->SetIsEnabled(Enabled); Button->SetToolTipText(FText::FromString(Hint));
     Button->SetBackgroundColor(Selected?FLinearColor(.26f,.17f,.31f,1):FLinearColor(.07f,.045f,.105f,1));
     Button->OnClicked.AddDynamic(Button,&UOGNativeBattleButton::Invoke);
     FOGNativeUiStyle::SkinButton(*Button);
@@ -249,13 +250,37 @@ void UOGNativeBattleWidget::Refresh()
     if (!Bodies.Contains(Source->UnitEntityId)) Bodies.Add(Source->UnitEntityId,Body);
     for (int32 I=0;I<State.Units.Num();++I)
     {
-        const auto& Unit=State.Units[I]; if (Unit.Presence!=EOGCombatPresence::Active) continue;
+        const auto& Unit=State.Units[I];
+        const bool bDefeatedAlly=Unit.Presence==EOGCombatPresence::Defeated &&
+            !Unit.IsAlive() && Unit.TeamIndex==Source->TeamIndex;
+        if (Unit.Presence!=EOGCombatPresence::Active && !bDefeatedAlly) continue;
         const bool Selected=Body->IsOwnedBattleTargetSelected(Unit.UnitEntityId);
         const FString Side=Unit.UnitEntityId==Source->UnitEntityId?TEXT("SELF"):Unit.TeamIndex==Source->TeamIndex?TEXT("ALLY"):TEXT("OPPONENT");
         const bool Embodied=Bodies.Contains(Unit.UnitEntityId) && !AmbiguousBodies.Contains(Unit.UnitEntityId);
-        const FString Suffix=!Embodied?TEXT(" / CHARACTER UNAVAILABLE"):Selected?TEXT(" / SELECTED"):TEXT("");
-        AddButton(Targets,FString::Printf(TEXT("%s %d%s\nHP %s / %s"),*Side,I+1,*Suffix,*Unit.CurrentHp.ToDebugString(),*Unit.Stats.MaxHp.ToDebugString()),
-            TEXT("Select this actual battle participant."),NAME_None,I,Own && Unit.CanAct() && Embodied,Selected,176);
+        const FString Suffix=bDefeatedAlly?TEXT(" / DEFEATED - REVIVAL ELIGIBILITY CHECKED ON CAST"):
+            !Embodied?TEXT(" / CHARACTER UNAVAILABLE"):Selected?TEXT(" / SELECTED"):TEXT("");
+        FString HpLine=Unit.TeamIndex==Source->TeamIndex
+            ?FString::Printf(TEXT("HP %s / %s"),
+                *Unit.CurrentHp.ToDebugString(),*Unit.Stats.MaxHp.ToDebugString())
+            :TEXT("HP Unknown");
+        // Never expose unobserved opponent HP from the privileged battle
+        // resolver. Use only the actual knowledge-scoped HUD projection.
+        if (Unit.TeamIndex!=Source->TeamIndex)
+        {
+            const FOGWorldTargetViewModel* Observed=nullptr;
+            if (Body->HasTargetHudProjectionForHud() &&
+                Body->GetTargetHudProjectionForHud().TargetEntityId==Unit.UnitEntityId)
+                Observed=&Body->GetTargetHudProjectionForHud();
+            if (!Observed)
+                for (const auto& Other:Body->GetSecondaryTargetHudProjectionsForHud())
+                    if (Other.TargetEntityId==Unit.UnitEntityId) { Observed=&Other;break; }
+            if (Observed && !Observed->HpDisplay.IsEmpty())
+                HpLine=Observed->HpDisplay;
+        }
+        AddButton(Targets,FString::Printf(TEXT("%s %d%s\n%s"),
+                *Side,I+1,*Suffix,*HpLine),
+            TEXT("Select an actual participant; the canonical ability still checks target and revival eligibility."),
+            NAME_None,I,Own && (bDefeatedAlly || (Unit.CanAct() && Embodied)),Selected,176);
     }
     const bool Portrait=ViewWidth<ViewHeight;
     const float Available=FMath::Max(200.f,ViewWidth*.96f-32.f);
@@ -335,7 +360,16 @@ void UOGNativeBattleWidget::NativeTick(const FGeometry& Geometry,float DeltaSeco
 {
     Super::NativeTick(Geometry,DeltaSeconds);
     const auto Size=Geometry.GetLocalSize(); ViewWidth=Size.X; ViewHeight=Size.Y;
-    if (ActionPanelSlot) ActionPanelSlot->SetAnchors(FAnchors(.02f,Size.X<Size.Y?.55f:.61f,.98f,.98f));
+    // Changing Canvas anchors every frame invalidates layout and can
+    // interrupt gamepad focus on Android. Re-anchor only when the screen
+    // actually changes between portrait and landscape.
+    const bool bPortrait=Size.X<Size.Y;
+    if (ActionPanelSlot && (!bActionAnchorsApplied || bActionPortraitLayout!=bPortrait))
+    {
+        ActionPanelSlot->SetAnchors(FAnchors(.02f,bPortrait?.55f:.61f,.98f,.98f));
+        bActionAnchorsApplied=true;
+        bActionPortraitLayout=bPortrait;
+    }
     RefreshElapsed+=DeltaSeconds;
     if (RefreshElapsed>=.2f) { RefreshElapsed=0; Refresh(); }
 }

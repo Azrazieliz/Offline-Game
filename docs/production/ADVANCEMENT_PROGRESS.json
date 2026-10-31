@@ -2,8 +2,8 @@
   "schema": "noworld.advancement_progress.v1",
   "master": "docs/production/ADVANCEMENT_MASTER.md",
   "source_catalog": "Content/NoWorld/Animation/SharedMotionCatalog.json",
-  "source_branch": "fix/gate12-pr85-ue58-uht-20261030",
-  "last_synchronized": "2026-10-30",
+  "source_branch": "work/gate12-whole-character-shared-motion-20261031",
+  "last_synchronized": "2026-10-31",
   "status_convention": {
     "MASTER_CHECKED_SCOPED": "Historical scoped checkbox in the existing master; not a new Android/device acceptance claim.",
     "OPEN": "Unfinished; no new verification claimed.",
@@ -13,7 +13,7 @@
     "master_task_count": 111,
     "master_checked": 6,
     "master_open": 105,
-    "source_partial": 7,
+    "source_partial": 9,
     "build_verified": false,
     "device_verified": false,
     "user_accepted": false
@@ -146,17 +146,17 @@
       "master_descriptor": "INTEGRATION",
       "master_requirement": "Attach **one canonical character identity** to the shared animation controller and global source catalog. All its Versions and wardrobes resolve the same semantic actions through the active mesh rig/anatomy/capabilities and compatible native derivatives; do not branch or author libraries separately per Version. Complete cross-character adapters and native verification before checking this item.",
       "state": "SOURCE_PARTIAL",
-      "source_commit": "50026b651323b9531197af235dd6193d5a21002b",
+      "source_commit": "7c2dda8391ab031f34650cdc0bf9448b4aefe868",
       "source_paths": [
         "Source/OfflineGame/Public/Animation/OGSharedMotionControllerComponent.h",
         "Source/OfflineGame/Private/Animation/OGSharedMotionControllerComponent.cpp",
         "Source/OfflineGame/Private/Koikatsu/OGLuminousV3PlayableCharacter.cpp"
       ],
-      "proof": "Canonical character identity bound once to shared animation controller in source; no per-Version legacy gait namespace. No native runtime proof.",
+      "proof": "One whole-character shared controller now groups every authentic skeletal part by exact rest pose, plays one source-action clip per compatible rig, phase-locks independent drivers and prevents per-Version library forks. GitHub source only; UE5.8 compile, all-source playback and device acceptance not yet verified.",
       "remaining": [
-        "Native Android compile and playback",
-        "Other actual character rig adapters",
-        "All approved source motions bound to live state"
+        "Native UE5.8 compilation and Android replay of complete multi-rig body",
+        "Genuine Awakened and Grand converted Unreal skeletal models and authored compatible derivatives",
+        "Other actual character rig adapters and all approved source motions bound to real state"
       ]
     },
     {
@@ -186,13 +186,15 @@
       "master_descriptor": "INTEGRATION",
       "master_requirement": "Verify wardrobe swap, character form change, equipment and SFW setting can continue/restart the proper shared motion without reauthoring a new library.",
       "state": "SOURCE_PARTIAL",
-      "source_commit": "50026b651323b9531197af235dd6193d5a21002b",
+      "source_commit": "7c2dda8391ab031f34650cdc0bf9448b4aefe868",
       "source_paths": [
         "Source/OfflineGame/Private/Koikatsu/OGLuminousV3PlayableCharacter.cpp"
       ],
-      "proof": "Removed version-dependent legacy traversal namespace; exact skeleton remains enforced for wardrobe fallback.",
+      "proof": "Wardrobe changes re-register one whole-body shared controller, and gameplay action playback now tries every compatible rig cohort before legacy single-skeleton fallback. Isolated source implementation, not device acceptance.",
       "remaining": [
-        "Form change, wardrobe, equipment and privacy-state playback on device"
+        "Actual wardrobe and form transitions with genuine source meshes",
+        "Equipment and SFW changes while action plays on Android",
+        "Native full-body deformation, continuity and lifecycle verification"
       ]
     },
     {
@@ -319,7 +321,19 @@
       "master_checked": false,
       "master_descriptor": "INTEGRATION",
       "master_requirement": "Couple authoritative action commit to synced semantic animation, actual weapon/ability release, contact frames, projectile/hit trace, defense reaction, sound, VFX and visual consequence; no invented invisible hit or independent fake HP ledger.",
-      "state": "OPEN"
+      "state": "SOURCE_PARTIAL",
+      "source_commit": "ae56fd4673a4c3e284832312ee6c8a21512f7d09",
+      "source_paths": [
+        "Source/OfflineGame/Private/World/OGGate12OwnedLuminousCombatSurface.cpp",
+        "Source/OfflineGame/Private/World/OGGate02R1LuminousCombatInput.cpp",
+        "Source/OfflineGame/Private/UI/OGNativeBattleWidget.cpp"
+      ],
+      "proof": "Actual canonical battle action and World executors were preserved. Source selection now keeps defeated allied participants reachable for explicitly permitted revival rather than blocking them in UI/body target checks; no generic hit/damage executor added.",
+      "remaining": [
+        "UE5.8 native compile",
+        "Accepted combat contact/weapon/VFX synchronization on real rendered bodies",
+        "All five exact kit executors and actual battle outcomes on Android"
+      ]
     },
     {
       "id": "G12-0405",
@@ -649,7 +663,19 @@
       "master_checked": false,
       "master_descriptor": "Gate10 / INTEGRATION",
       "master_requirement": "Preserve the approved native visual grammar and genuine gameplay bindings for World HUD, Opening, Home, Characters/details, Gacha, Territory, Records, rarity and application icon; finish the remaining approved screen work without redesign.",
-      "state": "OPEN"
+      "state": "SOURCE_PARTIAL",
+      "source_commit": "ae56fd4673a4c3e284832312ee6c8a21512f7d09",
+      "source_paths": [
+        "Source/OfflineGame/Private/World/OGGate12OwnedLuminousCombatSurface.cpp",
+        "Source/OfflineGame/Private/World/OGStartingRegionPresentation.cpp",
+        "Source/OfflineGame/Public/UI/OGNativeBattleWidget.h",
+        "Source/OfflineGame/Private/UI/OGNativeBattleWidget.cpp"
+      ],
+      "proof": "Native combat canvas is now derived from the exact installed authored command registry and dispatched by command ID; removed unsupported form-shaped action buttons. Native UMG accepts gamepad focus and only recalculates portrait/landscape anchors on an actual layout transition.",
+      "remaining": [
+        "Full native UI across opening/Ruler/combat and all screens",
+        "Actual Unreal rendered reference visual comparison, safe-area and device touch/controller verification"
+      ]
     },
     {
       "id": "G12-0717",

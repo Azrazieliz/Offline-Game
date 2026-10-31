@@ -140,8 +140,7 @@ Write-Host "APK size (bytes): $($Artifact.Length)"
 if ($InstallOnDevice) {
     $Adb = Join-Path $PreferredSdkRoot "platform-tools\adb.exe"
     if (-not (Test-Path $Adb)) { throw "ADB missing from configured SDK." }
-    $Connected = @(& $Adb devices | Where-Object { $_ -match '^[^\s]+\s+device
- })
+    $Connected = @(& $Adb devices | Where-Object { $_ -match '^\S+\s+device\s*$' })
     if ($Connected.Count -ne 1) {
         throw "Expected exactly one authorized Android device; got $($Connected.Count)."
     }

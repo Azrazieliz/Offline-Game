@@ -108,10 +108,17 @@ bool AOGWorldPrototypeCharacter::SubmitApprovedLuminousWorldCommand(FName Comman
     {
         const auto* Target=Encounter->GetState().Units.FindByPredicate(
             [&Id](const FOGCombatUnitState& U) { return U.UnitEntityId==Id; });
-        if (!Target || !Target->CanAct())
-        { Error=TEXT("Select a living participant currently on the battlefield."); return false; }
-        if (Id!=SourceId && !UOGCanonicalCombatActorBindingComponent::FindActualWorldActor(GetWorld(),BattleId,Id))
-        { Error=TEXT("A required battle character is unavailable in the World."); return false; }
+        // ValidateResolvedAction already verified the exact source-specific
+        // revival window/soul gates. Do not impose an unrelated living-only
+        // UI restriction on its legitimate defeated allied recipients.
+        const bool bDefeatedAlly=Target &&
+            Target->Presence==EOGCombatPresence::Defeated &&
+            !Target->IsAlive() && Target->TeamIndex==Source->TeamIndex;
+        if (!Target || (!Target->CanAct() && !bDefeatedAlly))
+        { Error=TEXT("Selected participant is not an eligible living target or defeated ally."); return false; }
+        if (!bDefeatedAlly && Id!=SourceId &&
+            !UOGCanonicalCombatActorBindingComponent::FindActualWorldActor(GetWorld(),BattleId,Id))
+        { Error=TEXT("A required living battle character is unavailable in the World."); return false; }
     }
     const auto BeforeSourceHp=Source->CurrentHp;
     const FName Semantic=Command->MotionSemantic();

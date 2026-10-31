@@ -58,4 +58,6 @@ private:
     float RefreshElapsed=0;
     float ViewWidth=0;
     float ViewHeight=0;
+    bool bActionAnchorsApplied=false;
+    bool bActionPortraitLayout=false;
 };

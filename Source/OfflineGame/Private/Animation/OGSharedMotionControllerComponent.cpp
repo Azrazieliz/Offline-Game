@@ -148,8 +148,19 @@ bool UOGSharedMotionControllerComponent::CanPlayResolvedAction(
     bool bInitialLoop = false;
     USkeletalMeshComponent* Leader = nullptr;
     int32 ValidCount = 0;
+    TArray<USkeletalMeshComponent*> RigDrivers;
     for (USkeletalMeshComponent* Part : RegisteredParts)
     {
+        // A wardrobe can contain dozens of source parts with the exact same
+        // rest rig. Preflight one authentic clip for that rig, not each part.
+        if (bGroupPartsByReferencePose && !bUseIdenticalTopologyLeaderPose)
+        {
+            bool bFollower = false;
+            for (USkeletalMeshComponent* Driver : RigDrivers)
+                if (HaveIdenticalReferencePose(Driver, Part))
+                { bFollower = true; break; }
+            if (bFollower) { ++ValidCount; continue; }
+        }
         UAnimSequence* Clip = nullptr;
         const FOGSharedMotionEntry* Entry = nullptr;
         if (!ResolveForPart(Library, Part, GameplayAction, Context,
@@ -171,6 +182,7 @@ bool UOGSharedMotionControllerComponent::CanPlayResolvedAction(
                 if (!HaveIdenticalReferencePose(Leader, Candidate)) return false;
             return true;
         }
+        RigDrivers.Add(Part);
         ++ValidCount;
     }
     return ValidCount == RegisteredParts.Num();
@@ -270,9 +282,13 @@ bool UOGSharedMotionControllerComponent::RestorePlaybackPhase(float ElapsedGamep
         ? (bLooping?FMath::FloorToInt((SourceTime-SourceContactSeconds)/SequenceSeconds):0):-1;
     const float Phase=bLooping?FMath::Fmod(SourceTime,SequenceSeconds)/SequenceSeconds:FMath::Clamp(SourceTime/SequenceSeconds,0.f,1.f);
     if (CurrentLeader) CurrentLeader->SetPosition(Phase*SequenceSeconds,false);
-    else for (int32 I=0;I<PlayingParts.Num();++I)
-        if (PlayingParts[I] && PlayingSequenceLengths.IsValidIndex(I))
-            PlayingParts[I]->SetPosition(Phase*PlayingSequenceLengths[I],false);
+    else for (int32 I=0;I<PlayingDriverParts.Num();++I)
+        if (PlayingDriverParts[I] && PlayingSequenceLengths.IsValidIndex(I))
+            // One phase value is shared by all actual rig drivers, not
+            // indexed by the full wardrobe mesh list. Followers inherit
+            // the driver through SetLeaderPoseComponent.
+            PlayingDriverParts[I]->SetPosition(
+                Phase*PlayingSequenceLengths[I],false);
     if (ReferenceClip) UpdateReferencePose();
     ApplyMorphOverlays(); return true;
 }
@@ -482,13 +498,28 @@ bool UOGSharedMotionControllerComponent::PlayResolvedAction(
 
     TArray<UAnimSequence*> Sequences;
     TArray<const FOGSharedMotionEntry*> Entries;
+    TArray<USkeletalMeshComponent*> RigDrivers;
+    TArray<int32> RigDriverForPart;
     USkeletalMeshComponent* Leader = nullptr;
 
-    // Independent rigs each get their own native derivative of the SAME
-    // source action. A matching clip for only the first part is insufficient.
+    // One shared semantic action drives the entire character. Exact matching
+    // rest-pose mesh parts follow one rig driver. Distinct authentic rig
+    // families resolve separate native clips against the SAME source action.
     for (USkeletalMeshComponent* Part : RegisteredParts)
     {
         if (!Part || !Part->GetSkeletalMeshAsset()) return false;
+        if (bGroupPartsByReferencePose && !bUseIdenticalTopologyLeaderPose)
+        {
+            int32 ExistingDriver = INDEX_NONE;
+            for (int32 I = 0; I < RigDrivers.Num(); ++I)
+                if (HaveIdenticalReferencePose(RigDrivers[I], Part))
+                { ExistingDriver = I; break; }
+            if (ExistingDriver != INDEX_NONE)
+            {
+                RigDriverForPart.Add(ExistingDriver);
+                continue;
+            }
+        }
         const FOGSharedMotionEntry* Entry = nullptr;
         UAnimSequence* Sequence = nullptr;
         if (!ResolveForPart(Library, Part, GameplayAction, Context,
@@ -500,6 +531,8 @@ bool UOGSharedMotionControllerComponent::PlayResolvedAction(
              Entry->bLoop != Entries[0]->bLoop))
             return false; // Prevent mismatched source timing or identity.
 
+        RigDriverForPart.Add(RigDrivers.Num());
+        RigDrivers.Add(Part);
         Sequences.Add(Sequence);
         Entries.Add(Entry);
         if (bUseIdenticalTopologyLeaderPose) break;
@@ -519,7 +552,8 @@ bool UOGSharedMotionControllerComponent::PlayResolvedAction(
         for (USkeletalMeshComponent* Part : RegisteredParts)
             if (!HaveIdenticalReferencePose(Leader, Part)) return false;
     }
-    else if (Sequences.Num() != RegisteredParts.Num()) return false;
+    else if (RigDriverForPart.Num() != RegisteredParts.Num() ||
+             Sequences.Num() != RigDrivers.Num()) return false;
 
     // All checks finish before interrupting an existing action.
     StopAction();
@@ -527,6 +561,11 @@ bool UOGSharedMotionControllerComponent::PlayResolvedAction(
     CurrentSequence = Sequences[0];
     CurrentLeader = Leader;
     PlayingParts = RegisteredParts;
+    if (bUseIdenticalTopologyLeaderPose)
+        PlayingDriverParts.Add(Leader);
+    else
+        for (USkeletalMeshComponent* Driver : RigDrivers)
+            PlayingDriverParts.Add(Driver);
     bPlaying = true;
     bApplyingRootMotion = PrimaryEntry->bUsesRootMotion;
     AuthoredMorphTracks = PrimaryEntry->MorphTracks;
@@ -571,9 +610,11 @@ bool UOGSharedMotionControllerComponent::PlayResolvedAction(
     }
     else
     {
-        for (int32 I = 0; I < PlayingParts.Num(); ++I)
+        // Only one clip per distinct rig driver. No redundant 45-way copies
+        // of identical poses, but no forced leader across incompatible rigs.
+        for (int32 I = 0; I < PlayingDriverParts.Num(); ++I)
         {
-            USkeletalMeshComponent* Part = PlayingParts[I];
+            USkeletalMeshComponent* Part = PlayingDriverParts[I];
             const float Length = FMath::Max(Sequences[I]->GetPlayLength(), 0.001f);
             Part->SetLeaderPoseComponent(nullptr);
             Part->SetAnimationMode(EAnimationMode::AnimationSingleNode);
@@ -581,6 +622,15 @@ bool UOGSharedMotionControllerComponent::PlayResolvedAction(
             Part->SetPlayRate(PlaybackRate * Length / SequenceSeconds);
             PlayingSequences.Add(Sequences[I]);
             PlayingSequenceLengths.Add(Length);
+        }
+        if (bGroupPartsByReferencePose)
+        {
+            for (int32 I = 0; I < PlayingParts.Num(); ++I)
+            {
+                USkeletalMeshComponent* Part = PlayingParts[I];
+                USkeletalMeshComponent* Driver = PlayingDriverParts[RigDriverForPart[I]];
+                if (Part != Driver) Part->SetLeaderPoseComponent(Driver);
+            }
         }
     }
     SetComponentTickEnabled(true);
@@ -604,6 +654,7 @@ void UOGSharedMotionControllerComponent::StopAction()
         if (Part) Part->Stop();
     }
     PlayingParts.Reset();
+    PlayingDriverParts.Reset();
     PlayingSequences.Reset();
     PlayingSequenceLengths.Reset();
     CurrentLeader = nullptr;
@@ -654,9 +705,9 @@ void UOGSharedMotionControllerComponent::TickComponent(
         const float Normalized = bLooping
             ? FMath::Fmod(SourceTime, SequenceSeconds) / SequenceSeconds
             : FMath::Clamp(SourceTime / SequenceSeconds, 0.f, 1.f);
-        for (int32 I = 0; I < PlayingParts.Num(); ++I)
-            if (PlayingParts[I] && PlayingSequenceLengths.IsValidIndex(I))
-                PlayingParts[I]->SetPosition(
+        for (int32 I = 0; I < PlayingDriverParts.Num(); ++I)
+            if (PlayingDriverParts[I] && PlayingSequenceLengths.IsValidIndex(I))
+                PlayingDriverParts[I]->SetPosition(
                     FMath::Min(Normalized * PlayingSequenceLengths[I],
                         PlayingSequenceLengths[I] - 0.0001f), false);
     }

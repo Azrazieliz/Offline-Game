@@ -1,0 +1,86 @@
+{
+  "form": "Berserker",
+  "original_card": "D:\\UnrealProjects\\Gate12_WholeCharacter_Build_20261031\\Assets\\NoWorld\\Luminous\\KoikatsuOriginalCards\\LUMINOUS_BERSERKER_CLOTHED_KK.png",
+  "original_export_receipt": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\Saved\\CorrectKoikatsuExports\\Gate12_Card_BERSERKER_CLOTHED_Original_API_Export.json",
+  "status": "PASS_EXACT_ORIGINAL_KOIKATSU_CARD_SIX_SOURCED_GLBS_PENDING_NATIVE_UE",
+  "native_unreal_import_verified": false,
+  "reference_visual_accepted": false,
+  "original_card_sha256": "820307ce971382af9b620fa8610af60918ad01cc7267994ba9ac5cde96070862",
+  "native_pmx_sha256": "8bba25132f923a9d2c7ac72f01cf2f1afecd3feff3cf154d35bd9eef0f13f2e1",
+  "native_pmx_path": "D:\\Tools\\Steam\\steamapps\\common\\Koikatsu Party\\Export_PMX\\20261031183507_ValentineLuminous\\model.pmx",
+  "true_card_to_export_api_verified": true,
+  "source_geometry": {
+    "armatures": 1,
+    "bones": 882,
+    "mesh_parts": 6,
+    "vertices": 62884,
+    "shape_keys": 2170,
+    "materials": 59,
+    "images": 97,
+    "import_seconds": 118.53
+  },
+  "source_blend": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Berserker\\Luminous_Berserker_ExactOriginalClothed_Rig.blend",
+  "source_blend_sha256": "5827c252a26aff2b49fb054a3673382cd2d75d6be8d0581015c212446d0c6008",
+  "native_unreal_part_sources": [
+    {
+      "part": 0,
+      "original_mesh_name": "Body ValentineLuminous",
+      "source_vertices": 13135,
+      "source_morphs": 173,
+      "source_bones": 882,
+      "source_glb_sha256": "7711c2a4cc63721ce35b2f9d8bf7fa21f544cc848caccc28cd87ab082331e636",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Berserker\\Luminous_Berserker_TrueOriginalPart_00.glb",
+      "bytes": 18170720
+    },
+    {
+      "part": 1,
+      "original_mesh_name": "Gag Eyes ValentineLuminous",
+      "source_vertices": 720,
+      "source_morphs": 714,
+      "source_bones": 882,
+      "source_glb_sha256": "572ee668f477ce2c6e4b5e6ad3615bf950a992f18bb5684d2e1cbdf3db46f55c",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Berserker\\Luminous_Berserker_TrueOriginalPart_01.glb",
+      "bytes": 2999892
+    },
+    {
+      "part": 2,
+      "original_mesh_name": "Hair Outfit 00 ValentineLuminous",
+      "source_vertices": 32424,
+      "source_morphs": 0,
+      "source_bones": 882,
+      "source_glb_sha256": "4b031645cc01c32e883c3c21d0099761007bd4ab8308bd8dac6e25af27e50747",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Berserker\\Luminous_Berserker_TrueOriginalPart_02.glb",
+      "bytes": 12424976
+    },
+    {
+      "part": 3,
+      "original_mesh_name": "Outfit 00 ValentineLuminous",
+      "source_vertices": 15197,
+      "source_morphs": 0,
+      "source_bones": 882,
+      "source_glb_sha256": "b44485f9a96cd82a4c73499be9606ed85661e39a754106fe4d3d2bfcad19ee3b",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Berserker\\Luminous_Berserker_TrueOriginalPart_03.glb",
+      "bytes": 4765724
+    },
+    {
+      "part": 4,
+      "original_mesh_name": "Tears ValentineLuminous",
+      "source_vertices": 1162,
+      "source_morphs": 714,
+      "source_bones": 882,
+      "source_glb_sha256": "f6e36ee6008a1279215e8467d2163d27988834a3ba209a83b1ab5864da120198",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Berserker\\Luminous_Berserker_TrueOriginalPart_04.glb",
+      "bytes": 4508124
+    },
+    {
+      "part": 5,
+      "original_mesh_name": "Tongue (rigged) ValentineLuminous",
+      "source_vertices": 246,
+      "source_morphs": 569,
+      "source_bones": 882,
+      "source_glb_sha256": "ace366fe2eb22b1480e59a67c44f0c65c175358cb174716d64b46da98a3f6357",
+      "path": "D:\\UnrealProjects\\G12_LuminousNativeImport_20261031\\AuthenticClothedOriginalCard3D\\Berserker\\Luminous_Berserker_TrueOriginalPart_05.glb",
+      "bytes": 908948
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "noworld.gate12.real_luminous_native_form_export.v1",
+  "form": "Grand",
+  "source_blend": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Grand\\CANDIDATE_NATIVE_FROM_EXISTING_KKBP_PMX\\Luminous_Grand_SourceAuthentic_BodyRig.blend",
+  "source_blend_sha256": "3005b90c04c1495ebfb6bad8b9250aa33bb9093e47b35d5fe285967e31d182d8",
+  "source_immutable": true,
+  "metrics": {
+    "object_count": 7,
+    "mesh_count": 6,
+    "vertex_count": 81246,
+    "face_count": 123951,
+    "armature_count": 1,
+    "bone_count": 1122,
+    "shape_key_count": 2170,
+    "material_count": 72,
+    "image_count": 116
+  },
+  "fbx": {
+    "path": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Grand\\UNREAL_REAL_NATIVE\\G12_Luminous_Grand_Native.fbx",
+    "bytes": 60024972,
+    "sha256": "20001d8fd694716ef052771a937fd5c80a19f7ee848979ecdecdf510ab22b27e"
+  },
+  "glb": {
+    "path": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Grand\\UNREAL_REAL_NATIVE\\G12_Luminous_Grand_Native.glb",
+    "bytes": 59124184,
+    "sha256": "5b2313d2687f7fbcf8cfa898db56610b949fbc4a95ab84adeeee5a30f2f7e14b"
+  },
+  "status": "PASS_REAL_SKINNED_SOURCE_EXPORT_PENDING_UNREAL_IMPORT",
+  "native_unreal_import": "NOT_TESTED",
+  "native_android_cook": "NOT_TESTED",
+  "updated_utc": "2026-10-27T11:02:22.224174+00:00"
+}

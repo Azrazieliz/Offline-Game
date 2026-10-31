@@ -1,0 +1,112 @@
+{
+  "schema": "noworld.gate12.exact_original_card_glb_fidelity.v1",
+  "form": "Berserker",
+  "exact_original_card_sha256": "820307ce971382af9b620fa8610af60918ad01cc7267994ba9ac5cde96070862",
+  "source_pmx_sha256": "8bba25132f923a9d2c7ac72f01cf2f1afecd3feff3cf154d35bd9eef0f13f2e1",
+  "original_blend_sha256": "5827c252a26aff2b49fb054a3673382cd2d75d6be8d0581015c212446d0c6008",
+  "source": {
+    "armatures": 1,
+    "bones": 882,
+    "mesh_parts": 6,
+    "vertices": 62884,
+    "shape_keys": 2170,
+    "materials": 59,
+    "images": 97,
+    "import_seconds": 118.53
+  },
+  "source_part_glb_audits": [
+    {
+      "part": 0,
+      "original_mesh": "Body ValentineLuminous",
+      "real_skins": 1,
+      "joints_per_skin": [
+        882
+      ],
+      "real_primitives": 11,
+      "morph_references": 1903,
+      "target_names": 173,
+      "materials": 11,
+      "images": 11,
+      "file_bytes": 18170720,
+      "sha256": "7711c2a4cc63721ce35b2f9d8bf7fa21f544cc848caccc28cd87ab082331e636"
+    },
+    {
+      "part": 1,
+      "original_mesh": "Gag Eyes ValentineLuminous",
+      "real_skins": 1,
+      "joints_per_skin": [
+        882
+      ],
+      "real_primitives": 3,
+      "morph_references": 2142,
+      "target_names": 714,
+      "materials": 3,
+      "images": 0,
+      "file_bytes": 2999892,
+      "sha256": "572ee668f477ce2c6e4b5e6ad3615bf950a992f18bb5684d2e1cbdf3db46f55c"
+    },
+    {
+      "part": 2,
+      "original_mesh": "Hair Outfit 00 ValentineLuminous",
+      "real_skins": 1,
+      "joints_per_skin": [
+        882
+      ],
+      "real_primitives": 8,
+      "morph_references": 0,
+      "target_names": 0,
+      "materials": 8,
+      "images": 8,
+      "file_bytes": 12424976,
+      "sha256": "4b031645cc01c32e883c3c21d0099761007bd4ab8308bd8dac6e25af27e50747"
+    },
+    {
+      "part": 3,
+      "original_mesh": "Outfit 00 ValentineLuminous",
+      "real_skins": 1,
+      "joints_per_skin": [
+        882
+      ],
+      "real_primitives": 8,
+      "morph_references": 0,
+      "target_names": 0,
+      "materials": 8,
+      "images": 8,
+      "file_bytes": 4765724,
+      "sha256": "b44485f9a96cd82a4c73499be9606ed85661e39a754106fe4d3d2bfcad19ee3b"
+    },
+    {
+      "part": 4,
+      "original_mesh": "Tears ValentineLuminous",
+      "real_skins": 1,
+      "joints_per_skin": [
+        882
+      ],
+      "real_primitives": 1,
+      "morph_references": 714,
+      "target_names": 714,
+      "materials": 1,
+      "images": 0,
+      "file_bytes": 4508124,
+      "sha256": "f6e36ee6008a1279215e8467d2163d27988834a3ba209a83b1ab5864da120198"
+    },
+    {
+      "part": 5,
+      "original_mesh": "Tongue (rigged) ValentineLuminous",
+      "real_skins": 1,
+      "joints_per_skin": [
+        882
+      ],
+      "real_primitives": 1,
+      "morph_references": 569,
+      "target_names": 569,
+      "materials": 1,
+      "images": 0,
+      "file_bytes": 908948,
+      "sha256": "ace366fe2eb22b1480e59a67c44f0c65c175358cb174716d64b46da98a3f6357"
+    }
+  ],
+  "total_source_morph_references": 5328,
+  "all_source_parts_unique": true,
+  "status": "PASS_REAL_ORIGINAL_CARD_SOURCES_SAVED_NOT_NATIVE_UNREAL_ACCEPTANCE"
+}

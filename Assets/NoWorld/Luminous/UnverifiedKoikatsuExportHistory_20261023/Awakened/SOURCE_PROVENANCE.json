@@ -1,0 +1,32 @@
+{
+  "schema": "noworld.gate12.real_luminous_native_form_export.v1",
+  "form": "Awakened",
+  "source_blend": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Awakened\\CANDIDATE_NATIVE_FROM_EXISTING_KKBP_PMX\\Luminous_Awakened_SourceAuthentic_BodyRig.blend",
+  "source_blend_sha256": "515e29139636e4a247ad85082495b3813c1102bfbf31455e6a0b60d34663a532",
+  "source_immutable": true,
+  "metrics": {
+    "object_count": 7,
+    "mesh_count": 6,
+    "vertex_count": 85347,
+    "face_count": 130719,
+    "armature_count": 1,
+    "bone_count": 1130,
+    "shape_key_count": 2146,
+    "material_count": 75,
+    "image_count": 124
+  },
+  "fbx": {
+    "path": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Awakened\\UNREAL_REAL_NATIVE\\G12_Luminous_Awakened_Native.fbx",
+    "bytes": 60943404,
+    "sha256": "0d4951accf5ba9e465cc25cc180a073ccab978be70bce3e673d38e160af57091"
+  },
+  "glb": {
+    "path": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Awakened\\UNREAL_REAL_NATIVE\\G12_Luminous_Awakened_Native.glb",
+    "bytes": 59890644,
+    "sha256": "4276fb3ff1223b5003c17357838ff8c5f87b1340a60bb91b1b32f898b0fd807a"
+  },
+  "status": "PASS_REAL_SKINNED_SOURCE_EXPORT_PENDING_UNREAL_IMPORT",
+  "native_unreal_import": "NOT_TESTED",
+  "native_android_cook": "NOT_TESTED",
+  "updated_utc": "2026-10-27T10:59:23.992463+00:00"
+}

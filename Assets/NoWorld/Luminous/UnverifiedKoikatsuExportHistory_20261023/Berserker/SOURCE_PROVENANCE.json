@@ -1,0 +1,32 @@
+{
+  "schema": "noworld.gate12.real_luminous_native_form_export.v1",
+  "form": "Berserker",
+  "source_blend": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Berserker\\CANDIDATE_NATIVE_FROM_EXISTING_KKBP_PMX\\Luminous_Berserker_SourceAuthentic_BodyRig.blend",
+  "source_blend_sha256": "67fe4ef82c37ad433a4b3e0d1835b1d89d578c1742cdd70ba4af8c3eec4b2c60",
+  "source_immutable": true,
+  "metrics": {
+    "object_count": 7,
+    "mesh_count": 6,
+    "vertex_count": 60235,
+    "face_count": 97500,
+    "armature_count": 1,
+    "bone_count": 885,
+    "shape_key_count": 2146,
+    "material_count": 58,
+    "image_count": 92
+  },
+  "fbx": {
+    "path": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Berserker\\UNREAL_REAL_NATIVE\\G12_Luminous_Berserker_Native.fbx",
+    "bytes": 41247356,
+    "sha256": "00a07a63b6026b086de3f46c3226e65f0034b3b4d25fce49d6bfdeaa1ec80ef0"
+  },
+  "glb": {
+    "path": "D:\\UnrealProjects\\OfflineGame_Gate12_Koikatsu_20261010\\SourceAssets\\Gate12\\LuminousForms20261023\\Berserker\\UNREAL_REAL_NATIVE\\G12_Luminous_Berserker_Native.glb",
+    "bytes": 41191648,
+    "sha256": "99cd4be9cfb4abeff9607cf2041042545fb5a3fd22abcfe32f25d2b02f00bcc7"
+  },
+  "status": "PASS_REAL_SKINNED_SOURCE_EXPORT_PENDING_UNREAL_IMPORT",
+  "native_unreal_import": "NOT_TESTED",
+  "native_android_cook": "NOT_TESTED",
+  "updated_utc": "2026-10-27T11:00:46.725796+00:00"
+}

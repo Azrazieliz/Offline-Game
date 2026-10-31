@@ -10456,8 +10456,21 @@ void AOGWorldPresentationHud::NotifyHitBoxClick(FName BoxName)
                     TEXT("Invalid canonical target selection.") : Error;
             else FoundationStatusMessage.Reset();
         }
+        else if (Hit.StartsWith(TEXT("OG.Battle.Command.")))
+        {
+            // Use the exact command identity issued by the approved source
+            // registry, identical to the native UMG command path.
+            const FString Id=Hit.Mid(FCString::Strlen(TEXT("OG.Battle.Command.")));
+            if (Id.IsEmpty() ||
+                !Character->SubmitApprovedLuminousWorldCommand(FName(*Id),Error))
+                FoundationStatusMessage=Error.IsEmpty()
+                    ?TEXT("This exact native combat command is unavailable."):Error;
+            else FoundationStatusMessage.Reset();
+        }
         else
         {
+            // Retain historical saved input aliases; new controls must use
+            // OG.Battle.Command.<source command ID> for every kit and branch.
             // -1 is the valid Ultimate command, so it cannot also mean unknown.
             int32 Slot = MIN_int32;
             FName Branch = NAME_None;
